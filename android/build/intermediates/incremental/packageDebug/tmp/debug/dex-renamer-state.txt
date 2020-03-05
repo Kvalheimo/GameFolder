@@ -1,0 +1,4 @@
+#Thu Mar 05 09:17:55 CET 2020
+base.0=/home/anon/progark/game/android/build/intermediates/dex/debug/mergeDexDebug/out
+path.0=classes.dex
+renamed.0=classes.dex
