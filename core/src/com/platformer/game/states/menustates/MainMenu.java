@@ -4,35 +4,31 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.game.states.GameState;
 import com.platformer.game.states.GameStateManager;
-import com.platformer.game.states.State;
+import com.platformer.game.states.MenuState;
 
-public class MainMenu extends State {
-    protected MainMenu(GameStateManager gsm) {
+public class MainMenu extends MenuState {
+
+    public MainMenu(GameStateManager gsm) {
         super(gsm);
     }
 
     @Override
-    protected void handleInput() {
-        if(Gdx.input.justTouched()){
-            gsm.set(new GameState(gsm));
-            dispose();
-        }
+    public void handleInput() {
+        super.handleInput();
     }
 
     @Override
     public void update(float dt) {
-        handleInput();
+        super.update(dt);
     }
 
     @Override
     public void render(SpriteBatch sb) {
-        sb.begin();
-        //sb.draw();
-        sb.end();
+        super.render(sb);
     }
 
     @Override
     public void dispose() {
-
+        super.dispose();
     }
 }
