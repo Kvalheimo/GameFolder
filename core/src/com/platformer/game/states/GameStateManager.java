@@ -1,6 +1,5 @@
 package com.platformer.game.states;
 
-import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Stack;

@@ -1,9 +1,12 @@
-package com.platformer.game.states;
+package com.platformer.game.states.menustates;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.platformer.game.states.GameState;
+import com.platformer.game.states.GameStateManager;
+import com.platformer.game.states.State;
 
-public class MainMenu extends State{
+public class MainMenu extends State {
     protected MainMenu(GameStateManager gsm) {
         super(gsm);
     }
