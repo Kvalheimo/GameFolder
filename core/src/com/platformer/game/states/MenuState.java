@@ -6,8 +6,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.platformer.game.PlatformerGame;
 
 public class MenuState extends State {
-    private Texture background;
-
 
     public MenuState(GameStateManager gsm) {
         super(gsm);

@@ -5,7 +5,7 @@ import com.platformer.game.states.GameState;
 import com.platformer.game.states.GameStateManager;
 
 public class Singleplayer extends GameState {
-    protected Singleplayer(GameStateManager gsm) {
+    public Singleplayer(GameStateManager gsm) {
         super(gsm);
     }
 

@@ -5,7 +5,7 @@ import com.platformer.game.states.GameState;
 import com.platformer.game.states.GameStateManager;
 
 public class Multiplayer extends GameState {
-    protected Multiplayer(GameStateManager gsm) {
+    public Multiplayer(GameStateManager gsm) {
         super(gsm);
     }
 
