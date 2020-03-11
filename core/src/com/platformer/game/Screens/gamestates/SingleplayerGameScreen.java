@@ -28,6 +28,7 @@ public class SingleplayerGameScreen implements Screen{
         //create a FitViewport to maintain virtual aspect ratio despite screen size
         gamePort = new FitViewport(PlatformerGame.V_WIDTH , PlatformerGame.V_HEIGHT, gamecam);
 
+        //Create controll-pad for the game.
         controller = new Controller(game.batch);
 
 
