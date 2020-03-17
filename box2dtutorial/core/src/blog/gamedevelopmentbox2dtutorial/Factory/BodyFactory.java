@@ -1,4 +1,4 @@
-package blog.gamedevelopmentbox2dtutorial;
+package blog.gamedevelopmentbox2dtutorial.Factory;
 
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -39,7 +39,7 @@ public class BodyFactory {
 
         switch(material){
             case 0:
-                fixtureDef.density = 1f;
+                fixtureDef.density = 100f;
                 fixtureDef.friction = 0.3f;
                 fixtureDef.restitution = 0.1f;
             case 1:
