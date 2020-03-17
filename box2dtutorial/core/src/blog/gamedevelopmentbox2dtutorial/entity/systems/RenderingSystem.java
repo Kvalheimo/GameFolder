@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Comparator;
 
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
@@ -22,23 +23,16 @@ public class RenderingSystem extends SortedIteratingSystem {
     private boolean shouldRender = true;
 
 
-    public static final float PPM = 16.0f;
-    static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
-    static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
-    static final float NUM_OF_TILES_Y = 13;
-    static final float NUM_OF_TILES_X = 20;
-
-
     // get the ratio for converting pixels to metres
-    public static final float PIXELS_TO_METRES = 1.0f / PPM;
+    public static final float PIXELS_TO_METRES = 1.0f / Box2dTutorial.PPM;
 
     // static method to get screen width in metres
     private static Vector2 meterDimensions = new Vector2();
     private static Vector2 pixelDimensions = new Vector2();
 
     public static Vector2 getScreenSizeInMeters(){
-        meterDimensions.set(Gdx.graphics.getWidth()*PIXELS_TO_METRES,
-                Gdx.graphics.getHeight()*PIXELS_TO_METRES);
+        meterDimensions.set(Gdx.graphics.getWidth()*Box2dTutorial.PPM,
+                Gdx.graphics.getHeight()*Box2dTutorial.PPM);
         return meterDimensions;
     }
 
@@ -86,10 +80,14 @@ public class RenderingSystem extends SortedIteratingSystem {
         camera = new OrthographicCamera();
 
 
-        viewport = new FitViewport(NUM_OF_TILES_X,NUM_OF_TILES_Y, camera);
+        viewport = new FitViewport(Box2dTutorial.NUM_OF_TILES_X,Box2dTutorial.NUM_OF_TILES_Y, camera);
+        //viewport = new FitViewport(Gdx.graphics.getWidth()/Box2dTutorial.PPM,Gdx.graphics.getHeight()/Box2dTutorial.PPM, camera);
+
         viewport.getCamera().update();
 
-        camera.position.set(0, NUM_OF_TILES_Y/2,0);
+        camera.position.set(0, Box2dTutorial.NUM_OF_TILES_Y/2,0);
+        //camera.position.set(0, (Gdx.graphics.getHeight()/4)/Box2dTutorial.PPM,0);
+
         camera.update();
 
     }
