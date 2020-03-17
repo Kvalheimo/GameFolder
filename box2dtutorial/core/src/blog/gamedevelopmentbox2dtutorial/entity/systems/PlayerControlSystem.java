@@ -39,6 +39,7 @@ public class PlayerControlSystem extends IteratingSystem{
         player.camera.update();
 
 
+        //Handle states
         if(b2body.body.getLinearVelocity().y > 0){
             state.set(StateComponent.STATE_FALLING);
         }
@@ -52,6 +53,8 @@ public class PlayerControlSystem extends IteratingSystem{
             }
         }
 
+
+        //Controller
         if(controller.left){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -7f, 0.2f),b2body.body.getLinearVelocity().y);
         }
@@ -64,7 +67,7 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if(controller.up && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-                b2body.body.applyForceToCenter(0, 50, true);
+                //b2body.body.applyForceToCenter(0, 50, true);
                 b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 state.set(StateComponent.STATE_JUMPING);
         }
@@ -75,6 +78,19 @@ public class PlayerControlSystem extends IteratingSystem{
             b2body.body.applyLinearImpulse(0, 5, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
         }
          */
+
+        if(player.onSpring){
+            b2body.body.applyLinearImpulse(0, 50f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            state.set(StateComponent.STATE_JUMPING);
+            player.onSpring = false;
+        }
+
+        if (controller.space && player.superSpeed){
+            b2body.body.applyLinearImpulse(150f, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            player.superSpeed = false;
+
+
+        }
 
     }
 }
