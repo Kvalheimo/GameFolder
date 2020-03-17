@@ -12,6 +12,8 @@ import blog.gamedevelopmentbox2dtutorial.views.MenuScreen;
 import blog.gamedevelopmentbox2dtutorial.views.PreferenceScreen;
 
 public class Box2dTutorial extends Game {
+	public static final int V_WIDTH = 400;
+	public static final int V_HEIGHT = 208;
 
 	private LoadingScreen loadingScreen;
 	private PreferenceScreen preferencesScreen;
