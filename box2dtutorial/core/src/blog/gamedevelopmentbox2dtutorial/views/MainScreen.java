@@ -23,9 +23,6 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
 public class MainScreen implements Screen {
-    public static final int totalMapWidth = 240 * 16;
-    public static final int totalMapHeight = 13 * 16;
-
 
 
     private Box2dTutorial parent;
@@ -72,13 +69,8 @@ public class MainScreen implements Screen {
         levelFactory.createPlayer(camera);
         //levelFactory.createFloor();
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND);
-        levelFactory.createTiledMapEntities("Bricks", TypeComponent.BRICK);
-
-
-
-        //levelFactory.createPlatform(7,2, atlas.findRegion("Player"));
-        //levelFactory.createPlatform(7,7, atlas.findRegion("Player"));
-
+        levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED);
+        levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING);
 
     }
 
@@ -127,6 +119,7 @@ public class MainScreen implements Screen {
     @Override
     public void dispose() {
         renderer.dispose();
+        hud.dispose();
 
     }
 }
