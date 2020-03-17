@@ -171,13 +171,7 @@ public class LevelFactory {
             bodyCom.body = body;
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
-
-            switch(type){
-                case TypeComponent.GROUND: typeCom.type = TypeComponent.GROUND;
-                case TypeComponent.BRICK: typeCom.type = TypeComponent.BRICK;
-                case TypeComponent.POWER_UP: typeCom.type = TypeComponent.POWER_UP;
-                default: typeCom.type = TypeComponent.OTHER;
-            }
+            typeCom.type = type;
 
             entity.add(position);
             entity.add(bodyCom);
