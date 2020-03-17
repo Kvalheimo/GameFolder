@@ -1,5 +1,6 @@
 package blog.gamedevelopmentbox2dtutorial.views;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -9,12 +10,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 
-public class Hud {
+public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
@@ -34,7 +36,7 @@ public class Hud {
         timeCount = 0;
         score = 0;
 
-        viewport = new FitViewport(Box2dTutorial.V_WIDTH, Box2dTutorial.V_HEIGHT, new OrthographicCamera());
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
         Table table = new Table();
@@ -49,12 +51,10 @@ public class Hud {
         platformerLabel = new Label("PLATFORMER", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(platformerLabel).expandX().padTop(2);
-        table.add(worldLabel).expandX().padTop(2);
-        table.add(timeLabel).expandX().padTop(2);
+        table.add(platformerLabel).expandX().padTop(10);
+        table.add(worldLabel).expandX().padTop(10);
+        table.add(timeLabel).expandX().padTop(10);
         table.row();
-
-
 
         /*
         table.add(scoreLabel).expandX();
@@ -67,4 +67,8 @@ public class Hud {
 
     }
 
+    @Override
+    public void dispose() {
+        stage.dispose();
+    }
 }
