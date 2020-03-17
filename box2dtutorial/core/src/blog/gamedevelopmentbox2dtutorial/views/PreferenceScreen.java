@@ -46,7 +46,7 @@ public class PreferenceScreen implements Screen {
         stage.addActor(table);
 
         // temporary until we have asset manager in
-        Skin skin = new Skin(Gdx.files.internal("skin/glassy-ui.json"));
+        Skin skin = new Skin(Gdx.files.internal("input/game/skin/glassy-ui.json"));
 
 
         // Create sliders and set values
