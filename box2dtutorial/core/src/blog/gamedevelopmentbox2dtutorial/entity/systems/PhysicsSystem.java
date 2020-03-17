@@ -12,12 +12,13 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
 
 public class PhysicsSystem extends IteratingSystem {
 
-    private static final float MAX_STEP_TIME = 1/45f;
+    private static final float MAX_STEP_TIME = 1/60f;
     private static float accumulator = 0f;
 
     private World world;
@@ -38,6 +39,9 @@ public class PhysicsSystem extends IteratingSystem {
         super.update(deltaTime);
         float frameTime = Math.min(deltaTime, 0.25f);
         accumulator += frameTime;
+
+
+
         if(accumulator >= MAX_STEP_TIME) {
             world.step(MAX_STEP_TIME, 6, 2);
             accumulator -= MAX_STEP_TIME;
