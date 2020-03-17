@@ -10,6 +10,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+
 public class BodyFactory {
     public static final int STEEL = 0;
     public  static final int WOOD = 1;
@@ -45,7 +47,7 @@ public class BodyFactory {
             case 1:
                 fixtureDef.density = 0.5f;
                 fixtureDef.friction = 0.7f;
-                fixtureDef.restitution = 0.3f;
+                fixtureDef.restitution = 0.0f;
             case 2:
                 fixtureDef.density = 1f;
                 fixtureDef.friction = 0f;
@@ -86,7 +88,7 @@ public class BodyFactory {
         //Create body to attach said definition
         Body boxBody = world.createBody(boxBodyDef);
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(radius/2);
+        circleShape.setRadius(radius/2f);
         boxBody.createFixture(makeFixture(material, circleShape));
         circleShape.dispose();
         return boxBody;
