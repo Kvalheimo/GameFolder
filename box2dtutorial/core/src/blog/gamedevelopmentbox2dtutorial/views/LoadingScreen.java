@@ -57,6 +57,10 @@ public class LoadingScreen implements Screen{
         parent.assMan.queueAddLoadingImages();
         parent.assMan.manager.finishLoading();
 
+        //Load map
+        parent.assMan.queueAddMaps();
+        parent.assMan.manager.finishLoading();
+
         // Get images to display loading progress
         atlas = parent.assMan.manager.get("input/game/images/loading.atlas");
         title = atlas.findRegion("staying-alight-logo");
@@ -102,7 +106,7 @@ public class LoadingScreen implements Screen{
 
         table.add(titleImage).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
         table.row();
-        table.add(loadingTable).width(400);
+        table.add(loadingTable).width(600);
         table.row();
         table.add(copyrightImage);
 
