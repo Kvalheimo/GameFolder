@@ -37,19 +37,29 @@ public class CollisionSystem extends IteratingSystem {
                         //do player hit enemy thing
                         System.out.println("player hit enemy");
                         break;
+                    case TypeComponent.SUPER_SPEED:
+                        //do player hit other thing
+                        System.out.println("player hit superSpeed");
+                        pm.get(entity).superSpeed = true;
+                        break; //technically this isn't needed
+                    case TypeComponent.GUN:
+                        //do player hit other thing
+                        System.out.println("player hit gun");
+                        pm.get(entity).hasGun = true;
+                        break; //technically this isn't needed
+                    case TypeComponent.GROUND:
+                        //do player hit other thing
+                        System.out.println("player hit ground");
+                        break; //technically this isn't needed
+                    case TypeComponent.SPRING:
+                        //do player hit other thing
+                        System.out.println("player hit gun");
+                        pm.get(entity).onSpring = true;
+                        break; //technically this isn't needed
                     case TypeComponent.OTHER:
                         //do player hit scenery thing
                         System.out.println("player hit other");
                         break;
-                    case TypeComponent.POWER_UP:
-                        //do player hit other thing
-                        System.out.println("player hit power up");
-                        break; //technically this isn't needed
-                    case TypeComponent.SCENERY:
-                        //do player hit other thing
-                        System.out.println("player hit scenery");
-                        System.out.println(entity.getComponent(B2dBodyComponent.class).body.getPosition());
-                        break; //technically this isn't needed
                 }
                 cc.collisionEntity = null; // collision handled reset component
             }
