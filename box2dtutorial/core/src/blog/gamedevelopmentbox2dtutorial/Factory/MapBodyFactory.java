@@ -89,7 +89,7 @@ public class MapBodyFactory {
             }
 
             /////////////////////
-            ////////////////////Fungerer ikke ikke lage disse shapene. Posisjonen blir feil 
+            ////////////////////Fungerer ikke ikke lage disse shapene. Posisjonen blir feil
             ///////////////////
 
             else if (object instanceof PolygonMapObject) {
