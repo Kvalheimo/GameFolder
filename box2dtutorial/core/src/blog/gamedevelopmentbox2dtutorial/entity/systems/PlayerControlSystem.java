@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.MathUtils;
 
 import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
@@ -27,8 +28,9 @@ public class PlayerControlSystem extends IteratingSystem{
         bodm = ComponentMapper.getFor(B2dBodyComponent.class);
         sm = ComponentMapper.getFor(StateComponent.class);
 
-
     }
+
+
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         B2dBodyComponent b2body = bodm.get(entity);
@@ -40,7 +42,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         //Handle states
-        if(b2body.body.getLinearVelocity().y > 0){
+        if(b2body.body.getLinearVelocity().y < 0){
             state.set(StateComponent.STATE_FALLING);
         }
 
@@ -56,10 +58,10 @@ public class PlayerControlSystem extends IteratingSystem{
 
         //Controller
         if(controller.left){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -7f, 0.2f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -10f, 0.2f),b2body.body.getLinearVelocity().y);
         }
         if(controller.right){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 7f, 0.2f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 10f, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
         if(!controller.left && ! controller.right){
@@ -67,7 +69,7 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if(controller.up && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-                //b2body.body.applyForceToCenter(0, 50, true);
+                b2body.body.applyForceToCenter(0, 100f, true);
                 b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 state.set(StateComponent.STATE_JUMPING);
         }
@@ -80,13 +82,16 @@ public class PlayerControlSystem extends IteratingSystem{
          */
 
         if(player.onSpring){
+            b2body.body.applyForceToCenter(0, 50, true);
             b2body.body.applyLinearImpulse(0, 50f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             state.set(StateComponent.STATE_JUMPING);
             player.onSpring = false;
         }
 
         if (controller.space && player.superSpeed){
-            b2body.body.applyLinearImpulse(150f, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            //b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5000, 0.01f),b2body.body.getLinearVelocity().y);
+            b2body.body.applyLinearImpulse(10000f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+
             player.superSpeed = false;
 
 
