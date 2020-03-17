@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 
 public class KeyboardController implements InputProcessor {
 
-    public boolean left, right, up, down;
+    public boolean left, right, up, down, space;
 
     // Mouse flags
     public boolean isMouse1Down, isMouse2Down, isMouse3Down;
@@ -34,6 +34,10 @@ public class KeyboardController implements InputProcessor {
             case Input.Keys.DOWN:
                 down = true;
                 keyProcessed = true;
+                break;
+            case Input.Keys.SPACE:
+                space = true;
+                keyProcessed = true;
         }
         return keyProcessed;
     }
@@ -58,6 +62,9 @@ public class KeyboardController implements InputProcessor {
             case Input.Keys.DOWN:
                 down = false;
                 keyProcessed = true;
+            case Input.Keys.SPACE:
+                space = false;
+                keyProcessed = true;
         }
         return keyProcessed;
     }
@@ -69,6 +76,8 @@ public class KeyboardController implements InputProcessor {
     public boolean keyTyped(char c) {
         return false;
     }
+
+
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -109,6 +118,8 @@ public class KeyboardController implements InputProcessor {
         mouseLocation.y = screenY;
         return false;
     }
+
+
 
     @Override
     public boolean mouseMoved(int i, int i1) {
