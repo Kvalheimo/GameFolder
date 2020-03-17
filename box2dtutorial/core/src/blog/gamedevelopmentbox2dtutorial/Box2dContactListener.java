@@ -22,13 +22,13 @@ public class Box2dContactListener implements ContactListener{
         if(fb.getBody().getUserData() instanceof Entity){
             Entity colEnt = (Entity) fb.getBody().getUserData();
 
-            CollisionComponent col = ent.getComponent(CollisionComponent.class);
-            CollisionComponent colb = colEnt.getComponent(CollisionComponent.class);
+            CollisionComponent colA = ent.getComponent(CollisionComponent.class);
+            CollisionComponent colB = colEnt.getComponent(CollisionComponent.class);
 
-            if(col != null){
-                col.collisionEntity = colEnt;
-            }else if(colb != null){
-                colb.collisionEntity = ent;
+            if(colA != null){
+                colA.collisionEntity = colEnt;
+            }else if(colB != null){
+                colB.collisionEntity = ent;
             }
         }
     }
