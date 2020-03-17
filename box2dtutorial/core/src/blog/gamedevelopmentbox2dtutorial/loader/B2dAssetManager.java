@@ -1,11 +1,15 @@
 package blog.gamedevelopmentbox2dtutorial.loader;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class B2dAssetManager {
@@ -29,6 +33,9 @@ public class B2dAssetManager {
     // Textures
     public final String gameImages = "input/game/images/game.atlas";
     public final String loadingImages = "input/game/images/loading.atlas";
+
+    // Maps
+    public final String map = "input/game/maps/map.tmx";
 
 
 
@@ -56,11 +63,18 @@ public class B2dAssetManager {
         manager.load(loadingImages, TextureAtlas.class);
     }
 
+    public void queueAddMaps(){
+        manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
+        manager.load(map, TiledMap.class);
+    }
+
     public void queueAddFonts(){
     }
 
     public void queueAddParticleEffects(){
     }
+
+
 
 }
 
