@@ -23,10 +23,10 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 
 
 public class MapBodyFactory {
-    private static final float ppt = 16f;
     private World world;
 
     private static MapBodyFactory thisInstance;
@@ -71,7 +71,7 @@ public class MapBodyFactory {
                 shape = getRectangle((RectangleMapObject)object);
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
-                position.set((rectangle.getX() + rectangle.getWidth() / 2)/ppt, (rectangle.getY() + rectangle.getHeight() / 2)/ppt);
+                position.set((rectangle.getX() + rectangle.getWidth() / 2)/ Box2dTutorial.PPT, (rectangle.getY() + rectangle.getHeight() / 2)/Box2dTutorial.PPT);
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -82,7 +82,7 @@ public class MapBodyFactory {
                 fixture.setFriction(0.1f);
 
                 //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(rectangle.getCenter(new Vector2()).scl(1/ppt), 0);
+                body.setTransform(rectangle.getCenter(new Vector2()).scl(1/Box2dTutorial.PPT), 0);
 
                 bodies.add(body);
 
@@ -96,7 +96,7 @@ public class MapBodyFactory {
                 System.out.println("making polygon shape");
                 shape = getPolygon((PolygonMapObject)object);
                 Polygon polygon = ((PolygonMapObject) object).getPolygon();
-                position.set(polygon.getX()/ppt, polygon.getY()/ppt);
+                position.set(polygon.getX()/Box2dTutorial.PPT, polygon.getY()/Box2dTutorial.PPT);
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -107,7 +107,7 @@ public class MapBodyFactory {
                 fixture.setFriction(0.1f);
 
                 //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(polygon.getX()/ppt, polygon.getY()/ppt, 0);
+                body.setTransform(polygon.getX()/Box2dTutorial.PPT, polygon.getY()/Box2dTutorial.PPT, 0);
 
                 bodies.add(body);
             }
@@ -126,7 +126,7 @@ public class MapBodyFactory {
                 fixture.setFriction(0.1f);
 
                 //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(line.getX()/ppt, line.getY()/ppt, 0);
+                body.setTransform(line.getX()/Box2dTutorial.PPT, line.getY()/Box2dTutorial.PPT, 0);
 
                 bodies.add(body);
             }
@@ -145,7 +145,7 @@ public class MapBodyFactory {
                 fixture.setFriction(0.1f);
 
                 //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(circle.x/ppt, circle.y/ppt, 0);
+                body.setTransform(circle.x/Box2dTutorial.PPT, circle.y/Box2dTutorial.PPT, 0);
 
                 bodies.add(body);
             }
@@ -162,8 +162,8 @@ public class MapBodyFactory {
         Rectangle rectangle = rectangleObject.getRectangle();
         PolygonShape polygon = new PolygonShape();
 
-        polygon.setAsBox(rectangle.getWidth() * 0.5f / ppt,
-                rectangle.getHeight() * 0.5f / ppt);
+        polygon.setAsBox(rectangle.getWidth() * 0.5f / Box2dTutorial.PPT,
+                rectangle.getHeight() * 0.5f / Box2dTutorial.PPT);
         return polygon;
     }
 
@@ -172,8 +172,8 @@ public class MapBodyFactory {
     private static CircleShape getCircle(CircleMapObject circleObject) {
         Circle circle = circleObject.getCircle();
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(circle.radius / ppt);
-        circleShape.setPosition(new Vector2(circle.x / ppt, circle.y / ppt));
+        circleShape.setRadius(circle.radius / Box2dTutorial.PPT);
+        circleShape.setPosition(new Vector2(circle.x / Box2dTutorial.PPT, circle.y / Box2dTutorial.PPT));
         return circleShape;
     }
 
@@ -184,7 +184,7 @@ public class MapBodyFactory {
         float[] worldVertices = new float[vertices.length];
 
         for (int i = 0; i < vertices.length; ++i) {
-            worldVertices[i] = vertices[i] / ppt;
+            worldVertices[i] = vertices[i] / Box2dTutorial.PPT;
         }
 
         polygon.set(worldVertices);
@@ -197,8 +197,8 @@ public class MapBodyFactory {
 
         for (int i = 0; i < vertices.length / 2; ++i) {
             worldVertices[i] = new Vector2();
-            worldVertices[i].x = vertices[i * 2] / ppt;
-            worldVertices[i].y = vertices[i * 2 + 1] / ppt;
+            worldVertices[i].x = vertices[i * 2] / Box2dTutorial.PPT;
+            worldVertices[i].y = vertices[i * 2 + 1] / Box2dTutorial.PPT;
         }
 
         ChainShape chain = new ChainShape();
