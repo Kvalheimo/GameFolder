@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="12" nextobjectid="182">
+<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="240" height="13" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="211">
  <tileset firstgid="1" name="tileset_gutter" tilewidth="16" tileheight="16" spacing="2" margin="1" tilecount="924" columns="33">
   <image source="tileset_gutter.png" width="594" height="504"/>
   <tile id="0">
@@ -118,7 +118,7 @@
  </layer>
  <layer id="2" name="Graphic Layer" width="240" height="13">
   <data encoding="base64" compression="zlib">
-   eJztmEtywjAMhhV2vC6hJbTcolfIutdou6A9BHTdS0DL1dhUGSYzgeZhx8JW0n/xzUBiK7Kkb8KQT4hyJX4AAFHRcrdgJ+yFz4B8yhihcUKeHfu51s4w9B6kzD82mv4ehKPw7VDXptqWMdri3GseuvJ3PUNKxt4D6/nHRtPfMua5ozeatQ2dh77xYp7hHvUYag+Gnr82Mf0FwAJMF1LnoQH8Bf8JJvjbxLlC6nMBcAsT/HV5/wJgDSb4a9Ff8uiDz1pwzRPVf3bZ13evFlzjLhuYhWlGNMvCYljzt/jt/eWxfsz+UmBvtahz0MXDcl2fvVpwg7tsYBZW0t/1wPx9EV6FN6UajNlfC7Q52OZhdY3vXi24xV1OOAtzcXYhLI37uxXehY/KtVOF4vtzj5zx/1gcXBys8/D2vs9eLbjDXU7o74M4+yhsjPk7FrRqgzr/rUVGQJNfMrXWOQ==
+   eJztmEtOAzEMQD3dlc8lvOR3C65QQRES1wCEgBUnANZcgk+v1k0dQaQAmUwycRNn5EpP6if2OHaepprFDGDBxJeiKEXhctfwTLwQrxn12By5eXKuXfq60vbQ+gxq1l8aTn/fiQ/iM6Kvfb21OUJ5tnUehuqP3UNNpj4D6fWXhtNfm3M9MBvO3uaeh7H5Su5hG/1odQat189NSX8VRQII39Sug4Op+ntBXAqoQ5EFgvrbx9qh5p6Mu3c/qMOKBUH9jbn/1sR1Vx1WLAjqr0R/wZmDz13XYZjIzGpwCv73MXFjY7lAj7so4CzMO4CdLi+HNH/Nf++3hPXWyZC7rd6HIXO2XPgcjPHQrhsTywX2uIsC/D2g+R425u81cUPcJtbZF2deMe626nBtQg6GPHTXpMZygQF3saK/u+TsHrEv3N974oF4dL5bOZjPV4HabPwTcUacE8vZ7+djKe6qw2nEOOjz8O/vKbFc4IC7WNHfI3L2mDgR5u9U4OqN9vl/LzpQONkADNnGPw==
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
@@ -151,10 +151,28 @@
   <object id="51" x="2944" y="144" width="16" height="48"/>
   <object id="52" x="2928" y="160" width="16" height="32"/>
   <object id="53" x="2912" y="176" width="16" height="16"/>
-  <object id="177" x="448.356" y="160.631" width="47.6599" height="33.2863"/>
+  <object id="200" x="383.14" y="174.921" width="16.8599" height="18.1243">
+   <ellipse/>
+  </object>
+  <object id="201" x="510.854" y="174.921" width="18.1243" height="18.9673">
+   <ellipse/>
+  </object>
+  <object id="202" x="628.402" y="191.677">
+   <polygon points="0,0 17.1995,-15.9583 22.3416,-15.781 38.4772,0.177314"/>
+  </object>
+  <object id="203" x="672.281" y="160.228" width="47.5375" height="31.8525"/>
+  <object id="206" x="768.823" y="191.447">
+   <polyline points="0,0 111.077,-111.836 223.292,0.758208"/>
+  </object>
+  <object id="209" x="447.828" y="160.097" width="48.0292" height="32.1677"/>
  </objectgroup>
  <objectgroup id="11" name="Spring">
-  <object id="175" x="448.403" y="160.274" width="46.9894" height="2.18555"/>
+  <object id="205" x="672.281" y="160.469">
+   <polyline points="0,0 47.5375,-0.241307"/>
+  </object>
+  <object id="210" x="447.976" y="159.504">
+   <polyline points="0,0 48.0292,0"/>
+  </object>
  </objectgroup>
  <objectgroup id="10" name="SuperSpeed">
   <object id="180" x="1647.71" y="143.986" width="15.8754" height="15.8754"/>
