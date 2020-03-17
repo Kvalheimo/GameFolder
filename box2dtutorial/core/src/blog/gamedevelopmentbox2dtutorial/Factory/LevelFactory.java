@@ -14,6 +14,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -41,7 +42,7 @@ public class LevelFactory {
 
     public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
         this.engine = engine;
-        world = new World(new Vector2(0,-10f), true);
+        world = new World(new Vector2(0,-20f), true);
         world.setContactListener(new Box2dContactListener());
 
         bodyFactory = BodyFactory.getInstance(world);
@@ -76,7 +77,7 @@ public class LevelFactory {
         bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 1f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         // set object position (x,y,z) z used to define draw order 0 first drawn
-        position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y,0);
+        position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
         texture.region = playerTex;
         type.type = TypeComponent.PLAYER;
         stateCom.set(StateComponent.STATE_NORMAL);
@@ -173,9 +174,16 @@ public class LevelFactory {
             body.setUserData(entity);
             typeCom.type = type;
 
+            /*
+            if (type == TypeComponent.SUPER_SPEED){
+
+            }
+             */
+
             entity.add(position);
             entity.add(bodyCom);
             entity.add(typeCom);
+
 
 
         }
