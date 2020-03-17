@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Comparator;
 
@@ -16,13 +18,16 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
 public class RenderingSystem extends SortedIteratingSystem {
+    //Debug
+    private boolean shouldRender = true;
 
-    // sets the amount of pixels each metre of box2d objects contains
-    static final float PPM = 32.0f;
 
-    // this gets the height and width of our camera frustrum based off the width and height of the screen and our pixel per meter ratio
+    public static final float PPM = 16.0f;
     static final float FRUSTUM_WIDTH = Gdx.graphics.getWidth()/PPM;
     static final float FRUSTUM_HEIGHT = Gdx.graphics.getHeight()/PPM;
+    static final float NUM_OF_TILES_Y = 13;
+    static final float NUM_OF_TILES_X = 20;
+
 
     // get the ratio for converting pixels to metres
     public static final float PIXELS_TO_METRES = 1.0f / PPM;
@@ -49,10 +54,13 @@ public class RenderingSystem extends SortedIteratingSystem {
         return pixelValue * PIXELS_TO_METRES;
     }
 
+
+
     private SpriteBatch sb;
     private Array<Entity> renderQueue;
     private Comparator<Entity> comparator;
     private OrthographicCamera camera;
+    private Viewport viewport;
 
     //Component mappers to get components from entitis
     private ComponentMapper<TextureComponent> textureM;
@@ -75,53 +83,56 @@ public class RenderingSystem extends SortedIteratingSystem {
         this.sb = sb;
 
         // set up the camera to match our screen size
-        camera = new OrthographicCamera(FRUSTUM_WIDTH, FRUSTUM_HEIGHT);
-        camera.position.set(FRUSTUM_WIDTH / 2f, FRUSTUM_HEIGHT / 2f, 0);
+        camera = new OrthographicCamera();
 
-        // update camera and sprite batch
+
+        viewport = new FitViewport(NUM_OF_TILES_X,NUM_OF_TILES_Y, camera);
+        viewport.getCamera().update();
+
+        camera.position.set(0, NUM_OF_TILES_Y/2,0);
         camera.update();
-        sb.setProjectionMatrix(camera.combined);
-        sb.enableBlending();
-        sb.begin();
-
-        // loop through each entity in our render queue
-        for (Entity entity: renderQueue){
-            TextureComponent tex = textureM.get(entity);
-            TransformComponent t = transformM.get(entity);
-
-            if(tex == null || t.isHidden){
-                continue;
-            }
-
-            float width = tex.region.getRegionWidth();
-            float height = tex.region.getRegionHeight();
-
-            float orginX = width/2f;
-            float orginY = height/2f;
-
-            sb.draw(tex.region,
-                    t.position.x-orginX, t.position.y-orginX,
-                    orginX, orginY,
-                    width, height,
-                    pixelsToMeters(t.scale.x), pixelsToMeters(t.scale.y),
-                    t.rotation);
-        }
-
-        sb.end();
-        renderQueue.clear();
-
 
     }
 
     @Override
-    public void update(float dt){
-        super.update(dt);
-        // sort the renderQueue based on z index
+    public void update(float deltaTime) {
+        super.update(deltaTime);
+
         renderQueue.sort(comparator);
 
+        camera.update();
+        sb.setProjectionMatrix(camera.combined);
+        sb.enableBlending();
+        if(shouldRender){
+            sb.begin();
 
+            for (Entity entity : renderQueue) {
+                TextureComponent tex = textureM.get(entity);
+                TransformComponent t = transformM.get(entity);
 
+                if (tex.region == null || t.isHidden) {
+                    continue;
+                }
+
+                float width = tex.region.getRegionWidth();
+                float height = tex.region.getRegionHeight();
+
+                float originX = width/2f;
+                float originY = height/2f;
+
+                sb.draw(tex.region,
+                        t.position.x - originX, t.position.y - originY,
+                        originX, originY,
+                        width, height,
+                        pixelsToMeters(t.scale.x), pixelsToMeters(t.scale.y),
+                        t.rotation);
+            }
+            sb.end();
+        }
+        renderQueue.clear();
     }
+
+
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
@@ -130,5 +141,9 @@ public class RenderingSystem extends SortedIteratingSystem {
     // convenience method to get camera
     public OrthographicCamera getCamera() {
         return camera;
+    }
+
+    public Viewport getViewport(){
+        return viewport;
     }
 }

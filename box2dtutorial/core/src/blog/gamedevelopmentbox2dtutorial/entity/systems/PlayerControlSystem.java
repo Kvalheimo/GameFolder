@@ -26,11 +26,18 @@ public class PlayerControlSystem extends IteratingSystem{
         pm = ComponentMapper.getFor(PlayerComponent.class);
         bodm = ComponentMapper.getFor(B2dBodyComponent.class);
         sm = ComponentMapper.getFor(StateComponent.class);
+
+
     }
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
         B2dBodyComponent b2body = bodm.get(entity);
         StateComponent state = sm.get(entity);
+        PlayerComponent player = pm.get(entity);
+
+        player.camera.position.x = b2body.body.getPosition().x;
+        player.camera.update();
+
 
         if(b2body.body.getLinearVelocity().y > 0){
             state.set(StateComponent.STATE_FALLING);
@@ -46,21 +53,28 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if(controller.left){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -5f, 0.2f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -7f, 0.2f),b2body.body.getLinearVelocity().y);
         }
         if(controller.right){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5f, 0.2f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 7f, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
         if(!controller.left && ! controller.right){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
-        if(controller.up &&
-                (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-            //b2body.body.applyForceToCenter(0, 3000,true);
-            b2body.body.applyLinearImpulse(0, 75f, b2body.body.getWorldCenter().x,b2body.body.getWorldCenter().y, true);
-            state.set(StateComponent.STATE_JUMPING);
+        if(controller.up && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
+                b2body.body.applyForceToCenter(0, 50, true);
+                b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                state.set(StateComponent.STATE_JUMPING);
         }
+
+        /*
+        if(controller.up && state.get() == StateComponent.STATE_FALLING) {
+            b2body.body.applyForceToCenter(0, 1, true);
+            b2body.body.applyLinearImpulse(0, 5, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+        }
+         */
+
     }
 }
