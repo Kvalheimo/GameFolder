@@ -4,9 +4,11 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Random;
+
 public class KeyboardController implements InputProcessor {
 
-    public boolean left, right, up, down, space;
+    public boolean LEFT, RIGHT, UP, DOWN, SPACE, A;
 
     // Mouse flags
     public boolean isMouse1Down, isMouse2Down, isMouse3Down;
@@ -20,24 +22,29 @@ public class KeyboardController implements InputProcessor {
         boolean keyProcessed = false;
         switch (keycode) {
             case Input.Keys.LEFT:
-                left = true;
+                LEFT = true;
                 keyProcessed = true;
                 break;
             case Input.Keys.RIGHT:
-                right = true;
+                RIGHT = true;
                 keyProcessed = true;
                 break;
             case Input.Keys.UP:
-                up = true;
+                UP = true;
                 keyProcessed = true;
                 break;
             case Input.Keys.DOWN:
-                down = true;
+                DOWN = true;
                 keyProcessed = true;
                 break;
             case Input.Keys.SPACE:
-                space = true;
+                SPACE = true;
                 keyProcessed = true;
+                break;
+            case Input.Keys.A:
+                A = true;
+                keyProcessed = true;
+
         }
         return keyProcessed;
     }
@@ -48,22 +55,27 @@ public class KeyboardController implements InputProcessor {
         boolean keyProcessed = false;
         switch (keycode) {
             case Input.Keys.LEFT:
-                left = false;
+                LEFT = false;
                 keyProcessed = true;
                 break;
             case Input.Keys.RIGHT:
-                right = false;
+                RIGHT = false;
                 keyProcessed = true;
                 break;
             case Input.Keys.UP:
-                up = false;
+                UP = false;
                 keyProcessed = true;
                 break;
             case Input.Keys.DOWN:
-                down = false;
+                DOWN = false;
                 keyProcessed = true;
+                break;
             case Input.Keys.SPACE:
-                space = false;
+                SPACE = false;
+                keyProcessed = true;
+                break;
+            case Input.Keys.A:
+                A = false;
                 keyProcessed = true;
         }
         return keyProcessed;
