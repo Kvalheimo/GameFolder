@@ -80,14 +80,12 @@ public class RenderingSystem extends SortedIteratingSystem {
         camera = new OrthographicCamera();
 
 
-        viewport = new FitViewport(Box2dTutorial.NUM_OF_TILES_X,Box2dTutorial.NUM_OF_TILES_Y, camera);
-        //viewport = new FitViewport(Gdx.graphics.getWidth()/Box2dTutorial.PPM,Gdx.graphics.getHeight()/Box2dTutorial.PPM, camera);
 
+        viewport = new FitViewport(Gdx.graphics.getWidth()/Box2dTutorial.PPM,Gdx.graphics.getHeight()/Box2dTutorial.PPM, camera);
         viewport.getCamera().update();
 
-        camera.position.set(0, Box2dTutorial.NUM_OF_TILES_Y/2,0);
-        //camera.position.set(0, (Gdx.graphics.getHeight()/4)/Box2dTutorial.PPM,0);
 
+        camera.position.set(0, (Gdx.graphics.getHeight()/4)/Box2dTutorial.PPM,0);
         camera.update();
 
     }
