@@ -1,14 +1,18 @@
 package blog.gamedevelopmentbox2dtutorial.Factory;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.CircleMapObject;
+import com.badlogic.gdx.maps.objects.EllipseMapObject;
 import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Ellipse;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Polyline;
 import com.badlogic.gdx.math.Rectangle;
@@ -54,7 +58,7 @@ public class MapBodyFactory {
 
         Array<Body> bodies = new Array<Body>();
 
-        for(MapObject object : objects) {
+        for (MapObject object : objects) {
             Vector2 position = new Vector2(0, 0);
 
             if (object instanceof TextureMapObject) {
@@ -68,73 +72,61 @@ public class MapBodyFactory {
 
             if (object instanceof RectangleMapObject) {
                 System.out.println("making rect shape");
-                shape = getRectangle((RectangleMapObject)object);
+                shape = getRectangle((RectangleMapObject) object);
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
-                position.set((rectangle.getX() + rectangle.getWidth() / 2)/ Box2dTutorial.PPT, (rectangle.getY() + rectangle.getHeight() / 2)/Box2dTutorial.PPT);
+                //position.set((rectangle.getX() + rectangle.getWidth() / 2)/ Box2dTutorial.PPT, (rectangle.getY() + rectangle.getHeight() / 2)/Box2dTutorial.PPT);
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
-                bodyDef.position.set(position);
+                //bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
                 Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.1f);
+                fixture.setFriction(0.0f);
+                fixture.setRestitution(0.0f);
 
                 //setting the position of the body's origin. In this case with zero rotation
                 body.setTransform(rectangle.getCenter(new Vector2()).scl(1/Box2dTutorial.PPT), 0);
 
                 bodies.add(body);
 
-            }
-
-            /////////////////////
-            ////////////////////Fungerer ikke ikke lage disse shapene. Posisjonen blir feil
-            ///////////////////
-
-            else if (object instanceof PolygonMapObject) {
+            } else if (object instanceof PolygonMapObject) {
                 System.out.println("making polygon shape");
-                shape = getPolygon((PolygonMapObject)object);
-                Polygon polygon = ((PolygonMapObject) object).getPolygon();
-                position.set(polygon.getX()/Box2dTutorial.PPT, polygon.getY()/Box2dTutorial.PPT);
+                shape = getPolygon((PolygonMapObject) object);
+                //Polygon polygon = ((PolygonMapObject) object).getPolygon();
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
-                bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
                 Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.1f);
-
-                //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(polygon.getX()/Box2dTutorial.PPT, polygon.getY()/Box2dTutorial.PPT, 0);
+                fixture.setFriction(0.0f);
+                fixture.setRestitution(0.0f);
 
                 bodies.add(body);
-            }
-            else if (object instanceof PolylineMapObject) {
+            } else if (object instanceof PolylineMapObject) {
                 System.out.println("making line shape");
-                shape = getPolyline((PolylineMapObject)object);
+                shape = getPolyline((PolylineMapObject) object);
                 Polyline line = ((PolylineMapObject) object).getPolyline();
-                position.set(line.getX(), line.getY());
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
-                bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
                 Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.1f);
+                fixture.setFriction(0.0f);
 
-                //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(line.getX()/Box2dTutorial.PPT, line.getY()/Box2dTutorial.PPT, 0);
 
                 bodies.add(body);
-            }
-            else if (object instanceof CircleMapObject) {
+            } else if (object instanceof EllipseMapObject) {
                 System.out.println("making circle shape");
-                shape = getCircle((CircleMapObject) object);
-                Circle circle = ((CircleMapObject) object).getCircle();
-                position.set(circle.x, circle.y);
+
+                shape = getCircle((EllipseMapObject) object);
+                Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
+
+                position.set((ellipse.x + ellipse.width/2) /Box2dTutorial.PPM, (ellipse.y + ellipse.width/2)/ Box2dTutorial.PPM);
+
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -142,15 +134,9 @@ public class MapBodyFactory {
                 Body body = world.createBody(bodyDef);
 
                 Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.1f);
-
-                //setting the position of the body's origin. In this case with zero rotation
-                body.setTransform(circle.x/Box2dTutorial.PPT, circle.y/Box2dTutorial.PPT, 0);
+                fixture.setFriction(0.0f);
 
                 bodies.add(body);
-            }
-            else {
-                continue;
             }
 
         }
@@ -158,58 +144,61 @@ public class MapBodyFactory {
     }
 
 
-    private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
-        Rectangle rectangle = rectangleObject.getRectangle();
-        PolygonShape polygon = new PolygonShape();
+        private static PolygonShape getRectangle (RectangleMapObject rectangleObject){
+            Rectangle rectangle = rectangleObject.getRectangle();
+            PolygonShape polygon = new PolygonShape();
 
-        polygon.setAsBox(rectangle.getWidth() * 0.5f / Box2dTutorial.PPT,
-                rectangle.getHeight() * 0.5f / Box2dTutorial.PPT);
-        return polygon;
-    }
-
-
-
-    private static CircleShape getCircle(CircleMapObject circleObject) {
-        Circle circle = circleObject.getCircle();
-        CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(circle.radius / Box2dTutorial.PPT);
-        circleShape.setPosition(new Vector2(circle.x / Box2dTutorial.PPT, circle.y / Box2dTutorial.PPT));
-        return circleShape;
-    }
-
-    private static PolygonShape getPolygon(PolygonMapObject polygonObject) {
-        PolygonShape polygon = new PolygonShape();
-        float[] vertices = polygonObject.getPolygon().getTransformedVertices();
-
-        float[] worldVertices = new float[vertices.length];
-
-        for (int i = 0; i < vertices.length; ++i) {
-            worldVertices[i] = vertices[i] / Box2dTutorial.PPT;
+            polygon.setAsBox(rectangle.getWidth() * 0.5f / Box2dTutorial.PPT,
+                    rectangle.getHeight() * 0.5f / Box2dTutorial.PPT);
+            return polygon;
         }
 
-        polygon.set(worldVertices);
-        return polygon;
-    }
 
-    private static ChainShape getPolyline(PolylineMapObject polylineObject) {
-        float[] vertices = polylineObject.getPolyline().getTransformedVertices();
-        Vector2[] worldVertices = new Vector2[vertices.length / 2];
+        private static PolygonShape getPolygon (PolygonMapObject polygonObject){
+            PolygonShape polygon = new PolygonShape();
+            float[] vertices = polygonObject.getPolygon().getTransformedVertices();
 
-        for (int i = 0; i < vertices.length / 2; ++i) {
-            worldVertices[i] = new Vector2();
-            worldVertices[i].x = vertices[i * 2] / Box2dTutorial.PPT;
-            worldVertices[i].y = vertices[i * 2 + 1] / Box2dTutorial.PPT;
+            float[] worldVertices = new float[vertices.length];
+
+            for (int i = 0; i < vertices.length; ++i) {
+                worldVertices[i] = vertices[i] / Box2dTutorial.PPT;
+            }
+
+            polygon.set(worldVertices);
+            return polygon;
         }
 
-        ChainShape chain = new ChainShape();
-        chain.createChain(worldVertices);
-        return chain;
+
+        private static CircleShape getCircle (EllipseMapObject ellipseMapObject){
+            Ellipse ellipse = ellipseMapObject.getEllipse();
+            CircleShape circleShape = new CircleShape();
+
+            //circleShape.setRadius(ellipse.circumference()/(2f*MathUtils.PI));
+
+            System.out.println(ellipse.width);
+            circleShape.setRadius((ellipse.width/2f)/Box2dTutorial.PPT);
+
+            return circleShape;
+        }
+
+
+        private static ChainShape getPolyline (PolylineMapObject polylineObject){
+            float[] vertices = polylineObject.getPolyline().getTransformedVertices();
+            Vector2[] worldVertices = new Vector2[vertices.length / 2];
+
+            for (int i = 0; i < worldVertices.length; ++i) {
+                worldVertices[i] = new Vector2();
+                worldVertices[i].x = vertices[i * 2] / Box2dTutorial.PPT;
+                worldVertices[i].y = vertices[i * 2 + 1] / Box2dTutorial.PPT;
+            }
+
+            ChainShape chain = new ChainShape();
+            chain.createChain(worldVertices);
+            return chain;
+        }
     }
 
 
 
 
 
-
-
-}
