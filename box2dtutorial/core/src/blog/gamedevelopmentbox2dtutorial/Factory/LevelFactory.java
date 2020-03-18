@@ -1,6 +1,6 @@
 package blog.gamedevelopmentbox2dtutorial.Factory;
 
-import com.badlogic.ashley.core.Component;
+
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,9 +13,13 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+
+import java.lang.reflect.Type;
+
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
@@ -36,6 +40,7 @@ public class LevelFactory {
     private TextureRegion enemyTex;
     private TextureRegion platformTex;
     private TextureRegion playerTex;
+    private TextureRegion bulletTex;
 
 
 
@@ -55,6 +60,7 @@ public class LevelFactory {
         floorTex = atlas.findRegion("player");
         enemyTex = atlas.findRegion("enemy");
         platformTex = atlas.findRegion("player");
+        bulletTex = atlas.findRegion("player");
 
 
     }
@@ -169,24 +175,59 @@ public class LevelFactory {
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
 
+
             bodyCom.body = body;
+
+
+            //Make superspeed and gun objects sensors
+            if (type == TypeComponent.SUPER_SPEED || type == TypeComponent.GUN ){
+                bodyFactory.makeAllFixturesSensors(body);
+            }
+
+
+            //Sett hvilke type som er shootable
+            if (type == TypeComponent.GROUND){
+                typeCom.shootable = true;
+            }
+
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
             typeCom.type = type;
 
-            /*
-            if (type == TypeComponent.SUPER_SPEED){
-
-            }
-             */
-
             entity.add(position);
             entity.add(bodyCom);
             entity.add(typeCom);
-
-
-
         }
+    }
+
+    public Entity createBullet(float x, float y, float xVel, float yVel){
+        Entity entity = engine.createEntity();
+        B2dBodyComponent b2dbody = engine.createComponent(B2dBodyComponent.class);
+        TransformComponent position = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        TypeComponent type = engine.createComponent(TypeComponent.class);
+        CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+        BulletComponent bul = engine.createComponent(BulletComponent.class);
+
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
+        bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
+        position.position.set(x,y,0);
+        texture.region = bulletTex;
+        type.type = TypeComponent.BULLET;
+        b2dbody.body.setUserData(entity);
+        bul.xVel = xVel;
+        bul.yVel = yVel;
+
+        entity.add(bul);
+        entity.add(colComp);
+        entity.add(b2dbody);
+        entity.add(position);
+        entity.add(texture);
+        entity.add(type);
+
+        engine.addEntity(entity);
+        return entity;
     }
 
     public TiledMap getMap(){
