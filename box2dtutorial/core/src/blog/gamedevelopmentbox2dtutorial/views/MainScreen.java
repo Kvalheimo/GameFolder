@@ -52,7 +52,7 @@ public class MainScreen implements Screen {
         camera = renderingSystem.getCamera();
         viewport = renderingSystem.getViewport();
 
-        renderer = new OrthogonalTiledMapRenderer(levelFactory.getMap(),1/16f, sb);
+        renderer = new OrthogonalTiledMapRenderer(levelFactory.getMap(),1/Box2dTutorial.PPT, sb);
         renderer.setView(camera);
         sb.setProjectionMatrix(camera.combined);
 
