@@ -15,6 +15,15 @@ public class Box2dTutorial extends Game {
 	public static final int V_WIDTH = 400;
 	public static final int V_HEIGHT = 208;
 
+    public static final int totalMapWidth = 240 * 16;
+    public static final int totalMapHeight = 13 * 16;
+
+    public static final float PPM = 16f; //Pixels per meter in box2dWorld
+	public static final float PPT = 16f; //Pixels per tile in Tieldmap
+
+	public static final float NUM_OF_TILES_Y = 13;
+	public static final float NUM_OF_TILES_X = 30;
+
 	private LoadingScreen loadingScreen;
 	private PreferenceScreen preferencesScreen;
 	private MenuScreen menuScreen;
