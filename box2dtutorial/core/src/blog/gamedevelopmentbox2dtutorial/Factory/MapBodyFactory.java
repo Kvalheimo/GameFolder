@@ -31,8 +31,8 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 
 
 public class MapBodyFactory {
-    private World world;
 
+    private World world;
     private static MapBodyFactory thisInstance;
 
 
@@ -67,8 +67,6 @@ public class MapBodyFactory {
 
             Shape shape;
 
-            //Kun rectangleMapObject som blir rendret på riktig sted
-            //Så fungerer kun å lage rectangle onjects på mappet
 
             if (object instanceof RectangleMapObject) {
                 System.out.println("making rect shape");
