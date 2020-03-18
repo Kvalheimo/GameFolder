@@ -5,9 +5,9 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
-import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
@@ -17,10 +17,11 @@ public class CollisionSystem extends IteratingSystem {
     @SuppressWarnings("unchecked")
     public CollisionSystem() {
         // only need to worry about player collisions
-        super(Family.all(CollisionComponent.class,PlayerComponent.class).get());
+        super(Family.all(CollisionComponent.class,PlayerComponent.class, TransformComponent.class).get());
 
         cm = ComponentMapper.getFor(CollisionComponent.class);
         pm = ComponentMapper.getFor(PlayerComponent.class);
+
     }
 
     @Override
