@@ -16,6 +16,7 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.AnimationSystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.CollisionSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
@@ -62,7 +63,8 @@ public class MainScreen implements Screen {
         engine.addSystem(new PhysicsSystem(levelFactory.getWorld()));
         engine.addSystem(new PhysicsDebugSystem(levelFactory.getWorld(), renderingSystem.getCamera()));
         engine.addSystem(new CollisionSystem());
-        engine.addSystem(new PlayerControlSystem(controller));
+        engine.addSystem(new PlayerControlSystem(controller, levelFactory));
+        engine.addSystem(new BulletSystem());
 
 
         // create some game objects
@@ -71,6 +73,7 @@ public class MainScreen implements Screen {
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND);
         levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING);
+        levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN);
 
     }
 
