@@ -1,40 +1,37 @@
 package blog.gamedevelopmentbox2dtutorial.entity.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 
+import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 
 public class PlayerControlSystem extends IteratingSystem{
 
-    ComponentMapper<PlayerComponent> pm;
-    ComponentMapper<B2dBodyComponent> bodm;
-    ComponentMapper<StateComponent> sm;
     KeyboardController controller;
+    private LevelFactory levelFactory;
 
 
     @SuppressWarnings("unchecked")
-    public PlayerControlSystem(KeyboardController keyCon) {
+    public PlayerControlSystem(KeyboardController keyCon, LevelFactory levelFactory) {
         super(Family.all(PlayerComponent.class).get());
         controller = keyCon;
-        pm = ComponentMapper.getFor(PlayerComponent.class);
-        bodm = ComponentMapper.getFor(B2dBodyComponent.class);
-        sm = ComponentMapper.getFor(StateComponent.class);
+        this.levelFactory = levelFactory;
 
     }
 
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        B2dBodyComponent b2body = bodm.get(entity);
-        StateComponent state = sm.get(entity);
-        PlayerComponent player = pm.get(entity);
+        B2dBodyComponent b2body = Mapper.b2dCom.get(entity);
+        StateComponent state = Mapper.stateCom.get(entity);
+        PlayerComponent player = Mapper.playerCom.get(entity);
 
         player.camera.position.x = b2body.body.getPosition().x;
         player.camera.update();
@@ -56,29 +53,22 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         //Controller
-        if(controller.left){
+        if(controller.LEFT){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, -10f, 0.2f),b2body.body.getLinearVelocity().y);
         }
-        if(controller.right){
+        if(controller.RIGHT){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 10f, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
-        if(!controller.left && ! controller.right){
+        if(!controller.LEFT && ! controller.RIGHT){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
-        if(controller.up && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
+        if(controller.UP && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
                 b2body.body.applyForceToCenter(0, 100f, true);
                 b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 state.set(StateComponent.STATE_JUMPING);
         }
-
-        /*
-        if(controller.up && state.get() == StateComponent.STATE_FALLING) {
-            b2body.body.applyForceToCenter(0, 1, true);
-            b2body.body.applyLinearImpulse(0, 5, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-        }
-         */
 
         if(player.onSpring){
             //b2body.body.applyForceToCenter(0, 50, true);
@@ -87,10 +77,22 @@ public class PlayerControlSystem extends IteratingSystem{
             player.onSpring = false;
         }
 
-        if (controller.space && player.superSpeed){
+        if (controller.SPACE && player.superSpeed){
             //b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 5000, 0.01f),b2body.body.getLinearVelocity().y);
             b2body.body.applyLinearImpulse(50000f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.superSpeed = false;
+
+
+        }
+
+        if (controller.A && player.hasGun){
+
+            float velX = 10f;  // set the speed of the bullet
+            float velY = 2f;
+            float shooterX = b2body.body.getPosition().x; // get player location
+            float shooterY = b2body.body.getPosition().y; // get player location
+            levelFactory.createBullet(shooterX, shooterY, velX, velY);
+            player.hasGun = false;
 
 
         }
