@@ -38,6 +38,8 @@ public class Box2dTutorial extends Game {
 	public final static int APPLICATION = 2;
 	public final static int ENDGAME = 3;
 
+	public int lastScore = 0;
+
 
 	public Box2dTutorial() {
 		super();
@@ -56,9 +58,10 @@ public class Box2dTutorial extends Game {
 					break;
 
 			case APPLICATION:
-				if (mainScreen == null) mainScreen = new MainScreen(this);
-					this.setScreen(mainScreen);
-					break;
+				// always make new game screen so game can't start midway
+				mainScreen = new MainScreen(this);
+				this.setScreen(mainScreen);
+				break;
 
 			case ENDGAME:
 				if (endScreen == null) endScreen = new EndScreen(this);
@@ -81,7 +84,7 @@ public class Box2dTutorial extends Game {
 		//Load and start music
 		assMan.queueAddMusic();
 		assMan.manager.finishLoading();
-		playingSong = assMan.manager.get("input/game/music/music1.mp3");
+		playingSong = assMan.manager.get("music/music1.mp3");
 		playingSong.play();
 
 
