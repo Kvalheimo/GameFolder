@@ -62,7 +62,7 @@ public class LoadingScreen implements Screen{
         parent.assMan.manager.finishLoading();
 
         // Get images to display loading progress
-        atlas = parent.assMan.manager.get("input/game/images/loading.atlas");
+        atlas = parent.assMan.manager.get("images/loading.atlas");
         title = atlas.findRegion("staying-alight-logo");
         dash = atlas.findRegion("loading-dash");
         background = atlas.findRegion("flamebackground");
