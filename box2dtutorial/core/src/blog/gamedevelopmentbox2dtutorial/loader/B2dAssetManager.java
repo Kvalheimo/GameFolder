@@ -16,9 +16,6 @@ public class B2dAssetManager {
 
     public final AssetManager manager = new AssetManager();
 
-    // Textures
-    public final String playerImage = "images/player.png";
-    public final String enemyImage = "images/enemy.png";
 
     // Sounds
     public final String boingSound = "input/game/sounds/boing.wav";
