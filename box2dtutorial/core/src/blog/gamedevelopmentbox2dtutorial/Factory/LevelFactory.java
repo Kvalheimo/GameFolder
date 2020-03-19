@@ -4,6 +4,7 @@ package blog.gamedevelopmentbox2dtutorial.Factory;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -13,11 +14,10 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
-
-import java.lang.reflect.Type;
-
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+import blog.gamedevelopmentbox2dtutorial.DFUtils;
+import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
@@ -59,8 +59,9 @@ public class LevelFactory {
         playerTex = atlas.findRegion("player");
         floorTex = atlas.findRegion("player");
         enemyTex = atlas.findRegion("enemy");
-        platformTex = atlas.findRegion("player");
-        bulletTex = atlas.findRegion("player");
+        platformTex = atlas.findRegion("platform");;
+        bulletTex = DFUtils.makeTextureRegion(10,10,"444444FF");
+
 
 
     }
@@ -78,9 +79,21 @@ public class LevelFactory {
         CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
         TypeComponent type = engine.createComponent(TypeComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
+        AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
         bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 1f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+
+        Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+        anim.setPlayMode(Animation.PlayMode.LOOP);
+        animCom.animations.put(StateComponent.STATE_NORMAL, anim);
+        animCom.animations.put(StateComponent.STATE_MOVING, anim);
+        animCom.animations.put(StateComponent.STATE_JUMPING, anim);
+        animCom.animations.put(StateComponent.STATE_FALLING, anim);
+        animCom.animations.put(StateComponent.STATE_HIT, anim);
+
+
+
 
         // set object position (x,y,z) z used to define draw order 0 first drawn
         position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
@@ -208,12 +221,19 @@ public class LevelFactory {
         TypeComponent type = engine.createComponent(TypeComponent.class);
         CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
         BulletComponent bul = engine.createComponent(BulletComponent.class);
+        AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+        StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,1f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
         bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
         position.position.set(x,y,0);
+
         texture.region = bulletTex;
+        Animation anim = new Animation(0.05f,DFUtils.spriteSheetToFrames(atlas.findRegion("FlameSpriteAnimation"), 7, 1));        anim.setPlayMode(Animation.PlayMode.LOOP);
+        animCom.animations.put(0, anim);
+
+        stateCom.set(StateComponent.STATE_NORMAL);
         type.type = TypeComponent.BULLET;
         b2dbody.body.setUserData(entity);
         bul.xVel = xVel;
