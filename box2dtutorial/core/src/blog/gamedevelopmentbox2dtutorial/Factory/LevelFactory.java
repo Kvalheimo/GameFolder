@@ -47,14 +47,14 @@ public class LevelFactory {
 
     public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
         this.engine = engine;
-        world = new World(new Vector2(0,-20f), true);
+        world = new World(new Vector2(0,-50f), true);
         world.setContactListener(new Box2dContactListener());
 
         bodyFactory = BodyFactory.getInstance(world);
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
-        atlas = assMan.manager.get("input/game/images/game.atlas");
-        map = assMan.manager.get("input/game/maps/map.tmx", TiledMap.class);
+        atlas = assMan.manager.get("images/game.atlas");
+        map = assMan.manager.get("maps/map.tmx", TiledMap.class);
 
         playerTex = atlas.findRegion("player");
         floorTex = atlas.findRegion("player");
@@ -68,7 +68,7 @@ public class LevelFactory {
 
 
 
-    public void createPlayer(OrthographicCamera camera){
+    public Entity createPlayer(OrthographicCamera camera){
 
         // Create the Entity and all the components that will go in the entity
         Entity entity = engine.createEntity();
@@ -82,7 +82,8 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 1f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 0.5f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+
 
         Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
         anim.setPlayMode(Animation.PlayMode.LOOP);
@@ -117,6 +118,8 @@ public class LevelFactory {
 
         // add the entity to the engine
         engine.addEntity(entity);
+
+        return entity;
 
     }
 
@@ -182,7 +185,6 @@ public class LevelFactory {
         Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer);
 
         for (Body body : mapBodies) {
-            System.out.println(body.getPosition());
             Entity entity = engine.createEntity();
             TransformComponent position = engine.createComponent(TransformComponent.class);
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
