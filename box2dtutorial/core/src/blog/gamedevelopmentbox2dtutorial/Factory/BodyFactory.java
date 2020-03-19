@@ -35,27 +35,27 @@ public class BodyFactory {
         return thisInstance;
     }
 
-    public static FixtureDef makeFixture(int material, Shape shape){
+    public FixtureDef makeFixture(int material, Shape shape){
         FixtureDef fixtureDef = new FixtureDef();
         fixtureDef.shape = shape;
 
         switch(material){
             case 0:
-                fixtureDef.density = 100f;
-                fixtureDef.friction = 0.3f;
-                fixtureDef.restitution = 0.1f;
+                fixtureDef.density = 1.0f;
+                fixtureDef.friction = 0.0f;
+                fixtureDef.restitution = 0.0f;
             case 1:
-                fixtureDef.density = 1f;
-                fixtureDef.friction = 0f;
+                fixtureDef.density = 1.0f;
+                fixtureDef.friction = 0.0f;
                 fixtureDef.restitution = 0.0f;
             case 2:
-                fixtureDef.density = 1f;
-                fixtureDef.friction = 0f;
-                fixtureDef.restitution = 1f;
+                fixtureDef.density = 0.0f;
+                fixtureDef.friction = 0.0f;
+                fixtureDef.restitution = 0.0f;
             case 3:
-                fixtureDef.density = 1f;
-                fixtureDef.friction = 0.9f;
-                fixtureDef.restitution = 0.01f;
+                fixtureDef.density = 0f;
+                fixtureDef.friction = 0f;
+                fixtureDef.restitution = 0f;
             case 4:
                 fixtureDef.density = 1f;
                 fixtureDef.friction = 0.77f;
@@ -65,6 +65,7 @@ public class BodyFactory {
                 fixtureDef.friction = 0.5f;
                 fixtureDef.restitution = 0.3f;
         }
+        //shape.dispose();
         return fixtureDef;
     }
 
@@ -87,8 +88,12 @@ public class BodyFactory {
 
         //Create body to attach said definition
         Body boxBody = world.createBody(boxBodyDef);
+
+        //boxBody.setAngularDamping(1f);
+        boxBody.setLinearDamping(1.5f);
+
         CircleShape circleShape = new CircleShape();
-        circleShape.setRadius(radius/2f);
+        circleShape.setRadius(radius);
         boxBody.createFixture(makeFixture(material, circleShape));
         circleShape.dispose();
         return boxBody;
