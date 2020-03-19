@@ -38,15 +38,16 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         //Handle states
-        if(b2body.body.getLinearVelocity().y < 0){
+        if(b2body.body.getLinearVelocity().y < 0 && state.get() != StateComponent.STATE_FALLING){
             state.set(StateComponent.STATE_FALLING);
         }
 
         if(b2body.body.getLinearVelocity().y == 0){
             if(state.get() == StateComponent.STATE_FALLING){
                 state.set(StateComponent.STATE_NORMAL);
+
             }
-            if(b2body.body.getLinearVelocity().x != 0){
+            if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING){  // NEW
                 state.set(StateComponent.STATE_MOVING);
             }
         }
@@ -64,11 +65,22 @@ public class PlayerControlSystem extends IteratingSystem{
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.2f),b2body.body.getLinearVelocity().y);
         }
 
-        if(controller.UP && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING)){
-                b2body.body.applyForceToCenter(0, 100f, true);
-                b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-                state.set(StateComponent.STATE_JUMPING);
+        if(controller.UP && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING || state.get() == StateComponent.STATE_FALLING)){
+            player.onGround = false;
+            player.onSpring = false;
+                if(player.jumpCounter < 2) {
+                    System.out.println(player.jumpCounter);
+                    //b2body.body.applyForceToCenter(0, 100f, true);
+                    b2body.body.applyLinearImpulse(0, 12f * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                    state.set(StateComponent.STATE_JUMPING);
+                    player.jumpCounter += 1;
+                }
         }
+
+        if(player.onGround){
+            player.jumpCounter = 0;
+        }
+
 
         if(player.onSpring){
             //b2body.body.applyForceToCenter(0, 50, true);
@@ -87,10 +99,10 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (controller.A && player.hasGun){
 
-            float velX = 10f;  // set the speed of the bullet
-            float velY = 2f;
-            float shooterX = b2body.body.getPosition().x; // get player location
-            float shooterY = b2body.body.getPosition().y; // get player location
+            float velX = 20f;  // set the speed of the bullet
+            float velY = 0.2f;
+            float shooterX = b2body.body.getPosition().x + 0.1f; // get player location
+            float shooterY = b2body.body.getPosition().y + 0.1f; // get player location
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
             player.hasGun = false;
 
