@@ -40,8 +40,8 @@ public class MenuScreen implements Screen {
         parent.assMan.manager.finishLoading();
 
         // Get images to display loading progress
-        atlas = parent.assMan.manager.get("input/game/images/loading.atlas");
-        skin = parent.assMan.manager.get("input/game/skin/glassy-ui.json");
+        atlas = parent.assMan.manager.get("images/loading.atlas");
+        skin = parent.assMan.manager.get("skin/glassy-ui.json");
         background = atlas.findRegion("flamebackground");
 
     }
