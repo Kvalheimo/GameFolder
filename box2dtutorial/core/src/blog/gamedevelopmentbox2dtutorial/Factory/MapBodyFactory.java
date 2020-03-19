@@ -22,6 +22,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.physics.box2d.CircleShape;
 import com.badlogic.gdx.physics.box2d.Fixture;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
@@ -34,10 +35,12 @@ public class MapBodyFactory {
 
     private World world;
     private static MapBodyFactory thisInstance;
+    private static BodyFactory bodyFactory;
 
 
    private MapBodyFactory(World world){
        this.world = world;
+       bodyFactory = BodyFactory.getInstance(world);
 
    }
 
@@ -53,9 +56,6 @@ public class MapBodyFactory {
 
         MapObjects objects = map.getLayers().get(layer).getObjects();
 
-        System.out.println(objects.getCount());
-
-
         Array<Body> bodies = new Array<Body>();
 
         for (MapObject object : objects) {
@@ -69,7 +69,6 @@ public class MapBodyFactory {
 
 
             if (object instanceof RectangleMapObject) {
-                System.out.println("making rect shape");
                 shape = getRectangle((RectangleMapObject) object);
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
@@ -80,9 +79,9 @@ public class MapBodyFactory {
                 //bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
-                Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.0f);
-                fixture.setRestitution(0.0f);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                body.createFixture(fixtureDef);
+
 
                 //setting the position of the body's origin. In this case with zero rotation
                 body.setTransform(rectangle.getCenter(new Vector2()).scl(1/Box2dTutorial.PPT), 0);
@@ -90,7 +89,6 @@ public class MapBodyFactory {
                 bodies.add(body);
 
             } else if (object instanceof PolygonMapObject) {
-                System.out.println("making polygon shape");
                 shape = getPolygon((PolygonMapObject) object);
                 //Polygon polygon = ((PolygonMapObject) object).getPolygon();
 
@@ -98,13 +96,11 @@ public class MapBodyFactory {
                 bodyDef.type = BodyDef.BodyType.StaticBody;
                 Body body = world.createBody(bodyDef);
 
-                Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.0f);
-                fixture.setRestitution(0.0f);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                body.createFixture(fixtureDef);
 
                 bodies.add(body);
             } else if (object instanceof PolylineMapObject) {
-                System.out.println("making line shape");
                 shape = getPolyline((PolylineMapObject) object);
                 Polyline line = ((PolylineMapObject) object).getPolyline();
 
@@ -112,13 +108,12 @@ public class MapBodyFactory {
                 bodyDef.type = BodyDef.BodyType.StaticBody;
                 Body body = world.createBody(bodyDef);
 
-                Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.0f);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                body.createFixture(fixtureDef);
 
 
                 bodies.add(body);
             } else if (object instanceof EllipseMapObject) {
-                System.out.println("making circle shape");
 
                 shape = getCircle((EllipseMapObject) object);
                 Ellipse ellipse = ((EllipseMapObject) object).getEllipse();
@@ -131,8 +126,8 @@ public class MapBodyFactory {
                 bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
-                Fixture fixture = body.createFixture(shape, 1f);
-                fixture.setFriction(0.0f);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                body.createFixture(fixtureDef);
 
                 bodies.add(body);
             }
@@ -171,9 +166,6 @@ public class MapBodyFactory {
             Ellipse ellipse = ellipseMapObject.getEllipse();
             CircleShape circleShape = new CircleShape();
 
-            //circleShape.setRadius(ellipse.circumference()/(2f*MathUtils.PI));
-
-            System.out.println(ellipse.width);
             circleShape.setRadius((ellipse.width/2f)/Box2dTutorial.PPT);
 
             return circleShape;
