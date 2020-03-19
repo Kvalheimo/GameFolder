@@ -1,5 +1,6 @@
 package blog.gamedevelopmentbox2dtutorial.views;
 
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -9,11 +10,13 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.AnimationSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
@@ -35,6 +38,7 @@ public class MainScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private LevelFactory levelFactory;
     private Hud hud;
+    private Entity player;
 
 
     public MainScreen(Box2dTutorial box2dTutorial){
@@ -68,7 +72,7 @@ public class MainScreen implements Screen {
 
 
         // create some game objects
-        levelFactory.createPlayer(camera);
+        player = levelFactory.createPlayer(camera);
         //levelFactory.createFloor();
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND);
         levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED);
@@ -97,6 +101,13 @@ public class MainScreen implements Screen {
 
         sb.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+
+       PlayerComponent pc = (player.getComponent(PlayerComponent.class));
+        if(pc.isDead) {
+            DFUtils.log("YOU DIED : back to menu you go!");
+            parent.lastScore = (int) pc.camera.position.x;
+            parent.changeScreen(Box2dTutorial.ENDGAME);
+        }
     }
 
     @Override
@@ -122,6 +133,7 @@ public class MainScreen implements Screen {
     @Override
     public void dispose() {
         renderer.dispose();
+        engine.clearPools();
         hud.dispose();
 
     }
