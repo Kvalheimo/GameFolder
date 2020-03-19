@@ -18,21 +18,21 @@ public class B2dAssetManager {
 
 
     // Sounds
-    public final String boingSound = "input/game/sounds/boing.wav";
-    public final String pingSound = "input/game/sounds/ping.wav";
+    public final String boingSound = "sounds/boing.wav";
+    public final String pingSound = "sounds/ping.wav";
 
     // Music
-    public final String playingSong = "input/game/music/music1.mp3";
+    public final String playingSong = "music/music1.mp3";
 
     // Skin
-    public final String skin = "input/game/skin/glassy-ui.json";
+    public final String skin = "skin/glassy-ui.json";
 
     // Textures
-    public final String gameImages = "input/game/images/game.atlas";
-    public final String loadingImages = "input/game/images/loading.atlas";
+    public final String gameImages = "images/game.atlas";
+    public final String loadingImages = "images/loading.atlas";
 
     // Maps
-    public final String map = "input/game/maps/map.tmx";
+    public final String map = "maps/map.tmx";
 
 
 
@@ -47,7 +47,7 @@ public class B2dAssetManager {
 
 
     public void queueAddSkin(){
-        SkinParameter skinParameter = new SkinParameter("input/game/skin/glassy-ui.atlas");
+        SkinParameter skinParameter = new SkinParameter("skin/glassy-ui.atlas");
         manager.load(skin, Skin.class, skinParameter);
     }
 
