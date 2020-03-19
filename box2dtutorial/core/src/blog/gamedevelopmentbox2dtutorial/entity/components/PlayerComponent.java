@@ -10,6 +10,8 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public boolean onSpring = false;
     public boolean hasGun = false;
     public boolean isDead = false;
+    public boolean onGround = false;
+    public int jumpCounter = 0; //For double jump
 
 
     @Override
