@@ -44,21 +44,22 @@ public class CollisionSystem extends IteratingSystem {
                             System.out.println("player hit enemy");
                             break;
                         case TypeComponent.SUPER_SPEED:
-                            //do player hit other thing
+                            //do player hit superspeed thing
                             System.out.println("player picked up superSpeed");
                             Mapper.playerCom.get(entity).superSpeed = true;
                             break; //technically this isn't needed
                         case TypeComponent.GUN:
-                            //do player hit other thing
+                            //do player hit gun thing
                             System.out.println("player picked up gun");
                             Mapper.playerCom.get(entity).hasGun = true;
                             break; //technically this isn't needed
                         case TypeComponent.GROUND:
-                            //do player hit other thing
+                            //do player hit ground thing
+                            Mapper.playerCom.get(entity).onGround = true;
                             System.out.println("player hit ground");
                             break; //technically this isn't needed
                         case TypeComponent.SPRING:
-                            //do player hit other thing
+                            //do player hit spring thing
                             System.out.println("player on spring: bounce up");
                             Mapper.playerCom.get(entity).onSpring = true;
                             break; //technically this isn't needed
