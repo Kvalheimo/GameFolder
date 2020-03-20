@@ -5,8 +5,9 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
 
+
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
-import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
+import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -14,14 +15,14 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 
 public class PlayerControlSystem extends IteratingSystem{
 
-    KeyboardController controller;
+    private Controller controller;
     private LevelFactory levelFactory;
 
 
     @SuppressWarnings("unchecked")
-    public PlayerControlSystem(KeyboardController keyCon, LevelFactory levelFactory) {
+    public PlayerControlSystem(Controller controller, LevelFactory levelFactory) {
         super(Family.all(PlayerComponent.class).get());
-        controller = keyCon;
+        this.controller = controller;
         this.levelFactory = levelFactory;
 
     }
@@ -64,7 +65,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         //Movement
-        if(controller.LEFT) {
+        if(controller.isLeftPressed()) {
             if(b2body.body.getLinearVelocity().x > -15){
                 b2body.body.applyLinearImpulse(-20, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             }
@@ -75,7 +76,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
-        if(controller.RIGHT) {
+        if(controller.isRightPressed()) {
             if(b2body.body.getLinearVelocity().x < 15){
                 b2body.body.applyLinearImpulse(20, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 //b2body.body.applyForceToCenter(70, 0, true);
@@ -89,19 +90,19 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        if(!controller.LEFT && ! controller.RIGHT){
+        if(!controller.isLeftPressed() && !controller.isRightPressed()){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
         }
 
 
         //Jumping
-        if(controller.UP && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING || state.get() == StateComponent.STATE_FALLING)){
+        if(controller.isAPressed() && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING || state.get() == StateComponent.STATE_FALLING)){
 
-                if(player.jumpCounter < 2) {
-                    b2body.body.applyLinearImpulse(0, 20f * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-                    state.set(StateComponent.STATE_JUMPING);
-                    player.jumpCounter += 1;
-                }
+            if(player.jumpCounter < 2) {
+                b2body.body.applyLinearImpulse(0, 20f * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                state.set(StateComponent.STATE_JUMPING);
+                player.jumpCounter += 1;
+            }
 
             player.onGround = false;
             player.onSpring = false;
@@ -120,7 +121,9 @@ public class PlayerControlSystem extends IteratingSystem{
             player.onSpring = false;
         }
 
-        if (controller.SPACE && player.superSpeed){
+
+
+        if (controller.isYPressed() && player.superSpeed){
             b2body.body.applyLinearImpulse(5000f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.superSpeed = false;
 
@@ -128,7 +131,7 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         //Shooting
-        if (controller.A && player.hasGun){
+        if (controller.isXPressed() && player.hasGun){
 
             float velX = 20f;  // set the speed of the bullet
             float velY = -0.2f;
@@ -140,10 +143,14 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
+
+
         if (b2body.body.getPosition().y < -2){
             player.isDead = true;
 
         }
 
     }
+
+
 }
