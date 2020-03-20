@@ -16,6 +16,7 @@ import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
+import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.AnimationSystem;
@@ -32,7 +33,7 @@ public class MainScreen implements Screen {
     private Box2dTutorial parent;
     private OrthographicCamera camera;
     private Viewport viewport;
-    private KeyboardController controller;
+    private Controller controller;
     private SpriteBatch sb;
     private PooledEngine engine;
     private OrthogonalTiledMapRenderer renderer;
@@ -43,12 +44,12 @@ public class MainScreen implements Screen {
 
     public MainScreen(Box2dTutorial box2dTutorial){
         parent = box2dTutorial;
-        controller = new KeyboardController();
         engine = new PooledEngine();
         levelFactory = new LevelFactory(engine, parent.assMan);
 
         sb = new SpriteBatch();
 
+        controller = new Controller(sb);
         hud = new Hud(sb);
 
         // Create our new rendering system
@@ -84,7 +85,7 @@ public class MainScreen implements Screen {
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(controller);
+        Gdx.input.setInputProcessor(controller.stage);
 
     }
 
@@ -100,7 +101,8 @@ public class MainScreen implements Screen {
         engine.update(dt);
 
         sb.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.stage.draw();
+        hud.draw();
+        controller.draw();
 
        PlayerComponent pc = (player.getComponent(PlayerComponent.class));
         if(pc.isDead) {
@@ -113,6 +115,9 @@ public class MainScreen implements Screen {
     @Override
     public void resize(int width, int height) {
         viewport.update(width,height,false);
+        hud.resize(width, height);
+        controller.resize(width, height);
+
     }
 
     @Override
@@ -135,6 +140,7 @@ public class MainScreen implements Screen {
         renderer.dispose();
         engine.clearPools();
         hud.dispose();
+        controller.dispose();
 
     }
 }
