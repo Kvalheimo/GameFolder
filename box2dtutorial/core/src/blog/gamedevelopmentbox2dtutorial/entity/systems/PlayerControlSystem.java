@@ -116,7 +116,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
         //Spring
         if(player.onSpring){
-            b2body.body.applyLinearImpulse(0, 70f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(0, 700f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             state.set(StateComponent.STATE_JUMPING);
             player.onSpring = false;
         }
