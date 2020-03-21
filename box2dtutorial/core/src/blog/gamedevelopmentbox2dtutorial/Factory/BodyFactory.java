@@ -90,7 +90,7 @@ public class BodyFactory {
         Body boxBody = world.createBody(boxBodyDef);
 
         //boxBody.setAngularDamping(1f);
-        boxBody.setLinearDamping(1.5f);
+        boxBody.setLinearDamping(2f);
 
         CircleShape circleShape = new CircleShape();
         circleShape.setRadius(radius);
