@@ -15,7 +15,6 @@ import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
-import blog.gamedevelopmentbox2dtutorial.controller.KeyboardController;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
@@ -49,7 +48,7 @@ public class MainScreen implements Screen {
 
         sb = new SpriteBatch();
 
-        controller = new Controller(sb);
+        controller = new Controller(sb, parent.assMan);
         hud = new Hud(sb);
 
         // Create our new rendering system
