@@ -11,7 +11,10 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public boolean hasGun = false;
     public boolean isDead = false;
     public boolean onGround = false;
+    public boolean runningRight = true;
     public int jumpCounter = 0; //For double jump
+
+
 
 
     @Override
@@ -21,6 +24,8 @@ public class PlayerComponent implements Component, Pool.Poolable {
         onSpring = false;
         hasGun = false;
         isDead = false;
+        onGround = false;
+        runningRight = false;
     }
 }
 
