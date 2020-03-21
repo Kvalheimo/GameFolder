@@ -47,7 +47,7 @@ public class LevelFactory {
 
     public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
         this.engine = engine;
-        world = new World(new Vector2(0,-50f), true);
+        world = new World(new Vector2(0,-40f), true);
         world.setContactListener(new Box2dContactListener());
 
         bodyFactory = BodyFactory.getInstance(world);
@@ -56,10 +56,10 @@ public class LevelFactory {
         atlas = assMan.manager.get("images/game.atlas");
         map = assMan.manager.get("maps/map.tmx", TiledMap.class);
 
-        playerTex = atlas.findRegion("player");
-        floorTex = atlas.findRegion("player");
-        enemyTex = atlas.findRegion("enemy");
-        platformTex = atlas.findRegion("platform");;
+        playerTex = atlas.findRegion("running");
+        //floorTex = atlas.findRegion("player");
+        //enemyTex = atlas.findRegion("enemy");
+        //platformTex = atlas.findRegion("platform");;
         bulletTex = DFUtils.makeTextureRegion(10,10,"444444FF");
 
 
@@ -82,11 +82,12 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 0.5f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 1f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
-
-        Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+        //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+        Animation anim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
         anim.setPlayMode(Animation.PlayMode.LOOP);
+
         animCom.animations.put(StateComponent.STATE_NORMAL, anim);
         animCom.animations.put(StateComponent.STATE_MOVING, anim);
         animCom.animations.put(StateComponent.STATE_JUMPING, anim);
@@ -98,7 +99,7 @@ public class LevelFactory {
 
         // set object position (x,y,z) z used to define draw order 0 first drawn
         position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
-        texture.region = playerTex;
+        //texture.region = playerTex;
         type.type = TypeComponent.PLAYER;
         stateCom.set(StateComponent.STATE_NORMAL);
 
@@ -115,6 +116,7 @@ public class LevelFactory {
         entity.add(colComp);
         entity.add(type);
         entity.add(stateCom);
+        entity.add(animCom);
 
         // add the entity to the engine
         engine.addEntity(entity);
@@ -226,14 +228,17 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,1f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.5f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
         bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
         position.position.set(x,y,0);
 
-        texture.region = bulletTex;
-        Animation anim = new Animation(0.05f,DFUtils.spriteSheetToFrames(atlas.findRegion("FlameSpriteAnimation"), 7, 1));        anim.setPlayMode(Animation.PlayMode.LOOP);
-        animCom.animations.put(0, anim);
+        //texture.region = bulletTex;
+        Animation anim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("boomerang"), 8, 1));        anim.setPlayMode(Animation.PlayMode.LOOP);
+        anim.setPlayMode(Animation.PlayMode.LOOP);
+
+
+        animCom.animations.put(StateComponent.STATE_NORMAL, anim);
 
         stateCom.set(StateComponent.STATE_NORMAL);
         type.type = TypeComponent.BULLET;
@@ -247,6 +252,8 @@ public class LevelFactory {
         entity.add(position);
         entity.add(texture);
         entity.add(type);
+        entity.add(stateCom);
+        entity.add(animCom);
 
         engine.addEntity(entity);
         return entity;
