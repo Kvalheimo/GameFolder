@@ -3,8 +3,8 @@ package blog.gamedevelopmentbox2dtutorial.controller;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,17 +15,24 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+
 
 public class Controller implements Disposable {
     private Viewport viewport;
     public Stage stage;
     boolean leftPressed, rightPressed, aPressed, bPressed, xPressed, yPressed;
     private OrthographicCamera camera;
+    private B2dAssetManager assMan;
+    private TextureAtlas atlas;
 
-    public Controller(SpriteBatch sb){
+    public Controller(SpriteBatch sb, B2dAssetManager assMan){
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(viewport, sb);
+        this.assMan = assMan;
+
+        atlas = assMan.manager.get("images/game.atlas");
 
         stage.addListener(new InputListener(){
 
@@ -81,8 +88,7 @@ public class Controller implements Disposable {
         });
 
 
-
-        Image rightImg = new Image(new Texture("images/controller/flatDark24.png"));
+        Image rightImg = new Image(atlas.findRegion("right"));
         rightImg.setSize(50, 50);
         rightImg.addListener(new InputListener() {
 
@@ -98,7 +104,7 @@ public class Controller implements Disposable {
             }
         });
 
-        Image leftImg = new Image(new Texture("images/controller/flatDark23.png"));
+        Image leftImg = new Image(atlas.findRegion("left"));
         leftImg.setSize(50, 50);
         leftImg.addListener(new InputListener() {
 
@@ -115,7 +121,7 @@ public class Controller implements Disposable {
         });
 
 
-        Image BImg = new Image(new Texture("images/controller/B.png"));
+        Image BImg = new Image(atlas.findRegion("B"));
         BImg.setSize(35,35);
         BImg.addListener(new InputListener(){
 
@@ -131,7 +137,7 @@ public class Controller implements Disposable {
             }
         });
 
-        Image AImg = new Image(new Texture("images/controller/A.png"));
+        Image AImg = new Image(atlas.findRegion("A"));
         AImg.setSize(35, 35);
         AImg.addListener(new InputListener() {
 
@@ -147,7 +153,7 @@ public class Controller implements Disposable {
             }
         });
 
-        Image XImg = new Image(new Texture("images/controller/X.png"));
+        Image XImg = new Image(atlas.findRegion("X"));
         XImg.setSize(35, 35);
         XImg.addListener(new InputListener() {
 
@@ -163,7 +169,7 @@ public class Controller implements Disposable {
             }
         });
 
-        Image YImg = new Image(new Texture("images/controller/Y.png"));
+        Image YImg = new Image(atlas.findRegion("Y"));
         YImg.setSize(35, 35);
         YImg.addListener(new InputListener() {
 
@@ -205,8 +211,8 @@ public class Controller implements Disposable {
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
         table2.add();
 
-        table1.debug();
-        table2.debug();
+        //table1.debug();
+        //table2.debug();
 
         Stack stack = new Stack(table2, table1);
         stack.setFillParent(true);
