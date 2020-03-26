@@ -78,6 +78,11 @@ public class MainScreen implements Screen {
         levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING);
         levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN);
+        levelFactory.createTiledMapEntities("Wall", TypeComponent.WALL);
+        levelFactory.createTiledMapEntities("Water", TypeComponent.GROUND);
+        levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X);
+        levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y);
+
 
     }
 
@@ -100,6 +105,7 @@ public class MainScreen implements Screen {
         engine.update(dt);
 
         sb.setProjectionMatrix(hud.stage.getCamera().combined);
+        hud.update(dt);
         hud.draw();
         controller.draw();
 
