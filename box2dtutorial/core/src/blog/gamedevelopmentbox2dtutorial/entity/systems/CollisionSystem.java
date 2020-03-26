@@ -66,6 +66,18 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.BULLET:
                             System.out.println("Player just shot. bullet in player atm");
                             break;
+                        case TypeComponent.WALL:
+                            Mapper.playerCom.get(entity).onWall = true;
+                            System.out.println("player hit wall");
+                            break;
+                        case TypeComponent.SPEED_X:
+                            Mapper.playerCom.get(entity).speedX = true;
+                            System.out.println("player hit speedX");
+                            break;
+                        case TypeComponent.SPEED_Y:
+                            Mapper.playerCom.get(entity).speedY= true;
+                            System.out.println("player hit speedY");
+                            break;
                         case TypeComponent.OTHER:
                             //do player hit scenery thing
                             System.out.println("player hit other");

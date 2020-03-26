@@ -35,6 +35,7 @@ public class PlayerControlSystem extends IteratingSystem{
         PlayerComponent player = Mapper.playerCom.get(entity);
 
         player.camera.position.x = b2body.body.getPosition().x;
+        player.camera.position.y = b2body.body.getPosition().y;
         player.camera.update();
 
 
@@ -43,21 +44,23 @@ public class PlayerControlSystem extends IteratingSystem{
             state.set(StateComponent.STATE_FALLING);
         }
 
-        if(b2body.body.getLinearVelocity().y == 0){
-            if(state.get() == StateComponent.STATE_FALLING){
-                state.set(StateComponent.STATE_NORMAL);
 
-            }
-            if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING){  // NEW
+        if(player.onGround){
+            if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING) {
                 state.set(StateComponent.STATE_MOVING);
+
+            } else if(state.get() == StateComponent.STATE_FALLING && b2body.body.getLinearVelocity().x == 0) {
+                state.set(StateComponent.STATE_NORMAL);
             }
         }
+
 
         if (b2body.body.getLinearVelocity().x == 0 && state.get() == StateComponent.STATE_MOVING){
             state.set(StateComponent.STATE_NORMAL);
         }
 
 
+/*
 
         //Control max speed and set value if too high (superspeed)
         if(b2body.body.getLinearVelocity().x > 15){
@@ -70,14 +73,31 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
+ */
+
+
+
+        if(controller.isRightPressed() && player.onWall) {
+            b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
+            player.onWall = false;
+        }
+
+
+
+
         //Movement
         if(controller.isLeftPressed()) {
+            if (player.onWall){
+                b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
+                player.onWall = false;
+            }
+
             /*
-            if(b2body.body.getLinearVelocity().x > -5){
+            else if (b2body.body.getLinearVelocity().x > -5){
                 b2body.body.applyLinearImpulse(-6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             }
              */
-            if(b2body.body.getLinearVelocity().x > -7){
+            else if(b2body.body.getLinearVelocity().x > -7){
                 b2body.body.applyForceToCenter(-80, 0, true);
             }
 
@@ -85,13 +105,18 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if(controller.isRightPressed()) {
+            if (player.onWall){
+                b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
+                player.onWall = false;
+            }
+
             /*
-            if(b2body.body.getLinearVelocity().x < 5){
+            else if(b2body.body.getLinearVelocity().x < 5){
                 b2body.body.applyLinearImpulse(6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             }
              */
 
-            if(b2body.body.getLinearVelocity().x < 7){
+            else if(b2body.body.getLinearVelocity().x < 7){
                 b2body.body.applyForceToCenter(80, 0, true);
             }
 
@@ -152,12 +177,22 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
-
-
         if (b2body.body.getPosition().y < -2){
             player.isDead = true;
 
         }
+
+        if (player.speedX){
+            b2body.body.setLinearVelocity(50f, 0f);
+            player.speedX = false;
+        }
+
+        if (player.speedY){
+            b2body.body.setLinearVelocity(0f, 50f);
+            player.speedY = false;
+        }
+
+
 
     }
 
