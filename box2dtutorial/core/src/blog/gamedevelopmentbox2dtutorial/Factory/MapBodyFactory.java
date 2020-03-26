@@ -10,6 +10,8 @@ import com.badlogic.gdx.maps.objects.PolygonMapObject;
 import com.badlogic.gdx.maps.objects.PolylineMapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.objects.TextureMapObject;
+import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.MathUtils;
@@ -52,7 +54,7 @@ public class MapBodyFactory {
     }
 
 
-    public static Array<Body> buildShapes(Map map, World world, String layer) {
+    public static Array<Body> buildShapes(TiledMap map, World world, String layer) {
 
         MapObjects objects = map.getLayers().get(layer).getObjects();
 
@@ -72,11 +74,8 @@ public class MapBodyFactory {
                 shape = getRectangle((RectangleMapObject) object);
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
-                //position.set((rectangle.getX() + rectangle.getWidth() / 2)/ Box2dTutorial.PPT, (rectangle.getY() + rectangle.getHeight() / 2)/Box2dTutorial.PPT);
-
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
-                //bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
                 FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
@@ -90,7 +89,6 @@ public class MapBodyFactory {
 
             } else if (object instanceof PolygonMapObject) {
                 shape = getPolygon((PolygonMapObject) object);
-                //Polygon polygon = ((PolygonMapObject) object).getPolygon();
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
@@ -102,7 +100,6 @@ public class MapBodyFactory {
                 bodies.add(body);
             } else if (object instanceof PolylineMapObject) {
                 shape = getPolyline((PolylineMapObject) object);
-                Polyline line = ((PolylineMapObject) object).getPolyline();
 
                 BodyDef bodyDef = new BodyDef();
                 bodyDef.type = BodyDef.BodyType.StaticBody;
