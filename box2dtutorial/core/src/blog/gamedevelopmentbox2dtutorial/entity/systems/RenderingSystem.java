@@ -85,7 +85,7 @@ public class RenderingSystem extends SortedIteratingSystem {
         viewport.getCamera().update();
 
 
-        camera.position.set(0, (Gdx.graphics.getHeight()/4)/Box2dTutorial.PPM,0);
+        camera.position.set(0, 0,0);
         camera.update();
 
     }
