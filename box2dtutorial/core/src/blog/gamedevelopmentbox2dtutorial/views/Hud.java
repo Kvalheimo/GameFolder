@@ -20,21 +20,29 @@ public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
+
+    private float gameTime;
     private Integer worldTimer;
-    private float timeCount;
+    private boolean timeUp; // true when the world timer reaches 0
     private Integer score;
+    private float timeCountA;
+    private float timeCountB;
+
 
     Label countdownLabel;
     Label scoreLabel;
     Label timeLabel;
-    Label worldLabel;
-    Label platformerLabel;
-    Label levelLabel;
+    Label rightLabel;
+    Label middleLabel;
+    Label leftLabel;
+
 
     public Hud(SpriteBatch sb){
-        worldTimer = 300;
-        timeCount = 0;
-        score = 0;
+       gameTime = 0;
+       score = 0;
+       worldTimer = 300;
+       timeCountA = 0;
+       timeCountB = 0;
 
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
@@ -43,27 +51,40 @@ public class Hud implements Disposable {
         table.top();
         table.setFillParent(true);
 
-        //countdownLabel = new Label(String.format("%03", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        //scoreLabel = new Label(String.format("%06", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));;
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        float minutes = 0;
+        float seconds = 0;
 
-        worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        platformerLabel = new Label("PLATFORMER", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        timeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        table.add(platformerLabel).expandX().padTop(10);
-        table.add(worldLabel).expandX().padTop(10);
-        table.add(timeLabel).expandX().padTop(10);
+
+
+        leftLabel = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        middleLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        rightLabel = new Label("REMAINING", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+
+        table.add(leftLabel).expandX().padTop(10);
+        table.add(middleLabel).expandX().padTop(10);
+        table.add(rightLabel).expandX().padTop(10);
         table.row();
-
-        /*
         table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countdownLabel).expand();
-         */
+        table.add(timeLabel).expandX();
+        table.add(countdownLabel).expandX();
+
 
         stage.addActor(table);
+    }
 
+    public void update(float dt){
+        timeCountA += dt;
+        timeCountB += dt;
+        gameTime += dt;
+
+        addScore(timeCountB);
+        countDown(timeCountA);
+        addTime(gameTime);
 
     }
 
@@ -74,6 +95,37 @@ public class Hud implements Disposable {
     public void resize(int width, int height){
         viewport.update(width, height);
     }
+
+
+    public void addScore(float count){
+        if(count >= 0.5){
+            score += 1;
+            scoreLabel.setText(String.format("%01d", score));
+            timeCountB = 0;
+        }
+
+    }
+
+
+    public void addTime(float gameTime){
+        float minutes = (float)Math.floor(gameTime / 60.0f);
+        float seconds = gameTime - minutes * 60.0f;
+        timeLabel.setText(String.format("%.0fm%.0fs", minutes, seconds));
+    }
+
+    public void countDown(float count){
+        if(count >= 1){
+            if (worldTimer > 0) {
+                worldTimer--;
+            } else {
+                timeUp = true;
+            }
+            countdownLabel.setText(String.format("%03d", worldTimer));
+            timeCountA = 0;
+        }
+
+    }
+
 
     @Override
     public void dispose() {
