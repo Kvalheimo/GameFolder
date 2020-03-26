@@ -85,7 +85,7 @@ public class Box2dTutorial extends Game {
 		assMan.queueAddMusic();
 		assMan.manager.finishLoading();
 		playingSong = assMan.manager.get("music/music1.mp3");
-		playingSong.play();
+		///playingSong.play();
 
 
 	}
