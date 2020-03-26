@@ -36,6 +36,7 @@ public class LevelFactory {
     private MapBodyFactory mapBodyFactory;
     private TiledMap map;
     private TextureAtlas atlas;
+    private B2dAssetManager assMan;
     private TextureRegion floorTex;
     private TextureRegion enemyTex;
     private TextureRegion platformTex;
@@ -45,16 +46,18 @@ public class LevelFactory {
 
 
 
+
     public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
         this.engine = engine;
         world = new World(new Vector2(0,-20f), true);
         world.setContactListener(new Box2dContactListener());
+        this.assMan = assMan;
 
         bodyFactory = BodyFactory.getInstance(world);
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
         atlas = assMan.manager.get("images/game.atlas");
-        map = assMan.manager.get("maps/map.tmx", TiledMap.class);
+        map = assMan.manager.get("maps/level1.tmx", TiledMap.class);
 
         //playerTex = atlas.findRegion("running");
         //floorTex = atlas.findRegion("player");
@@ -82,7 +85,7 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(20, 2, 0.25f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.25f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
         Animation runAnim = new Animation(0.05f,DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
@@ -91,6 +94,7 @@ public class LevelFactory {
 
 
         runAnim.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnim.setPlayMode(Animation.PlayMode.LOOP);
         jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
 
         animCom.animations.put(StateComponent.STATE_NORMAL, normalAnim);
@@ -188,7 +192,8 @@ public class LevelFactory {
 
     public void createTiledMapEntities(String layer, int type) {
 
-        Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer);
+
+            Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -201,7 +206,7 @@ public class LevelFactory {
 
 
             //Make superspeed and gun objects sensors
-            if (type == TypeComponent.SUPER_SPEED || type == TypeComponent.GUN ){
+            if (type == TypeComponent.SUPER_SPEED || type == TypeComponent.GUN || type == TypeComponent.SPEED_X || type == TypeComponent.SPEED_Y){
                 bodyFactory.makeAllFixturesSensors(body);
             }
 
