@@ -32,7 +32,7 @@ public class B2dAssetManager {
     public final String loadingImages = "images/loading.atlas";
 
     // Maps
-    public final String map = "maps/map.tmx";
+    public final String map = "maps/level1.tmx";
 
 
 
