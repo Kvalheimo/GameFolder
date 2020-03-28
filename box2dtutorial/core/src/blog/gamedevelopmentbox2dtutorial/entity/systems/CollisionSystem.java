@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
@@ -42,6 +43,7 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.ENEMY:
                             //do player hit enemy thing
                             System.out.println("player hit enemy");
+                            //Mapper.playerCom.get(entity).isDead = true;
                             break;
                         case TypeComponent.SUPER_SPEED:
                             //do player hit superspeed thing
@@ -75,7 +77,7 @@ public class CollisionSystem extends IteratingSystem {
                             System.out.println("player hit speedX");
                             break;
                         case TypeComponent.SPEED_Y:
-                            Mapper.playerCom.get(entity).speedY= true;
+                            Mapper.playerCom.get(entity).speedY = true;
                             System.out.println("player hit speedY");
                             break;
                         case TypeComponent.OTHER:
@@ -90,21 +92,63 @@ public class CollisionSystem extends IteratingSystem {
                     System.out.println("type == null");
                 }
             }
-        }
 
-
-        //handle shooting
-        if(thisType.type == TypeComponent.BULLET) {
+        }else if(thisType.type == TypeComponent.BULLET) {
             if (collidedEntity != null) {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
-                if (type.shootable) {
-                    System.out.println("Shootable object just shot");
-                    BulletComponent bullet = Mapper.bulletCom.get(entity);
-                    bullet.isDead = true;
+                if (type != null) {
+                    switch (type.type) {
+                        case TypeComponent.GROUND:
+                            //do player hit ground thing
+                            System.out.println("bullet hit ground");
+                            Mapper.bulletCom.get(entity).isDead = true;
+                            break; //technically this isn't needed
+                        case TypeComponent.WALL:
+                            //do player hit wall thing
+                            System.out.println("bullet hit wall");
+                            Mapper.bulletCom.get(entity).isDead = true;
+                            break; //technically this isn't needed
+                        default:
+                            System.out.println("No matching type found");
                     }
                     cc.collisionEntity = null; // collision handled reset component
+                }
+            }
 
+        }else if(thisType.type == TypeComponent.ENEMY) {
+            if (collidedEntity != null) {
+                TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
+                if (type != null) {
+                    switch (type.type) {
+                        case TypeComponent.GROUND:
+                            //do player hit enemy thing
+                            System.out.println("Bullet hit enemy");
+                            Mapper.enemyCom.get(entity).onGround = true;
+                            break;
+                        case TypeComponent.BULLET:
+                            //do player hit enemy thing
+                            System.out.println("Bullet hit enemy");
+                            Mapper.enemyCom.get(entity).isDead = true;
+                            Mapper.bulletCom.get(collidedEntity).isDead = true;
+                            break;
+                        case TypeComponent.WALL:
+                            //do enemy hit wall thing
+                            System.out.println("enemy hit wall");
+                            EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
+
+                            if (enemyComponent.runningRight){
+                                enemyComponent.runningRight = false;
+                            }else if(!enemyComponent.runningRight) {
+                                enemyComponent.runningRight = true;
+                            }
+                            break; //technically this isn't needed
+                        default:
+                            System.out.println("No matching type found");
+                    }
+                    cc.collisionEntity = null; // collision handled reset component
+                }
             }
         }
+
     }
 }
