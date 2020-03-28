@@ -11,12 +11,10 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 
 
 public class BulletSystem extends IteratingSystem {
-    //private Entity player;
 
     @SuppressWarnings("unchecked")
     public BulletSystem(){
         super(Family.all(BulletComponent.class).get());
-        //this.player = player;
     }
 
 
