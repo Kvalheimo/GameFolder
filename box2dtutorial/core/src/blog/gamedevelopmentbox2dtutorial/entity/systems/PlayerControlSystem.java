@@ -45,22 +45,28 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        if(player.onGround){
-            if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING) {
-                state.set(StateComponent.STATE_MOVING);
 
-            } else if(state.get() == StateComponent.STATE_FALLING && b2body.body.getLinearVelocity().x == 0) {
+        if(player.onGround){
+            if(b2body.body.getLinearVelocity().x == 0 && state.get() !=  StateComponent.STATE_NORMAL){
                 state.set(StateComponent.STATE_NORMAL);
             }
+
+            if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING) {
+                state.set(StateComponent.STATE_MOVING);
+            }
+
         }
 
 
+        /*
         if (b2body.body.getLinearVelocity().x == 0 && state.get() == StateComponent.STATE_MOVING){
             state.set(StateComponent.STATE_NORMAL);
         }
 
+         */
 
-/*
+
+
 
         //Control max speed and set value if too high (superspeed)
         if(b2body.body.getLinearVelocity().x > 15){
@@ -71,10 +77,6 @@ public class PlayerControlSystem extends IteratingSystem{
         if(b2body.body.getLinearVelocity().x < -15){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 15f, 0.1f), b2body.body.getLinearVelocity().y);
         }
-
-
- */
-
 
 
         if(controller.isRightPressed() && player.onWall) {
@@ -116,6 +118,8 @@ public class PlayerControlSystem extends IteratingSystem{
             }
              */
 
+
+
             else if(b2body.body.getLinearVelocity().x < 7){
                 b2body.body.applyForceToCenter(80, 0, true);
             }
@@ -124,7 +128,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         if(!controller.isLeftPressed() && !controller.isRightPressed()){
-            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 0.1f),b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 0, 1.0f),b2body.body.getLinearVelocity().y);
         }
 
 
@@ -161,7 +165,6 @@ public class PlayerControlSystem extends IteratingSystem{
             b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.superSpeed = false;
 
-
         }
 
         //Shooting
@@ -170,7 +173,7 @@ public class PlayerControlSystem extends IteratingSystem{
             float velX = 7f;  // set the speed of the bullet
             float velY = -0.2f;
             float shooterX = b2body.body.getPosition().x; // get player location
-            float shooterY = b2body.body.getPosition().y + 1f; // get player location
+            float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
             player.hasGun = false;
 
@@ -183,12 +186,14 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if (player.speedX){
-            b2body.body.setLinearVelocity(50f, 0f);
+            //b2body.body.setLinearVelocity(100f, 0f);
+            b2body.body.applyLinearImpulse(50, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.speedX = false;
         }
 
         if (player.speedY){
-            b2body.body.setLinearVelocity(0f, 50f);
+            //b2body.body.setLinearVelocity(0f, 100f);
+            b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.speedY = false;
         }
 
