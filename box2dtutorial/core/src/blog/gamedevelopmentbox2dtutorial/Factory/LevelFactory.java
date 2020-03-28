@@ -21,6 +21,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
@@ -65,8 +66,6 @@ public class LevelFactory {
         //platformTex = atlas.findRegion("platform");;
         //bulletTex = DFUtils.makeTextureRegion(10,10,"444444FF");
 
-
-
     }
 
 
@@ -85,12 +84,12 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.25f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
         Animation runAnim = new Animation(0.05f,DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-        Animation jumpAnim = new Animation(0.01f,DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-        Animation normalAnim = new Animation(0.01f,DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+        Animation jumpAnim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+        Animation normalAnim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
 
 
         runAnim.setPlayMode(Animation.PlayMode.LOOP);
@@ -130,6 +129,74 @@ public class LevelFactory {
         engine.addEntity(entity);
 
         return entity;
+    }
+
+
+
+    public void createEnemies(){
+
+
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(map, world, "Enemy", BodyDef.BodyType.DynamicBody);
+
+        for (Body enemyBody: enemyBodies) {
+
+            // Create the Entity and all the components that will go in the entity
+            Entity entity = engine.createEntity();
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            TextureComponent texture = engine.createComponent(TextureComponent.class);
+            EnemyComponent enemyCom = engine.createComponent(EnemyComponent.class);
+            CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+            TypeComponent type = engine.createComponent(TypeComponent.class);
+            StateComponent stateCom = engine.createComponent(StateComponent.class);
+            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+
+            // create the data for the components and add them to the components
+            //bodyCom.body = bodyFactory.makeCirclePolyBody(16, 7, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+            enemyBody.setActive(false);
+            bodyCom.body = enemyBody;
+
+            //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+            Animation runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+            Animation jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+
+
+            runAnim.setPlayMode(Animation.PlayMode.LOOP);
+            normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+            jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+            animCom.animations.put(StateComponent.STATE_NORMAL, normalAnim);
+            animCom.animations.put(StateComponent.STATE_MOVING, runAnim);
+            animCom.animations.put(StateComponent.STATE_JUMPING, jumpAnim);
+            animCom.animations.put(StateComponent.STATE_FALLING, jumpAnim);
+            animCom.animations.put(StateComponent.STATE_HIT, jumpAnim);
+
+
+            // set object position (x,y,z) z used to define draw order 0 first drawn
+            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
+
+            position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
+            type.type = TypeComponent.ENEMY;
+            stateCom.set(StateComponent.STATE_NORMAL);
+
+
+            bodyCom.body.setUserData(entity);
+
+
+            // add the components to the entity
+            entity.add(bodyCom);
+            entity.add(position);
+            entity.add(texture);
+            entity.add(enemyCom);
+            entity.add(colComp);
+            entity.add(type);
+            entity.add(stateCom);
+            entity.add(animCom);
+
+            // add the entity to the engine
+            engine.addEntity(entity);
+        }
 
     }
 
@@ -193,7 +260,7 @@ public class LevelFactory {
     public void createTiledMapEntities(String layer, int type) {
 
 
-            Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer);
+            Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer, BodyDef.BodyType.StaticBody);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -210,11 +277,6 @@ public class LevelFactory {
                 bodyFactory.makeAllFixturesSensors(body);
             }
 
-
-            //Sett hvilke type som er shootable
-            if (type == TypeComponent.GROUND){
-                typeCom.shootable = true;
-            }
 
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
@@ -238,11 +300,12 @@ public class LevelFactory {
         StateComponent stateCom = engine.createComponent(StateComponent.class);
 
         b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.25f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+
+
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
         bodyFactory.makeAllFixturesSensors(b2dbody.body); // make bullets sensors so they don't move player
         position.position.set(x,y,0);
 
-        //texture.region = bulletTex;
         Animation anim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("boomerang"), 8, 1));        anim.setPlayMode(Animation.PlayMode.LOOP);
         anim.setPlayMode(Animation.PlayMode.LOOP);
 
