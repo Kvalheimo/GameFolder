@@ -28,12 +28,17 @@ public class BodyFactory {
         this.world = world;
     }
 
+
     public static BodyFactory getInstance(World world){
         if (thisInstance == null){
             thisInstance = new BodyFactory(world);
+        }else{
+            thisInstance.world = world;
         }
         return thisInstance;
     }
+
+
 
     public FixtureDef makeFixture(int material, Shape shape){
         FixtureDef fixtureDef = new FixtureDef();
@@ -45,7 +50,7 @@ public class BodyFactory {
                 fixtureDef.friction = 0.0f;
                 fixtureDef.restitution = 0.0f;
             case 1:
-                fixtureDef.density = 1.0f;
+                fixtureDef.density = 100.0f;
                 fixtureDef.friction = 0.0f;
                 fixtureDef.restitution = 0.0f;
             case 2:
@@ -62,10 +67,9 @@ public class BodyFactory {
                 fixtureDef.restitution = 0.01f;
             default:
                 fixtureDef.density = 7f;
-                fixtureDef.friction = 0.5f;
-                fixtureDef.restitution = 0.3f;
+                fixtureDef.friction = 0.0f;
+                fixtureDef.restitution = 0.0f;
         }
-        //shape.dispose();
         return fixtureDef;
     }
 
