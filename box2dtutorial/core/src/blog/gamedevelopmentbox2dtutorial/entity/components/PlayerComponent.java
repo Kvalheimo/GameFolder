@@ -30,6 +30,9 @@ public class PlayerComponent implements Component, Pool.Poolable {
         onGround = false;
         runningRight = true;
         onWall = false;
+        speedX = false;
+        speedY = false;
+        jumpCounter = 0;
     }
 }
 
