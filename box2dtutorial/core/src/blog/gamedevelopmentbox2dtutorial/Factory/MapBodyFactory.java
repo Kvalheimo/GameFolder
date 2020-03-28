@@ -49,12 +49,14 @@ public class MapBodyFactory {
     public static MapBodyFactory getInstance(World world){
         if (thisInstance == null){
             thisInstance = new MapBodyFactory(world);
+        }else{
+            thisInstance.world = world;
         }
         return thisInstance;
     }
 
 
-    public static Array<Body> buildShapes(TiledMap map, World world, String layer) {
+    public static Array<Body> buildShapes(TiledMap map, World world, String layer, BodyDef.BodyType bodyType) {
 
         MapObjects objects = map.getLayers().get(layer).getObjects();
 
@@ -75,7 +77,7 @@ public class MapBodyFactory {
                 Rectangle rectangle = ((RectangleMapObject) object).getRectangle();
 
                 BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
+                bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
                 FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
@@ -91,7 +93,7 @@ public class MapBodyFactory {
                 shape = getPolygon((PolygonMapObject) object);
 
                 BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
+                bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
                 FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
@@ -102,7 +104,7 @@ public class MapBodyFactory {
                 shape = getPolyline((PolylineMapObject) object);
 
                 BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
+                bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
                 FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
@@ -119,7 +121,7 @@ public class MapBodyFactory {
 
 
                 BodyDef bodyDef = new BodyDef();
-                bodyDef.type = BodyDef.BodyType.StaticBody;
+                bodyDef.type = bodyType;
                 bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
