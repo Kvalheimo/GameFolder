@@ -12,4 +12,8 @@ public class Mapper {
     public static final ComponentMapper<TextureComponent> texCom = ComponentMapper.getFor(TextureComponent.class);
     public static final ComponentMapper<TransformComponent> transCom = ComponentMapper.getFor(TransformComponent.class);
     public static final ComponentMapper<TypeComponent> typeCom = ComponentMapper.getFor(TypeComponent.class);
+    public static final ComponentMapper<EnemyComponent> enemyCom = ComponentMapper.getFor(EnemyComponent.class);
+    public static final ComponentMapper<ParticleEffectComponent> paCom = ComponentMapper.getFor(ParticleEffectComponent.class);
+
+
 }
