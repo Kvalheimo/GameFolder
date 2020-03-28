@@ -18,12 +18,10 @@ public class TypeComponent implements Component, Pool.Poolable {
     public static final int OTHER = 11;
 
     public int type = OTHER;
-    public boolean shootable = false;
 
     @Override
     public void reset() {
         type = OTHER;
-        shootable = false;
     }
 
 
