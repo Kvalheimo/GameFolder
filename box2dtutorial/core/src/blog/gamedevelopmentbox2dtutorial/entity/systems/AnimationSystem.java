@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
@@ -30,23 +31,36 @@ public class AnimationSystem extends IteratingSystem {
         StateComponent state = Mapper.stateCom.get(entity);
         B2dBodyComponent b2body = Mapper.b2dCom.get(entity);
         PlayerComponent player = Mapper.playerCom.get(entity);
+        EnemyComponent enemy = Mapper.enemyCom.get(entity);
 
         if(ani.animations.containsKey(state.get())) {
             TextureComponent tex = Mapper.texCom.get(entity);
             tex.region = (TextureRegion) ani.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
 
-
+            //Handle player animation
             if(player != null) {
                 //if mario is running left and the texture isnt facing left... flip it.
-                if ((b2body.body.getLinearVelocity().x < -4 || !player.runningRight) && !tex.region.isFlipX()) {
+                if ((b2body.body.getLinearVelocity().x < -2 || !player.runningRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = false;
                 }
 
                 //if mario is running right and the texture isnt facing right... flip it.
-                else if ((b2body.body.getLinearVelocity().x > 4 || player.runningRight) && tex.region.isFlipX()) {
+                else if ((b2body.body.getLinearVelocity().x > 2 || player.runningRight) && tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = true;
+                }
+            }
+            //Handle enemy animation
+            else if(enemy != null) {
+                //if mario is running left and the texture isnt facing left... flip it.
+                if ((b2body.body.getLinearVelocity().x < -2 || !enemy.runningRight) && !tex.region.isFlipX()) {
+                    tex.region.flip(true, false);
+                }
+
+                //if mario is running right and the texture isnt facing right... flip it.
+                else if ((b2body.body.getLinearVelocity().x > 2 || enemy.runningRight) && tex.region.isFlipX()) {
+                    tex.region.flip(true, false);
                 }
             }
 
