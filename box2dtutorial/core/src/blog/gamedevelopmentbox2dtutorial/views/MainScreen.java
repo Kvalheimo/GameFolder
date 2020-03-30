@@ -7,9 +7,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
@@ -21,6 +21,8 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.AnimationSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.CollisionSystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.EnemySystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
@@ -38,50 +40,61 @@ public class MainScreen implements Screen {
     private OrthogonalTiledMapRenderer renderer;
     private LevelFactory levelFactory;
     private Hud hud;
+    private PauseMenu pauseMenu;
     private Entity player;
+    private boolean isPaused;
 
 
-    public MainScreen(Box2dTutorial box2dTutorial){
+    public MainScreen(Box2dTutorial box2dTutorial, int level){
+        isPaused = false;
+
         parent = box2dTutorial;
         engine = new PooledEngine();
-        levelFactory = new LevelFactory(engine, parent.assMan);
+        levelFactory = new LevelFactory(engine, parent);
 
         sb = new SpriteBatch();
 
-        controller = new Controller(sb, parent.assMan);
+        controller = new Controller(sb, parent, this);
+        pauseMenu = new PauseMenu(sb, parent, this);
         hud = new Hud(sb);
+
 
         // Create our new rendering system
         RenderingSystem renderingSystem = new RenderingSystem(sb);
-
         camera = renderingSystem.getCamera();
+        ParticleEffectSystem particleSystem = new ParticleEffectSystem(sb,camera);
+
         viewport = renderingSystem.getViewport();
 
-        renderer = new OrthogonalTiledMapRenderer(levelFactory.getMap(),1/Box2dTutorial.PPT, sb);
+        renderer = new OrthogonalTiledMapRenderer(levelFactory.getMap(level),1/Box2dTutorial.PPT, sb);
         renderer.setView(camera);
-        sb.setProjectionMatrix(camera.combined);
 
+        sb.setProjectionMatrix(camera.combined);
 
         engine.addSystem(new AnimationSystem());
         engine.addSystem(renderingSystem);
+        engine.addSystem(particleSystem);
         engine.addSystem(new PhysicsSystem(levelFactory.getWorld()));
         engine.addSystem(new PhysicsDebugSystem(levelFactory.getWorld(), renderingSystem.getCamera()));
-        engine.addSystem(new CollisionSystem());
+        engine.addSystem(new CollisionSystem(levelFactory));
         engine.addSystem(new PlayerControlSystem(controller, levelFactory));
         engine.addSystem(new BulletSystem());
+        engine.addSystem(new EnemySystem(camera));
+
 
 
         // create some game objects
         player = levelFactory.createPlayer(camera);
-        //levelFactory.createFloor();
-        levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND);
-        levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED);
-        levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING);
-        levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN);
-        levelFactory.createTiledMapEntities("Wall", TypeComponent.WALL);
-        levelFactory.createTiledMapEntities("Water", TypeComponent.GROUND);
-        levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X);
-        levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y);
+
+        levelFactory.createEnemies(level);
+        levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
+        levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED, level);
+        levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
+        levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN, level);
+        levelFactory.createTiledMapEntities("Wall", TypeComponent.WALL, level);
+        levelFactory.createTiledMapEntities("Water", TypeComponent.WATER, level);
+        levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
+        levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
 
 
     }
@@ -91,6 +104,7 @@ public class MainScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(controller.stage);
 
+
     }
 
     @Override
@@ -98,32 +112,60 @@ public class MainScreen implements Screen {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        camera.update();
-        renderer.setView(camera);
-        renderer.render();
+        if (!isPaused) {
+            Gdx.input.setInputProcessor(controller.getStage());
+            camera.update();
+            renderer.setView(camera);
+            renderer.render();
 
-        engine.update(dt);
+            engine.update(dt);
+            setProcessing(true);
 
-        sb.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.update(dt);
-        hud.draw();
-        controller.draw();
+            sb.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.update(dt);
+            hud.draw();
 
-       PlayerComponent pc = (player.getComponent(PlayerComponent.class));
-        if(pc.isDead) {
-            DFUtils.log("YOU DIED : back to menu you go!");
-            parent.lastScore = (int) pc.camera.position.x;
-            parent.changeScreen(Box2dTutorial.ENDGAME);
+            sb.setProjectionMatrix(controller.stage.getCamera().combined);
+            controller.draw();
+
+            PlayerComponent pc = (player.getComponent(PlayerComponent.class));
+            if (pc.isDead) {
+                DFUtils.log("YOU DIED : back to menu you go!");
+                parent.lastScore = (int) pc.camera.position.x;
+                parent.changeScreen(Box2dTutorial.ENDGAME);
+            }
+
+        } else {
+            Gdx.input.setInputProcessor(pauseMenu.getStage());
+
+            camera.update();
+            renderer.setView(camera);
+            renderer.render();
+
+            engine.update(dt);
+            setProcessing(false);
+
+            sb.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.draw();
+
+            sb.setProjectionMatrix(controller.stage.getCamera().combined);
+
+            pauseMenu.draw();
         }
+
     }
+
 
     @Override
     public void resize(int width, int height) {
         viewport.update(width,height,false);
         hud.resize(width, height);
         controller.resize(width, height);
+        pauseMenu.resize(width, height);
 
     }
+
+
 
     @Override
     public void pause() {
@@ -140,12 +182,28 @@ public class MainScreen implements Screen {
 
     }
 
+    public void pauseGame(boolean pause){
+        this.isPaused = pause;
+    }
+
+    public void setProcessing(boolean flag){
+        engine.getSystem(AnimationSystem.class).setProcessing(flag);
+        engine.getSystem(ParticleEffectSystem.class).setProcessing(flag);
+        engine.getSystem(PhysicsSystem.class).setProcessing(flag);
+        engine.getSystem(PlayerControlSystem.class).setProcessing(flag);
+        engine.getSystem(EnemySystem.class).setProcessing(flag);
+        engine.getSystem(CollisionSystem.class).setProcessing(flag);
+        engine.getSystem(BulletSystem.class).setProcessing(flag);
+
+    }
+
     @Override
     public void dispose() {
         renderer.dispose();
         engine.clearPools();
         hud.dispose();
         controller.dispose();
+        pauseMenu.dispose();
 
     }
 }
