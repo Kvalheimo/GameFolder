@@ -32,6 +32,13 @@ Y
   orig: 100, 100
   offset: 0, 0
   index: -1
+blob
+  rotate: false
+  xy: 516, 231
+  size: 27, 41
+  orig: 27, 41
+  offset: 0, 0
+  index: -1
 boomerang
   rotate: false
   xy: 2, 104
@@ -39,6 +46,27 @@ boomerang
   orig: 384, 48
   offset: 0, 0
   index: -1
+circle1
+  rotate: false
+  xy: 454, 80
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+circle3
+  rotate: false
+  xy: 516, 80
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+cloud_1
+  rotate: false
+  xy: 618, 288
+  size: 92, 86
+  orig: 92, 86
+  offset: 0, 0
+  index: 1
 explosion
   rotate: false
   xy: 2, 220
@@ -46,30 +74,65 @@ explosion
   orig: 512, 256
   offset: 0, 0
   index: -1
+explosion-1
+  rotate: false
+  xy: 104, 13
+  size: 90, 89
+  orig: 90, 89
+  offset: 0, 0
+  index: -1
+explosion-2
+  rotate: false
+  xy: 802, 399
+  size: 81, 77
+  orig: 81, 77
+  offset: 0, 0
+  index: -1
+explosion-3
+  rotate: false
+  xy: 278, 26
+  size: 74, 76
+  orig: 74, 76
+  offset: 0, 0
+  index: -1
+gore
+  rotate: false
+  xy: 885, 405
+  size: 59, 71
+  orig: 59, 71
+  offset: 0, 0
+  index: -1
 jumping
   rotate: false
-  xy: 186, 38
+  xy: 388, 76
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 104, 22
+  xy: 720, 396
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
+line
+  rotate: false
+  xy: 388, 142
+  size: 152, 10
+  orig: 152, 10
+  offset: 0, 0
+  index: -1
 normal
   rotate: false
-  xy: 720, 412
+  xy: 946, 412
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 618, 294
+  xy: 196, 22
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
