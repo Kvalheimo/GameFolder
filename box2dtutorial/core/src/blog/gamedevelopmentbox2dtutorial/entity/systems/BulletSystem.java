@@ -30,6 +30,8 @@ public class BulletSystem extends IteratingSystem {
 
         //check if bullet is dead
         if(bullet.isDead){
+            if (Mapper.paCom.get(bullet.particleEffect) != null)
+                Mapper.paCom.get(bullet.particleEffect).isDead = true;
             b2body.isDead = true;
         }
     }
