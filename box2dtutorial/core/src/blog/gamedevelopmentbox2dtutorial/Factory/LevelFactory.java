@@ -5,6 +5,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -13,15 +14,20 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.IntMap;
+
+import java.util.ArrayList;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
+import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
@@ -35,36 +41,50 @@ public class LevelFactory {
     private BodyFactory bodyFactory;
     private World world;
     private MapBodyFactory mapBodyFactory;
-    private TiledMap map;
+    private IntMap<TiledMap> maps;
     private TextureAtlas atlas;
     private B2dAssetManager assMan;
-    private TextureRegion floorTex;
-    private TextureRegion enemyTex;
-    private TextureRegion platformTex;
-    private TextureRegion playerTex;
-    private TextureRegion bulletTex;
+    private ParticleEffectManager peMan;
 
 
 
 
 
-    public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
+    public LevelFactory(PooledEngine engine, Box2dTutorial parent){
         this.engine = engine;
+        this.assMan = parent.assMan;
+
         world = new World(new Vector2(0,-20f), true);
         world.setContactListener(new Box2dContactListener());
-        this.assMan = assMan;
+
 
         bodyFactory = BodyFactory.getInstance(world);
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
-        atlas = assMan.manager.get("images/game.atlas");
-        map = assMan.manager.get("maps/level1.tmx", TiledMap.class);
+        atlas = parent.assMan.manager.get("images/game.atlas");
+        maps = new IntMap<TiledMap>();
 
-        //playerTex = atlas.findRegion("running");
-        //floorTex = atlas.findRegion("player");
-        //enemyTex = atlas.findRegion("enemy");
-        //platformTex = atlas.findRegion("platform");;
-        //bulletTex = DFUtils.makeTextureRegion(10,10,"444444FF");
+        peMan = new ParticleEffectManager();
+
+        loadMaps();
+        loadParticleEffects();
+
+
+
+    }
+
+    private void loadMaps(){
+        maps.put(1, assMan.manager.get("maps/level1.tmx", TiledMap.class));
+
+    }
+
+    private void loadParticleEffects(){
+        peMan.addParticleEffect(ParticleEffectManager.SMOKE, assMan.manager.get("particles/smoke.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.DUST, assMan.manager.get("particles/dust.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.EXPLOSION, assMan.manager.get("particles/explosion.p", ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.BLOOD, assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.WATER, assMan.manager.get("particles/water.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.SPLASH, assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
 
     }
 
@@ -133,10 +153,10 @@ public class LevelFactory {
 
 
 
-    public void createEnemies(){
+    public void createEnemies(int level){
 
 
-        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(map, world, "Enemy", BodyDef.BodyType.DynamicBody);
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Enemy", BodyDef.BodyType.DynamicBody);
 
         for (Body enemyBody: enemyBodies) {
 
@@ -215,7 +235,6 @@ public class LevelFactory {
         bodyCom.body = bodyFactory.makeBoxPolyBody(x, y, 52, 0.2f, BodyFactory.STONE, BodyDef.BodyType.StaticBody, true);
 
         // set object position (x,y,z) z used to define draw order 0 first drawn
-        texture.region = platformTex;
         type.type = TypeComponent.SCENERY;
 
         bodyCom.body.setUserData(entity);
@@ -230,37 +249,14 @@ public class LevelFactory {
 
     }
 
-    public void createFloor(){
-        // Create the Entity and all the components that will go in the entity
-        Entity entity = engine.createEntity();
-        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
-        TextureComponent texture = engine.createComponent(TextureComponent.class);
-        TypeComponent type = engine.createComponent(TypeComponent.class);
-
-        // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeBoxPolyBody(0, -3, 500, 1f, BodyFactory.STONE, BodyDef.BodyType.StaticBody, true);
-
-        // set object position (x,y,z) z used to define draw order 0 first drawn
-        texture.region = floorTex;
-        type.type = TypeComponent.SCENERY;
-
-        bodyCom.body.setUserData(entity);
-
-        // add the components to the entity
-        entity.add(bodyCom);
-        entity.add(texture);
-        entity.add(type);
-
-        // add the entity to the engine
-        engine.addEntity(entity);
-    }
 
 
 
-    public void createTiledMapEntities(String layer, int type) {
+
+    public void createTiledMapEntities(String layer, int type, int level) {
 
 
-            Array<Body> mapBodies = mapBodyFactory.buildShapes(map, world, layer, BodyDef.BodyType.StaticBody);
+            Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -275,6 +271,10 @@ public class LevelFactory {
             //Make superspeed and gun objects sensors
             if (type == TypeComponent.SUPER_SPEED || type == TypeComponent.GUN || type == TypeComponent.SPEED_X || type == TypeComponent.SPEED_Y){
                 bodyFactory.makeAllFixturesSensors(body);
+            }
+
+            if (type == TypeComponent.WATER){
+                //makeParticleEffect(ParticleEffectManager.WATER,body.getPosition().x, body.getPosition().y);
             }
 
 
@@ -317,6 +317,7 @@ public class LevelFactory {
         b2dbody.body.setUserData(entity);
         bul.xVel = xVel;
         bul.yVel = yVel;
+        bul.particleEffect = makeParticleEffect(ParticleEffectManager.SMOKE, b2dbody);
 
         entity.add(bul);
         entity.add(colComp);
@@ -331,8 +332,40 @@ public class LevelFactory {
         return entity;
     }
 
-    public TiledMap getMap(){
-        return map;
+
+    public Entity makeParticleEffect(int type, float x, float y){
+        Entity entPE = engine.createEntity();
+        ParticleEffectComponent pec = engine.createComponent(ParticleEffectComponent.class);
+        pec.particleEffect = peMan.getPooledParticleEffect(type);
+        pec.particleEffect.setPosition(x, y);
+        entPE.add(pec);
+        engine.addEntity(entPE);
+        return entPE;
+    }
+
+
+    public Entity makeParticleEffect(int type, B2dBodyComponent b2dbody){
+        return makeParticleEffect(type,b2dbody,0,0);
+    }
+
+
+    public Entity makeParticleEffect(int type, B2dBodyComponent b2dbody, float xOffset, float yOffset){
+        Entity entPE = engine.createEntity();
+        ParticleEffectComponent pec = engine.createComponent(ParticleEffectComponent.class);
+        pec.particleEffect = peMan.getPooledParticleEffect(type);
+        pec.particleEffect.setPosition(b2dbody.body.getPosition().x, b2dbody.body.getPosition().y);
+        pec.particleEffect.getEmitters().first().setAttached(true); //manually attach for testing
+        pec.xOffset = xOffset;
+        pec.yOffset = yOffset;
+        pec.isAttached = true;
+        pec.attachedBody = b2dbody.body;
+        entPE.add(pec);
+        engine.addEntity(entPE);
+        return entPE;
+    }
+
+    public TiledMap getMap(int level){
+        return maps.get(level);
     }
 
     public World getWorld(){
