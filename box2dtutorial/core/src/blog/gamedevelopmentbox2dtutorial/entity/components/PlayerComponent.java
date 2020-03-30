@@ -1,6 +1,7 @@
 package blog.gamedevelopmentbox2dtutorial.entity.components;
 
 import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.Pool;
 
@@ -16,6 +17,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public boolean speedX = false;
     public boolean speedY = false;
     public int jumpCounter = 0;
+    public Entity particleEffect;
 
 
 
@@ -33,6 +35,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
         speedX = false;
         speedY = false;
         jumpCounter = 0;
+        particleEffect = null;
     }
 }
 
