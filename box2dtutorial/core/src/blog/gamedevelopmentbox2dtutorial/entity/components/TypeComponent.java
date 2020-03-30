@@ -11,11 +11,12 @@ public class TypeComponent implements Component, Pool.Poolable {
     public static final int GROUND = 4;
     public static final int GUN = 5;
     public static final int SPRING = 6;
-    public static  final int BULLET = 7;
-    public static  final int WALL = 8;
-    public static  final int SPEED_X = 9;
-    public static  final int SPEED_Y = 10;
-    public static final int OTHER = 11;
+    public static final int BULLET = 7;
+    public static final int WALL = 8;
+    public static final int SPEED_X = 9;
+    public static final int SPEED_Y = 10;
+    public static final int WATER = 11;
+    public static final int OTHER = 12;
 
     public int type = OTHER;
 
