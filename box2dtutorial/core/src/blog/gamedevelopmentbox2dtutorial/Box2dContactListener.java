@@ -11,6 +11,7 @@ import com.badlogic.ashley.core.Entity;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 
 
+
 public class Box2dContactListener implements ContactListener{
 
     public Box2dContactListener(){
@@ -56,7 +57,6 @@ public class Box2dContactListener implements ContactListener{
 
     @Override
     public void endContact(Contact contact) {
-        System.out.println("Contact end");
 
     }
 
