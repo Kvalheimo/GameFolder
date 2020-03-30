@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
+import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
+import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
@@ -14,12 +16,12 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 
 public class CollisionSystem extends IteratingSystem {
-
+    private LevelFactory levelFactory;
 
     @SuppressWarnings("unchecked")
-    public CollisionSystem() {
-        // only need to worry about player collisions
+    public CollisionSystem(LevelFactory levelFactory) {
         super(Family.all(CollisionComponent.class).get());
+        this.levelFactory = levelFactory;
 
 
     }
@@ -80,6 +82,10 @@ public class CollisionSystem extends IteratingSystem {
                             Mapper.playerCom.get(entity).speedY = true;
                             System.out.println("player hit speedY");
                             break;
+                        case TypeComponent.WATER:
+                            System.out.println("player hit water");
+                            //levelFactory.makeParticleEffect(ParticleEffectManager.SPLASH, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+                            break;
                         case TypeComponent.OTHER:
                             //do player hit scenery thing
                             System.out.println("player hit other");
@@ -101,11 +107,13 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.GROUND:
                             //do player hit ground thing
                             System.out.println("bullet hit ground");
+                            //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
                             break; //technically this isn't needed
                         case TypeComponent.WALL:
                             //do player hit wall thing
                             System.out.println("bullet hit wall");
+                            //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
                             break; //technically this isn't needed
                         default:
@@ -129,6 +137,10 @@ public class CollisionSystem extends IteratingSystem {
                             //do player hit enemy thing
                             System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).isDead = true;
+
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+                            //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+
                             Mapper.bulletCom.get(collidedEntity).isDead = true;
                             break;
                         case TypeComponent.WALL:
