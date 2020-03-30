@@ -71,15 +71,6 @@ public class LoadingScreen implements Screen{
         flameAnimation = new Animation(0.07f, atlas.findRegions("flames/flames"), Animation.PlayMode.LOOP);
     }
 
-    /*
-    private void drawLoadingBar(int stage, TextureRegion currentFrame){
-        for(int i = 0; i < stage;i++){
-            sb.draw(currentFrame, 50 + (i * 50), 150, 50, 50);
-            sb.draw(dash, 35 + (i * 50), 140, 80, 80);
-        }
-    }
-
-     */
 
 
     @Override
