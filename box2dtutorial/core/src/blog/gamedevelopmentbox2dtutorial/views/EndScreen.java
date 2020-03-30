@@ -24,7 +24,7 @@ import blog.gamedevelopmentbox2dtutorial.DFUtils;
 public class EndScreen implements Screen {
 
     private Box2dTutorial parent;
-    private Skin skin;
+    private Skin skin1, skin2, skin3;
     private Stage stage;
     private TextureAtlas atlas;
     private AtlasRegion background;
@@ -36,12 +36,14 @@ public class EndScreen implements Screen {
     @Override
     public void show() {
         // get skin
-        skin = parent.assMan.manager.get("skin/glassy-ui.json");
+        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
+        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
+        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
         atlas = parent.assMan.manager.get("images/loading.atlas");
         background = atlas.findRegion("flamebackground");
 
         // create button to go back to manu
-        TextButton menuButton = new TextButton("Back", skin, "small");
+        TextButton menuButton = new TextButton("Back", skin2, "small");
 
         // create button listener
         menuButton.addListener(new ChangeListener() {
@@ -63,12 +65,12 @@ public class EndScreen implements Screen {
         table.setBackground(new TiledDrawable(background));
 
         //create a Labels showing the score and some credits
-        Label labelScore = new Label("You score was "+parent.lastScore+" Meters", skin);
-        Label labelCredits = new Label("Credits:", skin);
-        Label labelCredits1 = new Label("Game Design by", skin);
-        Label labelCredits2 = new Label("gamedevelopment.blog", skin);
-        Label labelCredits3 = new Label("Art Design by", skin);
-        Label labelCredits4 = new Label("Random stuff off the internet", skin);
+        Label labelScore = new Label("You score was "+parent.lastScore+" Meters", skin2);
+        Label labelCredits = new Label("Credits:", skin2);
+        Label labelCredits1 = new Label("Game Design by", skin2);
+        Label labelCredits2 = new Label("gamedevelopment.blog", skin2);
+        Label labelCredits3 = new Label("Art Design by", skin2);
+        Label labelCredits4 = new Label("Random stuff off the internet", skin2);
 
         // add items to table
         table.add(labelScore).colspan(2);
