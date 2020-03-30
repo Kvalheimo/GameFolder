@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
+import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
@@ -59,13 +60,10 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         /*
-        if (b2body.body.getLinearVelocity().x == 0 && state.get() == StateComponent.STATE_MOVING){
+        if (b2body.body.getLinearVelocity().y == 0  && state.get() == StateComponent.STATE_MOVING){
             state.set(StateComponent.STATE_NORMAL);
         }
-
          */
-
-
 
 
         //Control max speed and set value if too high (superspeed)
@@ -83,8 +81,6 @@ public class PlayerControlSystem extends IteratingSystem{
             b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
             player.onWall = false;
         }
-
-
 
 
         //Movement
@@ -143,10 +139,11 @@ public class PlayerControlSystem extends IteratingSystem{
 
             player.onGround = false;
             player.onSpring = false;
+            controller.setAPressed(false);
         }
 
 
-        if(player.onGround){
+        if(player.onGround || b2body.body.getLinearVelocity().y == 0){
             player.jumpCounter = 0;
         }
 
@@ -163,6 +160,8 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (controller.isYPressed() && player.superSpeed){
             b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            //add particle effect at feet
+            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.DUST, b2body);
             player.superSpeed = false;
 
         }
@@ -180,10 +179,6 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
-        if (b2body.body.getPosition().y < -2){
-            player.isDead = true;
-
-        }
 
         if (player.speedX){
             //b2body.body.setLinearVelocity(100f, 0f);
@@ -197,6 +192,12 @@ public class PlayerControlSystem extends IteratingSystem{
             player.speedY = false;
         }
 
+
+        if (b2body.body.getPosition().y < -2){
+            if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
+                Mapper.paCom.get(player.particleEffect).isDead = true;
+            player.isDead = true;
+        }
 
 
     }
