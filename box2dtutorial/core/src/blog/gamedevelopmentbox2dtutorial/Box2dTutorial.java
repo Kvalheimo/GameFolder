@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
 import blog.gamedevelopmentbox2dtutorial.views.EndScreen;
+import blog.gamedevelopmentbox2dtutorial.views.LevelSelectionScreen;
 import blog.gamedevelopmentbox2dtutorial.views.LoadingScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MenuScreen;
@@ -21,6 +22,7 @@ public class Box2dTutorial extends Game {
 	private MenuScreen menuScreen;
 	private MainScreen mainScreen;
 	private EndScreen endScreen;
+	private LevelSelectionScreen levelSelectionScreen;
 	private AppPreferences preferences;
 	public B2dAssetManager assMan = new B2dAssetManager();
 	private Music playingSong;
@@ -29,6 +31,7 @@ public class Box2dTutorial extends Game {
 	public final static int PREFERENCES = 1;
 	public final static int APPLICATION = 2;
 	public final static int ENDGAME = 3;
+	public final static int LEVEL_SELECTION = 4;
 
 	public int lastScore = 0;
 
@@ -37,10 +40,16 @@ public class Box2dTutorial extends Game {
 		super();
 	}
 
-	public void changeScreen(int screen){
+	public void changeScreen(int screen) {
+		changeScreen(screen, false, 0 );
+	}
+
+
+	public void changeScreen(int screen, boolean newGame, int level){
 		switch(screen){
 			case MENU:
 				if(menuScreen == null) menuScreen = new MenuScreen(this);
+				mainScreen = null;
 				this.setScreen(menuScreen);
 				break;
 			case PREFERENCES:
@@ -48,16 +57,21 @@ public class Box2dTutorial extends Game {
 				this.setScreen(preferencesScreen);
 				break;
 			case APPLICATION:
-				// always make new game screen so game can't start midway
-				mainScreen = new MainScreen(this);
-				this.setScreen(mainScreen);
+				if (newGame) mainScreen = new MainScreen(this, level);
+				setScreen(mainScreen);
 				break;
 			case ENDGAME:
 				if(endScreen == null) endScreen = new EndScreen(this);
 				this.setScreen(endScreen);
 				break;
+			case LEVEL_SELECTION:
+				if(levelSelectionScreen == null) levelSelectionScreen = new LevelSelectionScreen(this);
+				this.setScreen(levelSelectionScreen);
+				break;
 		}
+
 	}
+
 
 
 	public AppPreferences getPreferences(){
@@ -79,6 +93,10 @@ public class Box2dTutorial extends Game {
 
 	}
 
+	public MainScreen getMainScreen(){
+		return mainScreen;
+	}
+
 
 	@Override
 	public void dispose() {
@@ -86,5 +104,6 @@ public class Box2dTutorial extends Game {
 		assMan.manager.dispose();
 		super.dispose();
 	}
+
 }
 
