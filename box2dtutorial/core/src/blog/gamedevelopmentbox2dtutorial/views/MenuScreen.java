@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
@@ -21,7 +22,7 @@ public class MenuScreen implements Screen {
 
     private Box2dTutorial parent;
     private Stage stage;
-    private Skin skin;
+    private Skin skin1, skin2, skin3;
     private TextureAtlas.AtlasRegion background;
     private TextureAtlas atlas;
 
@@ -31,8 +32,6 @@ public class MenuScreen implements Screen {
 
         loadAssets();
 
-
-
     }
 
     private void loadAssets(){
@@ -41,7 +40,11 @@ public class MenuScreen implements Screen {
 
         // Get images to display loading progress
         atlas = parent.assMan.manager.get("images/loading.atlas");
-        skin = parent.assMan.manager.get("skin/glassy-ui.json");
+        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
+        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
+        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
+
+
         background = atlas.findRegion("flamebackground");
 
     }
@@ -58,9 +61,10 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
         // Create text buttons
-        final TextButton newGame = new TextButton("New Game", skin);
-        final TextButton preferences = new TextButton("Preferences", skin);
-        final TextButton exit = new TextButton("Exit", skin);
+        final TextButton newGame = new TextButton("New Game", skin2);
+        final TextButton preferences = new TextButton("Preferences", skin2);
+        final TextButton exit = new TextButton("Exit", skin2);
+
 
         // Add buttons to table
         table.add(newGame).fillX().uniformX();
@@ -81,7 +85,7 @@ public class MenuScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.APPLICATION);
+                parent.changeScreen(Box2dTutorial.LEVEL_SELECTION);
             }
         });
 
