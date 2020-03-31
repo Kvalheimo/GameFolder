@@ -38,7 +38,8 @@ public class B2dAssetManager {
     public final String loadingImages = "images/loading.atlas";
 
     // Maps
-    public final String map = "maps/level1.tmx";
+    //public final String map = "maps/level1.tmx";
+    public final String map = "maps/level_test.tmx";
 
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";

@@ -25,7 +25,7 @@ public class LoadingScreen implements Screen{
     public final int MUSIC = 4;		// loading music
 
     // timer for exiting loading screen
-    public float countDown = 5f; // 5 seconds of waiting before menu screen
+    public float countDown = 1f; // 5 seconds of waiting before menu screen
 
     private Box2dTutorial parent;
     private TextureAtlas atlas;

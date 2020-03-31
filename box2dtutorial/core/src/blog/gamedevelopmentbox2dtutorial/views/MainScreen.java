@@ -56,7 +56,7 @@ public class MainScreen implements Screen {
 
         controller = new Controller(sb, parent, this);
         pauseMenu = new PauseMenu(sb, parent, this);
-        hud = new Hud(sb);
+        hud = new Hud(sb, (int) levelFactory.getFinishPosition());
 
 
         // Create our new rendering system
@@ -122,7 +122,7 @@ public class MainScreen implements Screen {
             setProcessing(true);
 
             sb.setProjectionMatrix(hud.stage.getCamera().combined);
-            hud.update(dt);
+            hud.update(dt, (int) camera.position.x*Box2dTutorial.PPM);
             hud.draw();
 
             sb.setProjectionMatrix(controller.stage.getCamera().combined);
@@ -135,23 +135,26 @@ public class MainScreen implements Screen {
                 parent.changeScreen(Box2dTutorial.ENDGAME);
             }
 
-        } else {
-            Gdx.input.setInputProcessor(pauseMenu.getStage());
+            } else {
+                Gdx.input.setInputProcessor(pauseMenu.getStage());
+                sb.setProjectionMatrix(hud.stage.getCamera().combined);
+                hud.draw();
+                controller.draw();
 
-            camera.update();
-            renderer.setView(camera);
-            renderer.render();
+                camera.update();
+                renderer.setView(camera);
+                renderer.render();
 
-            engine.update(dt);
-            setProcessing(false);
+                engine.update(dt);
+                setProcessing(false);
 
-            sb.setProjectionMatrix(hud.stage.getCamera().combined);
-            hud.draw();
+                sb.setProjectionMatrix(hud.stage.getCamera().combined);
+                hud.draw();
 
-            sb.setProjectionMatrix(controller.stage.getCamera().combined);
+                sb.setProjectionMatrix(controller.stage.getCamera().combined);
 
-            pauseMenu.draw();
-        }
+                pauseMenu.draw();
+            }
 
     }
 

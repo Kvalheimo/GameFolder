@@ -8,7 +8,17 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
@@ -17,6 +27,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
 import java.util.ArrayList;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
@@ -49,6 +60,14 @@ public class LevelFactory {
 
 
 
+    private int mapPixelWidth;
+    private int mapTileWidth;
+
+
+    private float finishPosition;
+
+
+
 
     public LevelFactory(PooledEngine engine, Box2dTutorial parent){
         this.engine = engine;
@@ -63,6 +82,28 @@ public class LevelFactory {
 
         atlas = parent.assMan.manager.get("images/game.atlas");
         maps = new IntMap<TiledMap>();
+        map = maps.get(1);
+
+        //finds the position of finish line
+        MapLayers var1 = map.getLayers();
+        MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
+        for (MapObject mapObject : var2.getObjects()){
+            if (mapObject instanceof RectangleMapObject) {
+                    if(mapObject.getName().equals("Finish")){
+                        finishPosition = ((RectangleMapObject) mapObject).getRectangle().getX() ;
+                        break;}
+                }
+            else{
+                System.out.println("No finish added in tiled map.");
+            }
+        }
+
+
+
+
+
+
+
 
         peMan = new ParticleEffectManager();
 
@@ -371,5 +412,10 @@ public class LevelFactory {
     public World getWorld(){
         return world;
     }
+
+    public float getFinishPosition() {
+        return finishPosition;
+    }
+
 
 }
