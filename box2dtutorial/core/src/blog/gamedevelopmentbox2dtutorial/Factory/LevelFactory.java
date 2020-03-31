@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
@@ -82,7 +83,7 @@ public class LevelFactory {
 
         atlas = parent.assMan.manager.get("images/game.atlas");
         maps = new IntMap<TiledMap>();
-        map = maps.get(1);
+        Map map = maps.get(1);
 
         //finds the position of finish line
         MapLayers var1 = map.getLayers();
