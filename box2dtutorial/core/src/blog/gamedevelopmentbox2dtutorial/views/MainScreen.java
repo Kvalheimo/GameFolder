@@ -122,7 +122,7 @@ public class MainScreen implements Screen {
             setProcessing(true);
 
             sb.setProjectionMatrix(hud.stage.getCamera().combined);
-            hud.update(dt, (int) camera.position.x*Box2dTutorial.PPM);
+            hud.update(dt, (int)(camera.position.x*Box2dTutorial.PPM));
             hud.draw();
 
             sb.setProjectionMatrix(controller.stage.getCamera().combined);
