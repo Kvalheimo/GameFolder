@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="108">
+<map version="1.2" tiledversion="2020.03.18" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="109">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="9" name="Background" width="12000" height="50">
   <data encoding="base64" compression="zlib">
@@ -120,6 +120,9 @@
  </objectgroup>
  <objectgroup id="6" name="Spring">
   <object id="84" x="1135.71" y="351.742" width="32.172" height="0.946349"/>
+ </objectgroup>
+ <objectgroup id="16" name="Finish">
+  <object id="108" name="finished" x="4122.79" y="515.622" width="24.0332" height="28.4029"/>
  </objectgroup>
  <objectgroup id="7" name="Gun">
   <object id="1" x="723.647" y="242.916" width="23.6342" height="23.0302"/>
