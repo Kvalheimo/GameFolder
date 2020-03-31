@@ -49,7 +49,7 @@ public class MainScreen implements Screen {
         sb = new SpriteBatch();
 
         controller = new Controller(sb, parent.assMan);
-        hud = new Hud(sb);
+        hud = new Hud(sb, (int) levelFactory.getFinishPosition());
 
         // Create our new rendering system
         RenderingSystem renderingSystem = new RenderingSystem(sb);
@@ -105,7 +105,7 @@ public class MainScreen implements Screen {
         engine.update(dt);
 
         sb.setProjectionMatrix(hud.stage.getCamera().combined);
-        hud.update(dt);
+        hud.update(dt, (int) camera.position.x*4*16);
         hud.draw();
         controller.draw();
 

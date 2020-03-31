@@ -7,12 +7,23 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapLayers;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
+import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
+import com.badlogic.gdx.maps.tiled.TiledMapTile;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
+import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.ObjectMap;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
@@ -46,6 +57,14 @@ public class LevelFactory {
 
 
 
+    private int mapPixelWidth;
+    private int mapTileWidth;
+
+
+    private float finishPosition;
+
+
+
 
     public LevelFactory(PooledEngine engine, B2dAssetManager assMan){
         this.engine = engine;
@@ -57,7 +76,28 @@ public class LevelFactory {
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
         atlas = assMan.manager.get("images/game.atlas");
-        map = assMan.manager.get("maps/level1.tmx", TiledMap.class);
+        map = assMan.manager.get("maps/level_test.tmx", TiledMap.class);
+
+        //finds the position of finish line
+        MapLayers var1 = map.getLayers();
+        MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
+        for (MapObject mapObject : var2.getObjects()){
+            if (mapObject instanceof RectangleMapObject) {
+                    if(mapObject.getName().equals("Finish")){
+                        finishPosition = ((RectangleMapObject) mapObject).getRectangle().getX() ;
+                        break;}
+                }
+            else{
+                System.out.println("No finish added in tiled map.");
+            }
+        }
+
+
+
+
+
+
+
 
         //playerTex = atlas.findRegion("running");
         //floorTex = atlas.findRegion("player");
@@ -275,5 +315,10 @@ public class LevelFactory {
     public World getWorld(){
         return world;
     }
+
+    public float getFinishPosition() {
+        return finishPosition;
+    }
+
 
 }
