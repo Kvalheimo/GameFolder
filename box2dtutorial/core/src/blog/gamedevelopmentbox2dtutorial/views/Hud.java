@@ -117,7 +117,7 @@ public class Hud implements Disposable {
         //How far the player is away from the finish line.
         percentage = (float) playerPosition/mapPixelWidth;
         table2.clear();
-        table2.add(player).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage).padTop(10+player.getHeight());
+        table2.add(player).padTop(10+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
     }
 
     private void addScore(float count){

@@ -92,7 +92,7 @@ public class LevelFactory {
         MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
         for (MapObject mapObject : var2.getObjects()){
             if (mapObject instanceof RectangleMapObject) {
-                    if(mapObject.getName().equals("Finish")){
+                    if(mapObject.getName().equals("finished")){
                         finishPosition = ((RectangleMapObject) mapObject).getRectangle().getX() ;
                         break;}
                 }
