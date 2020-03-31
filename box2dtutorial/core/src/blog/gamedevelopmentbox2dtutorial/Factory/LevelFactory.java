@@ -81,9 +81,11 @@ public class LevelFactory {
         bodyFactory = BodyFactory.getInstance(world);
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
+
         atlas = parent.assMan.manager.get("images/game.atlas");
         maps = new IntMap<TiledMap>();
-        Map map = maps.get(1);
+        loadMaps();
+        TiledMap map = maps.get(1);
 
         //finds the position of finish line
         MapLayers var1 = map.getLayers();
@@ -108,8 +110,8 @@ public class LevelFactory {
 
         peMan = new ParticleEffectManager();
 
-        loadMaps();
         loadParticleEffects();
+
 
 
 
