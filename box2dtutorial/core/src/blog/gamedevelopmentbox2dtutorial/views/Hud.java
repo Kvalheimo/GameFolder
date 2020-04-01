@@ -72,7 +72,7 @@ public class Hud implements Disposable {
         timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
         Image Minimap = new Image(new Texture("minimap/minimap.png"));
-        player = new Image(new Texture("minimap/player.png"));
+        player = new Image(new Texture("minimap/ball.png"));
         minimapWidth =Minimap.getWidth();
 
         table.add(scoreHeadingLabel).expandX().padTop(10);
@@ -83,7 +83,7 @@ public class Hud implements Disposable {
         table.add(timeLabel).expandX();
         stage.addActor(table);
 
-        table2.add(player).padRight(minimapWidth-player.getWidth()+35).padTop(10+player.getHeight());
+        table2.add(player).padRight(minimapWidth-player.getWidth()+35).padTop(30+player.getHeight());
         stage.addActor(table2);
 
 
@@ -117,7 +117,7 @@ public class Hud implements Disposable {
         //How far the player is away from the finish line.
         percentage = (float) playerPosition/mapPixelWidth;
         table2.clear();
-        table2.add(player).padTop(10+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
+        table2.add(player).padTop(30+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
     }
 
     private void addScore(float count){
