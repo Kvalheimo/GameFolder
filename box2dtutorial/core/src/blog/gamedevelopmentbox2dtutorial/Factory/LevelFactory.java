@@ -55,10 +55,8 @@ public class LevelFactory {
     private MapBodyFactory mapBodyFactory;
     private IntMap<TiledMap> maps;
     private TextureAtlas atlas;
-    private B2dAssetManager assMan;
+    private Box2dTutorial parent;
     private ParticleEffectManager peMan;
-
-
 
 
     private int mapPixelWidth;
@@ -72,19 +70,20 @@ public class LevelFactory {
 
     public LevelFactory(PooledEngine engine, Box2dTutorial parent){
         this.engine = engine;
-        this.assMan = parent.assMan;
+        this.parent = parent;
 
         world = new World(new Vector2(0,-20f), true);
         world.setContactListener(new Box2dContactListener());
 
-
         bodyFactory = BodyFactory.getInstance(world);
         mapBodyFactory = MapBodyFactory.getInstance(world);
 
-
         atlas = parent.assMan.manager.get("images/game.atlas");
-        maps = new IntMap<TiledMap>();
+
+        loadParticleEffects();
         loadMaps();
+
+
         TiledMap map = maps.get(1);
 
         //finds the position of finish line
@@ -92,7 +91,7 @@ public class LevelFactory {
         MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
         for (MapObject mapObject : var2.getObjects()){
             if (mapObject instanceof RectangleMapObject) {
-                    if(mapObject.getName().equals("Finish")){
+                    if(mapObject.getName().equals("finished")){
                         finishPosition = ((RectangleMapObject) mapObject).getRectangle().getX() ;
                         break;}
                 }
@@ -106,29 +105,22 @@ public class LevelFactory {
 
 
 
-
-
-        peMan = new ParticleEffectManager();
-
-        loadParticleEffects();
-
-
-
-
     }
 
     private void loadMaps(){
-        maps.put(1, assMan.manager.get("maps/level1.tmx", TiledMap.class));
+        maps = new IntMap<TiledMap>();
+        maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
 
     }
 
     private void loadParticleEffects(){
-        peMan.addParticleEffect(ParticleEffectManager.SMOKE, assMan.manager.get("particles/smoke.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.DUST, assMan.manager.get("particles/dust.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.EXPLOSION, assMan.manager.get("particles/explosion.p", ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.BLOOD, assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.WATER, assMan.manager.get("particles/water.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.SPLASH, assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan = new ParticleEffectManager();
+        peMan.addParticleEffect(ParticleEffectManager.SMOKE, parent.assMan.manager.get("particles/smoke.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.DUST, parent.assMan.manager.get("particles/dust.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.EXPLOSION, parent.assMan.manager.get("particles/explosion.p", ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.BLOOD, parent.assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.WATER, parent.assMan.manager.get("particles/water.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.SPLASH, parent.assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
 
     }
 
@@ -409,7 +401,7 @@ public class LevelFactory {
     }
 
     public TiledMap getMap(int level){
-        return maps.get(level);
+        return maps.get(1);
     }
 
     public World getWorld(){
