@@ -15,6 +15,7 @@ import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
@@ -43,10 +44,13 @@ public class MainScreen implements Screen {
     private PauseMenu pauseMenu;
     private Entity player;
     private boolean isPaused;
+    private int level;
 
 
     public MainScreen(Box2dTutorial box2dTutorial, int level){
         isPaused = false;
+        this.level = level;
+
 
         parent = box2dTutorial;
         engine = new PooledEngine();
@@ -56,7 +60,7 @@ public class MainScreen implements Screen {
 
         controller = new Controller(sb, parent, this);
         pauseMenu = new PauseMenu(sb, parent, this);
-        hud = new Hud(sb, (int) levelFactory.getFinishPosition());
+        hud = new Hud(sb, (int) levelFactory.getFinishPosition(), parent);
 
 
         // Create our new rendering system
@@ -131,17 +135,14 @@ public class MainScreen implements Screen {
             PlayerComponent pc = (player.getComponent(PlayerComponent.class));
             if (pc.isDead) {
                 DFUtils.log("YOU DIED : back to menu you go!");
-                parent.lastScore = (int) pc.camera.position.x;
-                parent.changeScreen(Box2dTutorial.ENDGAME);
+                Save.hsd.get(level).setTentativeScore(hud.getScore());
+                parent.changeScreen(Box2dTutorial.ENDGAME, false, level);
             }
 
             } else {
                 Gdx.input.setInputProcessor(pauseMenu.getStage());
-                sb.setProjectionMatrix(hud.stage.getCamera().combined);
-                hud.draw();
-                controller.draw();
-
                 camera.update();
+
                 renderer.setView(camera);
                 renderer.render();
 
@@ -151,7 +152,8 @@ public class MainScreen implements Screen {
                 sb.setProjectionMatrix(hud.stage.getCamera().combined);
                 hud.draw();
 
-                sb.setProjectionMatrix(controller.stage.getCamera().combined);
+                //sb.setProjectionMatrix(controller.stage.getCamera().combined);
+                //controller.draw();
 
                 pauseMenu.draw();
             }
