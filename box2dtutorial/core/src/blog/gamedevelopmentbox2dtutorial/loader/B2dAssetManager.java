@@ -15,6 +15,8 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 
 public class B2dAssetManager {
+    ParticleEffectLoader.ParticleEffectParameter pep;
+
 
     public final AssetManager manager = new AssetManager();
 
@@ -38,7 +40,6 @@ public class B2dAssetManager {
     public final String loadingImages = "images/loading.atlas";
 
     // Maps
-    //public final String map = "maps/level1.tmx";
     public final String map = "maps/level1.tmx";
 
     // Particle Effects
@@ -50,6 +51,9 @@ public class B2dAssetManager {
     public final String splashEffect = "particles/splash.p";
 
 
+    public B2dAssetManager(){
+        pep = new ParticleEffectLoader.ParticleEffectParameter();
+    }
 
 
     public void queueAddSounds(){
@@ -91,14 +95,35 @@ public class B2dAssetManager {
     }
 
     public void queueAddParticleEffects(){
-        ParticleEffectLoader.ParticleEffectParameter pep = new ParticleEffectLoader.ParticleEffectParameter();
-        pep.atlasFile = "images/game.atlas";
+        pep.atlasFile = gameImages;
         manager.load(smokeEffect, ParticleEffect.class, pep);
         manager.load(dustEffect, ParticleEffect.class, pep);
         manager.load(explosionEffect, ParticleEffect.class, pep);
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
         manager.load(splashEffect, ParticleEffect.class, pep);
+
+    }
+
+    public void resetParticleEffects(){
+        //unload particle effects
+        manager.unload(smokeEffect);
+        manager.unload(dustEffect);
+        manager.unload(explosionEffect);
+        manager.unload(bloodEffect);
+        manager.unload(waterEffect);
+        manager.unload(splashEffect);
+
+        //load particle effects
+        pep = new ParticleEffectLoader.ParticleEffectParameter();
+        pep.atlasFile = gameImages;
+        manager.load(smokeEffect, ParticleEffect.class, pep);
+        manager.load(dustEffect, ParticleEffect.class, pep);
+        manager.load(explosionEffect, ParticleEffect.class, pep);
+        manager.load(bloodEffect, ParticleEffect.class, pep);
+        manager.load(waterEffect, ParticleEffect.class, pep);
+        manager.load(splashEffect, ParticleEffect.class, pep);
+        manager.finishLoading();
 
     }
 
