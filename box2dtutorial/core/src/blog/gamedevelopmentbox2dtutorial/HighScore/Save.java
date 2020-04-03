@@ -70,12 +70,7 @@ public class Save {
     public static void load(int level) {
         try {
             if(!saveFileExists(level)) {
-                System.out.println(level);
-                System.out.println("file doenst exist");
                 init(level);
-            }else{
-                DFUtils.log("File exsists");
-
             }
 
             switch (level) {
@@ -154,8 +149,6 @@ public class Save {
     public static void init(int level) {
         HighScoreData data = new HighScoreData();
         data.init();
-
-        DFUtils.log("level" + level + "init");
         hsd.put(level, data);
         save(level);
     }
