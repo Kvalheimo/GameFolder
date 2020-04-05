@@ -17,7 +17,7 @@ android {
         exclude 'META-INF/robovm/ios/robovm.xml'
     }
     defaultConfig {
-        applicationId "com.platformer.game"
+        applicationId "blog.gamedevelopmentbox2dtutorial"
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
@@ -86,7 +86,5 @@ task run(type: Exec) {
     }
 
     def adb = path + "/platform-tools/adb"
-    commandLine "$adb", 'shell', 'am', 'start', '-n', 'com.platformer.game/com.platformer.game.AndroidLauncher'
+    commandLine "$adb", 'shell', 'am', 'start', '-n', 'blog.gamedevelopmentbox2dtutorial/blog.gamedevelopmentbox2dtutorial.AndroidLauncher'
 }
-
-eclipse.project.name = appName + "-android"
