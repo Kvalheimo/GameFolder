@@ -8,6 +8,7 @@ import javax.naming.ldap.Control;
 
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+import blog.gamedevelopmentbox2dtutorial.views.CharacterSelectionScreen;
 import blog.gamedevelopmentbox2dtutorial.views.EndScreen;
 import blog.gamedevelopmentbox2dtutorial.views.HighScoreScreen;
 import blog.gamedevelopmentbox2dtutorial.views.Hud;
@@ -28,6 +29,7 @@ public class Box2dTutorial extends Game {
 	private MainScreen mainScreen;
 	private EndScreen endScreen;
 	private LevelSelectionScreen levelSelectionScreen;
+	private CharacterSelectionScreen characterSelectionScreen;
 	private HighScoreScreen highScoreScreen;
 	public B2dAssetManager assMan;
 	private AppPreferences preferences;
@@ -38,7 +40,8 @@ public class Box2dTutorial extends Game {
 	public final static int APPLICATION = 2;
 	public final static int ENDGAME = 3;
 	public final static int LEVEL_SELECTION = 4;
-	public final static int HIGHSCORE = 5;
+	public final static int CHARACTER_SELECTION = 5;
+	public final static int HIGHSCORE = 6;
 
 
 	public Box2dTutorial() {
@@ -47,11 +50,10 @@ public class Box2dTutorial extends Game {
 	}
 
 	public void changeScreen(int screen) {
-		changeScreen(screen, false, 0 );
+		changeScreen(screen, false, 0 , 0);
 	}
 
-
-	public void changeScreen(int screen, boolean newGame, int level){
+		public void changeScreen(int screen, boolean newGame, int level, int character){
 		switch(screen){
 			case MENU:
 				if(menuScreen == null) menuScreen = new MenuScreen(this);
@@ -65,7 +67,7 @@ public class Box2dTutorial extends Game {
 			case APPLICATION:
 				if (newGame) {
 					assMan.resetParticleEffects();
-					mainScreen = new MainScreen(this, level);
+					mainScreen = new MainScreen(this, level, character);
 				}
 				setScreen(mainScreen);
 				break;
@@ -74,8 +76,12 @@ public class Box2dTutorial extends Game {
 				this.setScreen(endScreen);
 				break;
 			case LEVEL_SELECTION:
-				if(levelSelectionScreen == null) levelSelectionScreen = new LevelSelectionScreen(this);
+				if(levelSelectionScreen == null) levelSelectionScreen = new LevelSelectionScreen(this, character);
 				this.setScreen(levelSelectionScreen);
+				break;
+			case CHARACTER_SELECTION:
+				if(characterSelectionScreen == null) characterSelectionScreen = new CharacterSelectionScreen(this);
+				this.setScreen(characterSelectionScreen);
 				break;
 			case HIGHSCORE:
 				highScoreScreen = new HighScoreScreen(this);
