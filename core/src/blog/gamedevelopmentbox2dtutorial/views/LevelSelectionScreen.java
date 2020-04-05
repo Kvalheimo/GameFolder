@@ -110,7 +110,7 @@ public class LevelSelectionScreen implements Screen {
         //outerTable.debug();
         //previewTable.debug();
 
-        previewTable.center().padLeft(150);
+        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
         previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
 
         previewTable.setFillParent(true);
@@ -132,7 +132,7 @@ public class LevelSelectionScreen implements Screen {
 
         outerTable.add(headerLabel).colspan(3);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(40);
+        outerTable.add(scrollPane).fillY().expandY().padTop(20);
 
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,10,0);

@@ -86,7 +86,7 @@ public class CharacterSelectionScreen implements Screen {
         final TextButton l3 = new TextButton("Gunnar", skin1);
 
 
-        Label headerLabel = new Label("SELECT Character", skin2, "big");
+        Label headerLabel = new Label("SELECT CHARACTER", skin2, "big");
 
         final TextButton backButton = new TextButton("Back", skin2, "small");
         final TextButton nextButton = new TextButton("Next", skin2, "small");
@@ -105,7 +105,7 @@ public class CharacterSelectionScreen implements Screen {
         outerTable.debug();
         previewTable.debug();
 
-        previewTable.center().padLeft(150);
+        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
         previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
 
         previewTable.setFillParent(true);
