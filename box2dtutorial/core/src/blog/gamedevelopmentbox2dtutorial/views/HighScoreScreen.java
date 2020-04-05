@@ -3,83 +3,58 @@ package blog.gamedevelopmentbox2dtutorial.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
-public class LevelSelectionScreen implements Screen {
-    private static final int IMG_WIDTH = 250;
-    private static final int IMG_HEIGHT = 250;
-
-
+public class HighScoreScreen implements Screen {
+    private SpriteBatch batch;
+    private BitmapFont font;
+    private long[] highScores;
+    private String[] names;
     private Box2dTutorial parent;
+    private Skin skin1, skin2;
+    private TextureAtlas atlas;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
     private TextureAtlas.AtlasRegion background;
-    private TextureAtlas loadingAtlas, gameAtlas;
-    private int levelSelected = 1;
-    private Image levelImage;
-    private IntMap<Image> levelPreviewImages;
-    private Table innerTable;
-    private Table outerTable;
-    private Table previewTable;
+    private int levelSelected;
+    private Table outerTable, innerTable, highScoreTable;
 
 
-    public LevelSelectionScreen(Box2dTutorial box2dTutorial) {
-        parent = box2dTutorial;
+    public HighScoreScreen(Box2dTutorial parent){
+        this.parent = parent;
         stage = new Stage(new ScreenViewport());
+        levelSelected = 1;
+        highScores = Save.hsd.get(levelSelected).getHighScores();
 
-        // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/game.atlas");
-
-
+        atlas = parent.assMan.manager.get("images/loading.atlas");
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
         skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-
-        background = loadingAtlas.findRegion("flamebackground");
-
-        //Load level preview images
-        levelPreviewImages = new IntMap<>();
-        levelPreviewImages.put(1, new Image(new Texture("preview/level1.png")));
-        levelPreviewImages.put(2, new Image(new Texture("preview/level2.png")));
-        levelPreviewImages.put(3, new Image(new Texture("preview/level3.png")));
-        levelPreviewImages.put(4, new Image(new Texture("preview/level4.png")));
-        levelPreviewImages.put(5, new Image(new Texture("preview/level5.png")));
-        levelPreviewImages.put(6, new Image(new Texture("preview/level6.png")));
-
-
+        background = atlas.findRegion("flamebackground");
 
 
 
     }
 
-
-
-
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+
+        highScores = Save.hsd.get(levelSelected).getHighScores();
+        names = Save.hsd.get(levelSelected).getNames();
+
 
         // Create text buttons, labels etc.
         final TextButton l1 = new TextButton("1", skin1);
@@ -92,27 +67,36 @@ public class LevelSelectionScreen implements Screen {
         Label headerLabel = new Label("SELECT LEVEL", skin2, "big");
 
         final TextButton backButton = new TextButton("Back", skin2, "small");
-        final TextButton playButton = new TextButton("Play", skin2, "small");
-
-
-        levelImage = levelPreviewImages.get(levelSelected);
-        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
 
 
         innerTable = new Table();
         outerTable = new Table();
-        previewTable = new Table();
-        Table buttonTable = new Table();
+        highScoreTable = new Table();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        //previewTable.debug();
-
-        previewTable.center().padLeft(150);
-        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
-
-        previewTable.setFillParent(true);
         outerTable.setFillParent(true);
+        highScoreTable.setFillParent(true);
+
+        highScoreTable.clear();
+
+        innerTable.debug();
+        outerTable.debug();
+        highScoreTable.debug();
+
+        highScoreTable.center().padLeft(150);
+
+        //Add highscores to table
+        for (int i = 0; i < highScores.length; i++) {
+            Label num = new Label(String.format("%2d.", i + 1), skin2);
+            Label score = new Label(String.format("%7s", highScores[i]), skin2);
+            Label name = new Label(String.format("%s", names[i]), skin2);
+
+            highScoreTable.add(num).padRight(20);
+            highScoreTable.add(score).padRight(10);
+            highScoreTable.add(name);
+
+            highScoreTable.row();
+        }
+
 
         innerTable.add(l1).padTop(30);
         innerTable.row();
@@ -130,17 +114,13 @@ public class LevelSelectionScreen implements Screen {
 
         outerTable.add(headerLabel).colspan(3);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(40);
+        outerTable.add(scrollPane).fillY().expandY().padTop(40).left();
 
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,10,0);
-        outerTable.add();
-        outerTable.add(playButton).pad(20,0,10,0);
 
-
-        stage.addActor(previewTable);
+        stage.addActor(highScoreTable);
         stage.addActor(outerTable);
-
 
 
         // Create button listeners
@@ -190,41 +170,23 @@ public class LevelSelectionScreen implements Screen {
             }
         });
 
-        playButton.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
 
-                switch (levelSelected) {
-                    case 1:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
-                    case 2:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
-                    case 3:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
-                    case 4:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
-                    case 5:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
-                    case 6:
-                        parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected);
 
-                    default:
-                }
-
-            }
-        });
 
 
     }
 
+
+
     @Override
-    public void render(float dt) {
+    public void render(float delta) {
+        // clear the screen ready for next set of images to be drawn
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         update();
-        // Tell our stage to do actions and draw itself
-        stage.act(Math.min(Gdx.graphics.getDeltaTime(), 1 / 30f));
+
+        stage.act();
         stage.draw();
 
     }
@@ -233,14 +195,30 @@ public class LevelSelectionScreen implements Screen {
     public void resize(int width, int height) {
         // Change the stage's viewport when the screen size is changed
         stage.getViewport().update(width, height, true);
-
     }
 
-    private void update(){
-        previewTable.clear();
-        levelImage = levelPreviewImages.get(levelSelected);
-        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
-        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
+    public void update(){
+        Save.load(levelSelected);
+
+        highScoreTable.clear();
+
+        highScores = Save.hsd.get(levelSelected).getHighScores();
+        names = Save.hsd.get(levelSelected).getNames();
+
+        //Add highscores to table
+        for (int i = 0; i < highScores.length; i++) {
+            Label num = new Label(String.format("%2d.", i + 1), skin2);
+            Label score = new Label(String.format("%7s", highScores[i]), skin2);
+            Label name = new Label(String.format("%s", names[i]), skin2);
+
+            highScoreTable.add(num).padRight(20);
+            highScoreTable.add(score).padRight(10);
+            highScoreTable.add(name);
+
+            highScoreTable.row();
+        }
+
+
     }
 
     @Override
@@ -260,9 +238,9 @@ public class LevelSelectionScreen implements Screen {
 
     @Override
     public void dispose() {
-        stage.dispose();
+
     }
-
-
 }
+
+
 

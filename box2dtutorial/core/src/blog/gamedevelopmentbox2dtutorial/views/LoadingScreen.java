@@ -61,6 +61,10 @@ public class LoadingScreen implements Screen{
         parent.assMan.queueAddMaps();
         parent.assMan.manager.finishLoading();
 
+        //Load skins
+        parent.assMan.queueAddSkin();
+        parent.assMan.manager.finishLoading();
+
         // Get images to display loading progress
         atlas = parent.assMan.manager.get("images/loading.atlas");
         title = atlas.findRegion("staying-alight-logo");
@@ -137,7 +141,7 @@ public class LoadingScreen implements Screen{
                     parent.assMan.queueAddSounds();
                     break;
                 case MUSIC:
-                    System.out.println("Loading fonts....");
+                    System.out.println("Loading music....");
                     parent.assMan.queueAddMusic();
                     break;
                 case 5:
@@ -179,6 +183,7 @@ public class LoadingScreen implements Screen{
 
     @Override
     public void dispose() {
+        stage.dispose();
 
     }
 }

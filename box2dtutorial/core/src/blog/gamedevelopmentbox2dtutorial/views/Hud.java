@@ -6,6 +6,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -13,6 +15,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 
 public class Hud implements Disposable {
     public Stage stage;
@@ -28,6 +32,7 @@ public class Hud implements Disposable {
     private int mapPixelWidth;
     private float percentage;
     private float minimapWidth;
+    private TextureAtlas atlas;
 
     private Table table2; //table containing the player
     private Image player;
@@ -39,18 +44,39 @@ public class Hud implements Disposable {
 
     private SpriteBatch sb;
 
-    public Hud(SpriteBatch sb, int mapPixelWidth){
-       gameTime = 0;
-       score = 0;
-       worldTimer = 300;
-       timeCountA = 0;
-       timeCountB = 0;
-       percentage = 0;
-       this.sb = sb;
-       this.mapPixelWidth = mapPixelWidth;
+    public Hud(SpriteBatch sb, int mapPixelWidth, Box2dTutorial parent){
+        gameTime = 0;
+        score = 0;
+        worldTimer = 300;
+        timeCountA = 0;
+        timeCountB = 0;
+        percentage = 0;
+        this.sb = sb;
+        this.mapPixelWidth = mapPixelWidth;
 
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
+
+
+        float minutes = 0;
+        float seconds = 0;
+
+        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        timeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        scoreHeadingLabel = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+
+        atlas = parent.assMan.manager.get("images/loading.atlas");
+
+
+        Image miniMap = new Image(new Texture("minimap/minimap.png"));
+        player = new Image(new Texture("minimap/ball.png"));
+        minimapWidth = miniMap.getWidth();
+
+
+        minimapWidth = miniMap.getWidth();
 
         Table table = new Table();
         table2 = new Table();
@@ -60,24 +86,9 @@ public class Hud implements Disposable {
         table.setFillParent(true);
         table2.setFillParent(true);
 
-        float minutes = 0;
-        float seconds = 0;
-
-        countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-
-
-        scoreHeadingLabel = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-
-        Image Minimap = new Image(new Texture("minimap/minimap.png"));
-        player = new Image(new Texture("minimap/ball.png"));
-        minimapWidth =Minimap.getWidth();
-
         table.add(scoreHeadingLabel).expandX().padTop(10);
         table.add(timeHeadingLabel).expandX().padTop(10);
-        table.add(Minimap).padRight(10).padTop(30);
+        table.add(miniMap).padRight(10).padTop(30);
         table.row();
         table.add(scoreLabel).expandX();
         table.add(timeLabel).expandX();
@@ -147,6 +158,10 @@ public class Hud implements Disposable {
             timeCountA = 0;
         }
 
+    }
+
+    public int getScore(){
+        return score;
     }
 
 
