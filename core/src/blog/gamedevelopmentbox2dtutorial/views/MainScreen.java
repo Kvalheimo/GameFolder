@@ -45,14 +45,15 @@ public class MainScreen implements Screen {
     private Entity player;
     private boolean isPaused;
     private int level;
+    private int character;
 
 
-    public MainScreen(Box2dTutorial box2dTutorial, int level){
-        isPaused = false;
+    public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
-
-
+        this.character = character;
+        isPaused = false;
         parent = box2dTutorial;
+
         engine = new PooledEngine();
         levelFactory = new LevelFactory(engine, parent);
 
@@ -88,7 +89,7 @@ public class MainScreen implements Screen {
 
 
         // create some game objects
-        player = levelFactory.createPlayer(camera);
+        player = levelFactory.createPlayer(camera, character);
 
         levelFactory.createEnemies(level);
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
@@ -136,7 +137,7 @@ public class MainScreen implements Screen {
             if (pc.isDead) {
                 DFUtils.log("YOU DIED : back to menu you go!");
                 Save.hsd.get(level).setTentativeScore(hud.getScore());
-                parent.changeScreen(Box2dTutorial.ENDGAME, false, level);
+                parent.changeScreen(Box2dTutorial.ENDGAME, false, level, 0);
             }
 
             } else {

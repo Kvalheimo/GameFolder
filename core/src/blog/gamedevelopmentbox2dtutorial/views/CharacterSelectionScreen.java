@@ -27,7 +27,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
-public class LevelSelectionScreen implements Screen {
+public class CharacterSelectionScreen implements Screen {
     private static final int IMG_WIDTH = 250;
     private static final int IMG_HEIGHT = 250;
 
@@ -37,19 +37,18 @@ public class LevelSelectionScreen implements Screen {
     private Skin skin1, skin2, skin3;
     private TextureAtlas.AtlasRegion background;
     private TextureAtlas loadingAtlas, gameAtlas;
-    private int levelSelected = 1;
-    private Image levelImage;
-    private IntMap<Image> levelPreviewImages;
+    private int characterSelected = 1;
+    private Image characterImage;
+    private IntMap<Image> characterImages;
     private Table innerTable;
     private Table outerTable;
     private Table previewTable;
-    private int characterSelected;
 
 
-    public LevelSelectionScreen(Box2dTutorial box2dTutorial, int character) {
+    public CharacterSelectionScreen(Box2dTutorial box2dTutorial) {
         parent = box2dTutorial;
         stage = new Stage(new ScreenViewport());
-        characterSelected = character;
+
 
         // Get images to display loading progress
         loadingAtlas = parent.assMan.manager.get("images/game.atlas");
@@ -62,13 +61,11 @@ public class LevelSelectionScreen implements Screen {
         background = loadingAtlas.findRegion("flamebackground");
 
         //Load level preview images
-        levelPreviewImages = new IntMap<>();
-        levelPreviewImages.put(1, new Image(new Texture("preview/level1.png")));
-        levelPreviewImages.put(2, new Image(new Texture("preview/level2.png")));
-        levelPreviewImages.put(3, new Image(new Texture("preview/level3.png")));
-        levelPreviewImages.put(4, new Image(new Texture("preview/level4.png")));
-        levelPreviewImages.put(5, new Image(new Texture("preview/level5.png")));
-        levelPreviewImages.put(6, new Image(new Texture("preview/level6.png")));
+        characterImages = new IntMap<>();
+        characterImages.put(1, new Image(new Texture("preview/char1.png")));
+        characterImages.put(2, new Image(new Texture("preview/char2.png")));
+        characterImages.put(3, new Image(new Texture("preview/char3.png")));
+
 
 
 
@@ -84,21 +81,19 @@ public class LevelSelectionScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin1);
-        final TextButton l2 = new TextButton("2", skin1);
-        final TextButton l3 = new TextButton("3", skin1);
-        final TextButton l4 = new TextButton("4", skin1);
-        final TextButton l5 = new TextButton("5", skin1);
-        final TextButton l6 = new TextButton("6", skin1);
+        final TextButton l1 = new TextButton("Jan-Vidar", skin1);
+        final TextButton l2 = new TextButton("Kniven", skin1);
+        final TextButton l3 = new TextButton("Gunnar", skin1);
 
-        Label headerLabel = new Label("SELECT LEVEL", skin2, "big");
+
+        Label headerLabel = new Label("SELECT Character", skin2, "big");
 
         final TextButton backButton = new TextButton("Back", skin2, "small");
-        final TextButton playButton = new TextButton("Play", skin2, "small");
+        final TextButton nextButton = new TextButton("Next", skin2, "small");
 
 
-        levelImage = levelPreviewImages.get(levelSelected);
-        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
+        characterImage = characterImages.get(characterSelected);
+        characterImage.setSize(IMG_WIDTH,IMG_HEIGHT);
 
 
         innerTable = new Table();
@@ -106,12 +101,12 @@ public class LevelSelectionScreen implements Screen {
         previewTable = new Table();
         Table buttonTable = new Table();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        //previewTable.debug();
+        innerTable.debug();
+        outerTable.debug();
+        previewTable.debug();
 
         previewTable.center().padLeft(150);
-        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
+        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
 
         previewTable.setFillParent(true);
         outerTable.setFillParent(true);
@@ -121,12 +116,7 @@ public class LevelSelectionScreen implements Screen {
         innerTable.add(l2).padTop(30);
         innerTable.row();
         innerTable.add(l3).padTop(30);
-        innerTable.row();
-        innerTable.add(l4).padTop(30);
-        innerTable.row();
-        innerTable.add(l5).padTop(30);
-        innerTable.row();
-        innerTable.add(l6).padTop(30);
+
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
 
@@ -137,7 +127,7 @@ public class LevelSelectionScreen implements Screen {
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,10,0);
         outerTable.add();
-        outerTable.add(playButton).pad(20,0,10,0);
+        outerTable.add(nextButton).pad(20,0,10,0);
 
 
         stage.addActor(previewTable);
@@ -149,53 +139,35 @@ public class LevelSelectionScreen implements Screen {
         l1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 1;
+                characterSelected = 1;
             }
         });
 
         l2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 2;            }
+                characterSelected = 2;            }
         });
 
         l3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 3;            }
-        });
-
-        l4.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 4;            }
-        });
-
-        l5.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 5;            }
-        });
-
-        l6.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 6;            }
+                characterSelected = 3;            }
         });
 
 
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.CHARACTER_SELECTION);
+                parent.changeScreen(Box2dTutorial.MENU);
 
             }
         });
 
-        playButton.addListener(new ChangeListener() {
+        nextButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected, characterSelected);
+                parent.changeScreen(Box2dTutorial.LEVEL_SELECTION, false, 0, characterSelected);
             }
         });
 
@@ -223,9 +195,9 @@ public class LevelSelectionScreen implements Screen {
 
     private void update(){
         previewTable.clear();
-        levelImage = levelPreviewImages.get(levelSelected);
-        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
-        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
+        characterImage = characterImages.get(characterSelected);
+        characterImage.setSize(IMG_WIDTH,IMG_HEIGHT);
+        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
     }
 
     @Override

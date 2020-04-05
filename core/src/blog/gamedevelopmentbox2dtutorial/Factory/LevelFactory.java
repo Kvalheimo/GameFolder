@@ -57,6 +57,7 @@ public class LevelFactory {
     private TextureAtlas atlas;
     private Box2dTutorial parent;
     private ParticleEffectManager peMan;
+    private Animation runAnim, normalAnim, jumpAnim;
 
 
     private int mapPixelWidth;
@@ -126,7 +127,7 @@ public class LevelFactory {
 
 
 
-    public Entity createPlayer(OrthographicCamera camera){
+    public Entity createPlayer(OrthographicCamera camera, int character){
 
         // Create the Entity and all the components that will go in the entity
         Entity entity = engine.createEntity();
@@ -142,11 +143,25 @@ public class LevelFactory {
         // create the data for the components and add them to the components
         bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
-        //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
-        Animation runAnim = new Animation(0.05f,DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-        Animation jumpAnim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-        Animation normalAnim = new Animation(0.1f,DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
-
+        switch (character) {
+            case 1:
+                //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+              runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+              jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+              normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            case 2:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            case 3:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            default:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+        }
 
         runAnim.setPlayMode(Animation.PlayMode.LOOP);
         normalAnim.setPlayMode(Animation.PlayMode.LOOP);
