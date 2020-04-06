@@ -49,6 +49,7 @@ public class B2dAssetManager {
     public final String bloodEffect = "particles/blood.p";
     public final String waterEffect = "particles/water.p";
     public final String splashEffect = "particles/splash.p";
+    public final String lazerEffect = "particles/lazer.p";
 
 
     public B2dAssetManager(){
@@ -102,6 +103,7 @@ public class B2dAssetManager {
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
         manager.load(splashEffect, ParticleEffect.class, pep);
+        manager.load(lazerEffect, ParticleEffect.class, pep);
 
     }
 
@@ -123,6 +125,7 @@ public class B2dAssetManager {
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
         manager.load(splashEffect, ParticleEffect.class, pep);
+        manager.load(lazerEffect, ParticleEffect.class, pep);
         manager.finishLoading();
 
     }

@@ -121,6 +121,7 @@ public class LevelFactory {
         peMan.addParticleEffect(ParticleEffectManager.BLOOD, parent.assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.WATER, parent.assMan.manager.get("particles/water.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SPLASH, parent.assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.LAZER, parent.assMan.manager.get("particles/lazer.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
 
     }
 
@@ -353,7 +354,7 @@ public class LevelFactory {
         b2dbody.body.setUserData(entity);
         bul.xVel = xVel;
         bul.yVel = yVel;
-        bul.particleEffect = makeParticleEffect(ParticleEffectManager.SMOKE, b2dbody);
+        bul.particleEffect = makeParticleEffect(ParticleEffectManager.LAZER, b2dbody);
 
         entity.add(bul);
         entity.add(colComp);

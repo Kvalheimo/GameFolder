@@ -17,8 +17,8 @@ public class ParticleEffectManager {
     public static final int DUST = 3;
     public static final int EXPLOSION = 4;
     public static final int BLOOD = 5;
-    public static final int SPLASH = 5;
-
+    public static final int SPLASH = 6;
+    public static final int LAZER = 7;
 
 
 
