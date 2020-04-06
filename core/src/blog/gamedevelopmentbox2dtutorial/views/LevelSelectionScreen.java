@@ -50,14 +50,15 @@ public class LevelSelectionScreen implements Screen {
         stage = new Stage(new ScreenViewport());
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/game.atlas");
+        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
+        gameAtlas = parent.assMan.manager.get("images/game.atlas");
 
 
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
         skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
         skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
 
-        background = loadingAtlas.findRegion("flamebackground");
+        background = gameAtlas.findRegion("background");
 
         //Load level preview images
         levelPreviewImages = new IntMap<>();
@@ -89,10 +90,10 @@ public class LevelSelectionScreen implements Screen {
         final TextButton l5 = new TextButton("5", skin1);
         final TextButton l6 = new TextButton("6", skin1);
 
-        Label headerLabel = new Label("SELECT LEVEL", skin2, "big");
+        Label headerLabel = new Label("SELECT LEVEL", skin1, "title-plain");
 
-        final TextButton backButton = new TextButton("Back", skin2, "small");
-        final TextButton playButton = new TextButton("Play", skin2, "small");
+        final TextButton backButton = new TextButton("Back", skin1, "round");
+        final TextButton playButton = new TextButton("Play", skin1, "round");
 
 
         levelImage = levelPreviewImages.get(levelSelected);
@@ -102,7 +103,7 @@ public class LevelSelectionScreen implements Screen {
         innerTable = new Table();
         outerTable = new Table();
         previewTable = new Table();
-        Table buttonTable = new Table();
+
 
         //innerTable.debug();
         //outerTable.debug();
@@ -111,8 +112,10 @@ public class LevelSelectionScreen implements Screen {
         previewTable.center().padLeft(150);
         previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
 
-        previewTable.setFillParent(true);
+
         outerTable.setFillParent(true);
+        previewTable.setFillParent(true);
+        previewTable.setBackground(new TiledDrawable(background));
 
         innerTable.add(l1).padTop(30);
         innerTable.row();
