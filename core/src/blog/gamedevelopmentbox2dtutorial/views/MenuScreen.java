@@ -88,7 +88,7 @@ public class MenuScreen implements Screen {
         newGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.LEVEL_SELECTION);
+                parent.changeScreen(Box2dTutorial.CHARACTER_SELECTION);
             }
         });
 
