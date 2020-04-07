@@ -47,8 +47,11 @@ public class B2dAssetManager {
     public final String dustEffect = "particles/dust.p";
     public final String explosionEffect = "particles/explosion.p";
     public final String bloodEffect = "particles/blood.p";
-    public final String waterEffect = "particles/water.p";
+    public final String waterEffect = "particles/trail.p";
     public final String splashEffect = "particles/splash.p";
+    public final String speedEffect = "particles/speed.p";
+    public final String powerUpEffect = "particles/powerup.p";
+    public final String testEffect = "particles/test.p";
 
 
     public B2dAssetManager(){
@@ -102,6 +105,10 @@ public class B2dAssetManager {
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
         manager.load(splashEffect, ParticleEffect.class, pep);
+        manager.load(speedEffect, ParticleEffect.class, pep);
+        manager.load(powerUpEffect, ParticleEffect.class, pep);
+        manager.load(testEffect, ParticleEffect.class, pep);
+
 
     }
 
@@ -113,6 +120,11 @@ public class B2dAssetManager {
         manager.unload(bloodEffect);
         manager.unload(waterEffect);
         manager.unload(splashEffect);
+        manager.unload(speedEffect);
+        manager.unload(powerUpEffect);
+        manager.unload(testEffect);
+
+
 
         //load particle effects
         pep = new ParticleEffectLoader.ParticleEffectParameter();
@@ -123,6 +135,12 @@ public class B2dAssetManager {
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
         manager.load(splashEffect, ParticleEffect.class, pep);
+        manager.load(speedEffect, ParticleEffect.class, pep);
+        manager.load(powerUpEffect, ParticleEffect.class, pep);
+        manager.load(testEffect, ParticleEffect.class, pep);
+
+
+
         manager.finishLoading();
 
     }

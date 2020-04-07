@@ -136,4 +136,4 @@ additive: false
 behind: false
 premultipliedAlpha: false
 - Image Path -
-cloud_1.png
+cloud.png
