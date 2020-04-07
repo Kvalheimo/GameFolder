@@ -161,7 +161,7 @@ public class PlayerControlSystem extends IteratingSystem{
         if (controller.isYPressed() && player.superSpeed){
             b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             //add particle effect at feet
-            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.DUST, b2body);
+            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.TRAIL, b2body);
             player.superSpeed = false;
 
         }
@@ -183,6 +183,7 @@ public class PlayerControlSystem extends IteratingSystem{
         if (player.speedX){
             //b2body.body.setLinearVelocity(100f, 0f);
             b2body.body.applyLinearImpulse(50, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SPEED, b2body);
             player.speedX = false;
         }
 
@@ -193,12 +194,13 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
+
+        //Denne må også tas med når enemey dreper player
         if (b2body.body.getPosition().y < -2){
             if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
                 Mapper.paCom.get(player.particleEffect).isDead = true;
             player.isDead = true;
         }
-
 
     }
 
