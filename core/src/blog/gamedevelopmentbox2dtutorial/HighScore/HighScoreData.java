@@ -24,7 +24,7 @@ public class HighScoreData implements Serializable{
     // sets up an empty high scores table
     public void init() {
         for(int i = 0; i < MAX_SCORES; i++) {
-            highScores[i] = 0;
+            highScores[i] = 999;
             names[i] = "---";
         }
     }
@@ -36,7 +36,7 @@ public class HighScoreData implements Serializable{
     public void setTentativeScore(long i) { tentativeScore = i; }
 
     public boolean isHighScore(long score) {
-        return score > highScores[MAX_SCORES - 1];
+        return score < highScores[MAX_SCORES - 1];
     }
 
     public void addHighScore(long newScore, String name) {
@@ -53,7 +53,7 @@ public class HighScoreData implements Serializable{
             String name = names[i];
             int j;
             for(j = i - 1;
-                j >= 0 && highScores[j] < score;
+                j >= 0 && highScores[j] > score;
                 j--) {
                 highScores[j + 1] = highScores[j];
                 names[j + 1] = names[j];
