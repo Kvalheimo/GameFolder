@@ -12,12 +12,15 @@ package blog.gamedevelopmentbox2dtutorial;
 public class ParticleEffectManager {
     // DEFINE constants for particleEffects
     public static final int SMOKE = 0;
-    public static final int WATER = 1;
-    public static final int FIRE = 2;
-    public static final int DUST = 3;
-    public static final int EXPLOSION = 4;
-    public static final int BLOOD = 5;
+    public static final int TRAIL = 1;
+    public static final int DUST = 2;
+    public static final int EXPLOSION = 3;
+    public static final int BLOOD = 4;
     public static final int SPLASH = 5;
+    public static final int SPEED = 6;
+    public static final int POWER_UP = 7;
+    public static final int TEST = 8;
+
 
 
 

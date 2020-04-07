@@ -119,8 +119,12 @@ public class LevelFactory {
         peMan.addParticleEffect(ParticleEffectManager.DUST, parent.assMan.manager.get("particles/dust.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.EXPLOSION, parent.assMan.manager.get("particles/explosion.p", ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.BLOOD, parent.assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.WATER, parent.assMan.manager.get("particles/water.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.TRAIL, parent.assMan.manager.get("particles/trail.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SPLASH, parent.assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.SPEED, parent.assMan.manager.get("particles/speed.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.POWER_UP, parent.assMan.manager.get("particles/powerup.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.TEST, parent.assMan.manager.get("particles/test.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+
 
     }
 
@@ -236,6 +240,9 @@ public class LevelFactory {
             type.type = TypeComponent.ENEMY;
             stateCom.set(StateComponent.STATE_NORMAL);
 
+            enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
+
+
 
             bodyCom.body.setUserData(entity);
 
@@ -350,10 +357,14 @@ public class LevelFactory {
 
         stateCom.set(StateComponent.STATE_NORMAL);
         type.type = TypeComponent.BULLET;
-        b2dbody.body.setUserData(entity);
+
         bul.xVel = xVel;
         bul.yVel = yVel;
-        bul.particleEffect = makeParticleEffect(ParticleEffectManager.SMOKE, b2dbody);
+        bul.particleEffect = makeParticleEffect(ParticleEffectManager.DUST, b2dbody);
+
+        b2dbody.body.setUserData(entity);
+
+
 
         entity.add(bul);
         entity.add(colComp);
