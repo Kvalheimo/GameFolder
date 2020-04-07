@@ -7,6 +7,7 @@ import com.badlogic.ashley.systems.IteratingSystem;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
+import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
@@ -38,6 +39,9 @@ public class CollisionSystem extends IteratingSystem {
 
         //Handle player collison
         if(thisType.type == TypeComponent.PLAYER) {
+            PlayerComponent player = Mapper.playerCom.get(entity);
+            B2dBodyComponent body = Mapper.b2dCom.get(entity);
+
             if (collidedEntity != null) {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
                 if (type != null) {
@@ -45,46 +49,51 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.ENEMY:
                             //do player hit enemy thing
                             System.out.println("player hit enemy");
-                            //Mapper.playerCom.get(entity).isDead = true;
+
+                            //player.isDead = true;
                             break;
                         case TypeComponent.SUPER_SPEED:
                             //do player hit superspeed thing
                             System.out.println("player picked up superSpeed");
-                            Mapper.playerCom.get(entity).superSpeed = true;
+
+                            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
+                            player.superSpeed = true;
                             break; //technically this isn't needed
                         case TypeComponent.GUN:
                             //do player hit gun thing
                             System.out.println("player picked up gun");
-                            Mapper.playerCom.get(entity).hasGun = true;
+
+                            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
+                            player.hasGun = true;
                             break; //technically this isn't needed
                         case TypeComponent.GROUND:
                             //do player hit ground thing
-                            Mapper.playerCom.get(entity).onGround = true;
+                            player.onGround = true;
                             System.out.println("player hit ground");
                             break; //technically this isn't needed
                         case TypeComponent.SPRING:
                             //do player hit spring thing
                             System.out.println("player on spring: bounce up");
-                            Mapper.playerCom.get(entity).onSpring = true;
+                            player.onSpring = true;
                             break; //technically this isn't needed
                         case TypeComponent.BULLET:
                             System.out.println("Player just shot. bullet in player atm");
                             break;
                         case TypeComponent.WALL:
-                            Mapper.playerCom.get(entity).onWall = true;
+                            player.onWall = true;
                             System.out.println("player hit wall");
                             break;
                         case TypeComponent.SPEED_X:
-                            Mapper.playerCom.get(entity).speedX = true;
+                            player.speedX = true;
                             System.out.println("player hit speedX");
                             break;
                         case TypeComponent.SPEED_Y:
-                            Mapper.playerCom.get(entity).speedY = true;
+                            player.speedY = true;
                             System.out.println("player hit speedY");
                             break;
                         case TypeComponent.WATER:
                             System.out.println("player hit water");
-                            //levelFactory.makeParticleEffect(ParticleEffectManager.SPLASH, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+                            levelFactory.makeParticleEffect(ParticleEffectManager.SPLASH, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             break;
                         case TypeComponent.OTHER:
                             //do player hit scenery thing
