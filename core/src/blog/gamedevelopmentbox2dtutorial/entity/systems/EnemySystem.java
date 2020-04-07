@@ -56,15 +56,20 @@ public class EnemySystem extends IteratingSystem{
             bodyCom.body.setLinearVelocity(-3f, 0);
         }
 
-
-        if(enemyCom.isDead){
-            bodyCom.isDead =true;
-        }
-
         //Wake up objects when player gets close
         if (bodyCom.body.getPosition().x < camera.position.x + 336/Box2dTutorial.PPM){
             bodyCom.body.setActive(true);
         }
+
+
+        if(enemyCom.isDead){
+            if (enemyCom.particleEffect != null && Mapper.paCom.get(enemyCom.particleEffect) != null)
+                Mapper.paCom.get(enemyCom.particleEffect).isDead = true;
+            bodyCom.isDead =true;
+        }
+
+
+
 
     }
 }
