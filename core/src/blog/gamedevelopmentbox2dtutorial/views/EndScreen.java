@@ -145,6 +145,7 @@ public class EndScreen implements Screen {
                     );
                     Save.save(level);
                 }
+                parent.changeScreen(Box2dTutorial.HIGHSCORE);
             }
         });
 
