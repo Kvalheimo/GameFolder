@@ -50,9 +50,12 @@ public class B2dAssetManager {
     public final String splashEffect = "particles/splash.p";
     public final String speedEffect = "particles/speed.p";
     public final String powerUpEffect = "particles/powerup.p";
+    public final String ssRightEffect = "particles/superspeed_right.p";
+    public final String ssLeftEffect = "particles/superspeed_left.p";
     public final String testEffect = "particles/test.p";
     public final String bulletRightEffect = "particles/bullet_right.p";
     public final String bulletLeftEffect = "particles/bullet_left.p";
+
 
 
     public B2dAssetManager(){
@@ -107,6 +110,8 @@ public class B2dAssetManager {
         manager.load(splashEffect, ParticleEffect.class, pep);
         manager.load(speedEffect, ParticleEffect.class, pep);
         manager.load(powerUpEffect, ParticleEffect.class, pep);
+        manager.load(ssRightEffect, ParticleEffect.class, pep);
+        manager.load(ssLeftEffect, ParticleEffect.class, pep);
         manager.load(testEffect, ParticleEffect.class, pep);
         manager.load(bulletRightEffect, ParticleEffect.class, pep);
         manager.load(bulletLeftEffect, ParticleEffect.class, pep);
@@ -124,6 +129,8 @@ public class B2dAssetManager {
         manager.unload(splashEffect);
         manager.unload(speedEffect);
         manager.unload(powerUpEffect);
+        manager.unload(ssRightEffect);
+        manager.unload(ssLeftEffect);
         manager.unload(testEffect);
         manager.unload(bulletRightEffect);
         manager.unload(bulletLeftEffect);
@@ -142,9 +149,11 @@ public class B2dAssetManager {
         manager.load(speedEffect, ParticleEffect.class, pep);
         manager.load(powerUpEffect, ParticleEffect.class, pep);
         manager.load(testEffect, ParticleEffect.class, pep);
+
         manager.load(bulletRightEffect, ParticleEffect.class, pep);
         manager.load(bulletLeftEffect, ParticleEffect.class, pep);
-
+        manager.load(ssRightEffect, ParticleEffect.class, pep);
+        manager.load(ssLeftEffect, ParticleEffect.class, pep);
 
 
         manager.finishLoading();
