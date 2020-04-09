@@ -159,9 +159,13 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
         if (controller.isYPressed() && player.superSpeed){
-            b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-            //add particle effect at feet
-            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.TRAIL, b2body);
+            if (player.runningRight){
+                b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, b2body);
+            }else{
+                b2body.body.applyLinearImpulse(-50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, b2body);
+            }
             player.superSpeed = false;
 
         }
