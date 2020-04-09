@@ -118,15 +118,19 @@ public class LevelFactory {
         peMan = new ParticleEffectManager();
 
         peMan.addParticleEffect(ParticleEffectManager.SMOKE, parent.assMan.manager.get("particles/smoke.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
-        peMan.addParticleEffect(ParticleEffectManager.DUST, parent.assMan.manager.get("particles/dust.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.EXPLOSION, parent.assMan.manager.get("particles/explosion.p", ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.BLOOD, parent.assMan.manager.get("particles/blood.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SPLASH, parent.assMan.manager.get("particles/splash.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SPEED, parent.assMan.manager.get("particles/speed.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.POWER_UP, parent.assMan.manager.get("particles/powerup.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.TEST, parent.assMan.manager.get("particles/test.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+
+        peMan.addParticleEffect(ParticleEffectManager.BULLET_RIGHT, parent.assMan.manager.get("particles/bullet_right.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.BULLET_LEFT, parent.assMan.manager.get("particles/bullet_left.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+
         peMan.addParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, parent.assMan.manager.get("particles/superspeed_right.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, parent.assMan.manager.get("particles/superspeed_left.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+
 
 
     }
@@ -377,7 +381,13 @@ public class LevelFactory {
 
         bul.xVel = xVel;
         bul.yVel = yVel;
-        bul.particleEffect = makeParticleEffect(ParticleEffectManager.DUST, b2dbody);
+
+        if (xVel > 0) {
+            bul.particleEffect = makeParticleEffect(ParticleEffectManager.BULLET_RIGHT, b2dbody);
+        }else{
+            bul.particleEffect = makeParticleEffect(ParticleEffectManager.BULLET_LEFT, b2dbody);
+        }
+
 
         b2dbody.body.setUserData(entity);
 

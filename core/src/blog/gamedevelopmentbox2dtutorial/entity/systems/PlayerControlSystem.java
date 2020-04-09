@@ -173,14 +173,19 @@ public class PlayerControlSystem extends IteratingSystem{
         //Shooting
         if (controller.isXPressed() && player.hasGun){
 
-            float velX = 7f;  // set the speed of the bullet
-            float velY = -0.2f;
             float shooterX = b2body.body.getPosition().x; // get player location
             float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
+            float velY = -0.1f;
+            float velX;
+
+            if (player.runningRight){
+                velX = 7f;
+            }else{
+                velX = -7f;
+            }
+
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
             player.hasGun = false;
-
-
         }
 
 

@@ -44,7 +44,6 @@ public class B2dAssetManager {
 
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";
-    public final String dustEffect = "particles/dust.p";
     public final String explosionEffect = "particles/explosion.p";
     public final String bloodEffect = "particles/blood.p";
     public final String waterEffect = "particles/trail.p";
@@ -54,6 +53,8 @@ public class B2dAssetManager {
     public final String ssRightEffect = "particles/superspeed_right.p";
     public final String ssLeftEffect = "particles/superspeed_left.p";
     public final String testEffect = "particles/test.p";
+    public final String bulletRightEffect = "particles/bullet_right.p";
+    public final String bulletLeftEffect = "particles/bullet_left.p";
 
 
 
@@ -103,7 +104,6 @@ public class B2dAssetManager {
     public void queueAddParticleEffects(){
         pep.atlasFile = gameImages;
         manager.load(smokeEffect, ParticleEffect.class, pep);
-        manager.load(dustEffect, ParticleEffect.class, pep);
         manager.load(explosionEffect, ParticleEffect.class, pep);
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
@@ -113,6 +113,9 @@ public class B2dAssetManager {
         manager.load(ssRightEffect, ParticleEffect.class, pep);
         manager.load(ssLeftEffect, ParticleEffect.class, pep);
         manager.load(testEffect, ParticleEffect.class, pep);
+        manager.load(bulletRightEffect, ParticleEffect.class, pep);
+        manager.load(bulletLeftEffect, ParticleEffect.class, pep);
+
 
 
     }
@@ -120,7 +123,6 @@ public class B2dAssetManager {
     public void resetParticleEffects(){
         //unload particle effects
         manager.unload(smokeEffect);
-        manager.unload(dustEffect);
         manager.unload(explosionEffect);
         manager.unload(bloodEffect);
         manager.unload(waterEffect);
@@ -130,6 +132,9 @@ public class B2dAssetManager {
         manager.unload(ssRightEffect);
         manager.unload(ssLeftEffect);
         manager.unload(testEffect);
+        manager.unload(bulletRightEffect);
+        manager.unload(bulletLeftEffect);
+
 
 
 
@@ -137,7 +142,6 @@ public class B2dAssetManager {
         pep = new ParticleEffectLoader.ParticleEffectParameter();
         pep.atlasFile = gameImages;
         manager.load(smokeEffect, ParticleEffect.class, pep);
-        manager.load(dustEffect, ParticleEffect.class, pep);
         manager.load(explosionEffect, ParticleEffect.class, pep);
         manager.load(bloodEffect, ParticleEffect.class, pep);
         manager.load(waterEffect, ParticleEffect.class, pep);
@@ -145,8 +149,12 @@ public class B2dAssetManager {
         manager.load(speedEffect, ParticleEffect.class, pep);
         manager.load(powerUpEffect, ParticleEffect.class, pep);
         manager.load(testEffect, ParticleEffect.class, pep);
+
+        manager.load(bulletRightEffect, ParticleEffect.class, pep);
+        manager.load(bulletLeftEffect, ParticleEffect.class, pep);
         manager.load(ssRightEffect, ParticleEffect.class, pep);
         manager.load(ssLeftEffect, ParticleEffect.class, pep);
+
 
         manager.finishLoading();
 
