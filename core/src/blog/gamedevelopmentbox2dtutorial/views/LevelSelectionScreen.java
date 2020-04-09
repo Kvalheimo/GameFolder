@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
@@ -28,7 +29,7 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
 public class LevelSelectionScreen implements Screen {
-    private static final int IMG_WIDTH = 250;
+    private static final int IMG_WIDTH = 300;
     private static final int IMG_HEIGHT = 250;
 
 
@@ -52,7 +53,7 @@ public class LevelSelectionScreen implements Screen {
         characterSelected = character;
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/game.atlas");
+        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
 
 
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
@@ -84,12 +85,17 @@ public class LevelSelectionScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin1);
-        final TextButton l2 = new TextButton("2", skin1);
-        final TextButton l3 = new TextButton("3", skin1);
-        final TextButton l4 = new TextButton("4", skin1);
-        final TextButton l5 = new TextButton("5", skin1);
-        final TextButton l6 = new TextButton("6", skin1);
+        final TextButton l1 = new TextButton("1", skin3, "toggle");
+        final TextButton l2 = new TextButton("2", skin3, "toggle");
+        final TextButton l3 = new TextButton("3", skin3, "toggle");
+        final TextButton l4 = new TextButton("4", skin3, "toggle");
+        final TextButton l5 = new TextButton("5", skin3, "toggle");
+        final TextButton l6 = new TextButton("6", skin3, "toggle");
+
+        l1.setChecked(true);
+
+        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
+        buttonGroup.setMaxCheckCount(1);
 
         Label headerLabel = new Label("SELECT LEVEL", skin2, "big");
 
@@ -104,29 +110,31 @@ public class LevelSelectionScreen implements Screen {
         innerTable = new Table();
         outerTable = new Table();
         previewTable = new Table();
-        Table buttonTable = new Table();
 
         //innerTable.debug();
         //outerTable.debug();
         //previewTable.debug();
+        outerTable.setFillParent(true);
+        previewTable.setFillParent(true);
+        previewTable.setBackground(new TiledDrawable(background));
+
 
         previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
         previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
 
-        previewTable.setFillParent(true);
-        outerTable.setFillParent(true);
 
-        innerTable.add(l1).padTop(30);
+
+        innerTable.add(l1).padTop(10).fillX().expandX();
         innerTable.row();
-        innerTable.add(l2).padTop(30);
+        innerTable.add(l2).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l3).padTop(30);
+        innerTable.add(l3).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l4).padTop(30);
+        innerTable.add(l4).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l5).padTop(30);
+        innerTable.add(l5).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l6).padTop(30);
+        innerTable.add(l6).padTop(30).padBottom(10).fillX().expandX();
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
 
@@ -196,6 +204,7 @@ public class LevelSelectionScreen implements Screen {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected, characterSelected);
+                System.out.println(levelSelected);
             }
         });
 

@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
@@ -51,7 +52,7 @@ public class CharacterSelectionScreen implements Screen {
 
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/game.atlas");
+        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
 
 
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
@@ -81,10 +82,14 @@ public class CharacterSelectionScreen implements Screen {
         Gdx.input.setInputProcessor(stage);
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("Jan-Vidar", skin1);
-        final TextButton l2 = new TextButton("Kniven", skin1);
-        final TextButton l3 = new TextButton("Gunnar", skin1);
+        final TextButton c1 = new TextButton("Jan-Vidar", skin3, "toggle");
+        final TextButton c2 = new TextButton("Kniven", skin3, "toggle");
+        final TextButton c3 = new TextButton("Gunnar", skin3, "toggle");
 
+        c1.setChecked(true);
+
+        ButtonGroup buttonGroup = new ButtonGroup(c1, c2, c3);
+        buttonGroup.setMaxCheckCount(1);
 
         Label headerLabel = new Label("SELECT CHARACTER", skin2, "big");
 
@@ -99,23 +104,24 @@ public class CharacterSelectionScreen implements Screen {
         innerTable = new Table();
         outerTable = new Table();
         previewTable = new Table();
-        Table buttonTable = new Table();
 
-        innerTable.debug();
-        outerTable.debug();
+        //innerTable.debug();
+        //outerTable.debug();
         previewTable.debug();
-
-        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
-        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
 
         previewTable.setFillParent(true);
         outerTable.setFillParent(true);
 
-        innerTable.add(l1).padTop(30);
+        previewTable.setBackground(new TiledDrawable(background));
+
+        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
+        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
+
+        innerTable.add(c1).padTop(30).fillX();
         innerTable.row();
-        innerTable.add(l2).padTop(30);
+        innerTable.add(c2).padTop(30).fillX();
         innerTable.row();
-        innerTable.add(l3).padTop(30);
+        innerTable.add(c3).padTop(30).padBottom(30).fillX();
 
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
@@ -136,20 +142,20 @@ public class CharacterSelectionScreen implements Screen {
 
 
         // Create button listeners
-        l1.addListener(new ChangeListener() {
+        c1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterSelected = 1;
             }
         });
 
-        l2.addListener(new ChangeListener() {
+        c2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterSelected = 2;            }
         });
 
-        l3.addListener(new ChangeListener() {
+        c3.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterSelected = 3;            }
