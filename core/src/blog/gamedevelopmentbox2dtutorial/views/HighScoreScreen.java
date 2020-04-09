@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
@@ -83,6 +84,7 @@ public class HighScoreScreen implements Screen {
 
         outerTable.setFillParent(true);
         highScoreTable.setFillParent(true);
+        highScoreTable.setBackground(new TiledDrawable(background));
 
         highScoreTable.clear();
 
