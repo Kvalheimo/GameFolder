@@ -38,6 +38,7 @@ public class B2dAssetManager {
     // Textures
     public final String gameImages = "images/game.atlas";
     public final String loadingImages = "images/loading.atlas";
+    public final String HUDImages = "minimap/boosts.atlas";
 
     // Maps
     public final String map = "maps/level1.tmx";
@@ -91,6 +92,10 @@ public class B2dAssetManager {
 
     public void queueAddLoadingImages(){
         manager.load(loadingImages, TextureAtlas.class);
+    }
+
+    public void queueHUDImages(){
+        manager.load(HUDImages, TextureAtlas.class);
     }
 
     public void queueAddMaps(){
