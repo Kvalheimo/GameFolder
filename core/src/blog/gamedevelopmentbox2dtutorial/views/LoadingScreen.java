@@ -65,6 +65,10 @@ public class LoadingScreen implements Screen{
         parent.assMan.queueAddSkin();
         parent.assMan.manager.finishLoading();
 
+        //Load HUD
+        parent.assMan.queueHUDImages();
+        parent.assMan.manager.finishLoading();
+
         // Get images to display loading progress
         atlas = parent.assMan.manager.get("images/loading.atlas");
         title = atlas.findRegion("staying-alight-logo");

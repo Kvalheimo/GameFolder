@@ -1,0 +1,83 @@
+
+game.png
+size: 1024,512
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+A
+  rotate: false
+  xy: 516, 376
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+B
+  rotate: false
+  xy: 618, 376
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+X
+  rotate: false
+  xy: 2, 2
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+Y
+  rotate: false
+  xy: 516, 274
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+boomerang
+  rotate: false
+  xy: 2, 104
+  size: 384, 48
+  orig: 384, 48
+  offset: 0, 0
+  index: -1
+explosion
+  rotate: false
+  xy: 2, 220
+  size: 512, 256
+  orig: 512, 256
+  offset: 0, 0
+  index: -1
+jumping
+  rotate: false
+  xy: 186, 38
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+left
+  rotate: false
+  xy: 104, 22
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+normal
+  rotate: false
+  xy: 720, 412
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+right
+  rotate: false
+  xy: 618, 294
+  size: 80, 80
+  orig: 80, 80
+  offset: 0, 0
+  index: -1
+running
+  rotate: false
+  xy: 2, 154
+  size: 576, 64
+  orig: 576, 64
+  offset: 0, 0
+  index: -1

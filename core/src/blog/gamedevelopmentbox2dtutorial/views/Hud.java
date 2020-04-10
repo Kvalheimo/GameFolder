@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
@@ -33,9 +34,11 @@ public class Hud implements Disposable {
     private float percentage;
     private float minimapWidth;
     private TextureAtlas atlas;
+    private TextureAtlas atlas_boosts;
 
     private Table table2; //table containing the player
     private Image player;
+    private Image boost;
     private Label countdownLabel;
     private Label scoreLabel;
     private Label timeLabel;
@@ -43,6 +46,9 @@ public class Hud implements Disposable {
     private Label scoreHeadingLabel;
 
     private SpriteBatch sb;
+
+    private float minutes;
+    private float seconds;
 
     public Hud(SpriteBatch sb, int mapPixelWidth, Box2dTutorial parent){
         gameTime = 0;
@@ -58,8 +64,8 @@ public class Hud implements Disposable {
         stage = new Stage(viewport, sb);
 
 
-        float minutes = 0;
-        float seconds = 0;
+        minutes = 0;
+        seconds = 0;
 
         countdownLabel = new Label(String.format("%03d", worldTimer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
@@ -68,12 +74,18 @@ public class Hud implements Disposable {
         scoreHeadingLabel = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
 
-        atlas = parent.assMan.manager.get("images/loading.atlas");
+        atlas_boosts = parent.assMan.manager.get("minimap/boosts.atlas");
+        //atlas = parent.assMan.manager.get("minimap/test/boosts.atlas");
 
 
-        Image miniMap = new Image(new Texture("minimap/minimap.png"));
-        player = new Image(new Texture("minimap/ball.png"));
-        minimapWidth = miniMap.getWidth();
+        Image miniMap = new Image((atlas_boosts.findRegion("minimap")));
+        player = new Image((atlas_boosts.findRegion("ball")));
+        boost  = new Image(atlas_boosts.findRegion("boost0"));
+
+
+
+
+
 
 
         minimapWidth = miniMap.getWidth();
@@ -83,13 +95,15 @@ public class Hud implements Disposable {
         table2.top();
         table2.right();
         table.top();
+        table.left();
         table.setFillParent(true);
         table2.setFillParent(true);
-
+        table.add().padTop(10).expandX().padLeft(50);
         table.add(scoreHeadingLabel).expandX().padTop(10);
         table.add(timeHeadingLabel).expandX().padTop(10);
         table.add(miniMap).padRight(10).padTop(30);
         table.row();
+        table.add().padTop(10).padLeft(50).expandX();
         table.add(scoreLabel).expandX();
         table.add(timeLabel).expandX();
         stage.addActor(table);
@@ -105,6 +119,11 @@ public class Hud implements Disposable {
         timeCountA += dt;
         timeCountB += dt;
         gameTime += dt;
+        System.out.println(seconds);
+        if(5 == seconds){
+            System.out.println("he");
+            speedBoost();
+        }
 
         addScore(timeCountB);
         countDown(timeCountA);
@@ -124,12 +143,7 @@ public class Hud implements Disposable {
         viewport.update(width, height);
     }
 
-    private void addPlayerPos(int playerPosition){
-        //How far the player is away from the finish line.
-        percentage = (float) playerPosition/mapPixelWidth;
-        table2.clear();
-        table2.add(player).padTop(30+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
-    }
+
 
     private void addScore(float count){
         if(count >= 0.5){
@@ -141,9 +155,16 @@ public class Hud implements Disposable {
     }
 
 
+    private void speedBoost(){
+        boost  = new Image(atlas_boosts.findRegion("boost0"));
+        table2.add(boost);
+
+    }
+
+
     private void addTime(float gameTime){
-        float minutes = (float)Math.floor(gameTime / 60.0f);
-        float seconds = gameTime - minutes * 60.0f;
+         minutes = (float)Math.floor(gameTime / 60.0f);
+         seconds = gameTime - minutes * 60.0f;
         timeLabel.setText(String.format("%.0fm%.0fs", minutes, seconds));
     }
 
@@ -162,6 +183,12 @@ public class Hud implements Disposable {
 
     public int getScore(){
         return score;
+    }
+    private void addPlayerPos(int playerPosition){
+        //How far the player is away from the finish line.
+        percentage = (float) playerPosition/mapPixelWidth;
+        table2.clear();
+        table2.add(player).padTop(30+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
     }
 
 
