@@ -6,204 +6,232 @@ filter: Nearest,Nearest
 repeat: none
 A
   rotate: false
-  xy: 1418, 297
+  xy: 904, 63
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 B
   rotate: false
-  xy: 1112, 94
+  xy: 1850, 202
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 X
   rotate: false
-  xy: 1010, 94
+  xy: 1850, 304
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 Y
   rotate: false
-  xy: 1520, 297
+  xy: 1006, 63
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 32
+  xy: 2, 40
   size: 900, 470
   orig: 900, 470
   offset: 0, 0
   index: -1
 blob
   rotate: false
-  xy: 1622, 356
+  xy: 1373, 211
   size: 27, 41
   orig: 27, 41
   offset: 0, 0
   index: -1
 boomerang
   rotate: false
-  xy: 904, 196
+  xy: 904, 204
   size: 384, 48
   orig: 384, 48
   offset: 0, 0
   index: -1
 circle1
   rotate: false
-  xy: 1434, 156
+  xy: 1521, 46
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 circle3
   rotate: false
-  xy: 1496, 153
+  xy: 1583, 46
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 pp_circle3
   rotate: false
-  xy: 1496, 153
+  xy: 1583, 46
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 904, 2
+  xy: 1716, 86
   size: 92, 86
   orig: 92, 86
   offset: 0, 0
   index: 1
+daybg
+  rotate: false
+  xy: 1418, 174
+  size: 430, 336
+  orig: 430, 336
+  offset: 0, 0
+  index: -1
 explosion
   rotate: false
-  xy: 904, 246
+  xy: 904, 254
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
   index: -1
 explosion-1
   rotate: false
-  xy: 1214, 105
+  xy: 1956, 421
   size: 90, 89
   orig: 90, 89
   offset: 0, 0
   index: -1
 explosion-2
   rotate: false
-  xy: 1418, 218
+  xy: 1290, 175
   size: 81, 77
   orig: 81, 77
   offset: 0, 0
   index: -1
 explosion-3
   rotate: false
-  xy: 1808, 360
+  xy: 1256, 30
   size: 74, 76
   orig: 74, 76
   offset: 0, 0
   index: -1
 gore
   rotate: false
-  xy: 1950, 365
+  xy: 1332, 35
   size: 59, 71
   orig: 59, 71
   offset: 0, 0
   index: -1
 jumping
   rotate: false
-  xy: 1306, 114
+  xy: 1393, 42
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 1501, 215
+  xy: 1876, 120
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 line
   rotate: false
-  xy: 2, 20
+  xy: 2, 28
   size: 152, 10
   orig: 152, 10
   offset: 0, 0
   index: -1
 minimap
   rotate: false
-  xy: 1418, 399
+  xy: 904, 165
   size: 232, 37
   orig: 232, 37
   offset: 0, 0
   index: -1
 normal
   rotate: false
-  xy: 1306, 180
+  xy: 1810, 23
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 player
   rotate: false
-  xy: 1372, 218
+  xy: 1256, 2
   size: 27, 26
   orig: 27, 26
   offset: 0, 0
   index: -1
 pp_circle2
   rotate: false
-  xy: 1372, 156
+  xy: 1459, 46
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 pp_firework
   rotate: false
-  xy: 904, 90
+  xy: 1850, 406
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 pp_thrust-1
   rotate: false
-  xy: 1583, 214
+  xy: 1182, 25
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
-pp_thrust-2
+thrust-1
   rotate: false
-  xy: 1884, 353
-  size: 64, 83
-  orig: 64, 83
+  xy: 1182, 25
+  size: 72, 81
+  orig: 72, 81
   offset: 0, 0
   index: -1
 pp_thrust-3
   rotate: false
-  xy: 1734, 354
+  xy: 1108, 2
+  size: 72, 82
+  orig: 72, 82
+  offset: 0, 0
+  index: -1
+thrust-3
+  rotate: false
+  xy: 1108, 2
   size: 72, 82
   orig: 72, 82
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 1652, 356
+  xy: 1876, 38
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 running
   rotate: false
-  xy: 1418, 438
+  xy: 1138, 108
   size: 576, 64
   orig: 576, 64
+  offset: 0, 0
+  index: -1
+thrust-2
+  rotate: false
+  xy: 1810, 89
+  size: 64, 83
+  orig: 64, 83
+  offset: 0, 0
+  index: -1
+pp_thrust-2
+  rotate: false
+  xy: 1810, 89
+  size: 64, 83
+  orig: 64, 83
   offset: 0, 0
   index: -1
