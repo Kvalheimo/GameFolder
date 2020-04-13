@@ -9,12 +9,15 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -31,8 +34,7 @@ public class Controller implements Disposable {
     private OrthographicCamera camera;
     private Box2dTutorial parent;
     private TextureAtlas atlas;
-    private Skin skin1, skin2, skin3;
-    private boolean pauseGame;
+    private Skin skin1, skin2, skin3, skin4;
     private MainScreen ms;
 
     public Controller(SpriteBatch sb, Box2dTutorial parent, MainScreen mainScreen){
@@ -43,7 +45,6 @@ public class Controller implements Disposable {
         ms = mainScreen;
 
         this.parent = parent;
-        pauseGame = false;
 
         atlas = parent.assMan.manager.get("images/game.atlas");
 
@@ -51,6 +52,8 @@ public class Controller implements Disposable {
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
         skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
         skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
+        skin4 = parent.assMan.manager.get("skin/buttons/buttons.json");
+
 
         stage.addListener(new InputListener(){
 
@@ -106,8 +109,12 @@ public class Controller implements Disposable {
         });
 
 
-        Image rightImg = new Image(atlas.findRegion("right"));
-        rightImg.setSize(50, 50);
+
+        final ImageButton rightImg = new ImageButton(skin4, "controller-right");
+
+        rightImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
+        rightImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
+
         rightImg.addListener(new InputListener() {
 
             @Override
@@ -123,8 +130,13 @@ public class Controller implements Disposable {
         });
 
 
-        Image leftImg = new Image(atlas.findRegion("left"));
-        leftImg.setSize(50, 50);
+
+        final ImageButton leftImg = new ImageButton(skin4, "controller-left");
+
+        leftImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
+        leftImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
+
+
         leftImg.addListener(new InputListener() {
 
             @Override
@@ -140,25 +152,12 @@ public class Controller implements Disposable {
         });
 
 
-        Image BImg = new Image(atlas.findRegion("B"));
-        BImg.setSize(35,35);
-        BImg.addListener(new InputListener(){
 
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                bPressed = true;
-                return true;
-            }
+        final Button AImg = new Button(skin4, "green");
 
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                bPressed = false;
-            }
-        });
 
-        Image AImg = new Image(atlas.findRegion("A"));
-        AImg.setSize(35, 35);
-        AImg.addListener(new InputListener() {
+        // Create button listeners
+        AImg.addListener(new InputListener(){
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -172,9 +171,14 @@ public class Controller implements Disposable {
             }
         });
 
-        Image XImg = new Image(atlas.findRegion("X"));
-        XImg.setSize(35, 35);
-        XImg.addListener(new InputListener() {
+
+
+
+        final Button XImg = new Button(skin4, "red");
+
+
+        // Create button listeners
+        XImg.addListener(new InputListener(){
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -188,9 +192,13 @@ public class Controller implements Disposable {
             }
         });
 
-        Image YImg = new Image(atlas.findRegion("Y"));
-        YImg.setSize(35, 35);
-        YImg.addListener(new InputListener() {
+
+
+        final Button YImg = new Button(skin4, "blue");
+
+
+        // Create button listeners
+        YImg.addListener(new InputListener(){
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -205,7 +213,8 @@ public class Controller implements Disposable {
         });
 
 
-        final TextButton pauseButton = new TextButton("Pasue", skin3);
+
+        final TextButton pauseButton = new TextButton("Pause", skin3);
 
 
         pauseButton.addListener(new ChangeListener() {
@@ -220,7 +229,7 @@ public class Controller implements Disposable {
 
         table1.left().bottom();
         table1.add();
-        table1.pad(0, 30, 30, 0);
+        table1.pad(0, 30, 20, 0);
         table1.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table1.add().padLeft(30);
         table1.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
@@ -229,18 +238,18 @@ public class Controller implements Disposable {
 
         Table table2 = new Table();
 
-        table2.right().bottom().padRight(30);
+        table2.right().bottom().padRight(30).padBottom(10);
         table2.add();
         table2.add(YImg).size(YImg.getWidth(), YImg.getHeight());
         table2.add();
-        table2.row().pad(1, 1, 1, 1);
+        table2.row().pad(7, 7, 1, 7);
         table2.add(XImg).size(XImg.getWidth(), XImg.getHeight());
         table2.add();
-        table2.add(BImg).size(BImg.getWidth(), BImg.getHeight());
-        table2.row().padBottom(5);
-        table2.add();
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
-        table2.add();
+        table2.row().padBottom(5);
+        //table2.add();
+        //table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
+        //table2.add();
 
         Table table3 = new Table();
 
@@ -250,7 +259,7 @@ public class Controller implements Disposable {
 
         //table1.debug();
         //table2.debug();
-        table3.debug();
+        //table3.debug();
 
         Stack stack = new Stack(table2, table1, table3);
         stack.setFillParent(true);
