@@ -10,7 +10,11 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.List;
+
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
+import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 
 
@@ -47,6 +51,8 @@ public class MainScreen implements Screen {
     private int level;
     private int character;
 
+    private DatabaseHandler dbHandler;
+    private List<Entity> otherPlayers;
 
     public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
@@ -90,6 +96,9 @@ public class MainScreen implements Screen {
 
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
+
+        dbHandler = new DatabaseHandler();
+        dbHandler.getDb().publishPlayer(player);
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
