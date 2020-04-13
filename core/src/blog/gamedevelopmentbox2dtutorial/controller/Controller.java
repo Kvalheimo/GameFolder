@@ -109,12 +109,10 @@ public class Controller implements Disposable {
         });
 
 
-
         final ImageButton rightImg = new ImageButton(skin4, "controller-right");
 
         rightImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
         rightImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
-
         rightImg.addListener(new InputListener() {
 
             @Override
@@ -136,7 +134,6 @@ public class Controller implements Disposable {
         leftImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
         leftImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
 
-
         leftImg.addListener(new InputListener() {
 
             @Override
@@ -152,12 +149,12 @@ public class Controller implements Disposable {
         });
 
 
-
         final Button AImg = new Button(skin4, "green");
 
 
         // Create button listeners
         AImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -174,11 +171,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button XImg = new Button(skin4, "red");
 
 
         // Create button listeners
         XImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -194,11 +193,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button YImg = new Button(skin4, "blue");
 
 
         // Create button listeners
         YImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -211,8 +212,6 @@ public class Controller implements Disposable {
                 yPressed = false;
             }
         });
-
-
 
         final TextButton pauseButton = new TextButton("Pause", skin3);
 
