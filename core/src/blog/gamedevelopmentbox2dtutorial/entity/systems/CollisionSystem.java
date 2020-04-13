@@ -59,16 +59,19 @@ public class CollisionSystem extends IteratingSystem {
                             //do player hit superspeed thing
                             System.out.println("player picked up superSpeed");
                           //  hud.setSpeedBoost();
-
+                            player.superspeedDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
                             player.superSpeed = true;
                             break; //technically this isn't needed
                         case TypeComponent.GUN:
                             //do player hit gun thing
                             System.out.println("player picked up gun");
-
+                            player.boomerangDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
-                            player.hasGun = true;
+                           // player.hasGun = true;
+                            if (player.boomerangCount < 4) {
+                                player.boomerangCount += 1;
+                            }
                             break; //technically this isn't needed
                         case TypeComponent.GROUND:
                             //do player hit ground thing

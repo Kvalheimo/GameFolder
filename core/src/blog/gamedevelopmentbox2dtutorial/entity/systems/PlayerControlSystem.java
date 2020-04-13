@@ -42,8 +42,13 @@ public class PlayerControlSystem extends IteratingSystem{
         player.camera.position.y = b2body.body.getPosition().y;
         player.camera.update();
 
-        if (player.superSpeed){
+        if (player.superSpeed && player.superspeedDisplayed){
             hud.setSpeedBoost();
+            player.superspeedDisplayed = false;
+        }
+        if (player.boomerangCount > 0 && player.boomerangDisplayed){
+            hud.setBoomerangCount(player.boomerangCount);
+            player.boomerangDisplayed = false;
         }
 
         //Handle states
@@ -179,7 +184,7 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         //Shooting
-        if (controller.isXPressed() && player.hasGun){
+        if (controller.isXPressed() && player.boomerangCount > 0){
 
             float shooterX = b2body.body.getPosition().x; // get player location
             float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
@@ -193,7 +198,10 @@ public class PlayerControlSystem extends IteratingSystem{
             }
 
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
-            player.hasGun = false;
+            hud.useBoomerang();
+            //player.hasGun = false;
+            player.boomerangCount -= 1;
+            controller.setXPressed(false);
         }
 
 

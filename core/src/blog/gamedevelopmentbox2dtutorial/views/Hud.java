@@ -20,10 +20,13 @@ public class Hud implements Disposable {
     public Stage stage;
     private Viewport viewport;
 
+    private int boomerangCount;
     private  float speedDuration;
     private float gameTime;
     private boolean speedBoost; //True if the speed boost icon should be displayed.
+    private boolean newDisplay; //True if the icon for boomerangs neeeds to be updated
     private boolean speedBoostActive; //True if the speed boost is active
+    private boolean hasItem;
     private Integer score;
     private float timeCountB;
     private int mapPixelWidth;
@@ -32,8 +35,9 @@ public class Hud implements Disposable {
     private TextureAtlas atlas_boosts;
 
     private Table table;  //Table for the text
-    private Table table2; //table containing the ball for minimap
-    private Table table3; //table for speedBoostActive
+    private Table table2; //Table containing the ball for minimap
+    private Table table3; //Table for speedBoostActive
+    private Table table4; //Table containing the boomerangs.
     private Image player;
     private Image boost;
     private Label scoreLabel;
@@ -50,8 +54,11 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb, int mapPixelWidth, Box2dTutorial parent){
         speedBoost = false;
+        newDisplay = false;
+        hasItem = false;
         speedBoostActive = false;
         speedDuration = (float) .3;  //Assign how long the duration of the speed boost icon is displayed.
+        boomerangCount = 0;
         gameTime = 0;
         score = 0;
         timeCountB = 0;
@@ -94,10 +101,13 @@ public class Hud implements Disposable {
         table = new Table(); //Table for the text
         table2 = new Table(); //table containing the ball for minimap
         table3 = new Table(); //table for speedBoostActive
+        table4 = new Table(); //Table for boomerang
 
         //Format on how the table should look like.
         table3.top();
+        table4.top();
         table3.left();
+        table4.left();
         table2.top();
         table2.right();
         table.top();
@@ -105,6 +115,7 @@ public class Hud implements Disposable {
         table.setFillParent(true);
         table2.setFillParent(true);
         table3.setFillParent(true);
+        table4.setFillParent(true);
         table.add().padTop(10).expandX().padLeft(50);
         table.add(scoreHeadingLabel).expandX().padTop(10);
         table.add(timeHeadingLabel).expandX().padTop(10);
@@ -127,7 +138,6 @@ public class Hud implements Disposable {
         gameTime += dt;
 
         if(speedBoostActive){
-            speedBoost = false;
             if (tempTimer < 0 + dt/4){     //because dt is not static, a small tolerance is added to be sure next frame of speed boost animation is displayed in time.
                 tempTimer = (float) Math.floor(speedDuration/dt/22)*dt;  //How much time each frame of the speed animation is supposed to be displayed, in order to have a continuously smooth animation lasting approx. as long as wanted.
                 speedBoostActive();
@@ -138,6 +148,9 @@ public class Hud implements Disposable {
         }
         if (speedBoost){
             speedBoostDisplay();
+        }
+        if(newDisplay){
+            boomerangDisplay();
         }
 
         addScore(timeCountB);
@@ -157,6 +170,12 @@ public class Hud implements Disposable {
         viewport.update(width, height);
     }
 
+    private void displayItemHeading(){
+        Label itemHeadingLabel = new Label("ITEM", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        table3.add(itemHeadingLabel).padTop(0);
+        table3.row();
+
+    }
 
 
     private void addScore(float count){
@@ -173,7 +192,8 @@ public class Hud implements Disposable {
         if(counter < 22) {  //Loops through the speed boost animation.
             boost  = new Image(atlas_boosts.findRegion("boost"+String.valueOf(counter)));
             table3.clear();
-            table3.add(boost).padTop(20);
+            displayItemHeading();
+            table3.add(boost).padTop(10).padLeft(5);
             stage.addActor(table3);
             counter += 1;
         }
@@ -187,9 +207,45 @@ public class Hud implements Disposable {
 
     private  void speedBoostDisplay(){
         table3.clear();
+        displayItemHeading();
         boost  = new Image(atlas_boosts.findRegion("boost0"));
-        table3.add(boost).padTop(20);
+        table3.add(boost).padTop(10).padLeft(5);
         stage.addActor(table3);
+        speedBoost = false;
+
+    }
+
+    private  void boomerangDisplay(){
+        table4.clear();
+        newDisplay = false;
+        Image boomerang;
+        switch (boomerangCount){
+            case 0:
+                return;
+            case 1:
+                 boomerang  = new Image(atlas_boosts.findRegion("boomerang_1x_40x25px"));
+                 table4.add(boomerang).padTop(boost.getDrawable().getMinHeight()+35).padLeft(15);
+                break;
+            case 2:
+                 boomerang  = new Image(atlas_boosts.findRegion("boomerang_2x_40x25px"));
+                 table4.add(boomerang).padTop(boost.getDrawable().getMinHeight()+35).padLeft(10);
+                 break;
+            case 3:
+                 boomerang  = new Image(atlas_boosts.findRegion("boomerang_3x_40x25px"));
+                 table4.add(boomerang).padTop(boost.getDrawable().getMinHeight()+35).padLeft(8);
+                 break;
+            case 4:
+                 boomerang  = new Image(atlas_boosts.findRegion("boomerang_4x_40x25px"));
+                 table4.add(boomerang).padTop(boost.getDrawable().getMinHeight()+35).padLeft(5);
+                 break;
+             default:
+                 System.out.println("A value not  supposed to be accessed was accessed in the Hud");
+                 return;
+        }
+        if (table3.getColumns() == 0){
+            displayItemHeading();
+            stage.addActor(table3);}
+        stage.addActor(table4);
     }
 
 
@@ -211,10 +267,25 @@ public class Hud implements Disposable {
 
     public void setSpeedBoost(){
         speedBoost = true;
+        System.out.println("hei");
     }
     public void setSpeedBoostActive(){
         speedBoostActive = true;
+
     }
+    public void setBoomerangCount(int boomerangCount){
+        newDisplay = true;
+        this.boomerangCount = boomerangCount;
+    }
+    public void useBoomerang(){
+        newDisplay = true;
+        boomerangCount -= 1;
+    }
+
+    public void hasItem(){
+        hasItem = true;
+    }
+
     @Override
     public void dispose() {
         stage.dispose();
