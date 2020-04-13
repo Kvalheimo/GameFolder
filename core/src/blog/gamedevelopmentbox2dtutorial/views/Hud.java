@@ -172,7 +172,7 @@ public class Hud implements Disposable {
 
     private void displayItemHeading(){
         Label itemHeadingLabel = new Label("ITEM", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        table3.add(itemHeadingLabel).padTop(0);
+        table3.add(itemHeadingLabel).padTop(0).padLeft(0);
         table3.row();
 
     }
@@ -242,9 +242,9 @@ public class Hud implements Disposable {
                  System.out.println("A value not  supposed to be accessed was accessed in the Hud");
                  return;
         }
-        if (table3.getColumns() == 0){
-            displayItemHeading();
-            stage.addActor(table3);}
+        //if (table3.getColumns() == 0){
+           // displayItemHeading();
+            //stage.addActor(table3);}
         stage.addActor(table4);
     }
 
