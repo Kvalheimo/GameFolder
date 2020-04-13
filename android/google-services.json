@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "531783835882",
+    "firebase_url": "https://platformer-61c35.firebaseio.com",
+    "project_id": "platformer-61c35",
+    "storage_bucket": "platformer-61c35.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:531783835882:android:c57920f1e0e85039b13793",
+        "android_client_info": {
+          "package_name": "blog.gamedevelopmentbox2dtutorial"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "531783835882-q8bjqdp269b0s9rh899b8mj98qt2h2ro.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6-UUc_QIjgGDaqdnzouwqkJenyWO9JNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "531783835882-q8bjqdp269b0s9rh899b8mj98qt2h2ro.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
