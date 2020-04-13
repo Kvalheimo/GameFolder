@@ -88,3 +88,5 @@ task run(type: Exec) {
     def adb = path + "/platform-tools/adb"
     commandLine "$adb", 'shell', 'am', 'start', '-n', 'blog.gamedevelopmentbox2dtutorial/blog.gamedevelopmentbox2dtutorial.AndroidLauncher'
 }
+
+apply plugin: 'com.google.gms.google-services'

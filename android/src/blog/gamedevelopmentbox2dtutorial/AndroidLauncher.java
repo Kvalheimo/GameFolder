@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+import com.google.firebase.FirebaseApp;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
@@ -12,5 +12,6 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
 		initialize(new Box2dTutorial(), config);
+		DatabaseHandler.setDb(new AndroidDatabase());
 	}
 }
