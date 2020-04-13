@@ -87,7 +87,7 @@ public class Hud implements Disposable {
 
         //Images used to generate the minimap.
         Image miniMap = new Image((atlas_boosts.findRegion("minimap")));
-        player = new Image((atlas_boosts.findRegion("ball")));
+        player = new Image((atlas_boosts.findRegion("ballSmaller")));
         boost  = new Image(atlas_boosts.findRegion("boost0"));
 
 
@@ -126,7 +126,7 @@ public class Hud implements Disposable {
         table.add(timeLabel).expandX();
         stage.addActor(table);
 
-        table2.add(player).padRight(minimapWidth-player.getWidth()+35).padTop(30+player.getHeight());
+        table2.add(player).padRight(minimapWidth-player.getWidth()+35).padTop(38+player.getHeight());
         stage.addActor(table2);
 
 
@@ -262,7 +262,7 @@ public class Hud implements Disposable {
         //How far the player is away from the finish line, and draws the player in the correct position.
         percentage = (float) playerPosition/mapPixelWidth;
         table2.clear();
-        table2.add(player).padTop(30+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
+        table2.add(player).padTop(38+player.getHeight()).padRight(minimapWidth-player.getWidth()+20-(minimapWidth-player.getWidth()+10)*percentage);
     }
 
     public void setSpeedBoost(){

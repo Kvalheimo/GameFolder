@@ -199,3 +199,10 @@ ball
   orig: 18, 17
   offset: 0, 0
   index: -1
+ballSmaller
+  rotate: false
+  xy: 1000, 90
+  size: 13, 13
+  orig: 13, 13
+  offset: 0, 0
+  index: -1
