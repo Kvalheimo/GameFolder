@@ -15,17 +15,15 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
-import blog.gamedevelopmentbox2dtutorial.views.Hud;
 
 public class CollisionSystem extends IteratingSystem {
     private LevelFactory levelFactory;
-    private Hud hud;
 
     @SuppressWarnings("unchecked")
-    public CollisionSystem(LevelFactory levelFactory, Hud hud) {
+    public CollisionSystem(LevelFactory levelFactory) {
         super(Family.all(CollisionComponent.class).get());
         this.levelFactory = levelFactory;
-        this.hud = hud;
+
 
 
     }
@@ -58,7 +56,6 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.SUPER_SPEED:
                             //do player hit superspeed thing
                             System.out.println("player picked up superSpeed");
-                          //  hud.setSpeedBoost();
                             player.superspeedDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
                             player.superSpeed = true;
