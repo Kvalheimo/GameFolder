@@ -15,14 +15,17 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
+import blog.gamedevelopmentbox2dtutorial.views.Hud;
 
 public class CollisionSystem extends IteratingSystem {
     private LevelFactory levelFactory;
+    private Hud hud;
 
     @SuppressWarnings("unchecked")
-    public CollisionSystem(LevelFactory levelFactory) {
+    public CollisionSystem(LevelFactory levelFactory, Hud hud) {
         super(Family.all(CollisionComponent.class).get());
         this.levelFactory = levelFactory;
+        this.hud = hud;
 
 
     }
@@ -55,6 +58,7 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.SUPER_SPEED:
                             //do player hit superspeed thing
                             System.out.println("player picked up superSpeed");
+                          //  hud.setSpeedBoost();
 
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
                             player.superSpeed = true;
@@ -69,7 +73,7 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.GROUND:
                             //do player hit ground thing
                             player.onGround = true;
-                            System.out.println("player hit ground");
+                 //           System.out.println("player hit ground");
                             break; //technically this isn't needed
                         case TypeComponent.SPRING:
                             //do player hit spring thing
@@ -81,7 +85,7 @@ public class CollisionSystem extends IteratingSystem {
                             break;
                         case TypeComponent.WALL:
                             player.onWall = true;
-                            System.out.println("player hit wall");
+                  //          System.out.println("player hit wall");
                             break;
                         case TypeComponent.SPEED_X:
                             player.speedX = true;
@@ -139,12 +143,12 @@ public class CollisionSystem extends IteratingSystem {
                     switch (type.type) {
                         case TypeComponent.GROUND:
                             //do player hit enemy thing
-                            System.out.println("Bullet hit enemy");
+                          //  System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).onGround = true;
                             break;
                         case TypeComponent.BULLET:
                             //do player hit enemy thing
-                            System.out.println("Bullet hit enemy");
+                         //   System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).isDead = true;
 
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
@@ -154,7 +158,7 @@ public class CollisionSystem extends IteratingSystem {
                             break;
                         case TypeComponent.WALL:
                             //do enemy hit wall thing
-                            System.out.println("enemy hit wall");
+                        //    System.out.println("enemy hit wall");
                             EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
 
                             if (enemyComponent.runningRight){

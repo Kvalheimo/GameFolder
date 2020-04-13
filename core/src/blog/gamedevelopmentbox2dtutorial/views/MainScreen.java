@@ -81,8 +81,8 @@ public class MainScreen implements Screen {
         engine.addSystem(particleSystem);
         engine.addSystem(new PhysicsSystem(levelFactory.getWorld()));
         engine.addSystem(new PhysicsDebugSystem(levelFactory.getWorld(), renderingSystem.getCamera()));
-        engine.addSystem(new CollisionSystem(levelFactory));
-        engine.addSystem(new PlayerControlSystem(controller, levelFactory));
+        engine.addSystem(new CollisionSystem(levelFactory, hud));
+        engine.addSystem(new PlayerControlSystem(controller, levelFactory, hud));
         engine.addSystem(new BulletSystem());
         engine.addSystem(new EnemySystem(camera));
 

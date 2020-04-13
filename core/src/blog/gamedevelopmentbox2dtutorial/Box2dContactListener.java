@@ -36,10 +36,10 @@ public class Box2dContactListener implements ContactListener{
 
     @Override
     public void beginContact(Contact contact) {
-        System.out.println("Contact");
+       // System.out.println("Contact");
         Fixture fa = contact.getFixtureA();
         Fixture fb = contact.getFixtureB();
-        System.out.println(fa.getBody().getType()+" has hit "+ fb.getBody().getType());
+       // System.out.println(fa.getBody().getType()+" has hit "+ fb.getBody().getType());
 
         if(fa.getBody().getUserData() instanceof Entity){
             Entity ent = (Entity) fa.getBody().getUserData();
