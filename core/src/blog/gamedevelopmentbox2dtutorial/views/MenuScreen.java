@@ -61,6 +61,7 @@ public class MenuScreen implements Screen {
 
         // Create text buttons
         final TextButton newGame = new TextButton("New Game", skin2);
+        final TextButton multiplayerGame = new TextButton("Multiplayer", skin2);
         final TextButton preferences = new TextButton("Preferences", skin2);
         final TextButton highScore = new TextButton("High Score", skin2);
         final TextButton exit = new TextButton("Exit", skin2);
@@ -69,6 +70,8 @@ public class MenuScreen implements Screen {
 
         // Add buttons to table
         table.add(newGame).fillX().uniformX();
+        table.row().padTop(10);
+        table.add(multiplayerGame).fillX().uniformX();
         table.row().padTop(10);
         table.add(preferences).fillX().uniformX();
         table.row().padTop(10);
@@ -86,6 +89,13 @@ public class MenuScreen implements Screen {
         });
 
         newGame.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                parent.changeScreen(Box2dTutorial.LEVEL_SELECTION);
+            }
+        });
+
+        multiplayerGame.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 parent.changeScreen(Box2dTutorial.LEVEL_SELECTION);

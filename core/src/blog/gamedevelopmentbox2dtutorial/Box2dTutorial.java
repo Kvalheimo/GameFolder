@@ -39,6 +39,7 @@ public class Box2dTutorial extends Game {
 	public final static int ENDGAME = 3;
 	public final static int LEVEL_SELECTION = 4;
 	public final static int HIGHSCORE = 5;
+	public final static int MULTIPLAYER = 6;
 
 
 	public Box2dTutorial() {
@@ -63,6 +64,13 @@ public class Box2dTutorial extends Game {
 				this.setScreen(preferencesScreen);
 				break;
 			case APPLICATION:
+				if (newGame) {
+					assMan.resetParticleEffects();
+					mainScreen = new MainScreen(this, level);
+				}
+				setScreen(mainScreen);
+				break;
+			case MULTIPLAYER:
 				if (newGame) {
 					assMan.resetParticleEffects();
 					mainScreen = new MainScreen(this, level);
