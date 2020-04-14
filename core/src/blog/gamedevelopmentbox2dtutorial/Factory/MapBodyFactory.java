@@ -56,7 +56,7 @@ public class MapBodyFactory {
     }
 
 
-    public static Array<Body> buildShapes(TiledMap map, World world, String layer, BodyDef.BodyType bodyType) {
+    public static Array<Body> buildShapes(TiledMap map, World world, String layer, BodyDef.BodyType bodyType, int material) {
 
         MapObjects objects = map.getLayers().get(layer).getObjects();
 
@@ -80,7 +80,7 @@ public class MapBodyFactory {
                 bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
-                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(material, shape);
                 body.createFixture(fixtureDef);
 
 
@@ -96,7 +96,7 @@ public class MapBodyFactory {
                 bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
-                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(material, shape);
                 body.createFixture(fixtureDef);
 
                 bodies.add(body);
@@ -107,7 +107,7 @@ public class MapBodyFactory {
                 bodyDef.type = bodyType;
                 Body body = world.createBody(bodyDef);
 
-                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(material, shape);
                 body.createFixture(fixtureDef);
 
 
@@ -125,7 +125,7 @@ public class MapBodyFactory {
                 bodyDef.position.set(position);
                 Body body = world.createBody(bodyDef);
 
-                FixtureDef fixtureDef = bodyFactory.makeFixture(bodyFactory.STEEL, shape);
+                FixtureDef fixtureDef = bodyFactory.makeFixture(material, shape);
                 body.createFixture(fixtureDef);
 
                 bodies.add(body);
