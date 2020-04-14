@@ -33,12 +33,17 @@ public class AnimationSystem extends IteratingSystem {
         PlayerComponent player = Mapper.playerCom.get(entity);
         EnemyComponent enemy = Mapper.enemyCom.get(entity);
 
-        if(ani.animations.containsKey(state.get())) {
+
+        if(ani.animationsN.containsKey(state.get())) {
             TextureComponent tex = Mapper.texCom.get(entity);
-            tex.region = (TextureRegion) ani.animations.get(state.get()).getKeyFrame(state.time, state.isLooping);
+            tex.region = (TextureRegion) ani.animationsN.get(state.get()).getKeyFrame(state.time, state.isLooping);
 
             //Handle player animation
             if(player != null) {
+                if (player.boomerangCount >= 1){
+                    tex.region = (TextureRegion) ani.animationsB.get(state.get()).getKeyFrame(state.time, state.isLooping);
+                }
+
                 //if mario is running left and the texture isnt facing left... flip it.
                 if ((b2body.body.getLinearVelocity().x < -2 || !player.runningRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
@@ -51,15 +56,16 @@ public class AnimationSystem extends IteratingSystem {
                     player.runningRight = true;
                 }
             }
+
             //Handle enemy animation
             else if(enemy != null) {
                 //if mario is running left and the texture isnt facing left... flip it.
-                if ((b2body.body.getLinearVelocity().x < -2 || !enemy.runningRight) && !tex.region.isFlipX()) {
+                if ((b2body.body.getLinearVelocity().x < -2 || !enemy.movingRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                 }
 
                 //if mario is running right and the texture isnt facing right... flip it.
-                else if ((b2body.body.getLinearVelocity().x > 2 || enemy.runningRight) && tex.region.isFlipX()) {
+                else if ((b2body.body.getLinearVelocity().x > 2 || enemy.movingRight) && tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                 }
             }
