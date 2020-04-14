@@ -11,7 +11,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.UUID;
 
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
@@ -52,7 +53,9 @@ public class MainScreen implements Screen {
     private int character;
 
     private DatabaseHandler dbHandler;
-    private List<Entity> otherPlayers;
+    private String uniqueID;
+    private ArrayList<Entity> opponents;
+
 
     public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
@@ -97,8 +100,11 @@ public class MainScreen implements Screen {
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
 
+        uniqueID = UUID.randomUUID().toString();
+        opponents = new ArrayList<Entity>();
         dbHandler = new DatabaseHandler();
-        dbHandler.getDb().publishPlayer(player);
+        dbHandler.getDb().publishPlayer(uniqueID, player);
+        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory);
 
         levelFactory.createEnemies(level);
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
@@ -167,7 +173,7 @@ public class MainScreen implements Screen {
 
                 pauseMenu.draw();
             }
-
+        dbHandler.getDb().publishPlayer(uniqueID, player);
     }
 
 

@@ -21,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
 import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -214,7 +215,66 @@ public class LevelFactory {
         return entity;
     }
 
+    public Entity createOpponent(Vector3 pos, int character){
+        Entity entity = engine.createEntity();
+//        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+        TransformComponent position = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        TypeComponent type = engine.createComponent(TypeComponent.class);
+        StateComponent stateCom = engine.createComponent(StateComponent.class);
+        AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
+//        bodyCom.body = bodyFactory.makeCirclePolyBody(pos.x, pos.y, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+
+        switch (character) {
+            case 1:
+                //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            case 2:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            case 3:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            default:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+        }
+
+        runAnim.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+        animCom.animations.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animations.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animations.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animations.put(StateComponent.STATE_FALLING, jumpAnim);
+
+//        position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
+        position.position.set(pos.x, pos.y, 0);
+
+        type.type = TypeComponent.PLAYER;
+        stateCom.set(StateComponent.STATE_NORMAL);
+
+//        bodyCom.body.setUserData(entity);
+
+        // add the components to the entity
+//        entity.add(bodyCom);
+        entity.add(position);
+        entity.add(texture);
+        entity.add(type);
+        entity.add(stateCom);
+        entity.add(animCom);
+
+        // add the entity to the engine
+        engine.addEntity(entity);
+        return entity;
+    }
 
     public void createEnemies(int level){
 

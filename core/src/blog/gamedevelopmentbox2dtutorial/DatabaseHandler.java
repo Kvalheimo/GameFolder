@@ -2,9 +2,10 @@ package blog.gamedevelopmentbox2dtutorial;
 
 import com.badlogic.ashley.core.Entity;
 
-import java.util.List;
+import java.util.ArrayList;
 
 
+import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 
 public class DatabaseHandler {
@@ -20,7 +21,8 @@ public class DatabaseHandler {
     }
 
     public interface DataBase {
-        void publishPlayer(Entity player);
-        List<PlayerComponent> getPlayers();
+        void publishPlayer(String uniqueID,Entity player);
+        ArrayList<Entity> getPlayers();
+        void addPlayerEventListener(final ArrayList<Entity> opponents, final LevelFactory levelFactory);
     }
 }
