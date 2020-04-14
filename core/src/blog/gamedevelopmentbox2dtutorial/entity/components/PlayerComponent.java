@@ -9,7 +9,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public OrthographicCamera camera = null;
     public boolean superSpeed = false;
     public boolean onSpring = false;
-   // public boolean hasGun = false;
+    public boolean hasGun = false;
     public boolean isDead = false;
     public boolean onGround = false;
     public boolean runningRight = true;
@@ -30,7 +30,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
         camera = null;
         superSpeed = false;
         onSpring = false;
-       // hasGun = false;
+        hasGun = false;
         boomerangCount= 0;
         superspeedDisplayed = false;
         boomerangDisplayed = false;

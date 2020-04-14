@@ -130,6 +130,8 @@ public class LevelFactory {
 
         peMan.addParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, parent.assMan.manager.get("particles/superspeed_right.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
         peMan.addParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, parent.assMan.manager.get("particles/superspeed_left.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.POWERUP_SPEED, parent.assMan.manager.get("particles/powerup_speed.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
+        peMan.addParticleEffect(ParticleEffectManager.POWERUP_GUN, parent.assMan.manager.get("particles/powerup_gun.p",ParticleEffect.class),1f/Box2dTutorial.PPM);
 
 
 

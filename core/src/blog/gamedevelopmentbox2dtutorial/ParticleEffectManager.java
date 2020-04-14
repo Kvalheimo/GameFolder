@@ -23,6 +23,8 @@ public class ParticleEffectManager {
     public static final int SUPERSPEED_RIGHT = 9;
     public static final int SUPERSPEED_LEFT = 10;
     public static final int TEST = 11;
+    public static final int POWERUP_SPEED = 12;
+    public static final int POWERUP_GUN = 13;
 
 
 
