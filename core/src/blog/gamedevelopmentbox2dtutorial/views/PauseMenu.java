@@ -44,7 +44,6 @@ public class PauseMenu implements Disposable{
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
         skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
         skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-        background = atlas.findRegion("flamebackground");
 
         //Create a table that fills the screen. Everything else will go inside this table
         Table table = new Table();
@@ -55,7 +54,7 @@ public class PauseMenu implements Disposable{
         // Create text buttons
         final TextButton resume= new TextButton("Resume", skin2);
         final TextButton preferences = new TextButton("Preferences", skin2);
-        final TextButton back = new TextButton("Back", skin2);
+        final TextButton back = new TextButton("Exit", skin2);
 
         // Add buttons to table
         table.add(resume).fillX().uniformX().padTop(20);
