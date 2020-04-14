@@ -80,14 +80,14 @@ public class B2dAssetManager {
         SkinParameter skinParameter2 = new SkinParameter("skin/glassy/glassy-ui.atlas");
         SkinParameter skinParameter3 = new SkinParameter("skin/clean/clean-crispy-ui.atlas");
         SkinParameter skinParameter4 = new SkinParameter("skin/buttons/buttons.atlas");
-        SkinParameter skinParameter5 = new SkinParameter( "skin/pixel/pixel-ui.atlas");
+        //SkinParameter skinParameter5 = new SkinParameter( "skin/pixel/pixel-ui.atlas");
 
 
         manager.load(skin1, Skin.class, skinParameter1);
         manager.load(skin2, Skin.class, skinParameter2);
         manager.load(skin3, Skin.class, skinParameter3);
         manager.load(skin4, Skin.class, skinParameter4);
-        manager.load(skin5, Skin.class, skinParameter5);
+        //manager.load(skin5, Skin.class, skinParameter5);
 
     }
 
