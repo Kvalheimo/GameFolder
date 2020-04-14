@@ -13,18 +13,21 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
+import blog.gamedevelopmentbox2dtutorial.views.Hud;
 
 public class PlayerControlSystem extends IteratingSystem{
 
     private Controller controller;
     private LevelFactory levelFactory;
+    private Hud hud;
 
 
     @SuppressWarnings("unchecked")
-    public PlayerControlSystem(Controller controller, LevelFactory levelFactory) {
+    public PlayerControlSystem(Controller controller, LevelFactory levelFactory, Hud hud) {
         super(Family.all(PlayerComponent.class).get());
         this.controller = controller;
         this.levelFactory = levelFactory;
+        this.hud = hud;
 
     }
 
@@ -39,6 +42,14 @@ public class PlayerControlSystem extends IteratingSystem{
         player.camera.position.y = b2body.body.getPosition().y;
         player.camera.update();
 
+        if (player.superSpeed && player.superspeedDisplayed){
+            hud.setSpeedBoost();
+            player.superspeedDisplayed = false;
+        }
+        if (player.boomerangCount > 0 && player.boomerangDisplayed){
+            hud.setBoomerangCount(player.boomerangCount);
+            player.boomerangDisplayed = false;
+        }
 
         //Handle states
         if(b2body.body.getLinearVelocity().y < 0  && state.get() != StateComponent.STATE_FALLING){
@@ -162,16 +173,18 @@ public class PlayerControlSystem extends IteratingSystem{
             if (player.runningRight){
                 b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, b2body);
+                hud.setSpeedBoostActive();
             }else{
                 b2body.body.applyLinearImpulse(-50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, b2body);
+                hud.setSpeedBoostActive();
             }
             player.superSpeed = false;
 
         }
 
         //Shooting
-        if (controller.isXPressed() && player.hasGun){
+        if (controller.isXPressed() && player.boomerangCount > 0){
 
             float shooterX = b2body.body.getPosition().x; // get player location
             float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
@@ -185,7 +198,10 @@ public class PlayerControlSystem extends IteratingSystem{
             }
 
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
-            player.hasGun = false;
+            hud.useBoomerang();
+            //player.hasGun = false;
+            player.boomerangCount -= 1;
+            controller.setXPressed(false);
         }
 
 

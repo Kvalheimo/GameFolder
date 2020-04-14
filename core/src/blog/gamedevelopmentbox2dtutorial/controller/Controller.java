@@ -318,6 +318,12 @@ public class Controller implements Disposable {
     public void setAPressed(boolean aPressed){
         this.aPressed = aPressed;
     }
+
+    //Function used by playerControlSystem to make it impossible to hold gun button
+    public void setXPressed(boolean xPressed){
+        this.xPressed = xPressed;
+    }
+
 }
 
 
