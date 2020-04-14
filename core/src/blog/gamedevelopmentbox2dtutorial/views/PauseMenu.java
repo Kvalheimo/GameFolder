@@ -23,7 +23,6 @@ public class PauseMenu implements Disposable{
     public final Box2dTutorial parent;
     private Stage stage;
     private Skin skin1, skin2, skin3;
-    private TextureAtlas.AtlasRegion background;
     private TextureAtlas atlas;
     private Viewport viewport;
     private MainScreen ms;
