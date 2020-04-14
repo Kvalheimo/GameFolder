@@ -15,14 +15,17 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
+import blog.gamedevelopmentbox2dtutorial.views.Hud;
 
 public class CollisionSystem extends IteratingSystem {
     private LevelFactory levelFactory;
+    private Hud hud;
 
     @SuppressWarnings("unchecked")
-    public CollisionSystem(LevelFactory levelFactory) {
+    public CollisionSystem(LevelFactory levelFactory, Hud hud) {
         super(Family.all(CollisionComponent.class).get());
         this.levelFactory = levelFactory;
+        this.hud = hud;
 
 
 
@@ -65,7 +68,6 @@ public class CollisionSystem extends IteratingSystem {
                             System.out.println("player picked up gun");
                             player.boomerangDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
-                           // player.hasGun = true;
                             if (player.boomerangCount < 4) {
                                 player.boomerangCount += 1;
                             }
@@ -150,7 +152,7 @@ public class CollisionSystem extends IteratingSystem {
                             //do player hit enemy thing
                          //   System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).isDead = true;
-
+                            hud.giveExtraPoints();
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
 

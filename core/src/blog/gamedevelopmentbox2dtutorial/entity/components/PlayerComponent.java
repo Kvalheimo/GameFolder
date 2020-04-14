@@ -30,7 +30,6 @@ public class PlayerComponent implements Component, Pool.Poolable {
         camera = null;
         superSpeed = false;
         onSpring = false;
-       // hasGun = false;
         boomerangCount= 0;
         superspeedDisplayed = false;
         boomerangDisplayed = false;

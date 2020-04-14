@@ -26,8 +26,7 @@ public class Hud implements Disposable {
     private boolean speedBoost; //True if the speed boost icon should be displayed.
     private boolean newDisplay; //True if the icon for boomerangs neeeds to be updated
     private boolean speedBoostActive; //True if the speed boost is active
-    private boolean hasItem;
-    private Integer score;
+    private boolean extraPoints;
     private float timeCountB;
     private int mapPixelWidth;
     private float percentage;
@@ -43,7 +42,6 @@ public class Hud implements Disposable {
     private Label scoreLabel;
     private Label timeLabel;
     private Label timeHeadingLabel;
-    private Label scoreHeadingLabel;
 
     private SpriteBatch sb;
 
@@ -54,13 +52,12 @@ public class Hud implements Disposable {
 
     public Hud(SpriteBatch sb, int mapPixelWidth, Box2dTutorial parent){
         speedBoost = false;
+        extraPoints = false; //True if one should subtract time
         newDisplay = false;
-        hasItem = false;
         speedBoostActive = false;
         speedDuration = (float) .3;  //Assign how long the duration of the speed boost icon is displayed.
         boomerangCount = 0;
         gameTime = 0;
-        score = 0;
         timeCountB = 0;
         percentage = 0;
         this.sb = sb;
@@ -73,15 +70,14 @@ public class Hud implements Disposable {
         stage = new Stage(viewport, sb);
 
 
-        float minutes = 0;
-        float seconds = 0;
+         float minutes = 0;
+         float seconds = 0;
 
 
-        //Controls the labeling for the score and time used
-        scoreHeadingLabel = new Label("SCORE", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        //Controls the labeling for time used
         timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        scoreLabel = new Label(String.format("-%d", 10), new Label.LabelStyle(new BitmapFont(), Color.GREEN));
 
 
 
@@ -102,6 +98,7 @@ public class Hud implements Disposable {
         table2 = new Table(); //table containing the ball for minimap
         table3 = new Table(); //table for speedBoostActive
         table4 = new Table(); //Table for boomerang
+        Table table5 = new Table();
 
         //Format on how the table should look like.
         table3.top();
@@ -110,31 +107,31 @@ public class Hud implements Disposable {
         table4.left();
         table2.top();
         table2.right();
+        table.center();
         table.top();
-        table.left();
+        table5.top();
+        table5.right();
+
         table.setFillParent(true);
         table2.setFillParent(true);
         table3.setFillParent(true);
         table4.setFillParent(true);
-        table.add().padTop(10).expandX().padLeft(50);
-        table.add(scoreHeadingLabel).expandX().padTop(10);
-        table.add(timeHeadingLabel).expandX().padTop(10);
-        table.add(miniMap).padRight(10).padTop(30);
+        table5.setFillParent(true);
+        table.add(timeHeadingLabel).padTop(10);
+        table5.add(miniMap).padRight(10).padTop(30);
         table.row();
-        table.add().padTop(10).padLeft(50).expandX();
-        table.add(scoreLabel).expandX();
-        table.add(timeLabel).expandX();
+        table.add(timeLabel);
+        table.add().padLeft(5);
         stage.addActor(table);
-
         table2.add(player).padRight(minimapWidth-player.getWidth()+35).padTop(38+player.getHeight());
         stage.addActor(table2);
+        stage.addActor(table5);
 
 
 
     }
 
     public void update(float dt, int playerPosition){
-        timeCountB += dt;
         gameTime += dt;
 
         if(speedBoostActive){
@@ -153,13 +150,30 @@ public class Hud implements Disposable {
             boomerangDisplay();
         }
 
-        addScore(timeCountB);
         addTime(gameTime);
 
+        if(extraPoints){
+            hideExtraPoints();
+            timeCountB += dt;
+        }
         //updates the players position on the minimap
         addPlayerPos(playerPosition);
 
 
+    }
+
+    private void hideExtraPoints(){
+        if(timeCountB>5){
+            table.getCell(scoreLabel).clearActor();
+            extraPoints = false;
+            timeCountB = 0;
+            if(gameTime-10 <0) {
+                gameTime =0;
+            }
+            else {
+                gameTime -= 10;
+            }
+        }
     }
 
     public void draw(){
@@ -170,29 +184,12 @@ public class Hud implements Disposable {
         viewport.update(width, height);
     }
 
-    private void displayItemHeading(){
-        Label itemHeadingLabel = new Label("ITEM", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        table3.add(itemHeadingLabel).padTop(0).padLeft(0);
-        table3.row();
-
-    }
-
-
-    private void addScore(float count){
-        if(count >= 0.5){
-            score += 1;
-            scoreLabel.setText(String.format("%01d", score));
-            timeCountB = 0;
-        }
-
-    }
 
 
     private void speedBoostActive(){
         if(counter < 22) {  //Loops through the speed boost animation.
             boost  = new Image(atlas_boosts.findRegion("boost"+String.valueOf(counter)));
             table3.clear();
-            displayItemHeading();
             table3.add(boost).padTop(10).padLeft(5);
             stage.addActor(table3);
             counter += 1;
@@ -207,12 +204,10 @@ public class Hud implements Disposable {
 
     private  void speedBoostDisplay(){
         table3.clear();
-        displayItemHeading();
         boost  = new Image(atlas_boosts.findRegion("boost0"));
         table3.add(boost).padTop(10).padLeft(5);
         stage.addActor(table3);
         speedBoost = false;
-
     }
 
     private  void boomerangDisplay(){
@@ -242,21 +237,18 @@ public class Hud implements Disposable {
                  System.out.println("A value not  supposed to be accessed was accessed in the Hud");
                  return;
         }
-        //if (table3.getColumns() == 0){
-           // displayItemHeading();
-            //stage.addActor(table3);}
         stage.addActor(table4);
     }
 
 
     private void addTime(float gameTime){
-         float minutes = (float)Math.floor(gameTime / 60.0f);
-         float seconds = gameTime - minutes * 60.0f;
+          float minutes = (float)Math.floor(gameTime / 60.0f);
+          float seconds = gameTime - minutes * 60.0f;
          timeLabel.setText(String.format("%.0fm%.0fs", minutes, seconds));
     }
 
     public int getScore(){
-        return score;
+        return (int) gameTime;
     }
     private void addPlayerPos(int playerPosition){
         //How far the player is away from the finish line, and draws the player in the correct position.
@@ -282,8 +274,20 @@ public class Hud implements Disposable {
         boomerangCount -= 1;
     }
 
-    public void hasItem(){
-        hasItem = true;
+
+    public void giveExtraPoints(){
+        extraPoints = true;
+        if(table.getCell(scoreLabel) == null){
+            table.add(scoreLabel);
+        }
+        else{
+        if(gameTime-10 <0) {
+            gameTime =0;
+        }
+        else {
+            gameTime -= 10;
+        }
+        }
     }
 
     @Override
