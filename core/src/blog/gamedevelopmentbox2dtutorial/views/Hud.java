@@ -45,7 +45,7 @@ public class Hud implements Disposable {
 
     private SpriteBatch sb;
 
-
+    private int extraSecondsForKill;
 
     private int counter = 0;
     private float tempTimer = -10;
@@ -60,6 +60,7 @@ public class Hud implements Disposable {
         gameTime = 0;
         timeCountB = 0;
         percentage = 0;
+        extraSecondsForKill = 10; //How many seconds one gets if there is a kill.
         this.sb = sb;
         this.mapPixelWidth = mapPixelWidth;
 
@@ -77,7 +78,7 @@ public class Hud implements Disposable {
         //Controls the labeling for time used
         timeHeadingLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         timeLabel = new Label(String.format("%.0fm%.0fs", minutes, seconds), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel = new Label(String.format("-%d", 10), new Label.LabelStyle(new BitmapFont(), Color.GREEN));
+        scoreLabel = new Label(String.format("-%d", extraSecondsForKill), new Label.LabelStyle(new BitmapFont(), Color.GREEN));
 
 
 
@@ -167,11 +168,11 @@ public class Hud implements Disposable {
             table.getCell(scoreLabel).clearActor();
             extraPoints = false;
             timeCountB = 0;
-            if(gameTime-10 <0) {
+            if(gameTime-extraSecondsForKill <0) {
                 gameTime =0;
             }
             else {
-                gameTime -= 10;
+                gameTime -= extraSecondsForKill;
             }
         }
     }
@@ -281,11 +282,11 @@ public class Hud implements Disposable {
             table.add(scoreLabel);
         }
         else{
-        if(gameTime-10 <0) {
+        if(gameTime-extraSecondsForKill <0) {
             gameTime =0;
         }
         else {
-            gameTime -= 10;
+            gameTime -= extraSecondsForKill;
         }
         }
     }
