@@ -12,6 +12,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
@@ -54,7 +55,7 @@ public class MainScreen implements Screen {
 
     private DatabaseHandler dbHandler;
     private String uniqueID;
-    private ArrayList<Entity> opponents;
+    private HashMap<String,Entity> opponents;
 
 
     public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
@@ -101,10 +102,10 @@ public class MainScreen implements Screen {
         player = levelFactory.createPlayer(camera, character);
 
         uniqueID = UUID.randomUUID().toString();
-        opponents = new ArrayList<Entity>();
+        opponents = new HashMap<>();
         dbHandler = new DatabaseHandler();
         dbHandler.getDb().publishPlayer(uniqueID, player);
-        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory);
+        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine);
 
         levelFactory.createEnemies(level);
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
