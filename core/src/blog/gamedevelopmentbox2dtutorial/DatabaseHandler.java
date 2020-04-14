@@ -1,8 +1,10 @@
 package blog.gamedevelopmentbox2dtutorial;
 
 import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.PooledEngine;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
@@ -23,6 +25,6 @@ public class DatabaseHandler {
     public interface DataBase {
         void publishPlayer(String uniqueID,Entity player);
         ArrayList<Entity> getPlayers();
-        void addPlayerEventListener(final ArrayList<Entity> opponents, final LevelFactory levelFactory);
+        void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine);
     }
 }

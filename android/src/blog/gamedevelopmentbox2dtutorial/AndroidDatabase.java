@@ -1,8 +1,11 @@
 package blog.gamedevelopmentbox2dtutorial;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.Vector3;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -10,9 +13,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.badlogic.ashley.core.Entity;
+import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -28,34 +33,25 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
 
-    public void addPlayerEventListener(final ArrayList<Entity> opponents, final LevelFactory levelFactory) {
+    public void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine) {
         dbRef = db.getReference("players/");
-        dbRef.addChildEventListener(new ChildEventListener() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> players = dataSnapshot.getChildren();
                 for(DataSnapshot snapshot : players) {
-                    if (snapshot.child("x").exists()){
-                        Float posX = snapshot.child("x").getValue(Float.class);
-                        Vector3 pos = new Vector3(snapshot.child("x").getValue(Float.class), snapshot.child("y").getValue(Float.class),0);
-                        opponents.add(levelFactory.createOpponent(pos, 1));
+                    String key = snapshot.getKey();
+                    if (snapshot.child("pos").child("x").exists()){
+                        Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class),0);
+                        if (!opponents.containsKey(key)) {
+                            opponents.put(key, levelFactory.createOpponent(pos, 1));
+                        }
+                        else {
+                            opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                        }
                     }
+
                 }
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
             }
 
             @Override
@@ -63,6 +59,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
 
             }
         });
+
     }
 
     @Override
