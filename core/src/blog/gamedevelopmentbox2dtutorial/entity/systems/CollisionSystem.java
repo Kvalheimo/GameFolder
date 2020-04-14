@@ -161,10 +161,10 @@ public class CollisionSystem extends IteratingSystem {
                         //    System.out.println("enemy hit wall");
                             EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
 
-                            if (enemyComponent.runningRight){
-                                enemyComponent.runningRight = false;
-                            }else if(!enemyComponent.runningRight) {
-                                enemyComponent.runningRight = true;
+                            if (enemyComponent.movingRight){
+                                enemyComponent.movingRight = false;
+                            }else if(!enemyComponent.movingRight) {
+                                enemyComponent.movingRight = true;
                             }
                             break; //technically this isn't needed
                         default:
