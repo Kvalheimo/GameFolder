@@ -91,7 +91,8 @@ public class MainScreen implements Screen {
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
 
-        levelFactory.createEnemies(level);
+        levelFactory.createBats(level);
+        levelFactory.createSpiders(level);
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
         levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
