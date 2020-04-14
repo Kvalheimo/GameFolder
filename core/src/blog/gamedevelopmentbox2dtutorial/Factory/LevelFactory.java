@@ -57,13 +57,8 @@ public class LevelFactory {
     private TextureAtlas atlas;
     private Box2dTutorial parent;
     private ParticleEffectManager peMan;
-    private Animation runAnim, normalAnim, jumpAnim;
-
-
-    private int mapPixelWidth;
-    private int mapTileWidth;
-
-
+    private Animation runAnim, normalAnim, jumpAnim, slideAnim, fallAnim;
+    private Animation runAnimB, normalAnimB, jumpAnimB, slideAnimB, fallAnimB;
     private float finishPosition;
 
 
@@ -73,7 +68,7 @@ public class LevelFactory {
         this.engine = engine;
         this.parent = parent;
 
-        world = new World(new Vector2(0,-20f), true);
+        world = new World(new Vector2(0,-Box2dTutorial.GRAVITY), true);
         world.setContactListener(new Box2dContactListener());
 
         bodyFactory = BodyFactory.getInstance(world);
@@ -158,33 +153,72 @@ public class LevelFactory {
         switch (character) {
             case 1:
                 //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
-              runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-              jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-              normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
             case 2:
-                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling"), 1, 1));
+
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling_b"), 1, 1));
+                break;
             case 3:
-                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
-            default:
-                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
         }
+
 
         runAnim.setPlayMode(Animation.PlayMode.LOOP);
         normalAnim.setPlayMode(Animation.PlayMode.LOOP);
         jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnim.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnim.setPlayMode(Animation.PlayMode.LOOP);
 
-        animCom.animations.put(StateComponent.STATE_NORMAL, normalAnim);
-        animCom.animations.put(StateComponent.STATE_MOVING, runAnim);
-        animCom.animations.put(StateComponent.STATE_JUMPING, jumpAnim);
-        animCom.animations.put(StateComponent.STATE_FALLING, jumpAnim);
-        //animCom.animations.put(StateComponent.STATE_HIT, anim);
+        runAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnimB.setPlayMode(Animation.PlayMode.LOOP);
 
+
+        animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animationsN.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animationsN.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animationsN.put(StateComponent.STATE_FALLING, fallAnim);
+        animCom.animationsN.put(StateComponent.STATE_SLIDING, slideAnim);
+
+        animCom.animationsB.put(StateComponent.STATE_NORMAL, normalAnimB);
+        animCom.animationsB.put(StateComponent.STATE_MOVING, runAnimB);
+        animCom.animationsB.put(StateComponent.STATE_JUMPING, jumpAnimB);
+        animCom.animationsB.put(StateComponent.STATE_FALLING, fallAnimB);
+        animCom.animationsB.put(StateComponent.STATE_SLIDING, slideAnimB);
 
 
 
@@ -216,10 +250,8 @@ public class LevelFactory {
 
 
 
-    public void createEnemies(int level){
-
-
-        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Enemy", BodyDef.BodyType.DynamicBody);
+    public void createBats(int level){
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Bats", BodyDef.BodyType.DynamicBody, bodyFactory.STEEL);
 
         for (Body enemyBody: enemyBodies) {
 
@@ -235,25 +267,20 @@ public class LevelFactory {
             AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
             // create the data for the components and add them to the components
-            //bodyCom.body = bodyFactory.makeCirclePolyBody(16, 7, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
             enemyBody.setActive(false);
+            enemyCom.type = enemyCom.BAT;
             bodyCom.body = enemyBody;
 
             //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
-            Animation runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("running"), 9, 1));
-            Animation jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("jumping"), 1, 1));
-            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("normal"), 1, 1));
+            Animation movingAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("bat"), 5, 1));
+            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("bat_normal"), 1, 1));
 
 
-            runAnim.setPlayMode(Animation.PlayMode.LOOP);
+            movingAnim.setPlayMode(Animation.PlayMode.LOOP);
             normalAnim.setPlayMode(Animation.PlayMode.LOOP);
-            jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
 
-            animCom.animations.put(StateComponent.STATE_NORMAL, normalAnim);
-            animCom.animations.put(StateComponent.STATE_MOVING, runAnim);
-            animCom.animations.put(StateComponent.STATE_JUMPING, jumpAnim);
-            animCom.animations.put(StateComponent.STATE_FALLING, jumpAnim);
-            animCom.animations.put(StateComponent.STATE_HIT, jumpAnim);
+            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+            animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
 
             // set object position (x,y,z) z used to define draw order 0 first drawn
@@ -261,9 +288,74 @@ public class LevelFactory {
 
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.ENEMY;
-            stateCom.set(StateComponent.STATE_NORMAL);
+            stateCom.set(StateComponent.STATE_MOVING);
 
-            enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
+            //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
+
+
+
+            bodyCom.body.setUserData(entity);
+
+
+            // add the components to the entity
+            entity.add(bodyCom);
+            entity.add(position);
+            entity.add(texture);
+            entity.add(enemyCom);
+            entity.add(colComp);
+            entity.add(type);
+            entity.add(stateCom);
+            entity.add(animCom);
+
+            // add the entity to the engine
+            engine.addEntity(entity);
+        }
+
+    }
+
+
+
+    public void createSpiders(int level){
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Spiders", BodyDef.BodyType.DynamicBody, BodyFactory.RUBBER);
+
+        for (Body enemyBody: enemyBodies) {
+
+            // Create the Entity and all the components that will go in the entity
+            Entity entity = engine.createEntity();
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            TextureComponent texture = engine.createComponent(TextureComponent.class);
+            EnemyComponent enemyCom = engine.createComponent(EnemyComponent.class);
+            CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+            TypeComponent type = engine.createComponent(TypeComponent.class);
+            StateComponent stateCom = engine.createComponent(StateComponent.class);
+            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+
+            // create the data for the components and add them to the components
+            enemyBody.setActive(false);
+            enemyCom.type = enemyCom.SPIDER;
+            bodyCom.body = enemyBody;
+
+            //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+            Animation movingAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider"), 4, 1));
+            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider_normal"), 1, 1));
+
+
+            movingAnim.setPlayMode(Animation.PlayMode.LOOP);
+            normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+            animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
+
+
+            // set object position (x,y,z) z used to define draw order 0 first drawn
+            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
+
+            position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
+            type.type = TypeComponent.ENEMY;
+
+            stateCom.set(StateComponent.STATE_MOVING);
+            //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
 
 
@@ -322,7 +414,7 @@ public class LevelFactory {
     public void createTiledMapEntities(String layer, int type, int level) {
 
 
-            Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody);
+            Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -376,7 +468,7 @@ public class LevelFactory {
         anim.setPlayMode(Animation.PlayMode.LOOP);
 
 
-        animCom.animations.put(StateComponent.STATE_NORMAL, anim);
+        animCom.animationsN.put(StateComponent.STATE_NORMAL, anim);
 
         stateCom.set(StateComponent.STATE_NORMAL);
         type.type = TypeComponent.BULLET;
