@@ -51,12 +51,16 @@ public class PlayerControlSystem extends IteratingSystem{
             player.boomerangDisplayed = false;
         }
 
+
         //Handle states
-        if(b2body.body.getLinearVelocity().y < 0  && state.get() != StateComponent.STATE_FALLING){
+        if(b2body.body.getLinearVelocity().y < -1  && state.get() != StateComponent.STATE_FALLING){
+            player.onGround = false;
             state.set(StateComponent.STATE_FALLING);
         }
 
-
+        if (state.get() == StateComponent.STATE_FALLING && b2body.body.getLinearVelocity().y == 0){
+            player.onGround = true;
+        }
 
         if(player.onGround){
             if(b2body.body.getLinearVelocity().x == 0 && state.get() !=  StateComponent.STATE_NORMAL){
@@ -66,7 +70,12 @@ public class PlayerControlSystem extends IteratingSystem{
             if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING) {
                 state.set(StateComponent.STATE_MOVING);
             }
+        }
 
+
+
+        if (b2body.body.getLinearVelocity().x < 1 && b2body.body.getLinearVelocity().x > -1 && state.get() == StateComponent.STATE_MOVING){
+            state.set(StateComponent.STATE_NORMAL);
         }
 
 
@@ -90,8 +99,9 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if(controller.isRightPressed() && player.onWall) {
             b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
-            player.onWall = false;
+
         }
+
 
 
         //Movement
