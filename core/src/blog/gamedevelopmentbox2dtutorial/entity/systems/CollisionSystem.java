@@ -58,7 +58,6 @@ public class CollisionSystem extends IteratingSystem {
                             System.out.println("player picked up superSpeed");
                             player.superspeedDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWERUP_SPEED, body);
-
                             player.superSpeed = true;
                             break; //technically this isn't needed
                         case TypeComponent.GUN:
@@ -69,7 +68,6 @@ public class CollisionSystem extends IteratingSystem {
                             if (player.boomerangCount < 4) {
                                 player.boomerangCount += 1;
                             }
-
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWERUP_GUN, body);
                             player.hasGun = true;
 
