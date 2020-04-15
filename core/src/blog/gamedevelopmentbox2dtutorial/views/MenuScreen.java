@@ -40,13 +40,14 @@ public class MenuScreen implements Screen {
         skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
         background = atlas.findRegion("flamebackground");
 
+        //Load highscore list
+        Save.load();
 
     }
 
     @Override
     public void show() {
-        //Load highscore list
-        Save.load();
+
 
         Gdx.input.setInputProcessor(stage);
 

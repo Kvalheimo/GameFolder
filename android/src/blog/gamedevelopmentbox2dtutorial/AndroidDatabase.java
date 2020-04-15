@@ -97,7 +97,6 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                                     String name = snapshot.getKey();
                                     Integer score = snapshot.getValue(Integer.class);
                                     levelHighscores.addHighScore(score, name);
-                                    System.out.println("FHAKDSFJLASDFKAS"+ score + name);
 
                                 }
 

@@ -48,7 +48,7 @@ public class HighScoreScreen implements Screen {
 
         background = atlas.findRegion("flamebackground");
 
-
+        Save.load();
 
     }
 
