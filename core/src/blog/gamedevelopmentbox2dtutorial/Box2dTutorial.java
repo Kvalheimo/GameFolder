@@ -16,6 +16,7 @@ import blog.gamedevelopmentbox2dtutorial.views.LevelSelectionScreen;
 import blog.gamedevelopmentbox2dtutorial.views.LoadingScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MenuScreen;
+import blog.gamedevelopmentbox2dtutorial.views.MultiplayerScreen;
 import blog.gamedevelopmentbox2dtutorial.views.PreferenceScreen;
 
 public class Box2dTutorial extends Game {
@@ -32,6 +33,7 @@ public class Box2dTutorial extends Game {
 	private LevelSelectionScreen levelSelectionScreen;
 	private CharacterSelectionScreen characterSelectionScreen;
 	private HighScoreScreen highScoreScreen;
+	private MultiplayerScreen multiplayerScreen;
 	public B2dAssetManager assMan;
 	private AppPreferences preferences;
 	private Music playingSong;
@@ -43,6 +45,8 @@ public class Box2dTutorial extends Game {
 	public final static int LEVEL_SELECTION = 4;
 	public final static int CHARACTER_SELECTION = 5;
 	public final static int HIGHSCORE = 6;
+	public final static int MULTIPLAYER = 7;
+
 
 
 	public Box2dTutorial() {
@@ -54,7 +58,7 @@ public class Box2dTutorial extends Game {
 		changeScreen(screen, false, 0 , 0);
 	}
 
-		public void changeScreen(int screen, boolean newGame, int level, int character){
+	public void changeScreen(int screen, boolean newGame, int level, int character){
 		switch(screen){
 			case MENU:
 				if(menuScreen == null) menuScreen = new MenuScreen(this);
@@ -70,7 +74,7 @@ public class Box2dTutorial extends Game {
 					assMan.resetParticleEffects();
 					mainScreen = new MainScreen(this, level, character);
 				}
-				setScreen(mainScreen);
+				this.setScreen(mainScreen);
 				break;
 			case ENDGAME:
 				endScreen = new EndScreen(this, level);
@@ -87,6 +91,13 @@ public class Box2dTutorial extends Game {
 			case HIGHSCORE:
 				highScoreScreen = new HighScoreScreen(this);
 				this.setScreen(highScoreScreen);
+				break;
+			case MULTIPLAYER:
+				if (newGame) {
+					assMan.resetParticleEffects();
+					multiplayerScreen = new MultiplayerScreen(this, level, character);
+				}
+				this.setScreen(multiplayerScreen);
 				break;
 		}
 

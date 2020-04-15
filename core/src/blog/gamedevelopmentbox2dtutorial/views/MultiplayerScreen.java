@@ -7,20 +7,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.UUID;
 
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
-
-
-import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -35,7 +30,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
-public class MainScreen implements Screen, GameScreen {
+public class MultiplayerScreen implements Screen, GameScreen {
 
 
     private Box2dTutorial parent;
@@ -58,7 +53,7 @@ public class MainScreen implements Screen, GameScreen {
     private HashMap<String,Entity> opponents;
 
 
-    public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
+    public MultiplayerScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
         this.character = character;
         isPaused = false;
@@ -156,24 +151,24 @@ public class MainScreen implements Screen, GameScreen {
                 parent.changeScreen(Box2dTutorial.ENDGAME, false, level, 0);
             }
 
-            } else {
-                Gdx.input.setInputProcessor(pauseMenu.getStage());
-                camera.update();
+        } else {
+            Gdx.input.setInputProcessor(pauseMenu.getStage());
+            camera.update();
 
-                renderer.setView(camera);
-                renderer.render();
+            renderer.setView(camera);
+            renderer.render();
 
-                engine.update(dt);
-                setProcessing(false);
+            engine.update(dt);
+            setProcessing(false);
 
-                sb.setProjectionMatrix(hud.stage.getCamera().combined);
-                hud.draw();
+            sb.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.draw();
 
-                //sb.setProjectionMatrix(controller.stage.getCamera().combined);
-                //controller.draw();
+            //sb.setProjectionMatrix(controller.stage.getCamera().combined);
+            //controller.draw();
 
-                pauseMenu.draw();
-            }
+            pauseMenu.draw();
+        }
         dbHandler.getDb().publishPlayer(player);
     }
 
@@ -205,8 +200,8 @@ public class MainScreen implements Screen, GameScreen {
     }
 
     @Override
-    public void pauseGame(Boolean pause){
-        this.isPaused = pause;
+    public void pauseGame(Boolean pause) {
+            this.isPaused = pause;
     }
 
     public void setProcessing(boolean flag){
@@ -230,3 +225,4 @@ public class MainScreen implements Screen, GameScreen {
 
     }
 }
+

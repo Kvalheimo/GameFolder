@@ -60,7 +60,8 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
         // Create text buttons
-        final TextButton newGame = new TextButton("New Game", skin2);
+        final TextButton multiplayer = new TextButton("Multiplayer", skin2);
+        final TextButton newGame = new TextButton("Singleplayer", skin2);
         final TextButton preferences = new TextButton("Preferences", skin2);
         final TextButton highScore = new TextButton("High Score", skin2);
         final TextButton exit = new TextButton("Exit", skin2);
@@ -68,6 +69,8 @@ public class MenuScreen implements Screen {
 
 
         // Add buttons to table
+        table.add(multiplayer).fillX().uniform();
+        table.row().padTop(10);
         table.add(newGame).fillX().uniformX();
         table.row().padTop(10);
         table.add(preferences).fillX().uniformX();
@@ -82,6 +85,13 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
             Gdx.app.exit();
+            }
+        });
+
+        multiplayer.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, 1, 1);
             }
         });
 
