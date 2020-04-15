@@ -10,7 +10,7 @@ public class HighScoreData implements Serializable{
     private static final long serialVersionUID = 1;
 
 
-    private final int MAX_SCORES = 10;
+    public final int MAX_SCORES = 10;
     private long[] highScores;
     private String[] names;
 
@@ -19,13 +19,10 @@ public class HighScoreData implements Serializable{
     public HighScoreData() {
         highScores = new long[MAX_SCORES];
         names = new String[MAX_SCORES];
-    }
 
-    // sets up an empty high scores table
-    public void init() {
         for(int i = 0; i < MAX_SCORES; i++) {
-            highScores[i] = 999;
-            names[i] = "---";
+            highScores[i] = 9999;
+            names[i] = "NAN";
         }
     }
 

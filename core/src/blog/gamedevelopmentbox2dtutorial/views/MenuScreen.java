@@ -47,7 +47,7 @@ public class MenuScreen implements Screen {
     public void show() {
         //Load highscore list
 //        for (int i = 1; i < 7; i++){
-//            Save.load(i);
+            Save.load(1);
 //        }
 
         Gdx.input.setInputProcessor(stage);

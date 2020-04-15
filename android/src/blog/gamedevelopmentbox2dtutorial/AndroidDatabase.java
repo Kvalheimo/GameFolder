@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 
 import com.badlogic.ashley.core.PooledEngine;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.IntMap;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -18,8 +19,10 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
+import blog.gamedevelopmentbox2dtutorial.HighScore.HighScoreData;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
@@ -27,9 +30,11 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
 
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
+    private IntMap<HighScoreData> hsd;
 
     public AndroidDatabase() {
         db = FirebaseDatabase.getInstance();
+        hsd = new IntMap<>();
     }
 
 
@@ -60,6 +65,60 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
             }
         });
 
+    }
+
+    @Override
+    public IntMap<HighScoreData> getHighscores() {
+            dbRef = db.getReference("highscores/");
+            dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (int i = 1; i < 7; i++) {
+
+                        HighScoreData levelHighscores = new HighScoreData();
+
+                        if (dataSnapshot.child("map" + i).exists()){
+                            try {
+                                Iterable<DataSnapshot> highscores = dataSnapshot.child("map" + i).getChildren();
+                                for(DataSnapshot snapshot : highscores) {
+                                    String name = snapshot.getKey();
+                                    Integer score = snapshot.getValue(Integer.class);
+                                    levelHighscores.addHighScore(score, name);
+                                    System.out.println("FHAKDSFJLASDFKAS"+ score + name);
+
+                                }
+
+//                                        String name = dataSnapshot.child("map" + i).child(String.valueOf(j)).child("name").getValue(String.class);
+//                                    Integer score = dataSnapshot.child("map" + i).child(String.valueOf(j)).child("value").getValue(Integer.class);
+//                                    levelHighscores.addHighScore(score, name);
+                            } catch (Exception e){
+
+                            }
+                        }
+
+                        hsd.put(i, levelHighscores);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+        return hsd;
+    }
+
+    @Override
+    public void publishHighscores() {
+        for (int i = 1; i < hsd.size; i++){
+            dbRef = db.getReference("highscores/");
+            String[] names = hsd.get(i).getNames();
+            long[] scores = hsd.get(i).getHighScores();
+            for (int j = 0; j < hsd.get(i).MAX_SCORES; j++) {
+                dbRef.child("map" + i).child(names[j]).setValue(scores[j]);
+            }
+        }
     }
 
     @Override

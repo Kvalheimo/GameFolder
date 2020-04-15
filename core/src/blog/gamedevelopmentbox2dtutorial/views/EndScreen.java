@@ -138,13 +138,13 @@ public class EndScreen implements Screen {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
                 DFUtils.log("HighScore saved!");
-//                if (newHighScore) {
-//                    Save.hsd.get(level).addHighScore(
-//                            Save.hsd.get(level).getTentativeScore(),
-//                            (txtfName.getText())
-//                    );
-//                    Save.save(level);
-//                }
+                if (newHighScore) {
+                    Save.hsd.get(level).addHighScore(
+                            Save.hsd.get(level).getTentativeScore(),
+                            (txtfName.getText())
+                    );
+                    Save.publish();
+                }
                 parent.changeScreen(Box2dTutorial.HIGHSCORE);
             }
         });
