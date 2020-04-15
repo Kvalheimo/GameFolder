@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
@@ -31,10 +32,11 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
     private IntMap<HighScoreData> hsd;
-
+    String uniqueID;
     public AndroidDatabase() {
         db = FirebaseDatabase.getInstance();
         hsd = new IntMap<>();
+        uniqueID = UUID.randomUUID().toString();
     }
 
 
@@ -68,7 +70,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
 
             }
         });
-
+        dbRef.child(uniqueID).onDisconnect().removeValue();
     }
 
     @Override
@@ -126,7 +128,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
     @Override
-    public void publishPlayer(String uniqueID, Entity player) {
+    public void publishPlayer(Entity player) {
         dbRef = db.getReference("players/" + uniqueID + "/pos");
         dbRef.child("x").setValue(player.getComponent(TransformComponent.class).position.x);
         dbRef.child("y").setValue(player.getComponent(TransformComponent.class).position.y);

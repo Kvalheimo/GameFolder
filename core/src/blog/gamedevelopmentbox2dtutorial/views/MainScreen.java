@@ -101,10 +101,9 @@ public class MainScreen implements Screen {
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
 
-        uniqueID = UUID.randomUUID().toString();
         opponents = new HashMap<>();
         dbHandler = new DatabaseHandler();
-        dbHandler.getDb().publishPlayer(uniqueID, player);
+        dbHandler.getDb().publishPlayer(player);
         dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine);
 
         levelFactory.createBats(level);
@@ -175,7 +174,7 @@ public class MainScreen implements Screen {
 
                 pauseMenu.draw();
             }
-        dbHandler.getDb().publishPlayer(uniqueID, player);
+        dbHandler.getDb().publishPlayer(player);
     }
 
 
