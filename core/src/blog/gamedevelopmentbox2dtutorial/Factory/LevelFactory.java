@@ -560,17 +560,18 @@ public class LevelFactory {
         TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
         //Remove part 1
-        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
 
 
         //Remove part 2
         layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)+1)).setTile(null);
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 3
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
-                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+        layer.getCell((int)Math.floor((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)-1).setTile(null);
+
 
 
     }
@@ -579,24 +580,24 @@ public class LevelFactory {
         TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
         //Remove part 1
-        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
 
         //Remove part 2
         layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
+
         //Remove part 3
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
+
+
         //Remove part 4
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
-
-
-
-
 
     }
 
