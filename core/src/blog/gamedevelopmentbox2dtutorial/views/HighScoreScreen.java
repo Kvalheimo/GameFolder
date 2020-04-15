@@ -208,7 +208,6 @@ public class HighScoreScreen implements Screen {
     }
 
     public void update(){
-//        Save.load(levelSelected);
 
         highScoreTable.clear();
 
