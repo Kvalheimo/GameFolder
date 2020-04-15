@@ -25,7 +25,9 @@ import java.util.concurrent.ExecutionException;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.HighScore.HighScoreData;
+import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
 public class AndroidDatabase implements DatabaseHandler.DataBase {
@@ -57,6 +59,8 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                             }
                             else {
                                 opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                                opponents.get(key).getComponent(OpponentComponent.class).setPos(pos);
+                                opponents.get(key).getComponent(StateComponent.class).set(snapshot.child("state").getValue(Integer.class));
                             }
                         } catch (Exception e){
 
@@ -99,10 +103,6 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                                     levelHighscores.addHighScore(score, name);
 
                                 }
-
-//                                        String name = dataSnapshot.child("map" + i).child(String.valueOf(j)).child("name").getValue(String.class);
-//                                    Integer score = dataSnapshot.child("map" + i).child(String.valueOf(j)).child("value").getValue(Integer.class);
-//                                    levelHighscores.addHighScore(score, name);
                             } catch (Exception e){
 
                             }
@@ -135,9 +135,10 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
 
     @Override
     public void publishPlayer(Entity player) {
-        dbRef = db.getReference("players/" + uniqueID + "/pos");
-        dbRef.child("x").setValue(player.getComponent(TransformComponent.class).position.x);
-        dbRef.child("y").setValue(player.getComponent(TransformComponent.class).position.y);
+        dbRef = db.getReference("players/" + uniqueID);
+        dbRef.child("pos").child("x").setValue(player.getComponent(TransformComponent.class).position.x);
+        dbRef.child("pos").child("y").setValue(player.getComponent(TransformComponent.class).position.y);
+        dbRef.child("state").setValue(player.getComponent(StateComponent.class).state);
     }
 
     @Override

@@ -40,6 +40,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
@@ -257,6 +258,7 @@ public class LevelFactory {
         TypeComponent type = engine.createComponent(TypeComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+        OpponentComponent opponentCom = engine.createComponent(OpponentComponent.class);
 
 //        bodyCom.body = bodyFactory.makeCirclePolyBody(pos.x, pos.y, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
@@ -327,6 +329,7 @@ public class LevelFactory {
         animCom.animationsB.put(StateComponent.STATE_FALLING, jumpAnim);
 //        position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
         position.position.set(pos.x, pos.y, 0);
+        opponentCom.setPos(pos);
 
         type.type = TypeComponent.PLAYER;
         stateCom.set(StateComponent.STATE_NORMAL);
@@ -340,6 +343,7 @@ public class LevelFactory {
         entity.add(type);
         entity.add(stateCom);
         entity.add(animCom);
+        entity.add(opponentCom);
 
         // add the entity to the engine
         engine.addEntity(entity);
