@@ -43,8 +43,8 @@ public class B2dAssetManager {
     public final String HUDImages = "minimap/boosts.atlas";
 
     // Maps
-   // public final String map = "maps/level1.tmx";
-    public final String map ="maps/Henriks_verden.tmx";
+    public final String map_1 = "maps/level1.tmx";
+    public final String map_2 ="maps/Henriks_verden.tmx";
 
 
     // Particle Effects
@@ -114,7 +114,8 @@ public class B2dAssetManager {
 
     public void queueAddMaps(){
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
-        manager.load(map, TiledMap.class);
+        manager.load(map_1, TiledMap.class);
+        manager.load(map_2, TiledMap.class);
     }
 
     public void queueAddFonts(){

@@ -64,7 +64,7 @@ public class LevelFactory {
 
 
 
-    public LevelFactory(PooledEngine engine, Box2dTutorial parent){
+    public LevelFactory(PooledEngine engine, Box2dTutorial parent, int level){
         this.engine = engine;
         this.parent = parent;
 
@@ -80,7 +80,7 @@ public class LevelFactory {
         loadMaps();
 
 
-        TiledMap map = maps.get(1);
+        TiledMap map = maps.get(level);
 
         //finds the position of finish line
         MapLayers var1 = map.getLayers();
@@ -105,8 +105,8 @@ public class LevelFactory {
 
     private void loadMaps(){
         maps = new IntMap<TiledMap>();
-       // maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
-        maps.put(1, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
+        maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
+        maps.put(2, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
 
     }
 
@@ -252,7 +252,7 @@ public class LevelFactory {
 
 
     public void createBats(int level){
-        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Bats", BodyDef.BodyType.DynamicBody, bodyFactory.STEEL);
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Bats", BodyDef.BodyType.DynamicBody, bodyFactory.STEEL);
 
         for (Body enemyBody: enemyBodies) {
 
@@ -317,7 +317,7 @@ public class LevelFactory {
 
 
     public void createSpiders(int level){
-        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(1), world, "Spiders", BodyDef.BodyType.DynamicBody, BodyFactory.RUBBER);
+        Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Spiders", BodyDef.BodyType.DynamicBody, BodyFactory.RUBBER);
 
         for (Body enemyBody: enemyBodies) {
 
@@ -415,7 +415,7 @@ public class LevelFactory {
     public void createTiledMapEntities(String layer, int type, int level) {
 
 
-            Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
+            Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(level), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -534,7 +534,7 @@ public class LevelFactory {
     }
 
     public TiledMap getMap(int level){
-        return maps.get(1);
+        return maps.get(level);
     }
 
     public World getWorld(){
