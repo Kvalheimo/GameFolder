@@ -7,29 +7,18 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
-import com.badlogic.gdx.maps.MapObjects;
-import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TiledMapTile;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSet;
-import com.badlogic.gdx.maps.tiled.TiledMapTileSets;
-import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
-
-import java.util.ArrayList;
-import com.badlogic.gdx.utils.ObjectMap;
-
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
@@ -41,10 +30,12 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PowerupComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
 
 public class LevelFactory {
@@ -60,6 +51,7 @@ public class LevelFactory {
     private Animation runAnim, normalAnim, jumpAnim, slideAnim, fallAnim;
     private Animation runAnimB, normalAnimB, jumpAnimB, slideAnimB, fallAnimB;
     private float finishPosition;
+    private int level;
 
 
 
@@ -67,6 +59,7 @@ public class LevelFactory {
     public LevelFactory(PooledEngine engine, Box2dTutorial parent, int level){
         this.engine = engine;
         this.parent = parent;
+        this.level = level;
 
         world = new World(new Vector2(0,-Box2dTutorial.GRAVITY), true);
         world.setContactListener(new Box2dContactListener());
@@ -95,12 +88,6 @@ public class LevelFactory {
                 System.out.println("No finish added in tiled map.");
             }
         }
-
-
-
-
-
-
     }
 
     private void loadMaps(){
@@ -408,7 +395,35 @@ public class LevelFactory {
 
     }
 
+    public void createPowerups(String layer, int type, int level){
 
+        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
+
+        for (Body body : mapBodies) {
+            Entity entity = engine.createEntity();
+
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+            PowerupComponent powComp = engine.createComponent(PowerupComponent.class);
+
+            bodyCom.body = body;
+            bodyFactory.makeAllFixturesSensors(body);
+
+            position.position.set(body.getPosition().x, body.getPosition().y, 0);
+            body.setUserData(entity);
+            typeCom.type = type;
+
+            entity.add(powComp);
+            entity.add(position);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+
+            engine.addEntity(entity);
+
+        }
+
+    }
 
 
 
@@ -423,19 +438,13 @@ public class LevelFactory {
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
 
-
             bodyCom.body = body;
 
 
             //Make superspeed and gun objects sensors
-            if (type == TypeComponent.SUPER_SPEED || type == TypeComponent.GUN || type == TypeComponent.SPEED_X || type == TypeComponent.SPEED_Y){
+            if (type == TypeComponent.SPEED_X || type == TypeComponent.SPEED_Y){
                 bodyFactory.makeAllFixturesSensors(body);
             }
-
-            if (type == TypeComponent.WATER){
-                //makeParticleEffect(ParticleEffectManager.WATER,body.getPosition().x, body.getPosition().y);
-            }
-
 
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
@@ -444,6 +453,9 @@ public class LevelFactory {
             entity.add(position);
             entity.add(bodyCom);
             entity.add(typeCom);
+
+            engine.addEntity(entity);
+
         }
     }
 
@@ -543,6 +555,50 @@ public class LevelFactory {
 
     public float getFinishPosition() {
         return finishPosition;
+    }
+
+    public void removeGunTile(Body body){
+        TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
+
+        //Remove part 1
+        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
+
+        //Remove part 2
+        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)+1)).setTile(null);
+
+        //Remove part 3
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+
+
+    }
+
+    public void removeSuperSpeedTile(Body body){
+        TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
+
+        //Remove part 1
+        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
+        //Remove part 2
+        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
+
+        //Remove part 3
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
+
+        //Remove part 4
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+
+
+
+
+
     }
 
 

@@ -67,14 +67,7 @@ public class CharacterSelectionScreen implements Screen {
         characterImages.put(2, new Image(new Texture("preview/char2.png")));
         characterImages.put(3, new Image(new Texture("preview/char3.png")));
 
-
-
-
-
-
     }
-
-
 
 
     @Override
