@@ -47,12 +47,16 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                 for(DataSnapshot snapshot : players) {
                     String key = snapshot.getKey();
                     if (snapshot.child("pos").child("x").exists()){
-                        Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class),0);
-                        if (!opponents.containsKey(key)) {
-                            opponents.put(key, levelFactory.createOpponent(pos, 1));
-                        }
-                        else {
-                            opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                        try {
+                            Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class),0);
+                            if (!opponents.containsKey(key)) {
+                                opponents.put(key, levelFactory.createOpponent(pos, 1));
+                            }
+                            else {
+                                opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                            }
+                        } catch (Exception e){
+
                         }
                     }
 
