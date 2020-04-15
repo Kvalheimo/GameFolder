@@ -110,7 +110,8 @@ public class LevelFactory {
 
     private void loadMaps(){
         maps = new IntMap<TiledMap>();
-        maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
+       // maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
+        maps.put(1, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
 
     }
 

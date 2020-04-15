@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="500" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="13" nextobjectid="3">
+ <tileset firstgid="1" source="tileset/level1.tsx"/>
+ <layer id="11" name="BackgroundColor" width="500" height="60">
+  <data encoding="base64" compression="zlib">
+   eJztwzENAAAMA6A+01D/TqtgDiChl1RVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV1fcANjTR9Q==
+  </data>
+ </layer>
+ <layer id="1" name="Tile Layer 1" width="500" height="60">
+  <data encoding="base64" compression="zlib">
+   eJzt2kEOwVAUBdDXpoaEHbAFjBjaDVbAOgk7YBf+xLwp7a86J7mzDl46ue8lPwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPh3tyriXuWeAgD4xHQUMRvlniKPS9pjrnYZAPhp47THTFLWZe5JAICm9qnHDylHfQ5AT2xStj+cR8rz638FAOjSvIhYFHodAIZArwPAcDTt9WUZsSq9cQOAPnn3+q7m9964AUA/nVLOUb/Tm3LbA0D72u50tz0AdKOLOx0AaN859wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPAnXv9QH9c=
+  </data>
+ </layer>
+ <objectgroup id="2" name="Ground">
+  <object id="2" x="0" y="336" width="768" height="16"/>
+ </objectgroup>
+ <objectgroup id="3" name="Wall"/>
+ <objectgroup id="4" name="Water"/>
+ <objectgroup id="5" name="Gun"/>
+ <objectgroup id="6" name="Enemy"/>
+ <objectgroup id="7" name="SuperSpeed"/>
+ <objectgroup id="8" name="SpeedX"/>
+ <objectgroup id="9" name="SpeedY"/>
+ <objectgroup id="10" name="Finish">
+  <object id="1" name="finished" x="957" y="558" width="18" height="24"/>
+ </objectgroup>
+ <objectgroup id="12" name="Spring"/>
+</map>

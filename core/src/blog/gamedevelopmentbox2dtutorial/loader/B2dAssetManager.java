@@ -43,7 +43,9 @@ public class B2dAssetManager {
     public final String HUDImages = "minimap/boosts.atlas";
 
     // Maps
-    public final String map = "maps/level1.tmx";
+   // public final String map = "maps/level1.tmx";
+    public final String map ="maps/Henriks_verden.tmx";
+
 
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";
