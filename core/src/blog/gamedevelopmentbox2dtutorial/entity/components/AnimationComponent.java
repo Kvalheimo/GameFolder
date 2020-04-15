@@ -6,11 +6,14 @@ import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.Pool;
 
 public class AnimationComponent implements Component, Pool.Poolable {
-    public IntMap<Animation> animations = new IntMap<Animation>();
+    public IntMap<Animation> animationsN = new IntMap<Animation>();
+    public IntMap<Animation> animationsB = new IntMap<Animation>();
 
     @Override
     public void reset(){
-        animations = new IntMap<Animation>();
+        animationsN = new IntMap<Animation>();
+        animationsB = new IntMap<Animation>();
+
 
     }
 

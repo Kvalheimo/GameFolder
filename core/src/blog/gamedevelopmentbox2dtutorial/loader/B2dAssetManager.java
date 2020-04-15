@@ -60,6 +60,9 @@ public class B2dAssetManager {
     public final String testEffect = "particles/test.p";
     public final String bulletRightEffect = "particles/bullet_right.p";
     public final String bulletLeftEffect = "particles/bullet_left.p";
+    public final String puSpeedEffect = "particles/powerup_speed.p";
+    public final String puGunEffect = "particles/powerup_gun.p";
+
 
 
 
@@ -131,6 +134,8 @@ public class B2dAssetManager {
         manager.load(testEffect, ParticleEffect.class, pep);
         manager.load(bulletRightEffect, ParticleEffect.class, pep);
         manager.load(bulletLeftEffect, ParticleEffect.class, pep);
+        manager.load(puSpeedEffect, ParticleEffect.class, pep);
+        manager.load(puGunEffect, ParticleEffect.class, pep);
 
 
 
@@ -150,6 +155,8 @@ public class B2dAssetManager {
         manager.unload(testEffect);
         manager.unload(bulletRightEffect);
         manager.unload(bulletLeftEffect);
+        manager.unload(puSpeedEffect);
+        manager.unload(puGunEffect);
 
 
 
@@ -165,12 +172,12 @@ public class B2dAssetManager {
         manager.load(speedEffect, ParticleEffect.class, pep);
         manager.load(powerUpEffect, ParticleEffect.class, pep);
         manager.load(testEffect, ParticleEffect.class, pep);
-
         manager.load(bulletRightEffect, ParticleEffect.class, pep);
         manager.load(bulletLeftEffect, ParticleEffect.class, pep);
         manager.load(ssRightEffect, ParticleEffect.class, pep);
         manager.load(ssLeftEffect, ParticleEffect.class, pep);
-
+        manager.load(puSpeedEffect, ParticleEffect.class, pep);
+        manager.load(puGunEffect, ParticleEffect.class, pep);
 
         manager.finishLoading();
 
