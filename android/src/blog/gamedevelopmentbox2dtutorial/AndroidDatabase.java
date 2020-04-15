@@ -19,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 
@@ -62,6 +63,12 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                         }
                     }
 
+                }
+                for (String opponent : opponents.keySet()) {
+                    if (!dataSnapshot.child(opponent).exists()){
+                        engine.removeEntity(opponents.get(opponent));
+                        opponents.remove(opponent);
+                    }
                 }
             }
 
