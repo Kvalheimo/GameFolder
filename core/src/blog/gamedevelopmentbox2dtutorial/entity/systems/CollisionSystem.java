@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
+import java.util.Map;
+
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
@@ -27,17 +29,13 @@ public class CollisionSystem extends IteratingSystem {
         this.levelFactory = levelFactory;
         this.hud = hud;
 
-
-
     }
 
     @Override
     protected void processEntity(Entity entity, float deltaTime) {
-        // get player collision component
+
         CollisionComponent cc = Mapper.collisionCom.get(entity);
-
         Entity collidedEntity = cc.collisionEntity;
-
         TypeComponent thisType = entity.getComponent(TypeComponent.class);
 
 
@@ -51,66 +49,60 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.ENEMY:
-                            //do player hit enemy thing
-                            System.out.println("player hit enemy");
-
                             //player.isDead = true;
                             break;
+
                         case TypeComponent.SUPER_SPEED:
-                            //do player hit superspeed thing
-                            System.out.println("player picked up superSpeed");
                             player.superspeedDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWERUP_SPEED, body);
                             player.superSpeed = true;
-                            break; //technically this isn't needed
-                        case TypeComponent.GUN:
-                            //do player hit gun thing
-                            System.out.println("player picked up gun");
+                            levelFactory.removeSuperSpeedTile(Mapper.b2dCom.get(collidedEntity).body);
+                            Mapper.powerCom.get(collidedEntity).isDead = true;
+                            break;
 
+                        case TypeComponent.GUN:
                             player.boomerangDisplayed = true;
                             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWER_UP, body);
+
                             if (player.boomerangCount < 4) {
                                 player.boomerangCount += 1;
                             }
-                            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWERUP_GUN, body);
                             player.hasGun = true;
 
-                            break; //technically this isn't needed
-                        case TypeComponent.GROUND:
-                            //do player hit ground thing
-                            player.onGround = true;
-                 //           System.out.println("player hit ground");
-                            break; //technically this isn't needed
-                        case TypeComponent.SPRING:
-                            //do player hit spring thing
-                            System.out.println("player on spring: bounce up");
-                            player.onSpring = true;
-                            break; //technically this isn't needed
-                        case TypeComponent.BULLET:
-                            System.out.println("Player just shot. bullet in player atm");
+                            player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.POWERUP_GUN, body);
+                            levelFactory.removeGunTile(Mapper.b2dCom.get(collidedEntity).body);
+                            Mapper.powerCom.get(collidedEntity).isDead = true;
                             break;
+
+                        case TypeComponent.GROUND:
+                            player.onGround = true;
+                            break;
+
+                        case TypeComponent.SPRING:
+                            player.onSpring = true;
+                            break;
+
+                        case TypeComponent.BULLET:
+                            break;
+
                         case TypeComponent.WALL:
                             player.onWall = true;
-                  //          System.out.println("player hit wall");
                             break;
+
                         case TypeComponent.SPEED_X:
                             player.speedX = true;
-                            System.out.println("player hit speedX");
                             break;
+
                         case TypeComponent.SPEED_Y:
                             player.speedY = true;
-                            System.out.println("player hit speedY");
                             break;
+
                         case TypeComponent.WATER:
-                            System.out.println("player hit water");
                             levelFactory.makeParticleEffect(ParticleEffectManager.SPLASH, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             break;
+
                         case TypeComponent.OTHER:
-                            //do player hit scenery thing
-                            System.out.println("player hit other");
                             break;
-                        default:
-                            System.out.println("No matching type found");
                     }
                     cc.collisionEntity = null; // collision handled reset component
                 } else {
@@ -118,53 +110,45 @@ public class CollisionSystem extends IteratingSystem {
                 }
             }
 
+        //Handle bullet collision
         }else if(thisType.type == TypeComponent.BULLET) {
             if (collidedEntity != null) {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.GROUND:
-                            //do player hit ground thing
-                            System.out.println("bullet hit ground");
                             //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
-                            break; //technically this isn't needed
+                            break;
+
                         case TypeComponent.WALL:
-                            //do player hit wall thing
-                            System.out.println("bullet hit wall");
                             //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
-                            break; //technically this isn't needed
-                        default:
-                            System.out.println("No matching type found");
+                            break;
+
                     }
                     cc.collisionEntity = null; // collision handled reset component
                 }
             }
 
+        //Handle enemy collsions
         }else if(thisType.type == TypeComponent.ENEMY) {
             if (collidedEntity != null) {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.GROUND:
-                            //do player hit enemy thing
-                          //  System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).onGround = true;
                             break;
+
                         case TypeComponent.BULLET:
-                            //do player hit enemy thing
-                         //   System.out.println("Bullet hit enemy");
                             Mapper.enemyCom.get(entity).isDead = true;
                             hud.giveExtraPoints();
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
-                            //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
-
                             Mapper.bulletCom.get(collidedEntity).isDead = true;
                             break;
+
                         case TypeComponent.WALL:
-                            //do enemy hit wall thing
-                        //    System.out.println("enemy hit wall");
                             EnemyComponent enemyComponent = Mapper.enemyCom.get(entity);
 
                             if (enemyComponent.movingRight){
@@ -172,14 +156,11 @@ public class CollisionSystem extends IteratingSystem {
                             }else if(!enemyComponent.movingRight) {
                                 enemyComponent.movingRight = true;
                             }
-                            break; //technically this isn't needed
-                        default:
-                            System.out.println("No matching type found");
+                            break;
                     }
                     cc.collisionEntity = null; // collision handled reset component
                 }
             }
         }
-
     }
 }
