@@ -397,7 +397,7 @@ public class LevelFactory {
 
     public void createPowerups(String layer, int type, int level){
 
-        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(1), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
+        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(level), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
 
         for (Body body : mapBodies) {
             Entity entity = engine.createEntity();
@@ -567,11 +567,11 @@ public class LevelFactory {
 
         //Remove part 2
         layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)+1)).setTile(null);
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 3
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
-                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+       // layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
+         //       (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
 
 
     }
@@ -588,12 +588,12 @@ public class LevelFactory {
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 3
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 4
-        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)+1),
-                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
+               (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
 
 
 

@@ -188,6 +188,12 @@ public class B2dAssetManager {
                 manager.unload(level1);
                 manager.load(level1, TiledMap.class);
                 manager.finishLoading();
+                break;
+            case 2:
+                manager.unload(level2);
+                manager.load(level2, TiledMap.class);
+                manager.finishLoading();
+                break;
         }
     }
 
