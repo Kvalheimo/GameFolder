@@ -7,19 +7,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
-
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
-import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
-
-
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
@@ -33,9 +24,10 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
-public class MainScreen implements Screen, GameScreen {
+public class MainScreen implements Screen {
 
 
     private Box2dTutorial parent;
@@ -53,10 +45,6 @@ public class MainScreen implements Screen, GameScreen {
     private int level;
     private int character;
 
-    private DatabaseHandler dbHandler;
-    private String uniqueID;
-    private HashMap<String,Entity> opponents;
-
 
     public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
@@ -65,7 +53,7 @@ public class MainScreen implements Screen, GameScreen {
         parent = box2dTutorial;
 
         engine = new PooledEngine();
-        levelFactory = new LevelFactory(engine, parent);
+        levelFactory = new LevelFactory(engine, parent, level);
 
         sb = new SpriteBatch();
 
@@ -95,27 +83,26 @@ public class MainScreen implements Screen, GameScreen {
         engine.addSystem(new PlayerControlSystem(controller, levelFactory, hud));
         engine.addSystem(new BulletSystem());
         engine.addSystem(new EnemySystem(camera));
+        engine.addSystem(new PowerupSystem());
 
 
 
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
 
-        opponents = new HashMap<>();
-        dbHandler = new DatabaseHandler();
-        dbHandler.getDb().publishPlayer(player);
-        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine);
-
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
+
+        levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
+        levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
+
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
-        levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
-        levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN, level);
         levelFactory.createTiledMapEntities("Wall", TypeComponent.WALL, level);
         levelFactory.createTiledMapEntities("Water", TypeComponent.WATER, level);
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
+        levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
 
 
     }
@@ -156,25 +143,25 @@ public class MainScreen implements Screen, GameScreen {
                 parent.changeScreen(Box2dTutorial.ENDGAME, false, level, 0);
             }
 
-            } else {
-                Gdx.input.setInputProcessor(pauseMenu.getStage());
-                camera.update();
+        } else {
+            Gdx.input.setInputProcessor(pauseMenu.getStage());
+            camera.update();
 
-                renderer.setView(camera);
-                renderer.render();
+            renderer.setView(camera);
+            renderer.render();
 
-                engine.update(dt);
-                setProcessing(false);
+            engine.update(dt);
+            setProcessing(false);
 
-                sb.setProjectionMatrix(hud.stage.getCamera().combined);
-                hud.draw();
+            sb.setProjectionMatrix(hud.stage.getCamera().combined);
+            hud.draw();
 
-                //sb.setProjectionMatrix(controller.stage.getCamera().combined);
-                //controller.draw();
+            //sb.setProjectionMatrix(controller.stage.getCamera().combined);
+            //controller.draw();
 
-                pauseMenu.draw();
-            }
-        dbHandler.getDb().publishPlayer(player);
+            pauseMenu.draw();
+        }
+
     }
 
 
@@ -204,8 +191,7 @@ public class MainScreen implements Screen, GameScreen {
 
     }
 
-    @Override
-    public void pauseGame(Boolean pause){
+    public void pauseGame(boolean pause){
         this.isPaused = pause;
     }
 
@@ -217,6 +203,7 @@ public class MainScreen implements Screen, GameScreen {
         engine.getSystem(EnemySystem.class).setProcessing(flag);
         engine.getSystem(CollisionSystem.class).setProcessing(flag);
         engine.getSystem(BulletSystem.class).setProcessing(flag);
+        engine.getSystem(PowerupSystem.class).setProcessing(flag);
 
     }
 
