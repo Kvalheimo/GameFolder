@@ -11,7 +11,7 @@ public class Save {
 
     public static IntMap<HighScoreData> hsd;
 
-    public Save() {
+    static {
         dbHandler = new DatabaseHandler();
         hsd = new IntMap<>();
         for (int i = 1; i < 7; i++) {
@@ -30,6 +30,11 @@ public class Save {
     }
 
     public static void publish(){
-        dbHandler.getDb().publishHighscores();
+        try {
+            dbHandler.getDb().publishHighscores();
+        }
+        catch(Exception e) {
+            System.out.println("Could not publish highscore to database");
+        }
     }
 }

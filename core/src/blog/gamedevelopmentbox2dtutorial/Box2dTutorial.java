@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Music;
 
 import javax.naming.ldap.Control;
 
+import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
 import blog.gamedevelopmentbox2dtutorial.views.CharacterSelectionScreen;
@@ -128,6 +129,8 @@ public class Box2dTutorial extends Game {
 		assMan.manager.finishLoading();
 		playingSong = assMan.manager.get("music/music1.mp3");
 		///playingSong.play();
+
+        Save.load();
 
 
 	}
