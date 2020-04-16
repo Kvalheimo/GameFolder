@@ -29,8 +29,8 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
 public class CharacterSelectionScreen implements Screen {
-    private static final int IMG_WIDTH = 500;
-    private static final int IMG_HEIGHT = 500;
+    private static final int IMG_WIDTH = 600;
+    private static final int IMG_HEIGHT = 600;
 
 
     private Box2dTutorial parent;

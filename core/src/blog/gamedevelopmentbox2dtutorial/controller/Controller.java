@@ -31,7 +31,7 @@ import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 
 
 public class Controller implements Disposable {
-    public static final float deadzoneRadius = 5f;
+    public static final float deadzoneRadius = 10f;
 
     private Viewport viewport;
     public Stage stage;
@@ -234,19 +234,13 @@ public class Controller implements Disposable {
         Table table1 = new Table();
 
         table1.left().bottom();
-        table1.add();
-        table1.pad(0, 50, 20, 0);
-        /*
-        table1.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
-        table1.add().padLeft(30);
-        table1.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-         */
+        table1.pad(0, 80, 20, 0);
         table1.add(touchpad);
 
 
         Table table2 = new Table();
 
-        table2.right().bottom().padRight(50).padBottom(15);
+        table2.right().bottom().padRight(40).padBottom(15);
         table2.add();
         table2.add(YImg);
         table2.add();
