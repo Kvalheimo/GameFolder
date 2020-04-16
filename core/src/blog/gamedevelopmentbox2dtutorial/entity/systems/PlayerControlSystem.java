@@ -117,8 +117,8 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.applyLinearImpulse(-6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             }
              */
-            else if(b2body.body.getLinearVelocity().x > -7){
-                b2body.body.applyForceToCenter(-80, 0, true);
+            else if(b2body.body.getLinearVelocity().x > -8){
+                b2body.body.applyForceToCenter(-40*controller.getVelScale(), 0, true);
             }
 
 
@@ -138,8 +138,8 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
 
-            else if(b2body.body.getLinearVelocity().x < 7){
-                b2body.body.applyForceToCenter(80, 0, true);
+            else if(b2body.body.getLinearVelocity().x < 8){
+                b2body.body.applyForceToCenter(40*controller.getVelScale(), 0, true);
             }
 
         }
@@ -182,11 +182,11 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (controller.isYPressed() && player.superSpeed){
             if (player.runningRight){
-                b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                b2body.body.applyLinearImpulse(60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, b2body);
                 hud.setSpeedBoostActive();
             }else{
-                b2body.body.applyLinearImpulse(-50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                b2body.body.applyLinearImpulse(-60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, b2body);
                 hud.setSpeedBoostActive();
             }
@@ -225,14 +225,14 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (player.speedX){
             //b2body.body.setLinearVelocity(100f, 0f);
-            b2body.body.applyLinearImpulse(50, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(60, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SPEED, b2body);
             player.speedX = false;
         }
 
         if (player.speedY){
             //b2body.body.setLinearVelocity(0f, 100f);
-            b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(0, 60, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.speedY = false;
         }
 
