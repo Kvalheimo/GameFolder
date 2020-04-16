@@ -109,63 +109,46 @@ public class Controller implements Disposable {
             }
         });
 
+        final Button rightImg = new Button(skin4, "right");
 
-        final ImageButton rightImg = new ImageButton(skin4, "controller-right");
-
-        rightImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
-        rightImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
         rightImg.addListener(new InputListener() {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                super.enter(event, x, y, pointer, fromActor);
+                rightImg.setChecked(true);
+                rightPressed = true;
 
             }
-
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                rightImg.setChecked(false);
                 rightPressed = false;
-                super.exit(event, x, y, pointer, toActor);
             }
+
+
 
 
         });
-            /*
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = true;
-                return true;
-            }
-
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                rightPressed = false;
-            }
-        });
-
-             */
 
 
 
-        final ImageButton leftImg = new ImageButton(skin4, "controller-left");
 
-        leftImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
-        leftImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
+        final Button leftImg = new Button(skin4, "left");
 
         leftImg.addListener(new InputListener() {
 
             @Override
             public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                leftImg.setChecked(true);
                 leftPressed = true;
-                super.enter(event, x, y, pointer, fromActor);
             }
 
 
             @Override
             public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                leftImg.setChecked(false);
                 leftPressed = false;
-                super.exit(event, x, y, pointer, toActor);
             }
 
         });
@@ -234,8 +217,8 @@ public class Controller implements Disposable {
             }
         });
 
-        final TextButton pauseButton = new TextButton("Pause", skin3);
 
+        final TextButton pauseButton = new TextButton("Pause", skin2, "small");
 
         pauseButton.addListener(new ChangeListener() {
             @Override
@@ -258,7 +241,7 @@ public class Controller implements Disposable {
 
         Table table2 = new Table();
 
-        table2.right().bottom().padRight(30).padBottom(10);
+        table2.right().bottom().padRight(30).padBottom(15);
         table2.add();
         table2.add(YImg).size(YImg.getWidth(), YImg.getHeight());
         table2.add();
@@ -291,6 +274,7 @@ public class Controller implements Disposable {
 
 
     public void draw(){
+        stage.act();
         stage.draw();
     }
 
