@@ -27,7 +27,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
-public class MainScreen implements Screen {
+public class MainScreen implements Screen, GameScreen {
 
 
     private Box2dTutorial parent;
@@ -191,7 +191,8 @@ public class MainScreen implements Screen {
 
     }
 
-    public void pauseGame(boolean pause){
+    @Override
+    public void pauseGame(Boolean pause){
         this.isPaused = pause;
     }
 

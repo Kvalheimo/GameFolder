@@ -15,6 +15,7 @@ public class Mapper {
     public static final ComponentMapper<EnemyComponent> enemyCom = ComponentMapper.getFor(EnemyComponent.class);
     public static final ComponentMapper<ParticleEffectComponent> paCom = ComponentMapper.getFor(ParticleEffectComponent.class);
     public static final ComponentMapper<OpponentComponent> opponentCom = ComponentMapper.getFor(OpponentComponent.class);
+    public static final ComponentMapper<PowerupComponent> powerCom = ComponentMapper.getFor(PowerupComponent.class);
 
 
 }

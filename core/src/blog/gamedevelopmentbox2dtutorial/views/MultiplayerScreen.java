@@ -12,10 +12,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.HashMap;
 
-import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -28,6 +28,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
 public class MultiplayerScreen implements Screen, GameScreen {
@@ -52,7 +53,6 @@ public class MultiplayerScreen implements Screen, GameScreen {
     private String uniqueID;
     private HashMap<String,Entity> opponents;
 
-
     public MultiplayerScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
         this.character = character;
@@ -60,7 +60,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         parent = box2dTutorial;
 
         engine = new PooledEngine();
-        levelFactory = new LevelFactory(engine, parent);
+        levelFactory = new LevelFactory(engine, parent, level);
 
         sb = new SpriteBatch();
 
@@ -90,6 +90,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         engine.addSystem(new PlayerControlSystem(controller, levelFactory, hud));
         engine.addSystem(new BulletSystem());
         engine.addSystem(new EnemySystem(camera));
+        engine.addSystem(new PowerupSystem());
 
 
 
@@ -103,14 +104,17 @@ public class MultiplayerScreen implements Screen, GameScreen {
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
+
+        levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
+        levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
+
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
-        levelFactory.createTiledMapEntities("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
-        levelFactory.createTiledMapEntities("Gun", TypeComponent.GUN, level);
         levelFactory.createTiledMapEntities("Wall", TypeComponent.WALL, level);
         levelFactory.createTiledMapEntities("Water", TypeComponent.WATER, level);
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
+        levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
 
 
     }
@@ -200,8 +204,8 @@ public class MultiplayerScreen implements Screen, GameScreen {
     }
 
     @Override
-    public void pauseGame(Boolean pause) {
-            this.isPaused = pause;
+    public void pauseGame(Boolean pause){
+        this.isPaused = pause;
     }
 
     public void setProcessing(boolean flag){
@@ -212,6 +216,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         engine.getSystem(EnemySystem.class).setProcessing(flag);
         engine.getSystem(CollisionSystem.class).setProcessing(flag);
         engine.getSystem(BulletSystem.class).setProcessing(flag);
+        engine.getSystem(PowerupSystem.class).setProcessing(flag);
 
     }
 
@@ -225,4 +230,3 @@ public class MultiplayerScreen implements Screen, GameScreen {
 
     }
 }
-

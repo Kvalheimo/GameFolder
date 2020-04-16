@@ -72,6 +72,7 @@ public class Box2dTutorial extends Game {
 			case APPLICATION:
 				if (newGame) {
 					assMan.resetParticleEffects();
+					assMan.resetMaps(level);
 					mainScreen = new MainScreen(this, level, character);
 				}
 				this.setScreen(mainScreen);
