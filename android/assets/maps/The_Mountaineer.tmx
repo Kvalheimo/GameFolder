@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="25">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="31">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="1" name="Background Color" width="400" height="200">
   <data encoding="base64" compression="zlib">
@@ -8,7 +8,7 @@
  </layer>
  <layer id="2" name="Grafic Layer" width="400" height="200">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
@@ -31,10 +31,15 @@
  </objectgroup>
  <objectgroup id="4" name="SuperSpeed">
   <object id="22" x="112" y="3024" width="32" height="32"/>
+  <object id="27" x="528" y="3008" width="32" height="32"/>
+  <object id="28" x="640" y="3008" width="32" height="32"/>
+  <object id="30" x="736" y="2912" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="5" name="Spikes"/>
  <objectgroup id="6" name="Gun">
   <object id="23" x="416" y="2960" width="32" height="32"/>
+  <object id="25" x="880" y="2768" width="32" height="32"/>
+  <object id="26" x="672" y="2880" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Spiders"/>
  <objectgroup id="9" name="Spring"/>
