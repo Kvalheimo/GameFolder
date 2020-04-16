@@ -118,7 +118,7 @@ public class PlayerControlSystem extends IteratingSystem{
             }
              */
             else if(b2body.body.getLinearVelocity().x > -8){
-                b2body.body.applyForceToCenter(-40*controller.getVelScale(), 0, true);
+                b2body.body.applyForceToCenter(-50*controller.getVelScale(), 0, true);
             }
 
 
@@ -139,7 +139,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
             else if(b2body.body.getLinearVelocity().x < 8){
-                b2body.body.applyForceToCenter(40*controller.getVelScale(), 0, true);
+                b2body.body.applyForceToCenter(50*controller.getVelScale(), 0, true);
             }
 
         }

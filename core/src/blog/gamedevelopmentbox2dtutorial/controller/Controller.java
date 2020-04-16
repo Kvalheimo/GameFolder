@@ -30,7 +30,7 @@ import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 
 
 public class Controller implements Disposable {
-    public static final float deadzoneRadius = 20f;
+    public static final float deadzoneRadius = 5f;
 
     private Viewport viewport;
     public Stage stage;
@@ -291,7 +291,7 @@ public class Controller implements Disposable {
         table2.add();
         table2.add(YImg);
         table2.add();
-        table2.row().pad(15, 20, 0, 20);
+        table2.row().pad(15, 10, 0, 10);
         table2.add(XImg);
         table2.add();
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
@@ -306,9 +306,9 @@ public class Controller implements Disposable {
         table3.padBottom(20);
         table3.add(pauseButton);
 
-        //table1.debug();
-        //table2.debug();
-        //table3.debug();
+        table1.debug();
+        table2.debug();
+        table3.debug();
 
         Stack stack = new Stack(table2, table1, table3);
         stack.setFillParent(true);

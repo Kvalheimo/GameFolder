@@ -45,13 +45,13 @@ public class AnimationSystem extends IteratingSystem {
                 }
 
                 //if mario is running left and the texture isnt facing left... flip it.
-                if ((b2body.body.getLinearVelocity().x < -2 || !player.runningRight) && !tex.region.isFlipX()) {
+                if ((b2body.body.getLinearVelocity().x < -1 || !player.runningRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = false;
                 }
 
                 //if mario is running right and the texture isnt facing right... flip it.
-                else if ((b2body.body.getLinearVelocity().x > 2 || player.runningRight) && tex.region.isFlipX()) {
+                else if ((b2body.body.getLinearVelocity().x > 1 || player.runningRight) && tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = true;
                 }
