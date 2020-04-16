@@ -56,11 +56,11 @@ public class PauseMenu implements Disposable{
         final TextButton back = new TextButton("Exit", skin2);
 
         // Add buttons to table
-        table.add(resume).fillX().uniformX().padTop(20);
-        table.row().pad(10,0,10,0);
+        table.add(resume).fillX().uniformX().pad(25,0,25,0);
+        table.row().pad(25,0,25,0);
         table.add(preferences).fillX().uniformX();
-        table.row().pad(10,0,10,0);
-        table.add(back).fillX().uniformX();
+        table.row().pad(25,0,25,0);
+        table.add(back).fillX().uniformX().pad(25,0,25,0);
 
 
         // Create button listeners
