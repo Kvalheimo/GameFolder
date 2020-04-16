@@ -22,6 +22,7 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
 public class MenuScreen implements Screen {
+    private static final int PADDING = 50;
 
     private Box2dTutorial parent;
     private Stage stage;
@@ -71,11 +72,11 @@ public class MenuScreen implements Screen {
         table.add(multiplayer).fillX().uniform();
         table.row().padTop(10);
         table.add(newGame).fillX().uniformX();
-        table.row().padTop(50);
+        table.row().padTop(PADDING);
         table.add(preferences).fillX().uniformX();
-        table.row().padTop(50);
+        table.row().padTop(PADDING);
         table.add(highScore).fillX().uniformX();
-        table.row().padTop(50);
+        table.row().padTop(PADDING);
         table.add(exit).fillX().uniformX();
 
 
