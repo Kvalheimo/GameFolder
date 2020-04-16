@@ -143,7 +143,7 @@ public class EndScreen implements Screen {
                             Save.hsd.get(level).getTentativeScore(),
                             (txtfName.getText())
                     );
-                    Save.save(level);
+                    Save.publish();
                 }
                 parent.changeScreen(Box2dTutorial.HIGHSCORE);
             }

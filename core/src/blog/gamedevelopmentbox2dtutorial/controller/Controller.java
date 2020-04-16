@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+import blog.gamedevelopmentbox2dtutorial.views.GameScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 
 
@@ -42,9 +43,9 @@ public class Controller implements Disposable {
     private MainScreen ms;
     private Vector2 bulletDirection;
     private float velScale;
+    private GameScreen gs;
 
-
-    public Controller(SpriteBatch sb, Box2dTutorial parent, MainScreen mainScreen){
+    public Controller(SpriteBatch sb, Box2dTutorial parent, GameScreen gameScreen){
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(viewport, sb);
@@ -52,7 +53,7 @@ public class Controller implements Disposable {
         bulletDirection = new Vector2(0.0f, 0.0f);
         velScale = 1.0f;
 
-        ms = mainScreen;
+        gs = gameScreen;
 
         this.parent = parent;
 
@@ -119,48 +120,6 @@ public class Controller implements Disposable {
         });
 
 
-        /*
-
-        final Button rightImg = new Button(skin4, "right");
-
-        rightImg.addListener(new InputListener() {
-
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                rightImg.setChecked(true);
-                rightPressed = true;
-
-            }
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                rightImg.setChecked(false);
-                rightPressed = false;
-            }
-
-
-        });
-
-
-        final Button leftImg = new Button(skin4, "left");
-
-        leftImg.addListener(new InputListener() {
-
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                leftImg.setChecked(true);
-                leftPressed = true;
-            }
-
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                leftImg.setChecked(false);
-                leftPressed = false;
-            }
-
-        });
-         */
 
         final Touchpad touchpad = new Touchpad(deadzoneRadius, skin1);
 
@@ -197,14 +156,12 @@ public class Controller implements Disposable {
         });
 
 
-
-
-
         final Button AImg = new Button(skin4, "green");
 
 
         // Create button listeners
         AImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -221,11 +178,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button XImg = new Button(skin4, "red");
 
 
         // Create button listeners
         XImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -241,11 +200,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button YImg = new Button(skin4, "blue");
 
 
         // Create button listeners
         YImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -259,15 +220,13 @@ public class Controller implements Disposable {
             }
         });
 
-
-
         final TextButton pauseButton = new TextButton("Pause", skin2, "small");
 
 
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                ms.pauseGame(true);
+                gs.pauseGame(true);
             }
         });
 
@@ -342,6 +301,7 @@ public class Controller implements Disposable {
     public boolean isRightPressed() {
         return rightPressed;
     }
+
     public boolean isXPressed() {
         return xPressed;
     }

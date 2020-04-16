@@ -41,15 +41,14 @@ public class MenuScreen implements Screen {
         skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
         background = atlas.findRegion("flamebackground");
 
+        //Load highscore list
+        Save.load();
 
     }
 
     @Override
     public void show() {
-        //Load highscore list
-        for (int i = 1; i < 7; i++){
-            Save.load(i);
-        }
+
 
         Gdx.input.setInputProcessor(stage);
 
@@ -61,7 +60,8 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
         // Create text buttons
-        final TextButton newGame = new TextButton("New Game", skin2);
+        final TextButton multiplayer = new TextButton("Multiplayer", skin2);
+        final TextButton newGame = new TextButton("Singleplayer", skin2);
         final TextButton preferences = new TextButton("Preferences", skin2);
         final TextButton highScore = new TextButton("High Score", skin2);
         final TextButton exit = new TextButton("Exit", skin2);
@@ -69,6 +69,8 @@ public class MenuScreen implements Screen {
 
 
         // Add buttons to table
+        table.add(multiplayer).fillX().uniform();
+        table.row().padTop(10);
         table.add(newGame).fillX().uniformX();
         table.row().padTop(PADDING);
         table.add(preferences).fillX().uniformX();
@@ -83,6 +85,15 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
             Gdx.app.exit();
+            }
+        });
+
+        multiplayer.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                if (parent.isOnline()){
+                    parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, 2, 1);
+                }
             }
         });
 
