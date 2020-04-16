@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="31">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="41">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="1" name="Background Color" width="400" height="200">
   <data encoding="base64" compression="zlib">
    eJzt2SEKwDAQRNGE0DPk/jctFYVStYxZAk88P+6LWXOMBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF++rfAMB5nn68urcAcI5vPzQEgKp/P6q6dwPQSz8ASOgHAAldACChHwAk9AOAhH4AkPCNAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVN+ft6OU=
   </data>
  </layer>
- <layer id="2" name="Grafic Layer" width="400" height="200">
+ <layer id="2" name="Graphic Layer" width="400" height="200">
   <data encoding="base64" compression="zlib">
-   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
+   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
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
@@ -23,11 +23,12 @@
   <object id="10" x="1233" y="2400.5">
    <polygon points="0,0 61.5,-0.5 60.8387,7 1.32258,6"/>
   </object>
-  <object id="11" x="1158.5" y="2543.5">
-   <polygon points="0,0 3.25,0 3.25,-248.5 -1.5,-248.138"/>
-  </object>
   <object id="20" x="1120" y="2224" width="97" height="5.5"/>
   <object id="21" x="1296" y="2400" width="96" height="16"/>
+  <object id="32" x="1392" y="2400" width="144" height="16"/>
+  <object id="37" x="1154.67" y="2290">
+   <polygon points="0,0 3.33333,253.333 8,253.333 6,-3.33333"/>
+  </object>
  </objectgroup>
  <objectgroup id="4" name="SuperSpeed">
   <object id="22" x="112" y="3024" width="32" height="32"/>
@@ -40,13 +41,19 @@
   <object id="23" x="416" y="2960" width="32" height="32"/>
   <object id="25" x="880" y="2768" width="32" height="32"/>
   <object id="26" x="672" y="2880" width="32" height="32"/>
+  <object id="38" x="1408" y="2384" width="32" height="16"/>
+  <object id="39" x="1424" y="2368" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="7" name="Spiders"/>
  <objectgroup id="9" name="Spring"/>
- <objectgroup id="8" name="Bats"/>
+ <objectgroup id="8" name="Bats">
+  <object id="40" x="1165.33" y="2593.33" width="16" height="16">
+   <ellipse/>
+  </object>
+ </objectgroup>
  <objectgroup id="15" name="Water"/>
  <objectgroup id="12" name="Finish">
-  <object id="4" name="finished" x="47" y="2849" width="16" height="16"/>
+  <object id="4" name="finished" x="64.5" y="2865.5" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="11" name="Wall">
   <object id="3" x="96" y="2912" width="16" height="144"/>
