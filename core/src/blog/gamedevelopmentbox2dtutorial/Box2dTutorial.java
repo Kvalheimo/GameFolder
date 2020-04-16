@@ -37,6 +37,7 @@ public class Box2dTutorial extends Game {
 	public B2dAssetManager assMan;
 	private AppPreferences preferences;
 	private Music playingSong;
+	private Boolean isOnline;
 
 	public final static int MENU = 0;
 	public final static int PREFERENCES = 1;
@@ -104,7 +105,13 @@ public class Box2dTutorial extends Game {
 
 	}
 
+	public Boolean isOnline() {
+		return isOnline;
+	}
 
+	public void setOnline(Boolean online) {
+		isOnline = online;
+	}
 
 	public AppPreferences getPreferences(){
 		return this.preferences;

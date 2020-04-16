@@ -25,8 +25,7 @@ public class Save {
             hsd= dbHandler.getDb().getHighscores();
         }
         catch(Exception e) {
-            e.printStackTrace();
-            Gdx.app.exit();
+            System.out.println("Could not retrieve highscores from database");
         }
     }
 

@@ -11,7 +11,9 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new Box2dTutorial(), config);
+		Box2dTutorial tut = new Box2dTutorial();
+		tut.setOnline(true);
+		initialize(tut, config);
 		DatabaseHandler.setDb(new AndroidDatabase());
 	}
 }

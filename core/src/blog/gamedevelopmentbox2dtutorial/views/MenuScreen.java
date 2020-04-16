@@ -90,7 +90,9 @@ public class MenuScreen implements Screen {
         multiplayer.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, 2, 1);
+                if (parent.isOnline()){
+                    parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, 2, 1);
+                }
             }
         });
 
