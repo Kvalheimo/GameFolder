@@ -121,52 +121,6 @@ public class Controller implements Disposable {
         });
 
 
-
-        /*
-
-        final Button rightImg = new Button(skin4, "right");
-
-        rightImg.addListener(new InputListener() {
-
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                rightImg.setChecked(true);
-                rightPressed = true;
-
-            }
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                rightImg.setChecked(false);
-                rightPressed = false;
-            }
-
-
-        });
-
-
-
-
-        final Button leftImg = new Button(skin4, "left");
-
-        leftImg.addListener(new InputListener() {
-
-            @Override
-            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
-                leftImg.setChecked(true);
-                leftPressed = true;
-            }
-
-
-            @Override
-            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
-                leftImg.setChecked(false);
-                leftPressed = false;
-            }
-
-        });
-         */
-
         final Touchpad touchpad = new Touchpad(deadzoneRadius, skin1);
 
         touchpad.addListener(new ChangeListener() {
@@ -281,18 +235,14 @@ public class Controller implements Disposable {
 
         table1.left().bottom();
         table1.add();
-        table1.pad(0, 50, 20, 0);
-        /*
-        table1.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
-        table1.add().padLeft(30);
-        table1.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-         */
+        table1.pad(0, 80, 20, 0);
+
         table1.add(touchpad);
 
 
         Table table2 = new Table();
 
-        table2.right().bottom().padRight(50).padBottom(15);
+        table2.right().bottom().padRight(40).padBottom(15);
         table2.add();
         table2.add(YImg);
         table2.add();
@@ -301,9 +251,6 @@ public class Controller implements Disposable {
         table2.add();
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
         table2.row().padBottom(5);
-        //table2.add();
-        //table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
-        //table2.add();
 
         Table table3 = new Table();
 
