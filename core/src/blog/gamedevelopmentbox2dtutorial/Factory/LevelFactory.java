@@ -570,8 +570,8 @@ public class LevelFactory {
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 3
-       // layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
-         //       (int)((body.getPosition().y * Box2dTutorial.PPM / 16f))).setTile(null);
+        layer.getCell((int)((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
+                (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
 
     }

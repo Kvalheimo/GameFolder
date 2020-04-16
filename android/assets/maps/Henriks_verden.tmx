@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="800" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="513">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="800" height="60" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="514">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="1" name="Background color" width="800" height="60">
   <data encoding="base64" compression="zlib">
-   eJztzqENADAIADDMPFP8/+k4ApKJivrWiSgYkO1+8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYN8DB3GDIA==
+   eJztwzENAAAMA6A+01D/TqthPyT0kqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqj4OAbeDLQ==
   </data>
  </layer>
  <layer id="2" name="Graphic Layer" width="800" height="60">
@@ -462,7 +462,6 @@
  </objectgroup>
  <objectgroup id="13" name="Spring"/>
  <objectgroup id="14" name="Gun">
-  <object id="222" x="462.667" y="432" width="32" height="32"/>
   <object id="223" x="1216" y="80" width="32" height="32"/>
   <object id="224" x="176" y="624" width="32" height="32"/>
   <object id="410" x="2672" y="832" width="32" height="32"/>
@@ -471,6 +470,7 @@
   <object id="428" x="8816" y="320" width="32" height="32"/>
   <object id="492" x="11184" y="624" width="32" height="32"/>
   <object id="499" x="1248" y="80" width="32" height="32"/>
+  <object id="513" x="464" y="432" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="7" name="Finish">
   <object id="200" name="finished" x="12630.2" y="880.667" width="20" height="16"/>
@@ -504,7 +504,7 @@
   <object id="277" x="176" y="576" width="16" height="16">
    <ellipse/>
   </object>
-  <object id="278" x="64" y="64" width="16" height="16">
+  <object id="278" x="65.3333" y="89.3333" width="16" height="16">
    <ellipse/>
   </object>
   <object id="283" x="1696" y="352" width="16" height="16">
