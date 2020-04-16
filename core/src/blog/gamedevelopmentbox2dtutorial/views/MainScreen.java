@@ -102,6 +102,7 @@ public class MainScreen implements Screen {
         levelFactory.createTiledMapEntities("Water", TypeComponent.WATER, level);
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
+        levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
 
 
     }

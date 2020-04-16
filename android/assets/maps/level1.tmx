@@ -131,6 +131,7 @@
    <ellipse/>
   </object>
  </objectgroup>
+ <objectgroup id="18" name="Spikes"/>
  <objectgroup id="7" name="Gun">
   <object id="139" x="1280" y="127.998" width="32" height="32"/>
   <object id="141" x="2160" y="159.998" width="32" height="32"/>

@@ -17,6 +17,7 @@ public class TypeComponent implements Component, Pool.Poolable {
     public static final int SPEED_Y = 10;
     public static final int WATER = 11;
     public static final int OTHER = 12;
+    public static final int SPIKES = 13;
 
     public int type = OTHER;
 

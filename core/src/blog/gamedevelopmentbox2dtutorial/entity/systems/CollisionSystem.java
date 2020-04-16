@@ -49,6 +49,11 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.ENEMY:
+                            //do player hit enemy thing
+                            System.out.println("player hit enemy");
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
+
+
                             //player.isDead = true;
                             break;
 
@@ -103,6 +108,13 @@ public class CollisionSystem extends IteratingSystem {
 
                         case TypeComponent.OTHER:
                             break;
+                        case TypeComponent.SPIKES:
+                            System.out.println("player hit spikes");
+
+                        default:
+                            System.out.println("No matching type found");
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
+
                     }
                     cc.collisionEntity = null; // collision handled reset component
                 } else {
@@ -137,6 +149,12 @@ public class CollisionSystem extends IteratingSystem {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
                 if (type != null) {
                     switch (type.type) {
+                        case TypeComponent.PLAYER:  //Denne slår inn når player treffer en spider, men blood effekten kommer på spider nå
+                            System.out.println("Enemy hit player");
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+
+                            break;
+
                         case TypeComponent.GROUND:
                             Mapper.enemyCom.get(entity).onGround = true;
                             break;
@@ -156,6 +174,23 @@ public class CollisionSystem extends IteratingSystem {
                             }else if(!enemyComponent.movingRight) {
                                 enemyComponent.movingRight = true;
                             }
+                            break; //technically this isn't needed
+
+                        case TypeComponent.SPIKES:
+                            //do enemy hit wall thing
+                            //    System.out.println("enemy hit wall");
+                            enemyComponent = Mapper.enemyCom.get(entity);
+
+                            if (enemyComponent.movingRight){
+                                enemyComponent.movingRight = false;
+                            }else if(!enemyComponent.movingRight) {
+                                enemyComponent.movingRight = true;
+                            }
+                            break; //technically this isn't needed
+
+                        default:
+                            System.out.println("No matching type found");
+
                             break;
                     }
                     cc.collisionEntity = null; // collision handled reset component
