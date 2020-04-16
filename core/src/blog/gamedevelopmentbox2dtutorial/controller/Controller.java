@@ -43,13 +43,16 @@ public class Controller implements Disposable {
 
     private GameScreen gs;
     private Vector2 bulletDirection;
+    private float velScale;
 
 
     public Controller(SpriteBatch sb, Box2dTutorial parent, GameScreen gameScreen){
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(viewport, sb);
+
         bulletDirection = new Vector2(0.0f, 0.0f);
+        velScale = 1.0f;
 
         gs = gameScreen;
 
@@ -173,6 +176,7 @@ public class Controller implements Disposable {
                 // This is run when anything is changed on this actor.
                 float deltaX = ((Touchpad) actor).getKnobPercentX();
                 float deltaY = ((Touchpad) actor).getKnobPercentY();
+                velScale = Math.abs(deltaX);
 
                 if(deltaX > 0){
                     rightPressed = true;
@@ -189,6 +193,7 @@ public class Controller implements Disposable {
                     leftPressed = false;
                     rightPressed = false;
                     bulletDirection.set(0.0f, 0.0f);
+                    velScale = 1.0f;
                 }
 
 
@@ -276,7 +281,7 @@ public class Controller implements Disposable {
 
         table1.left().bottom();
         table1.add();
-        table1.pad(0, 30, 20, 0);
+        table1.pad(0, 50, 20, 0);
         /*
         table1.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table1.add().padLeft(30);
@@ -287,12 +292,12 @@ public class Controller implements Disposable {
 
         Table table2 = new Table();
 
-        table2.right().bottom().padRight(30).padBottom(15);
+        table2.right().bottom().padRight(50).padBottom(15);
         table2.add();
-        table2.add(YImg).size(YImg.getWidth(), YImg.getHeight());
+        table2.add(YImg);
         table2.add();
-        table2.row().pad(7, 7, 1, 7);
-        table2.add(XImg).size(XImg.getWidth(), XImg.getHeight());
+        table2.row().pad(15, 20, 0, 20);
+        table2.add(XImg);
         table2.add();
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
         table2.row().padBottom(5);
@@ -376,6 +381,10 @@ public class Controller implements Disposable {
 
     public Vector2 getBulletDirection(){
         return bulletDirection;
+    }
+
+    public float getVelScale(){
+        return velScale;
     }
 
 }
