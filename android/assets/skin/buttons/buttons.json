@@ -56,45 +56,52 @@
 			color: color
 		}
 
-        button-direction: {
-          name: abB
+        button-left: {
+          name: button-left-arcade
           color: selection
         }
-        button-pressed-direction: {
-          name: abpB
+        button-left-pressed: {
+          name: button-left-arcade-pressed
           color: selection
         }
-
+		button-right: {
+			name: button-right-arcade
+			color: selection
+		}
+		button-right-pressed: {
+			name: button-right-arcade-pressed
+			color: selection
+		}
 		button-red: {
-			name: abS
+			name: abB
 			color: red
 		}
 		button-pressed-red: {
-			name: abpS
+			name: abpB
 			color: red
 		}
 		button-blue: {
-			name: abS
+			name: abB
 			color: blue
 		}
 		button-pressed-blue: {
-			name: abpS
+			name: abpB
 			color: blue
 		}
 		button-yellow: {
-			name: abS
+			name: abB
 			color: yellow
 		}
 		button-pressed-yellow: {
-			name: abpS
+			name: abpB
 			color: yellow
 		}
         button-green: {
-          name: abS
+          name: abB
           color: green
         }
         button-pressed-green: {
-          name: abpS
+          name: abpB
           color: green
         }
 		button-close-c: {
@@ -348,6 +355,18 @@
           up: button-green
           down: button-pressed-green
         }
+		left: {
+			up: button-left
+			down: button-left-pressed
+			checked: button-left-pressed
+		}
+		right: {
+			up: button-right
+			down: button-right-pressed
+			checked: button-right-pressed
+
+		}
+
 
 	}
 	com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -365,15 +384,18 @@
 			down: button-pressed-over-c
 			over: button-over-c
 		}
-        controller-left: {
-          up: button-direction
-          down: button-pressed-direction
-        }
-        controller-right: {
-          up: button-direction
-          down: button-pressed-direction
-        }
 
+		big-right: {
+			up: button-arcade-c
+			down: button-arcade-pressed-c
+			checked: button-arcade-pressed-c
+		}
+
+		big-left: {
+			up: button-arcade-c
+			down: button-arcade-pressed-c
+			checked: button-arcade-pressed-c
+		}
 	}
 	com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 		default: {
