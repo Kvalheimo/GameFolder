@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -16,6 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
@@ -28,6 +30,8 @@ import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 
 
 public class Controller implements Disposable {
+    public static final float deadzoneRadius = 20f;
+
     private Viewport viewport;
     public Stage stage;
     boolean leftPressed, rightPressed, aPressed, bPressed, xPressed, yPressed;
@@ -36,11 +40,14 @@ public class Controller implements Disposable {
     private TextureAtlas atlas;
     private Skin skin1, skin2, skin3, skin4;
     private MainScreen ms;
+    private Vector2 bulletDirection;
+
 
     public Controller(SpriteBatch sb, Box2dTutorial parent, MainScreen mainScreen){
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(viewport, sb);
+        bulletDirection = new Vector2(0.0f, 0.0f);
 
         ms = mainScreen;
 
@@ -109,15 +116,7 @@ public class Controller implements Disposable {
         });
 
 
-
-
         /*
-        final ImageButton rightImg = new ImageButton(skin4, "big-right");
-
-        rightImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
-        rightImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
-
-         */
 
         final Button rightImg = new Button(skin4, "right");
 
@@ -137,19 +136,8 @@ public class Controller implements Disposable {
             }
 
 
-
-
         });
 
-
-        /*
-        final ImageButton leftImg = new ImageButton(skin4, "big-left");
-
-        leftImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
-        leftImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
-
-
-         */
 
         final Button leftImg = new Button(skin4, "left");
 
@@ -169,6 +157,40 @@ public class Controller implements Disposable {
             }
 
         });
+         */
+
+        final Touchpad touchpad = new Touchpad(deadzoneRadius, skin1);
+
+        touchpad.addListener(new ChangeListener() {
+
+            @Override
+            public void changed(ChangeEvent event, Actor actor) {
+                // This is run when anything is changed on this actor.
+                float deltaX = ((Touchpad) actor).getKnobPercentX();
+                float deltaY = ((Touchpad) actor).getKnobPercentY();
+
+                if(deltaX > 0){
+                    rightPressed = true;
+                    leftPressed = false;
+                    bulletDirection.set(deltaX, deltaY);
+                }
+                else if(deltaX < 0){
+                    leftPressed = true;
+                    rightPressed = false;
+                    bulletDirection.set(deltaX, deltaY);
+                }
+
+                else{
+                    leftPressed = false;
+                    rightPressed = false;
+                    bulletDirection.set(0.0f, 0.0f);
+                }
+
+
+
+            }
+        });
+
 
 
 
@@ -250,10 +272,12 @@ public class Controller implements Disposable {
         table1.left().bottom();
         table1.add();
         table1.pad(0, 30, 20, 0);
+        /*
         table1.add(leftImg).size(leftImg.getWidth(), leftImg.getHeight());
         table1.add().padLeft(30);
         table1.add(rightImg).size(rightImg.getWidth(), rightImg.getHeight());
-
+         */
+        table1.add(touchpad);
 
 
         Table table2 = new Table();
@@ -343,6 +367,10 @@ public class Controller implements Disposable {
     //Function used by playerControlSystem to make it impossible to hold gun button
     public void setXPressed(boolean xPressed){
         this.xPressed = xPressed;
+    }
+
+    public Vector2 getBulletDirection(){
+        return bulletDirection;
     }
 
 }
