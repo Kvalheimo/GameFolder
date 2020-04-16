@@ -284,6 +284,22 @@
 			name: touchpad-knob
 			color: color
 		}
+		touchpad-c-f: {
+			name: touchpad-f
+			color: color
+		}
+		touchpad-knob-c-f: {
+			name: touchpad-knob-f
+			color: color
+		}
+		touchpad-c-n: {
+			name: touchpad-n
+			color: color
+		}
+		touchpad-knob-c-n: {
+			name: touchpad-knob-n
+			color: color
+		}
 		tree-minus-c: {
 			name: tree-minus
 			color: color
@@ -506,6 +522,14 @@
 		default: {
 			background: touchpad-c
 			knob: touchpad-knob-c
+		}
+		flat: {
+			background: touchpad-c-f
+			knob: touchpad-knob-c-f
+		}
+		neut: {
+			background: touchpad-c-n
+			knob: touchpad-knob-c-n
 		}
 	}
 	com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
