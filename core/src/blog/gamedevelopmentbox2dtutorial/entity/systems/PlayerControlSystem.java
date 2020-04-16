@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
@@ -195,17 +196,24 @@ public class PlayerControlSystem extends IteratingSystem{
 
         //Shooting
         if (controller.isXPressed() && player.boomerangCount > 0){
+            Vector2 direction = controller.getBulletDirection();
+
 
             float shooterX = b2body.body.getPosition().x; // get player location
             float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
-            float velY = -0.1f;
-            float velX;
 
-            if (player.runningRight){
+            float velY = 7f*direction.y;
+            float velX = 7f*direction.x ;
+
+
+            if (player.runningRight && direction.x == 0f && direction.y == 0f){
                 velX = 7f;
-            }else{
+                velY = -0.1f;
+            }else if (!player.runningRight && direction.x == 0f && direction.y == 0f){
                 velX = -7f;
+                velY = -0.1f;
             }
+
 
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
             hud.useBoomerang();
