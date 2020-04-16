@@ -94,6 +94,7 @@ public class LevelFactory {
         maps = new IntMap<TiledMap>();
         maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
         maps.put(2, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
+        maps.put(3, parent.assMan.manager.get("maps/The_Mountaineer.tmx", TiledMap.class));
 
     }
 
@@ -562,17 +563,18 @@ public class LevelFactory {
 
         //Remove part 1
         layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+               (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
 
 
-        //Remove part 2
+       //Remove part 2
         layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
                 (int)((body.getPosition().y * Box2dTutorial.PPM / 16f)-1)).setTile(null);
 
         //Remove part 3
         layer.getCell((int)Math.floor((body.getPosition().x * Box2dTutorial.PPM / 16f)-1),
                 (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)-1).setTile(null);
-
+        System.out.println((int)(body.getPosition().x * Box2dTutorial.PPM / 16f));
+        System.out.println((int)(body.getPosition().y * Box2dTutorial.PPM / 16f));
 
 
     }
@@ -580,9 +582,11 @@ public class LevelFactory {
     public void removeSuperSpeedTile(Body body){
         TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
+        System.out.println((int)(body.getPosition().x * Box2dTutorial.PPM / 16f));
+        System.out.println((int)(body.getPosition().y * Box2dTutorial.PPM / 16f));
         //Remove part 1
-        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
-                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+        layer.getCell((int)(body.getPosition().x * Box2dTutorial.PPM / 16f),
+               (int)(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
 
 
         //Remove part 2

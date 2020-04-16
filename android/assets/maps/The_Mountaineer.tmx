@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="16" nextobjectid="25">
+ <tileset firstgid="1" source="tileset/level1.tsx"/>
+ <layer id="1" name="Background Color" width="400" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt2SEKwDAQRNGE0DPk/jctFYVStYxZAk88P+6LWXOMBQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAF++rfAMB5nn68urcAcI5vPzQEgKp/P6q6dwPQSz8ASOgHAAldACChHwAk9AOAhH4AkPCNAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAVN+ft6OU=
+  </data>
+ </layer>
+ <layer id="2" name="Grafic Layer" width="400" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt3FFq1EAcwOFZ3AoqiuIR7C189Ua+egI9gXqIXqHoCVQUffHVBz1BfTGhDYYwmWTSbNOd+T740y0syz7lx2QmGwIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDm9S6EN5EBgJQPTSs+TgwADOkHAEtcNH34ezX6AUCuX7twfqEfAGQ6u+rExchaBABizgaNGK5FACBm2I9Wf28kNgAQ6wcATNEPAJZo+nG+9XcA4PjE1h/tb5uM/b6J3zoBoBXrR/tsuufTAUjRDwCWGDu/qx8ApIydv9IPAFL0A4AllvYDgLrl9uNluBwA6pbTD+0AYMqwH9oBwByx9QcApLwI43sfABDTtuNVGD93pSEADI214+mdy9EPAIa6dnT75F0z+u2wjw5A37Ad7cTuXbUd0Q8AWlPt6DdDOwBoDdtxGnneY3gfqz8A1Ce27uhPqhsaAlCnqXbkdgSA8s1px9y1R/deAMq21j0r/QCoR9uOVDeW9MP9K4CypdYdS5uhHQBlm3PPytoDgL4198r1A6AOa5/R1Q+A8s09Z5XbjuH7/ZYJQDnGzlld9z5V7DP0A6jFz7tbf4PDiq07rtsN/QBq17ajmxLN3Svv/43dj9IPgP/67SixIbn7HUv3Pex/ADWJtaOkhqSeK4+tNda8p+X8FVCykvsx57nyqTNXqf/nvBegVF0r3jav3zXzPpTRj6l2zDl/tfQ879TzJAAl6FrxqXn9uZkv4TD9+L4P4cd+3c+M+d3Mn5DXjjXPYs15HhGgBF0r7u1CuN/Mg91h+vH4JIQnJ+t+Zl/XjWe7w/YhddZKP4CaHPv+R78bp4l2TE1qj2Nqz0Q/gBodaz/W6sZUR1L3vqb+1w+gZKl+fN2H8O0G9ixyzLlPdYiZs7+hH0BNUv14eBLCowPuWeQ41HpjrXboB1Cb50cyN9kL/QCYtuV1+Rgm51yufgA12fr6fJsnpx36AdRm62v0bZ6cduQMQAm2vkbXOAAl2PpaWsMAlGjra2sNA1Cira+tNQxAiba+ttYwACX6BwWcFh4=
+  </data>
+ </layer>
+ <objectgroup id="3" name="Ground">
+  <object id="1" x="16" y="3056" width="496" height="16"/>
+  <object id="6" x="512" y="3056" width="160" height="16"/>
+  <object id="7" x="672" y="3056">
+   <polygon points="0,0 192,-96 192,-80 0.125,7"/>
+  </object>
+  <object id="8" x="864" y="2960">
+   <polygon points="0,0 384,-384 383.667,-377.667 0.0625,5.5625"/>
+  </object>
+  <object id="10" x="1233" y="2400.5">
+   <polygon points="0,0 61.5,-0.5 60.8387,7 1.32258,6"/>
+  </object>
+  <object id="11" x="1158.5" y="2543.5">
+   <polygon points="0,0 3.25,0 3.25,-248.5 -1.5,-248.138"/>
+  </object>
+  <object id="20" x="1120" y="2224" width="97" height="5.5"/>
+  <object id="21" x="1296" y="2400" width="96" height="16"/>
+ </objectgroup>
+ <objectgroup id="4" name="SuperSpeed">
+  <object id="22" x="112" y="3024" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="5" name="Spikes"/>
+ <objectgroup id="6" name="Gun">
+  <object id="23" x="416" y="2960" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="7" name="Spiders"/>
+ <objectgroup id="9" name="Spring"/>
+ <objectgroup id="8" name="Bats"/>
+ <objectgroup id="15" name="Water"/>
+ <objectgroup id="12" name="Finish">
+  <object id="4" name="finished" x="47" y="2849" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="11" name="Wall">
+  <object id="3" x="96" y="2912" width="16" height="144"/>
+  <object id="9" x="1249" y="2463">
+   <polygon points="0,0 7,0 8.5,113.5 -1,112.873"/>
+  </object>
+  <object id="12" x="1232.5" y="2408" width="15.5" height="56"/>
+  <object id="13" x="1232" y="2336" width="128" height="16"/>
+  <object id="14" x="1216" y="2320" width="16" height="16"/>
+  <object id="15" x="1184" y="2304" width="32" height="16"/>
+  <object id="16" x="1168" y="2288" width="16" height="16"/>
+  <object id="17" x="1120" y="2272" width="48" height="16"/>
+  <object id="18" x="1120" y="2240" width="16" height="32"/>
+  <object id="19" x="1120" y="2230.5" width="16" height="9.5"/>
+ </objectgroup>
+ <objectgroup id="13" name="SpeedX"/>
+ <objectgroup id="14" name="SpeedY"/>
+</map>

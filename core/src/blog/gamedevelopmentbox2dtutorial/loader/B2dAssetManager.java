@@ -45,6 +45,7 @@ public class B2dAssetManager {
     // Maps
     public final String level1 = "maps/level1.tmx";
     public final String level2 =  "maps/Henriks_verden.tmx";
+    public final String level3 =  "maps/The_Mountaineer.tmx";
 
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";
@@ -115,6 +116,7 @@ public class B2dAssetManager {
         manager.setLoader(TiledMap.class, new TmxMapLoader(new InternalFileHandleResolver()));
         manager.load(level1, TiledMap.class);
         manager.load(level2, TiledMap.class);
+        manager.load(level3, TiledMap.class);
 
     }
 
@@ -194,6 +196,10 @@ public class B2dAssetManager {
                 manager.load(level2, TiledMap.class);
                 manager.finishLoading();
                 break;
+            case 3:
+                manager.unload(level3);
+                manager.load(level3, TiledMap.class);
+                manager.finishLoading();
         }
     }
 
