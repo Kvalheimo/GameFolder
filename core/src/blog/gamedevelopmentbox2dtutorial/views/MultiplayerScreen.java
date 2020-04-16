@@ -9,7 +9,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.utils.viewport.Viewport;
+
+import java.util.HashMap;
+
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
+import blog.gamedevelopmentbox2dtutorial.DatabaseHandler;
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
@@ -27,7 +31,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.PlayerControlSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 
-public class MainScreen implements Screen, GameScreen {
+public class MultiplayerScreen implements Screen, GameScreen {
 
 
     private Box2dTutorial parent;
@@ -45,8 +49,11 @@ public class MainScreen implements Screen, GameScreen {
     private int level;
     private int character;
 
+    private DatabaseHandler dbHandler;
+    private String uniqueID;
+    private HashMap<String,Entity> opponents;
 
-    public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
+    public MultiplayerScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
         this.character = character;
         isPaused = false;
@@ -89,6 +96,11 @@ public class MainScreen implements Screen, GameScreen {
 
         // create some game objects
         player = levelFactory.createPlayer(camera, character);
+
+        opponents = new HashMap<>();
+        dbHandler = new DatabaseHandler();
+        dbHandler.getDb().publishPlayer(player);
+        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine);
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
@@ -161,7 +173,7 @@ public class MainScreen implements Screen, GameScreen {
 
             pauseMenu.draw();
         }
-
+        dbHandler.getDb().publishPlayer(player);
     }
 
 

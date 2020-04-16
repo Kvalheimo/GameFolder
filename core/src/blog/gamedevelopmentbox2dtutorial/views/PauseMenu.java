@@ -25,11 +25,11 @@ public class PauseMenu implements Disposable{
     private Skin skin1, skin2, skin3;
     private TextureAtlas atlas;
     private Viewport viewport;
-    private MainScreen ms;
+    private GameScreen ms;
 
 
 
-    public PauseMenu(SpriteBatch sb, final Box2dTutorial parent, MainScreen mainScreen){
+    public PauseMenu(SpriteBatch sb, final Box2dTutorial parent, GameScreen gameScreen){
         this.parent = parent;
 
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
@@ -37,7 +37,7 @@ public class PauseMenu implements Disposable{
 
         //Gdx.input.setInputProcessor(stage);
 
-        ms = mainScreen;
+        ms = gameScreen;
 
         atlas = parent.assMan.manager.get("images/loading.atlas");
         skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");

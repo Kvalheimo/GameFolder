@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -28,6 +29,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PowerupComponent;
@@ -236,7 +238,105 @@ public class LevelFactory {
         return entity;
     }
 
+    public Entity createOpponent(Vector3 pos, int character){
+        Entity entity = engine.createEntity();
+//        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+        TransformComponent position = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        TypeComponent type = engine.createComponent(TypeComponent.class);
+        StateComponent stateCom = engine.createComponent(StateComponent.class);
+        AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+        OpponentComponent opponentCom = engine.createComponent(OpponentComponent.class);
 
+//        bodyCom.body = bodyFactory.makeCirclePolyBody(pos.x, pos.y, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+
+        switch (character) {
+            case 1:
+                //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
+            case 2:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling"), 1, 1));
+
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling_b"), 1, 1));
+                break;
+            case 3:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
+        }
+
+        runAnim.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnim.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+        runAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnimB.setPlayMode(Animation.PlayMode.LOOP);
+
+        animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animationsN.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animationsN.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animationsN.put(StateComponent.STATE_FALLING, jumpAnim);
+
+        animCom.animationsB.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animationsB.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animationsB.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animationsB.put(StateComponent.STATE_FALLING, jumpAnim);
+//        position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
+        position.position.set(pos.x, pos.y, 0);
+        opponentCom.setPos(pos);
+
+        type.type = TypeComponent.PLAYER;
+        stateCom.set(StateComponent.STATE_NORMAL);
+
+//        bodyCom.body.setUserData(entity);
+
+        // add the components to the entity
+//        entity.add(bodyCom);
+        entity.add(position);
+        entity.add(texture);
+        entity.add(type);
+        entity.add(stateCom);
+        entity.add(animCom);
+        entity.add(opponentCom);
+
+        // add the entity to the engine
+        engine.addEntity(entity);
+        return entity;
+    }
 
     public void createBats(int level){
         Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Bats", BodyDef.BodyType.DynamicBody, bodyFactory.STEEL);

@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+import blog.gamedevelopmentbox2dtutorial.views.GameScreen;
 import blog.gamedevelopmentbox2dtutorial.views.MainScreen;
 
 
@@ -35,14 +36,14 @@ public class Controller implements Disposable {
     private Box2dTutorial parent;
     private TextureAtlas atlas;
     private Skin skin1, skin2, skin3, skin4;
-    private MainScreen ms;
+    private GameScreen gs;
 
-    public Controller(SpriteBatch sb, Box2dTutorial parent, MainScreen mainScreen){
+    public Controller(SpriteBatch sb, Box2dTutorial parent, GameScreen gameScreen){
         camera = new OrthographicCamera();
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), camera);
         stage = new Stage(viewport, sb);
 
-        ms = mainScreen;
+        gs = gameScreen;
 
         this.parent = parent;
 
@@ -109,12 +110,10 @@ public class Controller implements Disposable {
         });
 
 
-
         final ImageButton rightImg = new ImageButton(skin4, "controller-right");
 
         rightImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
         rightImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("right-arrow"));
-
         rightImg.addListener(new InputListener() {
 
             @Override
@@ -136,7 +135,6 @@ public class Controller implements Disposable {
         leftImg.getStyle().imageUp = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
         leftImg.getStyle().imageDown = new TextureRegionDrawable(atlas.findRegion("left-arrow"));
 
-
         leftImg.addListener(new InputListener() {
 
             @Override
@@ -152,12 +150,12 @@ public class Controller implements Disposable {
         });
 
 
-
         final Button AImg = new Button(skin4, "green");
 
 
         // Create button listeners
         AImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -174,11 +172,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button XImg = new Button(skin4, "red");
 
 
         // Create button listeners
         XImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -194,11 +194,13 @@ public class Controller implements Disposable {
 
 
 
+
         final Button YImg = new Button(skin4, "blue");
 
 
         // Create button listeners
         YImg.addListener(new InputListener(){
+
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
@@ -212,15 +214,13 @@ public class Controller implements Disposable {
             }
         });
 
-
-
         final TextButton pauseButton = new TextButton("Pause", skin3);
 
 
         pauseButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                ms.pauseGame(true);
+                gs.pauseGame(true);
             }
         });
 
