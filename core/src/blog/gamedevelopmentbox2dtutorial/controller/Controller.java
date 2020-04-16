@@ -118,6 +118,22 @@ public class Controller implements Disposable {
         rightImg.addListener(new InputListener() {
 
             @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                super.enter(event, x, y, pointer, fromActor);
+
+            }
+
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                rightPressed = false;
+                super.exit(event, x, y, pointer, toActor);
+            }
+
+
+        });
+            /*
+            @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 rightPressed = true;
                 return true;
@@ -128,6 +144,8 @@ public class Controller implements Disposable {
                 rightPressed = false;
             }
         });
+
+             */
 
 
 
@@ -140,6 +158,23 @@ public class Controller implements Disposable {
         leftImg.addListener(new InputListener() {
 
             @Override
+            public void enter(InputEvent event, float x, float y, int pointer, Actor fromActor) {
+                leftPressed = true;
+                super.enter(event, x, y, pointer, fromActor);
+            }
+
+
+            @Override
+            public void exit(InputEvent event, float x, float y, int pointer, Actor toActor) {
+                leftPressed = false;
+                super.exit(event, x, y, pointer, toActor);
+            }
+
+        });
+
+
+            /*
+            @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
                 leftPressed = true;
                 return true;
@@ -150,6 +185,10 @@ public class Controller implements Disposable {
                 leftPressed = false;
             }
         });
+
+
+             */
+
 
 
 
