@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Vector2;
 
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
@@ -116,8 +117,8 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.applyLinearImpulse(-6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             }
              */
-            else if(b2body.body.getLinearVelocity().x > -7){
-                b2body.body.applyForceToCenter(-80, 0, true);
+            else if(b2body.body.getLinearVelocity().x > -8){
+                b2body.body.applyForceToCenter(-50*controller.getVelScale(), 0, true);
             }
 
 
@@ -137,8 +138,8 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
 
-            else if(b2body.body.getLinearVelocity().x < 7){
-                b2body.body.applyForceToCenter(80, 0, true);
+            else if(b2body.body.getLinearVelocity().x < 8){
+                b2body.body.applyForceToCenter(50*controller.getVelScale(), 0, true);
             }
 
         }
@@ -181,11 +182,11 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (controller.isYPressed() && player.superSpeed){
             if (player.runningRight){
-                b2body.body.applyLinearImpulse(50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                b2body.body.applyLinearImpulse(60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, b2body);
                 hud.setSpeedBoostActive();
             }else{
-                b2body.body.applyLinearImpulse(-50f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                b2body.body.applyLinearImpulse(-60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, b2body);
                 hud.setSpeedBoostActive();
             }
@@ -195,17 +196,30 @@ public class PlayerControlSystem extends IteratingSystem{
 
         //Shooting
         if (controller.isXPressed() && player.boomerangCount > 0){
+            Vector2 direction = controller.getBulletDirection();
+
 
             float shooterX = b2body.body.getPosition().x; // get player location
+<<<<<<< HEAD
             float shooterY = b2body.body.getPosition().y+0.2f ; // get player location
             float velY = 0f;
             float velX;
+=======
+            float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
+>>>>>>> master
 
-            if (player.runningRight){
+            float velY = 7f*direction.y;
+            float velX = 7f*direction.x ;
+
+
+            if (player.runningRight && direction.x == 0f && direction.y == 0f){
                 velX = 7f;
-            }else{
+                velY = -0.1f;
+            }else if (!player.runningRight && direction.x == 0f && direction.y == 0f){
                 velX = -7f;
+                velY = -0.1f;
             }
+
 
             levelFactory.createBullet(shooterX, shooterY, velX, velY);
             hud.useBoomerang();
@@ -217,14 +231,14 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (player.speedX){
             //b2body.body.setLinearVelocity(100f, 0f);
-            b2body.body.applyLinearImpulse(50, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(60, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SPEED, b2body);
             player.speedX = false;
         }
 
         if (player.speedY){
             //b2body.body.setLinearVelocity(0f, 100f);
-            b2body.body.applyLinearImpulse(0, 50, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(0, 60, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.speedY = false;
         }
 
