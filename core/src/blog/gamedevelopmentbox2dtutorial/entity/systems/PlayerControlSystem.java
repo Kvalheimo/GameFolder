@@ -197,8 +197,8 @@ public class PlayerControlSystem extends IteratingSystem{
         if (controller.isXPressed() && player.boomerangCount > 0){
 
             float shooterX = b2body.body.getPosition().x; // get player location
-            float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
-            float velY = -0.1f;
+            float shooterY = b2body.body.getPosition().y+0.2f ; // get player location
+            float velY = 0f;
             float velX;
 
             if (player.runningRight){
