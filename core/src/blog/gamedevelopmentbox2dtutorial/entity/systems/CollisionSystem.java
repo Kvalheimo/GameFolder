@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 import java.util.Map;
 
@@ -49,10 +50,15 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.ENEMY:
+<<<<<<< HEAD
                             //do player hit enemy thing
                             System.out.println("player hit enemy");
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
                             //player.isDead = true;
+=======
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
+                            Mapper.playerCom.get(entity).isDead = true;
+>>>>>>> master
                             break;
 
                         case TypeComponent.SUPER_SPEED:
@@ -110,7 +116,18 @@ public class CollisionSystem extends IteratingSystem {
 
                         case TypeComponent.OTHER:
                             break;
+
                         case TypeComponent.SPIKES:
+<<<<<<< HEAD
+=======
+                            System.out.println("player hit spikes");
+                            break;
+
+                        case TypeComponent.CHECKPOINT:
+                            player.checkPointPos = Mapper.cpComp.get(collidedEntity).checkpointPos;
+                            System.out.println(Mapper.cpComp.get(collidedEntity).checkpointPos);
+                            break;
+>>>>>>> master
 
                         default:
                             System.out.println("No matching type found");
@@ -154,10 +171,10 @@ public class CollisionSystem extends IteratingSystem {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
                 if (type != null) {
                     switch (type.type) {
-                        case TypeComponent.PLAYER:  //Denne slår inn når player treffer en spider, men blood effekten kommer på spider nå
+                        case TypeComponent.PLAYER:  //Denne slår inn når player treffer en spider
                             System.out.println("Enemy hit player");
-                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
-
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(collidedEntity).body.getPosition().x, Mapper.b2dCom.get(collidedEntity).body.getPosition().y);
+                            Mapper.playerCom.get(collidedEntity).isDead = true;
                             break;
 
                         case TypeComponent.GROUND:

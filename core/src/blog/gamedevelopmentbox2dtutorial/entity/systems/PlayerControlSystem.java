@@ -243,12 +243,22 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-
-        //Denne må også tas med når enemey dreper player
+        //Kill player if he falls down
         if (b2body.body.getPosition().y < -2){
             if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
                 Mapper.paCom.get(player.particleEffect).isDead = true;
             player.isDead = true;
+        }
+
+        //Send back to checkpoint if player is dead
+        if (player.isDead){
+            b2body.body.setTransform(player.checkPointPos,0);
+            player.runningRight = true;
+            player.isDead = false;
+        }
+
+        if(hud.getPercentage() >= 1){
+            player.isFinished = true;
         }
 
     }
