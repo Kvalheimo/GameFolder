@@ -84,6 +84,8 @@ public class LevelSelectionScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
+        levelSelected = 1;
+
         // Create text buttons, labels etc.
         final TextButton l1 = new TextButton("1", skin3, "toggle");
         final TextButton l2 = new TextButton("2", skin3, "toggle");

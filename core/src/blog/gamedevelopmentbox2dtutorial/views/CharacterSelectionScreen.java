@@ -38,7 +38,7 @@ public class CharacterSelectionScreen implements Screen {
     private Skin skin1, skin2, skin3;
     private TextureAtlas.AtlasRegion background;
     private TextureAtlas loadingAtlas, gameAtlas;
-    private int characterSelected = 1;
+    private int characterSelected;
     private Image characterImage;
     private IntMap<Image> characterImages;
     private Table innerTable;
@@ -49,7 +49,7 @@ public class CharacterSelectionScreen implements Screen {
     public CharacterSelectionScreen(Box2dTutorial box2dTutorial) {
         parent = box2dTutorial;
         stage = new Stage(new ScreenViewport());
-
+        characterSelected = 1;
 
         // Get images to display loading progress
         loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
@@ -73,6 +73,8 @@ public class CharacterSelectionScreen implements Screen {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
+
+        characterSelected = 1;
 
         // Create text buttons, labels etc.
         final TextButton c1 = new TextButton("Jan-Vidar", skin3, "toggle");

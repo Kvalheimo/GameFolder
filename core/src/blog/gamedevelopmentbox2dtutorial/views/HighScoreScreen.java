@@ -56,6 +56,8 @@ public class HighScoreScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
+        levelSelected = 1;
+
         highScores = Save.hsd.get(levelSelected).getHighScores();
         names = Save.hsd.get(levelSelected).getNames();
 
