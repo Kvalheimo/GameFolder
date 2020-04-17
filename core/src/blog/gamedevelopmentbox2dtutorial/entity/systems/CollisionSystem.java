@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
+import com.badlogic.gdx.Gdx;
 import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
 
 import java.util.Map;
@@ -15,6 +16,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
@@ -92,9 +94,13 @@ public class CollisionSystem extends IteratingSystem {
                             break;
                         case TypeComponent.DESTROYABLE_TILE:
                             player.onGround = true;
-                            System.out.println("player hit tile");
-
                             break;
+
+                        case TypeComponent.PLATFORM:
+                            player.onGround = true;
+                            System.out.println("Player on platform");
+                            break;
+
                         case TypeComponent.SPEED_X:
                             player.speedX = true;
                             break;
@@ -209,6 +215,63 @@ public class CollisionSystem extends IteratingSystem {
                     cc.collisionEntity = null; // collision handled reset component
                 }
             }
+        // handle platformCollision
+        }else if(thisType.type == TypeComponent.PLATFORM){
+            if (collidedEntity != null) {
+                TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
+                if (type != null) {
+                    switch (type.type) {
+                        case TypeComponent.PLAYER:
+
+                            break;
+
+                        case TypeComponent.GROUND:
+                            System.out.println("Platform collied with ground");
+                            PlatformComponent platformComponent = Mapper.platCom.get(entity);
+
+                            if (platformComponent.movingRight) {
+                                platformComponent.movingRight = false;
+                            } else if (!platformComponent.movingRight) {
+                                platformComponent.movingRight = true;
+                            }
+                            break;
+
+                        case TypeComponent.BULLET:
+                            break;
+
+                        case TypeComponent.WALL:
+                            platformComponent = Mapper.platCom.get(entity);
+
+                            System.out.println("Platform collied with wall");
+
+                            if (platformComponent.movingRight) {
+                                platformComponent.movingRight = false;
+                            } else if (!platformComponent.movingRight) {
+                                platformComponent.movingRight = true;
+                            }
+                            break; //technically this isn't needed
+
+                        case TypeComponent.SPIKES:
+                            //do enemy hit spike thing
+                            //    System.out.println("enemy hit wall");
+                            platformComponent = Mapper.platCom.get(entity);
+
+                            if (platformComponent.movingRight) {
+                                platformComponent.movingRight = false;
+                            } else if (!platformComponent.movingRight) {
+                                platformComponent.movingRight = true;
+                            }
+                            break; //technically this isn't needed
+
+                        default:
+                            System.out.println("No matching type found");
+
+                            break;
+                    }
+                    cc.collisionEntity = null; // collision handled reset component
+                }
+            }
+
         }
     }
 }

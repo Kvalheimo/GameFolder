@@ -21,6 +21,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.CollisionSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.DestroyableTileSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.EnemySystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.MoveableSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
@@ -86,6 +87,7 @@ public class MainScreen implements Screen, GameScreen {
         engine.addSystem(new EnemySystem(camera));
         engine.addSystem(new PowerupSystem());
         engine.addSystem(new DestroyableTileSystem());
+        engine.addSystem(new MoveableSystem(camera));
 
 
 
@@ -94,7 +96,7 @@ public class MainScreen implements Screen, GameScreen {
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
-
+        levelFactory.createPlatform(level);
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);

@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.Array;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 
 
 public class PhysicsSystem extends IteratingSystem {
@@ -42,18 +43,27 @@ public class PhysicsSystem extends IteratingSystem {
 
 
 
+
         if(accumulator >= MAX_STEP_TIME) {
             world.step(MAX_STEP_TIME, 6, 2);
             accumulator -= MAX_STEP_TIME;
 
             //Entity Queue
             for (Entity entity : bodiesQueue) {
+
+                TypeComponent thisType = entity.getComponent(TypeComponent.class);
                 TransformComponent tfm = tm.get(entity);
                 B2dBodyComponent bodyComp = bm.get(entity);
                 Vector2 position = bodyComp.body.getPosition();
+
+                if(thisType.type == TypeComponent.PLATFORM){
+                    return;
+                }
                 tfm.position.x = position.x;
                 tfm.position.y = position.y;
                 tfm.rotation = bodyComp.body.getAngle() * MathUtils.radiansToDegrees;
+
+
 
                 if (bodyComp.isDead){
                     world.destroyBody(bodyComp.body);

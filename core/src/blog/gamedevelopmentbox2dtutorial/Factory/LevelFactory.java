@@ -20,6 +20,11 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+
+import java.lang.reflect.Type;
+
+import javax.swing.plaf.nimbus.State;
+
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
@@ -33,6 +38,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.DestroyableTileCompon
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PowerupComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
@@ -463,13 +469,14 @@ public class LevelFactory {
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
             DestroyableTileComponent destComp = engine.createComponent(DestroyableTileComponent.class);
 
-
             bodyCom.body = body;
 
 
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
             typeCom.type = type;
+
+
 
             entity.add(position);
             entity.add(bodyCom);
@@ -481,29 +488,53 @@ public class LevelFactory {
     }
 
 
-    public void createPlatform(float x, float y){
+    public void createPlatform(int level){
 
+        Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.DynamicBody, BodyFactory.SYRUP);
         // Create the Entity and all the components that will go in the entity
-        Entity entity = engine.createEntity();
-        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
-        TextureComponent texture = engine.createComponent(TextureComponent.class);
-        TypeComponent type = engine.createComponent(TypeComponent.class);
+        for(Body platformBody: platformBodies){
 
-        // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeBoxPolyBody(x, y, 52, 0.2f, BodyFactory.STONE, BodyDef.BodyType.StaticBody, true);
+            Entity entity = engine.createEntity();
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TextureComponent texture = engine.createComponent(TextureComponent.class);
+            CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+            TypeComponent type = engine.createComponent(TypeComponent.class);
+            PlatformComponent platform = engine.createComponent(PlatformComponent.class);
+            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+            StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        // set object position (x,y,z) z used to define draw order 0 first drawn
-        type.type = TypeComponent.SCENERY;
 
-        bodyCom.body.setUserData(entity);
 
-        // add the components to the entity
-        entity.add(bodyCom);
-        entity.add(texture);
-        entity.add(type);
+            // create the data for the components and add them to the components
+            platformBody.setActive(false);
+            platform.type = platform.MOVEABLE;
+            bodyCom.body = platformBody;
 
-        // add the entity to the engine
-        engine.addEntity(entity);
+            // set object position (x,y,z) z used to define draw order 0 first drawn
+            type.type = TypeComponent.PLATFORM;
+
+            bodyCom.body.setUserData(entity);
+
+            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider"), 1, 1));
+
+            normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+
+            stateCom.set(StateComponent.STATE_MOVING);
+
+            // add the components to the entity
+            entity.add(bodyCom);
+            entity.add(texture);
+            entity.add(type);
+            entity.add(platform);
+            entity.add(colComp);
+            entity.add(animCom);
+            entity.add(stateCom);
+
+            // add the entity to the engine
+            engine.addEntity(entity);
+        }
 
     }
 
