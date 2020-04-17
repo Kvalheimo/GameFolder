@@ -291,6 +291,10 @@ public class Hud implements Disposable {
         }
     }
 
+    public float getPercentage(){
+        return percentage;
+    }
+
     @Override
     public void dispose() {
         stage.dispose();

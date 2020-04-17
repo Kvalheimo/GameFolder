@@ -27,6 +27,7 @@ import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.CheckpointComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
@@ -37,8 +38,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
-import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+
 
 public class LevelFactory {
 
@@ -370,20 +370,13 @@ public class LevelFactory {
             animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
-
-            // set object position (x,y,z) z used to define draw order 0 first drawn
-            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
-
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.ENEMY;
             stateCom.set(StateComponent.STATE_MOVING);
 
             //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
-
-
             bodyCom.body.setUserData(entity);
-
 
             // add the components to the entity
             entity.add(bodyCom);
@@ -428,27 +421,18 @@ public class LevelFactory {
             Animation movingAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider"), 4, 1));
             Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider_normal"), 1, 1));
 
-
             movingAnim.setPlayMode(Animation.PlayMode.LOOP);
             normalAnim.setPlayMode(Animation.PlayMode.LOOP);
 
             animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
-
-            // set object position (x,y,z) z used to define draw order 0 first drawn
-            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
-
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.ENEMY;
-
             stateCom.set(StateComponent.STATE_MOVING);
             //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
-
-
             bodyCom.body.setUserData(entity);
-
 
             // add the components to the entity
             entity.add(bodyCom);
@@ -611,6 +595,39 @@ public class LevelFactory {
 
         engine.addEntity(entity);
         return entity;
+    }
+
+    public void loadCheckpoint(int level){
+        Array<Body> posBodies = mapBodyFactory.buildShapes(maps.get(level), world, "CheckpointPos", BodyDef.BodyType.KinematicBody, BodyFactory.STONE);
+        Array<Body> lineBodies = mapBodyFactory.buildShapes(maps.get(level), world, "CheckpointLine", BodyDef.BodyType.KinematicBody, BodyFactory.STONE);
+
+        //Load checkpoint spawn position
+        for (int i = 0; i < posBodies.size; i++){
+            Entity entity = engine.createEntity();
+            CheckpointComponent cpComp = engine.createComponent(CheckpointComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+
+            cpComp.checkpointPos = new Vector2(posBodies.get(i).getPosition().x, posBodies.get(i).getPosition().y);
+            world.destroyBody(posBodies.get(i));
+
+            bodyFactory.makeAllFixturesSensors(lineBodies.get(i));
+            lineBodies.get(i).setUserData(entity);
+            bodyCom.body = lineBodies.get(i);
+
+            typeCom.type = TypeComponent.CHECKPOINT;
+
+            entity.add(cpComp);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+
+            engine.addEntity(entity);
+
+
+        }
+
+
+
     }
 
 

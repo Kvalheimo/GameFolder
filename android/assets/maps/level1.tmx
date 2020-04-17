@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="149">
+<map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="162">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="9" name="Background" width="12000" height="50">
   <data encoding="base64" compression="zlib">
@@ -12,9 +12,6 @@
   </data>
  </layer>
  <objectgroup id="3" name="Ground">
-  <object id="5" x="1.5193" y="31.9052">
-   <polyline points="0,0 1598.3,0"/>
-  </object>
   <object id="21" x="1487.66" y="174.671">
    <polyline points="0,0 -64.6065,32.8481 -319.919,33.3152"/>
   </object>
@@ -54,6 +51,7 @@
   <object id="107" x="256.589" y="207.512">
    <polygon points="0,0 352.036,176.211 350.877,183.554 1.15929,8.115"/>
   </object>
+  <object id="151" x="-7.5358" y="-24.1145" width="4141.71" height="22.369"/>
  </objectgroup>
  <objectgroup id="13" name="SpeedX">
   <object id="65" x="2527.76" y="383.265" width="4.69904" height="31.5889"/>
@@ -102,12 +100,12 @@
   <object id="88" x="925.399" y="307.136" width="2.49501" height="77.3453"/>
   <object id="89" x="1135.95" y="352.964" width="32.576" height="31.4898"/>
   <object id="90" x="2528.04" y="320.205" width="2.10996" height="62.2583"/>
+  <object id="150" x="-13.4409" y="-0.0338374" width="14.797" height="218.448"/>
  </objectgroup>
  <objectgroup id="4" name="SuperSpeed">
   <object id="137" x="1024" y="47.9997" width="32" height="32"/>
   <object id="140" x="1808.01" y="63.9957" width="32" height="32"/>
   <object id="142" x="2448" y="143.996" width="32" height="32"/>
-  <object id="148" x="720" y="240" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="6" name="Spring">
   <object id="84" x="1135.71" y="351.742" width="32.172" height="0.946349"/>
@@ -135,5 +133,14 @@
  <objectgroup id="7" name="Gun">
   <object id="139" x="1280" y="127.998" width="32" height="32"/>
   <object id="141" x="2160" y="159.998" width="32" height="32"/>
+  <object id="161" x="720" y="240" width="32" height="32"/>
+ </objectgroup>
+ <objectgroup id="19" name="CheckpointPos">
+  <object id="156" x="232.938" y="125.079"/>
+  <object id="160" x="1348.68" y="106.045"/>
+ </objectgroup>
+ <objectgroup id="22" name="CheckpointLine">
+  <object id="153" x="231.125" y="-1.81274" width="5.43823" height="220.248"/>
+  <object id="159" x="1345.06" y="-2.71912" width="9.06372" height="216.623"/>
  </objectgroup>
 </map>
