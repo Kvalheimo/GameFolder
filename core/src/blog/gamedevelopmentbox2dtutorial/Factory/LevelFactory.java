@@ -701,6 +701,15 @@ public class LevelFactory {
 
 
     }
+    public void removeDestroyableTile(Body body){
+        TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
+        //Remove part 1
+        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
+
+
+    }
 
 }

@@ -93,7 +93,11 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.WALL:
                             player.onWall = true;
                             break;
+                        case TypeComponent.DESTROYABLE_TILE:
+                            player.onGround = true;
+                            System.out.println("player hit tile");
 
+                            break;
                         case TypeComponent.SPEED_X:
                             player.speedX = true;
                             break;
@@ -109,7 +113,6 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.OTHER:
                             break;
                         case TypeComponent.SPIKES:
-                            System.out.println("player hit spikes");
 
                         default:
                             System.out.println("No matching type found");
@@ -136,6 +139,10 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.WALL:
                             //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
+                            break;
+                        case TypeComponent.DESTROYABLE_TILE:
+                            levelFactory.removeDestroyableTile(Mapper.b2dCom.get(collidedEntity).body);
+                            Mapper.powerCom.get(collidedEntity).isDead = true;
                             break;
 
                     }
