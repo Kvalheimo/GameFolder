@@ -32,6 +32,11 @@ public class PowerupSystem extends IteratingSystem {
                 Mapper.paCom.get(powerComp.particleEffect).isDead = true;
             bodyCom.isDead = true;
         }
+        if(powerComp.isDead){
+            if (powerComp.particleEffect != null && Mapper.paCom.get(powerComp.particleEffect) != null)
+                Mapper.paCom.get(powerComp.particleEffect).isDead = true;
+            bodyCom.isDead = true;
+        }
 
     }
 }

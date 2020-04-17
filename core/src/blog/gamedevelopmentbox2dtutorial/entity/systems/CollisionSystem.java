@@ -50,8 +50,15 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.ENEMY:
+<<<<<<< HEAD
+                            //do player hit enemy thing
+                            System.out.println("player hit enemy");
+                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
+                            //player.isDead = true;
+=======
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.playerCom.get(entity).isDead = true;
+>>>>>>> master
                             break;
 
                         case TypeComponent.SUPER_SPEED:
@@ -90,7 +97,11 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.WALL:
                             player.onWall = true;
                             break;
+                        case TypeComponent.DESTROYABLE_TILE:
+                            player.onGround = true;
+                            System.out.println("player hit tile");
 
+                            break;
                         case TypeComponent.SPEED_X:
                             player.speedX = true;
                             break;
@@ -107,6 +118,8 @@ public class CollisionSystem extends IteratingSystem {
                             break;
 
                         case TypeComponent.SPIKES:
+<<<<<<< HEAD
+=======
                             System.out.println("player hit spikes");
                             break;
 
@@ -114,6 +127,7 @@ public class CollisionSystem extends IteratingSystem {
                             player.checkPointPos = Mapper.cpComp.get(collidedEntity).checkpointPos;
                             System.out.println(Mapper.cpComp.get(collidedEntity).checkpointPos);
                             break;
+>>>>>>> master
 
                         default:
                             System.out.println("No matching type found");
@@ -140,6 +154,10 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.WALL:
                             //levelFactory.makeParticleEffect(ParticleEffectManager.EXPLOSION, Mapper.b2dCom.get(entity).body.getPosition().x, Mapper.b2dCom.get(entity).body.getPosition().y);
                             Mapper.bulletCom.get(entity).isDead = true;
+                            break;
+                        case TypeComponent.DESTROYABLE_TILE:
+                            levelFactory.removeDestroyableTile(Mapper.b2dCom.get(collidedEntity).body);
+                            Mapper.destCom.get(collidedEntity).isDead = true;
                             break;
 
                     }
@@ -181,7 +199,7 @@ public class CollisionSystem extends IteratingSystem {
                             break; //technically this isn't needed
 
                         case TypeComponent.SPIKES:
-                            //do enemy hit wall thing
+                            //do enemy hit spike thing
                             //    System.out.println("enemy hit wall");
                             enemyComponent = Mapper.enemyCom.get(entity);
 

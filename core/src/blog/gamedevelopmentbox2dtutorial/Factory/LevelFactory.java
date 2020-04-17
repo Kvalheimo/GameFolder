@@ -29,6 +29,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CheckpointComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.DestroyableTileComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
@@ -450,7 +451,34 @@ public class LevelFactory {
 
     }
 
+    public void createDestroyableTiles(String layer, int type, int level) {
 
+
+        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(level), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
+
+        for (Body body : mapBodies) {
+            Entity entity = engine.createEntity();
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+            DestroyableTileComponent destComp = engine.createComponent(DestroyableTileComponent.class);
+
+
+            bodyCom.body = body;
+
+
+            position.position.set(body.getPosition().x, body.getPosition().y, 0);
+            body.setUserData(entity);
+            typeCom.type = type;
+
+            entity.add(position);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+            entity.add(destComp);
+            engine.addEntity(entity);
+
+        }
+    }
 
 
     public void createPlatform(float x, float y){
@@ -522,6 +550,7 @@ public class LevelFactory {
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
 
+
             bodyCom.body = body;
 
 
@@ -537,6 +566,7 @@ public class LevelFactory {
             entity.add(position);
             entity.add(bodyCom);
             entity.add(typeCom);
+
 
             engine.addEntity(entity);
 
@@ -554,7 +584,7 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.25f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.15f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
 
 
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
@@ -718,6 +748,15 @@ public class LevelFactory {
 
 
     }
+    public void removeDestroyableTile(Body body){
+        TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
+        //Remove part 1
+        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
+
+
+    }
 
 }

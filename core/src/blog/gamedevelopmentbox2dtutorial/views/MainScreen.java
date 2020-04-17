@@ -19,6 +19,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.AnimationSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.CollisionSystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.DestroyableTileSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.EnemySystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
@@ -84,6 +85,7 @@ public class MainScreen implements Screen, GameScreen {
         engine.addSystem(new BulletSystem());
         engine.addSystem(new EnemySystem(camera));
         engine.addSystem(new PowerupSystem());
+        engine.addSystem(new DestroyableTileSystem());
 
 
 
@@ -95,6 +97,8 @@ public class MainScreen implements Screen, GameScreen {
 
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
+        levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
+
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
         levelFactory.loadCheckpoint(level);
 
@@ -105,6 +109,8 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
         levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
+
+
 
 
     }
