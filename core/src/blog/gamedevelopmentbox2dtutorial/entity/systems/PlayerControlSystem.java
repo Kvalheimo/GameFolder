@@ -200,13 +200,8 @@ public class PlayerControlSystem extends IteratingSystem{
 
 
             float shooterX = b2body.body.getPosition().x; // get player location
-<<<<<<< HEAD
-            float shooterY = b2body.body.getPosition().y+0.2f ; // get player location
-            float velY = 0f;
-            float velX;
-=======
-            float shooterY = b2body.body.getPosition().y + 0.2f; // get player location
->>>>>>> master
+
+            float shooterY = b2body.body.getPosition().y; // get player location
 
             float velY = 7f*direction.y;
             float velX = 7f*direction.x ;

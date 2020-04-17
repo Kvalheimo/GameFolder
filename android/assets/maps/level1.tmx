@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<<<<<<< HEAD
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="149">
-=======
 <map version="1.2" tiledversion="2020.02.26" orientation="orthogonal" renderorder="right-down" width="12000" height="50" tilewidth="16" tileheight="16" infinite="0" nextlayerid="23" nextobjectid="162">
->>>>>>> master
+
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="9" name="Background" width="12000" height="50">
   <data encoding="base64" compression="zlib">

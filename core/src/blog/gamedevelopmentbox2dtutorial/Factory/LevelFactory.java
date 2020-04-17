@@ -584,7 +584,7 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.15f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.10f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
 
 
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
