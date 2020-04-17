@@ -52,8 +52,6 @@ public class CollisionSystem extends IteratingSystem {
                             //do player hit enemy thing
                             System.out.println("player hit enemy");
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
-
-
                             //player.isDead = true;
                             break;
 
@@ -142,7 +140,7 @@ public class CollisionSystem extends IteratingSystem {
                             break;
                         case TypeComponent.DESTROYABLE_TILE:
                             levelFactory.removeDestroyableTile(Mapper.b2dCom.get(collidedEntity).body);
-                            Mapper.powerCom.get(collidedEntity).isDead = true;
+                            Mapper.destCom.get(collidedEntity).isDead = true;
                             break;
 
                     }
@@ -184,7 +182,7 @@ public class CollisionSystem extends IteratingSystem {
                             break; //technically this isn't needed
 
                         case TypeComponent.SPIKES:
-                            //do enemy hit wall thing
+                            //do enemy hit spike thing
                             //    System.out.println("enemy hit wall");
                             enemyComponent = Mapper.enemyCom.get(entity);
 
