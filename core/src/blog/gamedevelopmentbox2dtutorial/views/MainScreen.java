@@ -178,6 +178,7 @@ public class MainScreen implements Screen, GameScreen {
                 if(countdownView.isCountdownOver()) {
                     isPaused = false;
                     countDownMode = false;
+                    countdownView.reset();
                 }
 
             }else{

@@ -51,7 +51,7 @@ public class CountdownView implements Disposable {
         countdownImages.put(2, new Image(frames[6]));
         countdownImages.put(1, new Image(frames[7]));
 
-        currentCountImage = countdownImages.get(3);
+        currentCountImage = countdownImages.get(4);
 
         table = new Table();
         table.setDebug(true);
@@ -97,6 +97,13 @@ public class CountdownView implements Disposable {
 
     public boolean isCountdownOver(){
         return countDown <= 0;
+    }
+
+    public void reset(){
+        countDown = 4;
+        countTime = 0;
+        table.clear();
+        currentCountImage = countdownImages.get(4);
     }
 
     @Override
