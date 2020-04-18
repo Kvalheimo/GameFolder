@@ -69,7 +69,7 @@ public class MenuScreen implements Screen {
 
 
         // Add buttons to table
-        table.add(multiplayer).fillX().uniform();
+        table.add(multiplayer).fillX().uniformX();
         table.row().padTop(PADDING);
         table.add(newGame).fillX().uniformX();
         table.row().padTop(PADDING);
