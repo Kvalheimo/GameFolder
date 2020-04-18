@@ -56,6 +56,11 @@ public class Box2dTutorial extends Game {
 		assMan = new B2dAssetManager();
 	}
 
+
+	public void changeScreen(int screen, int level){
+		changeScreen(screen, false, level, 0);
+	}
+
 	public void changeScreen(int screen) {
 		changeScreen(screen, false, 0 , 0);
 	}
@@ -92,7 +97,7 @@ public class Box2dTutorial extends Game {
 				this.setScreen(characterSelectionScreen);
 				break;
 			case HIGHSCORE:
-				highScoreScreen = new HighScoreScreen(this);
+				highScoreScreen = new HighScoreScreen(this, level);
 				this.setScreen(highScoreScreen);
 				break;
 			case MULTIPLAYER:
@@ -131,8 +136,6 @@ public class Box2dTutorial extends Game {
 		///playingSong.play();
 
         Save.load();
-
-
 	}
 
 	public MainScreen getMainScreen(){

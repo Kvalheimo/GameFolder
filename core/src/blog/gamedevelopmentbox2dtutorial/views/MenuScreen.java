@@ -114,7 +114,7 @@ public class MenuScreen implements Screen {
         highScore.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.HIGHSCORE);
+                parent.changeScreen(Box2dTutorial.HIGHSCORE, 1);
             }
         });
 
