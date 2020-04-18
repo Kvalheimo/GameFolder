@@ -6,10 +6,15 @@ import com.badlogic.gdx.assets.loaders.ParticleEffectLoader;
 import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.assets.loaders.SkinLoader.SkinParameter;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
+import com.badlogic.gdx.graphics.g2d.freetype.FreetypeFontLoader;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -17,9 +22,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 public class B2dAssetManager {
     ParticleEffectLoader.ParticleEffectParameter pep;
 
-
     public final AssetManager manager = new AssetManager();
-
 
     // Sounds
     public final String boingSound = "sounds/boing.wav";
@@ -33,9 +36,6 @@ public class B2dAssetManager {
     public final String skin2 = "skin/glassy/glassy-ui.json";
     public final String skin3 = "skin/clean/clean-crispy-ui.json";
     public final String skin4 = "skin/buttons/buttons.json";
-    public final String skin5 = "skin/pixel/pixel-ui.json";
-
-
 
     // Textures
     public final String gameImages = "images/game.atlas";
@@ -64,7 +64,6 @@ public class B2dAssetManager {
 
 
 
-
     public B2dAssetManager(){
         pep = new ParticleEffectLoader.ParticleEffectParameter();
     }
@@ -86,14 +85,12 @@ public class B2dAssetManager {
         SkinParameter skinParameter3 = new SkinParameter("skin/clean/clean-crispy-ui.atlas");
         SkinParameter skinParameter4 = new SkinParameter("skin/buttons/buttons.atlas");
 
-        //SkinParameter skinParameter5 = new SkinParameter( "skin/pixel/pixel-ui.atlas");
-
-
         manager.load(skin1, Skin.class, skinParameter1);
         manager.load(skin2, Skin.class, skinParameter2);
         manager.load(skin3, Skin.class, skinParameter3);
         manager.load(skin4, Skin.class, skinParameter4);
-        //manager.load(skin5, Skin.class, skinParameter5);
+
+
 
 
     }
@@ -119,6 +116,26 @@ public class B2dAssetManager {
     }
 
     public void queueAddFonts(){
+        FreeTypeFontGenerator.setMaxTextureSize(FreeTypeFontGenerator.NO_MAXIMUM);
+        FileHandleResolver resolver = new InternalFileHandleResolver();
+        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
+        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
+
+        FreetypeFontLoader.FreeTypeFontLoaderParameter parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontParameters.magFilter = Texture.TextureFilter.MipMapLinearNearest;
+        parameter.fontParameters.minFilter = Texture.TextureFilter.Linear;
+
+        parameter.fontFileName = "fonts/riffic-bold.ttf";
+        parameter.fontParameters.size = 50;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("highscore.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/riffic-bold.ttf";
+        parameter.fontParameters.size = 80;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("title.ttf", BitmapFont.class, parameter);
+
     }
 
     public void queueAddParticleEffects(){
