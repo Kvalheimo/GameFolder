@@ -96,11 +96,11 @@ public class HighScoreScreen implements Screen {
 
         highScoreTable.clear();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        //highScoreTable.debug();
+        innerTable.debug();
+        outerTable.debug();
+        highScoreTable.debug();
 
-        highScoreTable.center().padLeft(Gdx.graphics.getWidth()/6);
+        highScoreTable.center().padLeft(Gdx.graphics.getWidth()/8);
 
         //Add highscores to table
         for (int i = 0; i < highScores.length; i++) {
@@ -132,7 +132,7 @@ public class HighScoreScreen implements Screen {
 
         outerTable.add(headerLabel).center().padTop(10).colspan(3);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(40).left().padLeft(Gdx.graphics.getWidth()/6);
+        outerTable.add(scrollPane).fillY().expandY().padTop(40).left().padLeft(Gdx.graphics.getWidth()/8);
 
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,10,0);
