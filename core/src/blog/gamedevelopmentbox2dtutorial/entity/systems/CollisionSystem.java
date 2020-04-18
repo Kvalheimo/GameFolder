@@ -1,22 +1,15 @@
 package blog.gamedevelopmentbox2dtutorial.entity.systems;
 
-import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
-import com.sun.org.apache.xerces.internal.util.SynchronizedSymbolTable;
-
-import java.util.Map;
-
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
 import blog.gamedevelopmentbox2dtutorial.views.Hud;
 
