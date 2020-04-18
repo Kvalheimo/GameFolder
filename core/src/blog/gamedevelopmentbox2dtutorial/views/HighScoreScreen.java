@@ -92,16 +92,17 @@ public class HighScoreScreen implements Screen {
         outerTable = new Table();
         highScoreTable = new Table();
 
+        if (Box2dTutorial.DEBUG){
+            innerTable.setDebug(true);
+            outerTable.setDebug(true);
+            highScoreTable.setDebug(true);
+        }
+
         outerTable.setFillParent(true);
         highScoreTable.setFillParent(true);
         //highScoreTable.setBackground(new TiledDrawable(background));
 
         highScoreTable.clear();
-
-        innerTable.debug();
-        outerTable.debug();
-        highScoreTable.debug();
-
         highScoreTable.center().padLeft(Gdx.graphics.getWidth()/8);
 
         //Add highscores to table

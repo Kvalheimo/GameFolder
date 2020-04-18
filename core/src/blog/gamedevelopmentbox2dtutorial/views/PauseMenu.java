@@ -47,6 +47,10 @@ public class PauseMenu implements Disposable{
         //Create a table that fills the screen. Everything else will go inside this table
         Table table = new Table();
 
+        if (Box2dTutorial.DEBUG) {
+            table.setDebug(true);
+        }
+
         table.setFillParent(true);
         stage.addActor(table);
 

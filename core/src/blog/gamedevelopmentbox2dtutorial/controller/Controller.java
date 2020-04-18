@@ -232,6 +232,14 @@ public class Controller implements Disposable {
 
 
         Table table1 = new Table();
+        Table table2 = new Table();
+        Table table3 = new Table();
+
+        if (Box2dTutorial.DEBUG) {
+            table1.setDebug(true);
+            table2.setDebug(true);
+            table3.setDebug(true);
+        }
 
         table1.left().bottom();
         table1.add();
@@ -239,8 +247,6 @@ public class Controller implements Disposable {
 
         table1.add(touchpad);
 
-
-        Table table2 = new Table();
 
         table2.right().bottom().padRight(40).padBottom(15);
         table2.add();
@@ -252,15 +258,15 @@ public class Controller implements Disposable {
         table2.add(AImg).size(AImg.getWidth(), AImg.getHeight());
         table2.row().padBottom(5);
 
-        Table table3 = new Table();
-
         table3.center().bottom();
         table3.padBottom(20);
         table3.add(pauseButton);
 
-        table1.debug();
-        table2.debug();
-        table3.debug();
+        if (Box2dTutorial.DEBUG) {
+            table1.debug();
+            table2.debug();
+            table3.debug();
+        }
 
         Stack stack = new Stack(table2, table1, table3);
         stack.setFillParent(true);

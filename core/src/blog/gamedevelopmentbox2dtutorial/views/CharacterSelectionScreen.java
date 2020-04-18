@@ -100,9 +100,11 @@ public class CharacterSelectionScreen implements Screen {
         outerTable = new Table();
         previewTable = new Table();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        previewTable.debug();
+        if (Box2dTutorial.DEBUG) {
+            innerTable.setDebug(true);
+            outerTable.setDebug(true);
+            previewTable.setDebug(true);
+        }
 
         previewTable.setFillParent(true);
         outerTable.setFillParent(true);

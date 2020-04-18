@@ -63,10 +63,14 @@ public class EndScreen implements Screen {
 
         // create table to layout iitems we will add
         Table table = new Table();
+
+        if(Box2dTutorial.DEBUG){
+            table.setDebug(true);
+        }
+
+
         table.setFillParent(true);
-        table.setDebug(true);
         table.setBackground(new TiledDrawable(background));
-        ;
 
         //Get boolean for check if it is new highscore
         newHighScore = Save.hsd.get(level).isHighScore(Save.hsd.get(level).getTentativeScore());

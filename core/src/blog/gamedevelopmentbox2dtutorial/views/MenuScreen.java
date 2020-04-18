@@ -3,9 +3,7 @@ package blog.gamedevelopmentbox2dtutorial.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
@@ -13,11 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
-import javax.swing.Box;
-
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
@@ -48,15 +42,15 @@ public class MenuScreen implements Screen {
 
     @Override
     public void show() {
-
-
         Gdx.input.setInputProcessor(stage);
 
-        //Create a table that fills the screen. Everything else will go inside this table
         Table table = new Table();
+        if (Box2dTutorial.DEBUG) {
+           table.setDebug(true);
+        }
+
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
-        table.setDebug(true);
         stage.addActor(table);
 
         // Create text buttons
@@ -65,7 +59,6 @@ public class MenuScreen implements Screen {
         final TextButton preferences = new TextButton("Preferences", skin2);
         final TextButton highScore = new TextButton("High Score", skin2);
         final TextButton exit = new TextButton("Exit", skin2);
-
 
 
         // Add buttons to table
