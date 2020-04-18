@@ -6,385 +6,392 @@ filter: Nearest,Nearest
 repeat: none
 A
   rotate: false
-  xy: 1914, 812
+  xy: 904, 216
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 B
   rotate: false
-  xy: 516, 412
+  xy: 1712, 516
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 X
   rotate: false
-  xy: 2, 36
+  xy: 1006, 318
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 Y
   rotate: false
-  xy: 2, 138
+  xy: 904, 318
   size: 100, 100
   orig: 100, 100
   offset: 0, 0
   index: -1
 background
   rotate: false
-  xy: 2, 548
+  xy: 2, 36
   size: 900, 470
   orig: 900, 470
   offset: 0, 0
   index: -1
 bat
   rotate: false
-  xy: 1336, 722
+  xy: 260, 2
   size: 160, 32
   orig: 160, 32
   offset: 0, 0
   index: -1
 bat_normal
   rotate: false
-  xy: 2, 2
+  xy: 422, 2
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 blob
   rotate: false
-  xy: 348, 197
+  xy: 1028, 620
   size: 27, 41
   orig: 27, 41
   offset: 0, 0
   index: -1
 boomerang
   rotate: false
-  xy: 2, 240
+  xy: 1028, 714
   size: 384, 48
   orig: 384, 48
   offset: 0, 0
   index: -1
 circle1
   rotate: false
-  xy: 1688, 694
+  xy: 1742, 454
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 104, 152
+  xy: 1006, 230
   size: 92, 86
   orig: 92, 86
   offset: 0, 0
   index: 1
+countdown
+  rotate: false
+  xy: 2, 508
+  size: 1024, 512
+  orig: 1024, 512
+  offset: 0, 0
+  index: -1
 daybg
   rotate: false
-  xy: 904, 682
+  xy: 1542, 684
   size: 430, 336
   orig: 430, 336
   offset: 0, 0
   index: -1
 explosion
   rotate: false
-  xy: 2, 290
+  xy: 1028, 764
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
   index: -1
 explosion-1
   rotate: false
-  xy: 904, 552
+  xy: 904, 125
   size: 90, 89
   orig: 90, 89
   offset: 0, 0
   index: -1
 explosion-2
   rotate: false
-  xy: 996, 564
+  xy: 1190, 341
   size: 81, 77
   orig: 81, 77
   offset: 0, 0
   index: -1
 explosion-3
   rotate: false
-  xy: 272, 162
+  xy: 1273, 342
   size: 74, 76
   orig: 74, 76
   offset: 0, 0
   index: -1
 gore
   rotate: false
-  xy: 1079, 570
+  xy: 1349, 347
   size: 59, 71
   orig: 59, 71
   offset: 0, 0
   index: -1
 left
   rotate: false
-  xy: 516, 330
+  xy: 1108, 338
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 left-arrow
   rotate: false
-  xy: 516, 303
+  xy: 1057, 636
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 line
   rotate: false
-  xy: 1138, 670
+  xy: 1028, 663
   size: 152, 10
   orig: 152, 10
   offset: 0, 0
   index: -1
 minimap
   rotate: false
-  xy: 904, 643
+  xy: 1028, 675
   size: 232, 37
   orig: 232, 37
   offset: 0, 0
   index: -1
 p1_falling
   rotate: false
-  xy: 388, 224
+  xy: 1482, 420
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_falling_b
   rotate: false
-  xy: 1206, 604
+  xy: 1880, 552
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_jumping_b
   rotate: false
-  xy: 766, 416
+  xy: 1614, 446
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_jumping
   rotate: false
-  xy: 766, 416
+  xy: 1614, 446
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_normal
   rotate: false
-  xy: 1140, 604
+  xy: 1906, 618
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_normal_b
   rotate: false
-  xy: 840, 482
+  xy: 1542, 354
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_running
   rotate: false
-  xy: 1336, 756
+  xy: 904, 420
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p1_running_b
   rotate: false
-  xy: 1336, 822
+  xy: 1028, 486
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p1_sliding
   rotate: false
-  xy: 1980, 746
+  xy: 1476, 354
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_sliding_b
   rotate: false
-  xy: 1336, 656
+  xy: 1974, 704
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_falling
   rotate: false
-  xy: 454, 224
+  xy: 1814, 552
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_falling_b
   rotate: false
-  xy: 1498, 690
+  xy: 1880, 486
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_jumping_b
   rotate: false
-  xy: 1402, 656
+  xy: 1410, 354
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_jumping
   rotate: false
-  xy: 1402, 656
+  xy: 1410, 354
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_normal
   rotate: false
-  xy: 1914, 746
+  xy: 1840, 618
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_normal_b
   rotate: false
-  xy: 832, 416
+  xy: 1814, 486
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_running
   rotate: false
-  xy: 1336, 888
+  xy: 1028, 552
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p2_running_b
   rotate: false
-  xy: 1336, 954
+  xy: 1262, 618
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p2_sliding
   rotate: false
-  xy: 774, 482
+  xy: 1548, 420
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_sliding_b
   rotate: false
-  xy: 906, 486
+  xy: 1414, 698
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pp_circle2
   rotate: false
-  xy: 1564, 694
+  xy: 1480, 702
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 pp_circle3
   rotate: false
-  xy: 1626, 694
+  xy: 1680, 450
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 circle3
   rotate: false
-  xy: 1626, 694
+  xy: 1680, 450
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 pp_firework
   rotate: false
-  xy: 1914, 914
+  xy: 1606, 512
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 pp_thrust-1
   rotate: false
-  xy: 198, 157
+  xy: 1974, 855
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 thrust-1
   rotate: false
-  xy: 198, 157
+  xy: 1974, 855
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 pp_thrust-2
   rotate: false
-  xy: 700, 429
+  xy: 1974, 770
   size: 64, 83
   orig: 64, 83
   offset: 0, 0
   index: -1
 thrust-2
   rotate: false
-  xy: 700, 429
+  xy: 1974, 770
   size: 64, 83
   orig: 64, 83
   offset: 0, 0
   index: -1
 pp_thrust-3
   rotate: false
-  xy: 104, 68
+  xy: 1974, 938
   size: 72, 82
   orig: 72, 82
   offset: 0, 0
   index: -1
 thrust-3
   rotate: false
-  xy: 104, 68
+  xy: 1974, 938
   size: 72, 82
   orig: 72, 82
   offset: 0, 0
   index: -1
 right
   rotate: false
-  xy: 618, 432
+  xy: 904, 43
   size: 80, 80
   orig: 80, 80
   offset: 0, 0
   index: -1
 right-arrow
   rotate: false
-  xy: 104, 41
+  xy: 1262, 687
   size: 25, 25
   orig: 25, 25
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 516, 514
+  xy: 2, 2
   size: 256, 32
   orig: 256, 32
   offset: 0, 0
   index: -1
 spider_normal
   rotate: false
-  xy: 618, 414
+  xy: 1480, 684
   size: 32, 16
   orig: 32, 16
   offset: 0, 0
