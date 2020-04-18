@@ -139,7 +139,7 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 11, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         switch (character) {
             case 1:
