@@ -139,37 +139,6 @@ public class B2dAssetManager {
         parameter.fontParameters.color = new Color(1, 1, 1, 1);
         manager.load("title.ttf", BitmapFont.class, parameter);
 
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/FSN.ttf";
-        parameter.fontParameters.size = 50;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("FSN.ttf", BitmapFont.class, parameter);
-
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/FSNM.ttf";
-        parameter.fontParameters.size = 50;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("FSNM.ttf", BitmapFont.class, parameter);
-
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/OP7.ttf";
-        parameter.fontParameters.size = 50;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("OP7.ttf", BitmapFont.class, parameter);
-
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/OP7S.ttf";
-        parameter.fontParameters.size = 50;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("OP7S.ttf", BitmapFont.class, parameter);
-
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/PT.ttf";
-        parameter.fontParameters.size = 30;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("PT.ttf", BitmapFont.class, parameter);
-
-
     }
 
     public void queueAddParticleEffects(){
