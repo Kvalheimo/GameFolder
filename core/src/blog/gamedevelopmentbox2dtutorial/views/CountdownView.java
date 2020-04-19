@@ -54,7 +54,11 @@ public class CountdownView implements Disposable {
         currentCountImage = countdownImages.get(4);
 
         table = new Table();
-        table.setDebug(true);
+
+        if (Box2dTutorial.DEBUG){
+            table.setDebug(true);
+        }
+
         table.setFillParent(true);
         table.center();
         table.add(currentCountImage).size(currentCountImage.getWidth(), currentCountImage.getHeight());

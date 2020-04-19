@@ -105,9 +105,12 @@ public class LevelSelectionScreen implements Screen {
         outerTable = new Table();
         previewTable = new Table();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        //previewTable.debug();
+        if (Box2dTutorial.DEBUG) {
+            innerTable.setDebug(true);
+            outerTable.setDebug(true);
+            previewTable.setDebug(true);
+        }
+
         outerTable.setFillParent(true);
         previewTable.setFillParent(true);
         previewTable.setBackground(new TiledDrawable(background));

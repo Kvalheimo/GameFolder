@@ -8,13 +8,14 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 
+import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+
 
 public class PhysicsDebugSystem extends IteratingSystem {
 
     private Box2DDebugRenderer debugRenderer;
     private World world;
     private OrthographicCamera camera;
-    private boolean debug = true;
 
     public PhysicsDebugSystem(World world, OrthographicCamera camera){
         super(Family.all().get());
@@ -26,7 +27,7 @@ public class PhysicsDebugSystem extends IteratingSystem {
     @Override
     public void update(float dt) {
         super.update(dt);
-        if(debug) debugRenderer.render(world, camera.combined);
+        if(Box2dTutorial.DEBUG) debugRenderer.render(world, camera.combined);
     }
 
     @Override

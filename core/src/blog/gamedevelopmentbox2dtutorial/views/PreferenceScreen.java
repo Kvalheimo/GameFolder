@@ -38,14 +38,16 @@ public class PreferenceScreen implements Screen {
 
     @Override
     public void show() {
-        //set stage as input processor every time we show the screen
         stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        //Create a table that fills the screen. Everything else will go inside this table
         Table table = new Table();
+
+        if (Box2dTutorial.DEBUG) {
+            table.setDebug(true);
+        }
+
         table.setFillParent(true);
-        //table.setDebug(true);
         stage.addActor(table);
 
 

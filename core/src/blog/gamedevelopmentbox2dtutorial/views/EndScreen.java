@@ -5,7 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
-import com.badlogic.gdx.physics.box2d.ChainShape;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -17,13 +16,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
-import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 
 public class EndScreen implements Screen {
 
@@ -63,10 +58,14 @@ public class EndScreen implements Screen {
 
         // create table to layout iitems we will add
         Table table = new Table();
+
+        if(Box2dTutorial.DEBUG){
+            table.setDebug(true);
+        }
+
+
         table.setFillParent(true);
-        table.setDebug(true);
         table.setBackground(new TiledDrawable(background));
-        ;
 
         //Get boolean for check if it is new highscore
         newHighScore = Save.hsd.get(level).isHighScore(Save.hsd.get(level).getTentativeScore());
@@ -145,7 +144,7 @@ public class EndScreen implements Screen {
                     );
                     Save.publish();
                 }
-                parent.changeScreen(Box2dTutorial.HIGHSCORE);
+                parent.changeScreen(Box2dTutorial.HIGHSCORE, level);
             }
         });
 
