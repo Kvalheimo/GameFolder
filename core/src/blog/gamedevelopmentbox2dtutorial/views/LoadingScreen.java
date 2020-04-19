@@ -87,9 +87,13 @@ public class LoadingScreen implements Screen{
         copyrightImage = new Image(copyright);
 
         table = new Table();
+
+        if (Box2dTutorial.DEBUG) {
+            table.setDebug(true);
+        }
+
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
-        table.setDebug(false);
 
         loadingTable = new Table();
         loadingTable.add(new LoadingBarPart(dash, flameAnimation));
