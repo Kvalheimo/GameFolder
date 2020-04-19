@@ -107,6 +107,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
+        levelFactory.loadCheckpoint(level);
 
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
@@ -149,7 +150,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
             controller.draw();
 
             PlayerComponent pc = (player.getComponent(PlayerComponent.class));
-            if (pc.isDead) {
+            if (pc.isFinished) {
                 DFUtils.log("YOU DIED : back to menu you go!");
                 Save.hsd.get(level).setTentativeScore(hud.getScore());
                 parent.changeScreen(Box2dTutorial.ENDGAME, false, level, 0);
