@@ -22,7 +22,7 @@ public class PauseMenu implements Disposable{
 
     public final Box2dTutorial parent;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private TextureAtlas atlas;
     private Viewport viewport;
     private GameScreen ms;
@@ -40,9 +40,7 @@ public class PauseMenu implements Disposable{
         ms = gameScreen;
 
         atlas = parent.assMan.manager.get("images/loading.atlas");
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
+        skin = parent.assMan.manager.get("skin/game/game.json");
 
         //Create a table that fills the screen. Everything else will go inside this table
         Table table = new Table();
@@ -55,16 +53,16 @@ public class PauseMenu implements Disposable{
         stage.addActor(table);
 
         // Create text buttons
-        final TextButton resume= new TextButton("Resume", skin2);
-        final TextButton preferences = new TextButton("Preferences", skin2);
-        final TextButton back = new TextButton("Exit", skin2);
+        final TextButton resume= new TextButton("Resume", skin, "blue-menu");
+        final TextButton preferences = new TextButton("Preferences", skin,"blue-menu");
+        final TextButton back = new TextButton("Exit", skin, "blue-menu");
 
         // Add buttons to table
-        table.add(resume).fillX().uniformX().pad(25,0,25,0);
-        table.row().pad(25,0,25,0);
+        table.add(resume).fillX().uniformX().pad(15,0,15,0);
+        table.row().pad(15,0,15,0);
         table.add(preferences).fillX().uniformX();
-        table.row().pad(25,0,25,0);
-        table.add(back).fillX().uniformX().pad(25,0,25,0);
+        table.row().pad(15,0,15,0);
+        table.add(back).fillX().uniformX().pad(15,0,15,0);
 
 
         // Create button listeners

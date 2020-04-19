@@ -3,6 +3,7 @@ package blog.gamedevelopmentbox2dtutorial.views;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
@@ -14,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Slider;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
@@ -22,6 +24,8 @@ public class PreferenceScreen implements Screen {
     private Box2dTutorial parent;
     private Stage stage;
     private Skin skin;
+    private TextureAtlas.AtlasRegion background;
+    private TextureAtlas loadingAtlas, gameAtlas;
 
     // fields for sliders and checkbox
     private Label titleLabel;
@@ -32,7 +36,12 @@ public class PreferenceScreen implements Screen {
 
     public PreferenceScreen(Box2dTutorial box2dTutorial){
         parent = box2dTutorial;
+
+        gameAtlas = parent.assMan.manager.get("images/game.atlas");
         skin = parent.assMan.manager.get("skin/game/game.json");
+
+        background = gameAtlas.findRegion("background");
+
 
     }
 
@@ -48,6 +57,8 @@ public class PreferenceScreen implements Screen {
         }
 
         table.setFillParent(true);
+        table.setBackground(new TiledDrawable(background));
+
         stage.addActor(table);
 
 
@@ -74,28 +85,28 @@ public class PreferenceScreen implements Screen {
 
 
         // Create labels
-        titleLabel = new Label("Preferences", skin, "big");
-        volumeMusicLabel = new Label("Music Volume", skin, "small");
-        volumeSoundLabel = new Label("Sound Volume", skin, "small");
-        musicOnOffLabel = new Label("Music on/off", skin, "small");
-        soundOnOffLabel = new Label("Sound on/off", skin, "small");
+        titleLabel = new Label("PREFERENCES", skin, "big");
+        volumeMusicLabel = new Label("Music Volume", skin);
+        volumeSoundLabel = new Label("Sound Volume", skin);
+        musicOnOffLabel = new Label("Music on/off", skin);
+        soundOnOffLabel = new Label("Sound on/off", skin);
 
 
         // Put labels, checkboxes, sliders and buttons to table
         table.add(titleLabel).colspan(2);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,40);
         table.add(volumeMusicLabel).left();
         table.add(volumeMusicSlider);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,40);
         table.add(volumeSoundLabel).left();
         table.add(volumeSoundSlider);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,40);
         table.add(musicOnOffLabel).left();
         table.add(musicCheckBox);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,40);
         table.add(soundOnOffLabel).left();
         table.add(soundCheckBox);
-        table.row().pad(10,0,0,10);
+        table.row().pad(40,0,0,40);
         table.add(backButton).colspan(2);
 
 

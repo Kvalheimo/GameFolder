@@ -37,7 +37,7 @@ public class LevelSelectionScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private TextureAtlas.AtlasRegion background;
-    private TextureAtlas loadingAtlas, gameAtlas;
+    private TextureAtlas gameAtlas;
     private int levelSelected = 1;
     private Image levelImage;
     private IntMap<Image> levelPreviewImages;

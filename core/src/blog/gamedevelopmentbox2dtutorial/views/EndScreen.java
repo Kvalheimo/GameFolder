@@ -23,7 +23,7 @@ import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 public class EndScreen implements Screen {
 
     private Box2dTutorial parent;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private Stage stage;
     private TextureAtlas atlas;
     private AtlasRegion background;
@@ -40,15 +40,14 @@ public class EndScreen implements Screen {
     @Override
     public void show() {
         // get skin
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-        atlas = parent.assMan.manager.get("images/loading.atlas");
-        background = atlas.findRegion("flamebackground");
+        skin = parent.assMan.manager.get("skin/game/game.json");
+
+        atlas = parent.assMan.manager.get("images/game.atlas");
+        background = atlas.findRegion("background");
 
         // create buttons
-        TextButton menuButton = new TextButton("Back", skin2, "small");
-        TextButton saveButton = new TextButton("Save", skin2, "small");
+        TextButton menuButton = new TextButton("Back", skin, "blue-small");
+        TextButton saveButton = new TextButton("Save", skin, "blue-small");
 
 
 
@@ -72,9 +71,9 @@ public class EndScreen implements Screen {
 
         if (newHighScore){
 
-            Label scoreLabel = new Label("NEW HIGH SCORE! ", skin2);
-            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin2, "big");
-            Label nameLabel = new Label("ENTER YOUR NAME:", skin2);
+            Label scoreLabel = new Label("NEW HIGH SCORE! ", skin, "highscore");
+            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin, "big");
+            Label nameLabel = new Label("ENTER YOUR NAME:", skin, "highscore");
 
             table.add(scoreLabel).colspan(2);
             table.row().padTop(10);
@@ -83,14 +82,14 @@ public class EndScreen implements Screen {
             table.add(nameLabel).colspan(2);
             table.row().padTop(10);
 
-            txtfName = new TextField("", skin2);
+            txtfName = new TextField("", skin);
             txtfName.setSize(300, 40);
 
             table.add(txtfName).colspan(2);
 
         }else{
-            Label scoreLabel = new Label("SCORE "+ Save.hsd.get(level).getTentativeScore(), skin2);
-            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin2, "big");
+            Label scoreLabel = new Label("SCORE "+ Save.hsd.get(level).getTentativeScore(), skin, "highscore");
+            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin, "big");
 
 
             table.add(scoreLabel).colspan(2);
@@ -100,11 +99,12 @@ public class EndScreen implements Screen {
 
 
 
-        Label labelCredits = new Label("Credits:", skin2);
-        Label labelCredits1 = new Label("Game Design by", skin2);
-        Label labelCredits2 = new Label("gamedevelopment.blog", skin2);
-        Label labelCredits3 = new Label("Art Design by", skin2);
-        Label labelCredits4 = new Label("Random stuff off the internet", skin2);
+
+        Label labelCredits = new Label("Credits:", skin, "small");
+        Label labelCredits1 = new Label("Game Design by", skin, "small");
+        Label labelCredits2 = new Label("gamedevelopment.blog", skin,"small");
+        Label labelCredits3 = new Label("Art Design by", skin, "small");
+        Label labelCredits4 = new Label("Random stuff off the internet", skin, "small");
 
         table.row().padTop(10);
         table.add(labelCredits).colspan(2);

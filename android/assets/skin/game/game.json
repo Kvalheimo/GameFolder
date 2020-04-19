@@ -3,9 +3,6 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	big: {
 		file: big.fnt
 	}
-	font: {
-		file: font-export.fnt
-	}
 	font-big: {
 		file: font-big-export.fnt
 	}
@@ -14,6 +11,9 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	}
 	font-title: {
 		file: font-title.fnt
+	}
+	highscore: {
+		file: highscore.fnt
 	}
 	riffic: {
 		file: riffic.fnt
@@ -27,14 +27,11 @@ com.badlogic.gdx.graphics.g2d.BitmapFont: {
 	title: {
 		file: font-title-export.fnt
 	}
+	font: {
+		file: font-export.fnt
+	}
 }
 com.badlogic.gdx.graphics.Color: {
-	black: {
-		r: 0
-		g: 0
-		b: 0
-		a: 1
-	}
 	blue: {
 		r: 0.1359111
 		g: 0.33395052
@@ -48,15 +45,9 @@ com.badlogic.gdx.graphics.Color: {
 		a: 1
 	}
 	blue2: {
-		r: 0.34233692
-		g: 0.09782225
-		b: 0.9466668
-		a: 1
-	}
-	dark-cyan: {
-		r: 0
-		g: 0.39373153
-		b: 0.4333333
+		r: 0.17769915
+		g: 0.1533333
+		b: 1
 		a: 1
 	}
 	dark-grey: {
@@ -83,6 +74,12 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0.54509807
 		a: 1
 	}
+	light-blue: {
+		r: 0
+		g: 0.27038884
+		b: 1
+		a: 1
+	}
 	light-green: {
 		r: 0.14516616
 		g: 1
@@ -101,22 +98,58 @@ com.badlogic.gdx.graphics.Color: {
 		b: 0
 		a: 1
 	}
+	red2: {
+		r: 0.92333335
+		g: 0.24930018
+		b: 0.26053423
+		a: 1
+	}
 	stone: {
 		r: 0
 		g: 0.25882354
 		b: 0.2509804
 		a: 1
 	}
-	white: {
+	yellow: {
+		r: 0.9828334
+		g: 1
+		b: 0
+		a: 1
+	}
+	color: {
 		r: 1
 		g: 1
 		b: 1
 		a: 1
 	}
-	yellow: {
-		r: 1
-		g: 0.87755555
+	selection: {
+		r: 0.70333326
+		g: 0.70333326
+		b: 0.70333326
+		a: 1
+	}
+	black: {
+		r: 0
+		g: 0
 		b: 0
+		a: 1
+	}
+	cyan: {
+		r: 0
+		g: 1
+		b: 0.99166656
+		a: 1
+	}
+	dark-cyan: {
+		r: 0
+		g: 0.39373153
+		b: 0.4333333
+		a: 1
+	}
+	white: {
+		r: 1
+		g: 1
+		b: 1
 		a: 1
 	}
 }
@@ -130,15 +163,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 			a: 1
 		}
 	}
-	shadow: {
-		name: white
-		color: {
-			r: 0
-			g: 0.12156863
-			b: 0.11372549
-			a: 1
-		}
-	}
 	stone: {
 		name: white
 		color: {
@@ -148,52 +172,20 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 			a: 1
 		}
 	}
-	button1-red: {
-		name: button-a
-		color: red
-	}
-	button1-red-pressed: {
-		name: button-a-pressed
-		color: red
-	}
-	button1-yellow: {
-		name: button-a
-		color: yellow
-	}
-	button1-yellow-pressed: {
-		name: button-a-pressed
-		color: yellow
-	}
 	touchpad-green: {
 		name: touchpad
 		color: green
 	}
-	touchpad-knob-yellow: {
-		name: touchpad-knob
-		color: yellow
-	}
 	button3-over: {
 		name: button2-over
-		color: green
-	}
-	button3-green: {
-		name: button3
 		color: green
 	}
 	button3-green-over: {
 		name: button2-over
 		color: green
 	}
-	button3-green-pressed: {
-		name: button3-pressed
-		color: green
-	}
-	button3-green-pressed-over: {
-		name: button3-pressed-over
-		color: green
-	}
 	button-green: {
-		name: button
+		name: button-clean
 		color: light-green
 	}
 	button-green-pressed: {
@@ -204,26 +196,8 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: panel1
 		color: light-green
 	}
-	pale-blue: {
-		name: white
-		color: {
-			r: 0.48342222
-			g: 0.76367503
-			b: 0.99333334
-			a: 1
-		}
-	}
-	black: {
-		name: white
-		color: {
-			r: 0
-			g: 0
-			b: 0
-			a: 1
-		}
-	}
 	button-glassy-green: {
-		name: button
+		name: button-clean
 		color: green
 	}
 	button-green-glassy-down: {
@@ -255,68 +229,189 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: button-small-down
 		color: blue
 	}
-	blue-menu: {
-		name: button
+	blue: {
+		name: button-clean
 		color: blue
 	}
 	blue-down-menu: {
 		name: button-down
 		color: blue
 	}
-	toggle-blue: {
-		name: button3
-		color: blue
+	blue-bg: {
+		name: white
+		color: blue2
 	}
-	toggle-blue-pressed: {
-		name: button3-pressed
-		color: blue
-	}
-	toggle-blue-pressed-over: {
-		name: button3-pressed-over
-		color: blue
-	}
-	window1: {
-		name: window
+	list-blue: {
+		name: list
 		color: blue-matt
 	}
-	blue: {
+	touchpad-blue: {
+		name: touchpad
+		color: light-blue
+	}
+	touchpad-knob-yellow2: {
+		name: touchpad-knob2
+		color: Orannge
+	}
+	touchpad-knob-yellow: {
+		name: touchpad-knob
+		color: yellow
+	}
+	touchpad-knob-yellow3: {
+		name: touchpad-knob2
+		color: yellow
+	}
+	green-arcade: {
 		name: button-a
+		color: green
+	}
+	green-arcade-down: {
+		name: button-a-pressed
+		color: green
+	}
+	yellow1: {
+		name: abB
+		color: Orannge
+	}
+	green1: {
+		name: abB
+		color: green
+	}
+	green1-down: {
+		name: abpB
+		color: green
+	}
+	red1: {
+		name: abB
+		color: red2
+	}
+	red1-down: {
+		name: abpB
+		color: red2
+	}
+	yellow1-down: {
+		name: abpB
+		color: Orannge
+	}
+	yellow2: {
+		name: ba2
+		color: Orannge
+	}
+	yellow2-pressed: {
+		name: ba2p
+		color: Orannge
+	}
+	red2: {
+		name: ba2
+		color: red
+	}
+	red2-pressed: {
+		name: ba2p
+		color: red
+	}
+	green2: {
+		name: ba2
+		color: light-green
+	}
+	green2-pressed: {
+		name: ba2p
+		color: light-green
+	}
+	button-pressed-c: {
+		name: button-pressed
+		color: color
+	}
+	button-pressed-over-c: {
+		name: button-pressed-over
+		color: color
+	}
+	window-c: {
+		name: window
+		color: color
+	}
+	window-blue: {
+		name: window
+		color: blue2
+	}
+	blue-menu: {
+		name: button
 		color: blue
 	}
-	blue-pressed: {
-		name: button-a-pressed
+	sm-blue: {
+		name: button-clean
+		color: blue
+	}
+	sm-blue-pressed: {
+		name: button-pressed
+		color: blue
+	}
+	sm-blue-over: {
+		name: button-over
+		color: blue
+	}
+	pale-blue: {
+		name: white
+		color: {
+			r: 0.48342222
+			g: 0.76367503
+			b: 0.99333334
+			a: 1
+		}
+	}
+	black: {
+		name: white
+		color: {
+			r: 0
+			g: 0
+			b: 0
+			a: 1
+		}
+	}
+	textfield-blue: {
+		name: textfield
 		color: blue
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
 		up: button
-		down: button-down
 	}
 	toggle: {
-		up: button
-		down: button-pressed
-		checked: button-pressed
+		down: button-pressed-c
+		checked: button-pressed-c
+		checkedOver: button-pressed-over-c
 	}
 	arcade: {
 		up: button-arcade
 		down: button-arcade-pressed
 	}
 	red: {
-		up: button1-red
-		down: button1-red-pressed
-	}
-	blue: {
-		up: blue
-		down: blue-pressed
+		up: red1
+		down: red1-down
 	}
 	yellow: {
-		up: button1-yellow
-		down: button1-yellow-pressed
+		up: yellow1
+		down: yellow1-down
 	}
 	small: {
 		up: button-small
 		down: button-small-down
+	}
+	green: {
+		up: green1
+		down: green1-down
+	}
+	red2: {
+		up: red2
+		down: red2-pressed
+	}
+	green2: {
+		up: green2
+		down: green2-pressed
+	}
+	yellow2: {
+		up: yellow2
+		down: yellow2-pressed
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
@@ -336,25 +431,35 @@ com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
 	default: {
 		up: button
-		down: button-down
 	}
 	toggle: {
-		up: button
-		down: button-pressed
-		checked: button-pressed
+		down: button-pressed-c
+		checked: button-pressed-c
+		checkedOver: button-pressed-over-c
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 	default: {
-		font: font-big
-		up: button
-		down: button-down
+		font: font
+		down: button-pressed-over-c
+	}
+	toggle: {
+		font: font
+		down: button-pressed-c
+		checked: button-pressed-c
+		checkedOver: button-pressed-over-c
+	}
+	radio: {
+		font: font
+	}
+	checkbox: {
+		font: font
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: riffic
-		fontColor: Orannge
+		font: font
+		fontColor: color
 	}
 	subtitle: {
 		font: subtitle
@@ -370,6 +475,10 @@ com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	}
 	small: {
 		font: small
+		fontColor: Orannge
+	}
+	highscore: {
+		font: highscore
 		fontColor: Orannge
 	}
 }
@@ -408,14 +517,14 @@ com.badlogic.gdx.scenes.scene2d.ui.ProgressBar$ProgressBarStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 	default: {
-		background: window1
+		background: list-blue
 		hScroll: horizontal-scroll-bar
 		hScrollKnob: horizontal-scroll-knob
 		vScroll: vertical-scroll-bar
 		vScrollKnob: vertical-scroll-knob
 	}
-	scroll: {
-		background: list
+	highscore: {
+		background: window-blue
 		hScroll: horizontal-scroll-bar
 		hScrollKnob: horizontal-scroll-knob
 		vScroll: vertical-scroll-bar
@@ -427,7 +536,7 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 		font: font
 		fontColor: dark-cyan
 		background: select-box
-		scrollStyle: scroll
+		scrollStyle: highscore
 		listStyle: plain
 	}
 }
@@ -451,23 +560,23 @@ com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 	default: {
-		font: font-big
-		up: button
-		down: button-down
+		font: small
+		fontColor: Orannge
+		downFontColor: Orannge
+		up: blue-menu
+		down: blue-down-menu
 	}
 	toggle: {
 		font: font-title
 		fontColor: Orannge
-		up: toggle-blue
-		down: toggle-blue-pressed
-		over: toggle-blue-pressed-over
-		checked: toggle-blue-pressed
-		checkedOver: toggle-blue-pressed-over
+		up: sm-blue
+		down: sm-blue-pressed
+		over: sm-blue-over
+		checked: sm-blue-pressed
+		checkedOver: sm-blue-over
 	}
 	arcade: {
 		font: font
-		up: button-arcade
-		down: button-arcade-pressed
 	}
 	menu: {
 		font: riffic
@@ -496,17 +605,18 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
 	default: {
-		font: font
-		fontColor: black
-		background: textfield
+		font: small
+		fontColor: Orannge
+		background: textfield-blue
 		cursor: black
 		selection: pale-blue
+		messageFont: font-title
+		messageFontColor: grey
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextTooltip$TextTooltipStyle: {
 	default: {
-		label: small
-		background: list
+		label: default
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
@@ -514,8 +624,12 @@ com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
 		background: touchpad
 		knob: touchpad-knob
 	}
-	green: {
-		background: touchpad-green
+	blue1: {
+		background: touchpad-blue
+		knob: touchpad-knob-yellow2
+	}
+	blue2: {
+		background: touchpad-blue
 		knob: touchpad-knob-yellow
 	}
 }
@@ -528,13 +642,17 @@ com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
 	default: {
-		background: window
+		background: window-c
 		titleFont: font
-		titleFontColor: black
+		titleFontColor: color
 	}
 	round: {
 		background: window-round
 		titleFont: font
+	}
+	main: {
+		titleFont: font
+		titleFontColor: color
 	}
 }
 }

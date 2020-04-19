@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -39,9 +40,7 @@ public class LoadingScreen implements Screen{
     private Stage stage;
     private Image titleImage, copyrightImage;
     private Table table, loadingTable;
-
-    private BitmapFont font1, font2;
-    private Label.LabelStyle labelStyle1, labelStyle2;
+    private Skin skin;
 
     private int currentLoadingStage = 0;
 
@@ -53,19 +52,13 @@ public class LoadingScreen implements Screen{
         // Get images to display loading progress
         loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
         gameAtlas = parent.assMan.manager.get("images/game.atlas");
+        skin =  parent.assMan.manager.get("skin/game/game.json");
 
         title = loadingAtlas.findRegion("staying-alight-logo");
         background = gameAtlas.findRegion("background");
         copyright = loadingAtlas.findRegion("copyright");
         dash = gameAtlas.findRegion("dash-yellow");
         flameAnimation = new Animation(0.07f, loadingAtlas.findRegions("flames/flames"), Animation.PlayMode.LOOP);
-
-        font1 = parent.assMan.manager.get("highscore.ttf");
-        font2 = parent.assMan.manager.get("OP7.ttf");
-
-        labelStyle1 = new Label.LabelStyle(font1, Color.ORANGE);
-        labelStyle2 = new Label.LabelStyle(font2, Color.FIREBRICK);
-
 
         sb = new SpriteBatch();
         sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
@@ -108,18 +101,19 @@ public class LoadingScreen implements Screen{
         titleImage = new Image(title);
         copyrightImage = new Image(copyright);
 
-        Label title = new Label("LOADING...", labelStyle1);
+        Label title = new Label("LOADING...", skin, "highscore");
 
+        loadingTable = new Table();
         table = new Table();
 
         if (Box2dTutorial.DEBUG) {
+            loadingTable.setDebug(true);
             table.setDebug(true);
         }
 
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
 
-        loadingTable = new Table();
         loadingTable.add(new LoadingBarPart(dash, flameAnimation));
         loadingTable.add(new LoadingBarPart(dash, flameAnimation));
         loadingTable.add(new LoadingBarPart(dash, flameAnimation));

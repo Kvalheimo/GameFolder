@@ -39,7 +39,7 @@ public class Controller implements Disposable {
     private OrthographicCamera camera;
     private Box2dTutorial parent;
     private TextureAtlas atlas;
-    private Skin skin1, skin2, skin3, skin4;
+    private Skin skin;
 
     private GameScreen gs;
     private Vector2 bulletDirection;
@@ -59,12 +59,8 @@ public class Controller implements Disposable {
         this.parent = parent;
 
         atlas = parent.assMan.manager.get("images/game.atlas");
+        skin = parent.assMan.manager.get("skin/game/game.json");
 
-
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-        skin4 = parent.assMan.manager.get("skin/buttons/buttons.json");
 
 
         stage.addListener(new InputListener(){
@@ -121,7 +117,7 @@ public class Controller implements Disposable {
         });
 
 
-        final Touchpad touchpad = new Touchpad(deadzoneRadius, skin1);
+        final Touchpad touchpad = new Touchpad(deadzoneRadius, skin, "blue1");
 
         touchpad.addListener(new ChangeListener() {
 
@@ -156,7 +152,7 @@ public class Controller implements Disposable {
         });
 
 
-        final Button AImg = new Button(skin4, "green");
+        final Button AImg = new Button(skin, "green2");
 
 
         // Create button listeners
@@ -179,7 +175,7 @@ public class Controller implements Disposable {
 
 
 
-        final Button XImg = new Button(skin4, "red");
+        final Button XImg = new Button(skin, "red2");
 
 
         // Create button listeners
@@ -201,7 +197,7 @@ public class Controller implements Disposable {
 
 
 
-        final Button YImg = new Button(skin4, "blue");
+        final Button YImg = new Button(skin, "yellow2");
 
 
         // Create button listeners
@@ -221,7 +217,7 @@ public class Controller implements Disposable {
         });
 
 
-        final TextButton pauseButton = new TextButton("Pause", skin2, "small");
+        final TextButton pauseButton = new TextButton("Pause", skin, "blue-small");
 
         pauseButton.addListener(new ChangeListener() {
             @Override

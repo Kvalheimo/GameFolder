@@ -72,9 +72,9 @@ public class CharacterSelectionScreen implements Screen {
         characterSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton c1 = new TextButton("Jan-Vidar", skin, "toggle");
-        final TextButton c2 = new TextButton("Kniven", skin, "toggle");
-        final TextButton c3 = new TextButton("Gunnar", skin, "toggle");
+        final TextButton c1 = new TextButton("James", skin, "toggle");
+        final TextButton c2 = new TextButton("Gun", skin, "toggle");
+        final TextButton c3 = new TextButton("Brad", skin, "toggle");
 
         c1.setChecked(true);
 
