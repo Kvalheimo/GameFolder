@@ -37,10 +37,10 @@ public class HighScoreScreen implements Screen {
     private Label.LabelStyle labelStyle1, labelStyle2;
 
 
-    public HighScoreScreen(Box2dTutorial parent){
+    public HighScoreScreen(Box2dTutorial parent, int level){
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
-        levelSelected = 1;
+        levelSelected = level;
         highScores = Save.hsd.get(levelSelected).getHighScores();
 
         atlas = parent.assMan.manager.get("images/loading.atlas");
@@ -64,8 +64,6 @@ public class HighScoreScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        levelSelected = 1;
-
         highScores = Save.hsd.get(levelSelected).getHighScores();
         names = Save.hsd.get(levelSelected).getNames();
 
@@ -78,7 +76,26 @@ public class HighScoreScreen implements Screen {
         final TextButton l5 = new TextButton("5", skin3, "toggle");
         final TextButton l6 = new TextButton("6", skin3, "toggle");
 
-        l1.setChecked(true);
+        switch (levelSelected){
+            case 1:
+                l1.setChecked(true);
+                break;
+            case 2:
+                l2.setChecked(true);
+                break;
+            case 3:
+                l3.setChecked(true);
+                break;
+            case 4:
+                l4.setChecked(true);
+                break;
+            case 5:
+                l5.setChecked(true);
+                break;
+            case 6:
+                l6.setChecked(true);
+                break;
+        }
 
         ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
         buttonGroup.setMaxCheckCount(1);
