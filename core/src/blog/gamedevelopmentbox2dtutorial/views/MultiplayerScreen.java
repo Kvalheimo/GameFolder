@@ -49,6 +49,8 @@ public class MultiplayerScreen implements Screen, GameScreen {
     private boolean isPaused;
     private int level;
     private int character;
+    private CountdownView countdownView;
+    private boolean countdownMode;
 
     private DatabaseHandler dbHandler;
     private String uniqueID;
@@ -64,6 +66,10 @@ public class MultiplayerScreen implements Screen, GameScreen {
         levelFactory = new LevelFactory(engine, parent, level);
 
         sb = new SpriteBatch();
+
+        isPaused = true;
+        countdownView = new CountdownView(sb, parent);
+        countdownMode = true;
 
         controller = new Controller(sb, parent, this);
         pauseMenu = new PauseMenu(sb, parent, this);
@@ -110,7 +116,6 @@ public class MultiplayerScreen implements Screen, GameScreen {
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
         levelFactory.loadCheckpoint(level);
-        levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
         levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
 
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
@@ -173,10 +178,23 @@ public class MultiplayerScreen implements Screen, GameScreen {
             sb.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.draw();
 
-            //sb.setProjectionMatrix(controller.stage.getCamera().combined);
-            //controller.draw();
+            sb.setProjectionMatrix(controller.stage.getCamera().combined);
+            controller.draw();
 
-            pauseMenu.draw();
+            if (countdownMode){
+                countdownView.update(dt);
+                countdownView.draw();
+
+                if(countdownView.isCountdownOver()) {
+                    isPaused = false;
+                    countdownMode = false;
+                    countdownView.reset();
+                }
+
+            }else{
+                Gdx.input.setInputProcessor(pauseMenu.getStage());
+                pauseMenu.draw();
+            }
         }
         dbHandler.getDb().publishPlayer(player);
     }
@@ -188,7 +206,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         hud.resize(width, height);
         controller.resize(width, height);
         pauseMenu.resize(width, height);
-
+        countdownView.resize(width, height);
     }
 
 
