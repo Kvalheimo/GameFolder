@@ -21,7 +21,7 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 public class PreferenceScreen implements Screen {
     private Box2dTutorial parent;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
 
     // fields for sliders and checkbox
     private Label titleLabel;
@@ -32,9 +32,7 @@ public class PreferenceScreen implements Screen {
 
     public PreferenceScreen(Box2dTutorial box2dTutorial){
         parent = box2dTutorial;
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
+        skin = parent.assMan.manager.get("skin/game/game.json");
 
     }
 
@@ -53,32 +51,32 @@ public class PreferenceScreen implements Screen {
 
 
         // Create sliders and set values
-        final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin2);
+        final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
         volumeMusicSlider.setValue(parent.getPreferences().getMusicVolume());
 
-        final Slider volumeSoundSlider = new Slider(0f, 1f, 0.1f, false, skin2);
+        final Slider volumeSoundSlider = new Slider(0f, 1f, 0.1f, false, skin);
         volumeSoundSlider.setValue(parent.getPreferences().getSoundVolume());
 
 
         // Create checkbox and set values
-        final CheckBox musicCheckBox = new CheckBox(null, skin2);
+        final CheckBox musicCheckBox = new CheckBox(null, skin);
         musicCheckBox.setChecked(parent.getPreferences().isMusicEnabled());
 
-        final CheckBox soundCheckBox = new CheckBox(null, skin2);
+        final CheckBox soundCheckBox = new CheckBox(null, skin);
         soundCheckBox.setChecked(parent.getPreferences().isSoundEffectsEnabled());
 
 
         //Create text button
-        final TextButton backButton = new TextButton("Back", skin2, "small");
+        final TextButton backButton = new TextButton("Back", skin, "blue-small");
 
 
 
         // Create labels
-        titleLabel = new Label("Preferences", skin2);
-        volumeMusicLabel = new Label("Music Volume", skin2);
-        volumeSoundLabel = new Label("Sound Volume", skin2);
-        musicOnOffLabel = new Label("Music on/off", skin2);
-        soundOnOffLabel = new Label("Sound on/off", skin2);
+        titleLabel = new Label("Preferences", skin, "big");
+        volumeMusicLabel = new Label("Music Volume", skin, "small");
+        volumeSoundLabel = new Label("Sound Volume", skin, "small");
+        musicOnOffLabel = new Label("Music on/off", skin, "small");
+        soundOnOffLabel = new Label("Sound on/off", skin, "small");
 
 
         // Put labels, checkboxes, sliders and buttons to table

@@ -36,6 +36,7 @@ public class B2dAssetManager {
     public final String skin2 = "skin/glassy/glassy-ui.json";
     public final String skin3 = "skin/clean/clean-crispy-ui.json";
     public final String skin4 = "skin/buttons/buttons.json";
+    public final String skin5 = "skin/game/game.json";
 
     // Textures
     public final String gameImages = "images/game.atlas";
@@ -84,11 +85,13 @@ public class B2dAssetManager {
         SkinParameter skinParameter2 = new SkinParameter("skin/glassy/glassy-ui.atlas");
         SkinParameter skinParameter3 = new SkinParameter("skin/clean/clean-crispy-ui.atlas");
         SkinParameter skinParameter4 = new SkinParameter("skin/buttons/buttons.atlas");
+        SkinParameter skinParameter5 = new SkinParameter("skin/game/game.atlas");
 
         manager.load(skin1, Skin.class, skinParameter1);
         manager.load(skin2, Skin.class, skinParameter2);
         manager.load(skin3, Skin.class, skinParameter3);
         manager.load(skin4, Skin.class, skinParameter4);
+        manager.load(skin5, Skin.class, skinParameter5);
 
 
 
@@ -135,6 +138,37 @@ public class B2dAssetManager {
         parameter.fontParameters.size = 80;
         parameter.fontParameters.color = new Color(1, 1, 1, 1);
         manager.load("title.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/FSN.ttf";
+        parameter.fontParameters.size = 50;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("FSN.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/FSNM.ttf";
+        parameter.fontParameters.size = 50;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("FSNM.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/OP7.ttf";
+        parameter.fontParameters.size = 50;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("OP7.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/OP7S.ttf";
+        parameter.fontParameters.size = 50;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("OP7S.ttf", BitmapFont.class, parameter);
+
+        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
+        parameter.fontFileName = "fonts/PT.ttf";
+        parameter.fontParameters.size = 30;
+        parameter.fontParameters.color = new Color(1, 1, 1, 1);
+        manager.load("PT.ttf", BitmapFont.class, parameter);
+
 
     }
 

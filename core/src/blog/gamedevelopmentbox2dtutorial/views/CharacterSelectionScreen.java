@@ -35,7 +35,7 @@ public class CharacterSelectionScreen implements Screen {
 
     private Box2dTutorial parent;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private TextureAtlas.AtlasRegion background;
     private TextureAtlas loadingAtlas, gameAtlas;
     private int characterSelected;
@@ -52,14 +52,9 @@ public class CharacterSelectionScreen implements Screen {
         characterSelected = 1;
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
-
-
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-
-        background = loadingAtlas.findRegion("flamebackground");
+        gameAtlas = parent.assMan.manager.get("images/game.atlas");
+        skin = parent.assMan.manager.get("skin/game/game.json");
+        background = gameAtlas.findRegion("background");
 
         //Load level preview images
         characterImages = new IntMap<>();
@@ -77,19 +72,19 @@ public class CharacterSelectionScreen implements Screen {
         characterSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton c1 = new TextButton("Jan-Vidar", skin3, "toggle");
-        final TextButton c2 = new TextButton("Kniven", skin3, "toggle");
-        final TextButton c3 = new TextButton("Gunnar", skin3, "toggle");
+        final TextButton c1 = new TextButton("Jan-Vidar", skin, "toggle");
+        final TextButton c2 = new TextButton("Kniven", skin, "toggle");
+        final TextButton c3 = new TextButton("Gunnar", skin, "toggle");
 
         c1.setChecked(true);
 
         ButtonGroup buttonGroup = new ButtonGroup(c1, c2, c3);
         buttonGroup.setMaxCheckCount(1);
 
-        Label headerLabel = new Label("SELECT CHARACTER", skin2, "big");
+        Label headerLabel = new Label("SELECT CHARACTER", skin, "big");
 
-        final TextButton backButton = new TextButton("Back", skin2, "small");
-        final TextButton nextButton = new TextButton("Next", skin2, "small");
+        final TextButton backButton = new TextButton("Back", skin, "blue-small");
+        final TextButton nextButton = new TextButton("Next", skin, "blue-small");
 
 
         characterImage = characterImages.get(characterSelected);
@@ -119,7 +114,7 @@ public class CharacterSelectionScreen implements Screen {
         innerTable.add(c3).padTop(30).padBottom(30).fillX();
 
 
-        ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
+        ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
         outerTable.add(headerLabel).colspan(3);
         outerTable.row().expandX();
