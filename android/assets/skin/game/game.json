@@ -371,6 +371,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: textfield
 		color: blue
 	}
+	slider-knob-blue: {
+		name: slider-knob
+		color: blue
+	}
+	slider-yellow: {
+		name: slider
+		color: Orannge
+	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
 	default: {
@@ -458,8 +466,8 @@ com.badlogic.gdx.scenes.scene2d.ui.ImageTextButton$ImageTextButtonStyle: {
 }
 com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
 	default: {
-		font: font
-		fontColor: color
+		font: riffic
+		fontColor: Orannge
 	}
 	subtitle: {
 		font: subtitle
@@ -543,11 +551,15 @@ com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
 com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
 	default-horizontal: {
 		background: slider
-		knob: slider-knob
+		knob: slider-knob-blue
 	}
 	default-vertical: {
 		background: slider-vertical
 		knob: slider-knob
+	}
+	yellow-blue: {
+		background: slider-yellow
+		knob: slider-knob-blue
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
@@ -573,7 +585,6 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		down: sm-blue-pressed
 		over: sm-blue-over
 		checked: sm-blue-pressed
-		checkedOver: sm-blue-over
 	}
 	arcade: {
 		font: font
