@@ -140,6 +140,7 @@ public class CollisionSystem extends IteratingSystem {
                             Mapper.bulletCom.get(entity).isDead = true;
                             break;
                         case TypeComponent.DESTROYABLE_TILE:
+                            levelFactory.makeParticleEffect(ParticleEffectManager.SMOKE, Mapper.b2dCom.get(collidedEntity).body.getPosition().x, Mapper.b2dCom.get(collidedEntity).body.getPosition().y);
                             levelFactory.removeDestroyableTile(Mapper.b2dCom.get(collidedEntity).body);
                             Mapper.destCom.get(collidedEntity).isDead = true;
                             break;
