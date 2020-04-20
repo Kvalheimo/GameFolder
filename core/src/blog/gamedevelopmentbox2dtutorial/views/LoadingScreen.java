@@ -2,13 +2,17 @@ package blog.gamedevelopmentbox2dtutorial.views;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -28,34 +32,40 @@ public class LoadingScreen implements Screen{
     public float countDown = 1f; // 5 seconds of waiting before menu screen
 
     private Box2dTutorial parent;
-    private TextureAtlas atlas;
+    private TextureAtlas gameAtlas;
     private SpriteBatch sb;
-    private Animation<TextureRegion> flameAnimation;
-    private TextureAtlas.AtlasRegion title, dash, background, copyright;
-    private float stateTime;
+
+    private TextureAtlas.AtlasRegion dash, background;
     private Stage stage;
     private Image titleImage, copyrightImage;
     private Table table, loadingTable;
+    private Skin skin;
 
     private int currentLoadingStage = 0;
 
     public LoadingScreen(Box2dTutorial box2dTutorial){
         parent = box2dTutorial;
         stage = new Stage(new ScreenViewport());
-
         loadAssets();
-        // initiate queueing of images but don't start loading
-        parent.assMan.queueAddImages();
-        System.out.println("Loading images....");
+
+        // Get images to display loading progress
+        gameAtlas = parent.assMan.manager.get("images/game.atlas");
+        skin =  parent.assMan.manager.get("skin/game/game.json");
+
+        background = gameAtlas.findRegion("background");
+        dash = gameAtlas.findRegion("dash-yellow");
+
 
         sb = new SpriteBatch();
         sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
     }
 
-    private void loadAssets(){
-        // load loading images and wait until finished
-        parent.assMan.queueAddLoadingImages();
+    private void loadAssets() {
+        // Load game images
+        parent.assMan.queueAddImages();
         parent.assMan.manager.finishLoading();
+        System.out.println("Loading images....");
+
 
         //Load map
         parent.assMan.queueAddMaps();
@@ -69,50 +79,46 @@ public class LoadingScreen implements Screen{
         parent.assMan.queueHUDImages();
         parent.assMan.manager.finishLoading();
 
-        // Get images to display loading progress
-        atlas = parent.assMan.manager.get("images/loading.atlas");
-        title = atlas.findRegion("staying-alight-logo");
-        dash = atlas.findRegion("loading-dash");
-        background = atlas.findRegion("flamebackground");
-        copyright = atlas.findRegion("copyright");
+        // Load fonts
+        parent.assMan.queueAddFonts(); // first load done, now start fonts
+        parent.assMan.manager.finishLoading();
 
-        flameAnimation = new Animation(0.07f, atlas.findRegions("flames/flames"), Animation.PlayMode.LOOP);
+
     }
 
 
 
     @Override
     public void show() {
-        titleImage = new Image(title);
-        copyrightImage = new Image(copyright);
+        Label title = new Label("LOADING...", skin, "big");
 
+        loadingTable = new Table();
         table = new Table();
 
         if (Box2dTutorial.DEBUG) {
+            loadingTable.setDebug(true);
             table.setDebug(true);
         }
 
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
 
-        loadingTable = new Table();
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
 
-        table.add(titleImage).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
+        //table.add(titleImage).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
+        table.add(title).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
         table.row();
-        table.add(loadingTable).width(600);
+        table.add(loadingTable).align(Align.center).pad(10, 0, 0 ,0).colspan(10).width(600);
         table.row();
-        table.add(copyrightImage);
-
         stage.addActor(table);
 
 

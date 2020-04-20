@@ -17,8 +17,8 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
 
 public class CountdownView implements Disposable {
-    private static final int IMG_WIDTH = 400;
-    private static final int IMG_HEIGHT = 400;
+    private static final int IMG_WIDTH = 300;
+    private static final int IMG_HEIGHT = 300;
 
 
     public Stage stage;
@@ -46,10 +46,10 @@ public class CountdownView implements Disposable {
 
         TextureRegion[] frames =  DFUtils.spriteSheetToFrames(gameAtlas.findRegion("countdown"), 4, 2);
         countdownImages = new IntMap<>();
-        countdownImages.put(4, new Image(frames[4]));
-        countdownImages.put(3, new Image(frames[5]));
-        countdownImages.put(2, new Image(frames[6]));
-        countdownImages.put(1, new Image(frames[7]));
+        countdownImages.put(4, new Image(frames[0]));
+        countdownImages.put(3, new Image(frames[1]));
+        countdownImages.put(2, new Image(frames[2]));
+        countdownImages.put(1, new Image(frames[3]));
 
         currentCountImage = countdownImages.get(4);
 

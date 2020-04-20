@@ -15,6 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.Align;
@@ -27,14 +28,12 @@ public class HighScoreScreen implements Screen {
     private long[] highScores;
     private String[] names;
     private Box2dTutorial parent;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private TextureAtlas atlas;
     private Stage stage;
     private TextureAtlas.AtlasRegion background;
     private int levelSelected;
-    private Table outerTable, innerTable, highScoreTable;
-    private BitmapFont highscoreFont, titleFont;
-    private Label.LabelStyle labelStyle1, labelStyle2;
+    private Table outerTable, innerTable, highscoreTable, innerHighScoreTable;
 
 
     public HighScoreScreen(Box2dTutorial parent, int level){
@@ -43,18 +42,9 @@ public class HighScoreScreen implements Screen {
         levelSelected = level;
         highScores = Save.hsd.get(levelSelected).getHighScores();
 
-        atlas = parent.assMan.manager.get("images/loading.atlas");
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-
-        highscoreFont = parent.assMan.manager.get("highscore.ttf");
-        titleFont = parent.assMan.manager.get("title.ttf");
-
-        labelStyle1 = new Label.LabelStyle(highscoreFont, Color.WHITE);
-        labelStyle2 = new Label.LabelStyle(titleFont, Color.WHITE);
-
-        background = atlas.findRegion("flamebackground");
+        atlas = parent.assMan.manager.get("images/game.atlas");
+        skin = parent.assMan.manager.get("skin/game/game.json");
+        background = atlas.findRegion("background");
 
         Save.load();
 
@@ -69,12 +59,12 @@ public class HighScoreScreen implements Screen {
 
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin3, "toggle");
-        final TextButton l2 = new TextButton("2", skin3, "toggle");
-        final TextButton l3 = new TextButton("3", skin3, "toggle");
-        final TextButton l4 = new TextButton("4", skin3, "toggle");
-        final TextButton l5 = new TextButton("5", skin3, "toggle");
-        final TextButton l6 = new TextButton("6", skin3, "toggle");
+        final TextButton l1 = new TextButton("1", skin, "toggle");
+        final TextButton l2 = new TextButton("2", skin, "toggle");
+        final TextButton l3 = new TextButton("3", skin, "toggle");
+        final TextButton l4 = new TextButton("4", skin, "toggle");
+        final TextButton l5 = new TextButton("5", skin, "toggle");
+        final TextButton l6 = new TextButton("6", skin, "toggle");
 
         switch (levelSelected){
             case 1:
@@ -100,39 +90,41 @@ public class HighScoreScreen implements Screen {
         ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
         buttonGroup.setMaxCheckCount(1);
 
-        Label headerLabel = new Label("High Score", labelStyle2);
+        Label headerLabel = new Label("High Score", skin, "big");
 
-        final TextButton backButton = new TextButton("Back", skin2, "small");
+        final TextButton backButton = new TextButton("Back", skin, "blue-small");
 
 
         innerTable = new Table();
         outerTable = new Table();
-        highScoreTable = new Table();
+        highscoreTable = new Table();
+
 
         if (Box2dTutorial.DEBUG){
             innerTable.setDebug(true);
             outerTable.setDebug(true);
-            highScoreTable.setDebug(true);
+            highscoreTable.setDebug(true);
         }
 
         outerTable.setFillParent(true);
-        highScoreTable.setFillParent(true);
-        //highScoreTable.setBackground(new TiledDrawable(background));
+        highscoreTable.setFillParent(true);
 
-        highScoreTable.clear();
-        highScoreTable.center().padLeft(Gdx.graphics.getWidth()/8);
+        highscoreTable.setBackground(new TiledDrawable(background));
+
+        highscoreTable.clear();
+        highscoreTable.center().padLeft(Gdx.graphics.getWidth()/8);
 
         //Add highscores to table
         for (int i = 0; i < highScores.length; i++) {
-            Label num = new Label(String.format("%2d.", i + 1), labelStyle1);
-            Label score = new Label(String.format("%7s", highScores[i]), labelStyle1);
-            Label name = new Label(String.format("%s", names[i]), labelStyle1);
+            Label num = new Label(String.format("%2d.", i + 1), skin, "highscore");
+            Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
+            Label name = new Label(String.format("%s", names[i]), skin, "highscore");
 
-            highScoreTable.add(num).padRight(200).right();
-            highScoreTable.add(name).padRight(90).left();
-            highScoreTable.add(score).left();
+            highscoreTable.add(num).padRight(200).right();
+            highscoreTable.add(name).padRight(90).left();
+            highscoreTable.add(score).left();
 
-            highScoreTable.row();
+            highscoreTable.row();
         }
 
 
@@ -148,7 +140,7 @@ public class HighScoreScreen implements Screen {
         innerTable.row();
         innerTable.add(l6).padTop(30).padBottom(30).fillX().expandX();
 
-        ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
+        ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
         outerTable.add(headerLabel).center().padTop(10).colspan(3);
         outerTable.row().expandX();
@@ -156,8 +148,7 @@ public class HighScoreScreen implements Screen {
 
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,10,0);
-
-        stage.addActor(highScoreTable);
+        stage.addActor(highscoreTable);
         stage.addActor(outerTable);
 
 
@@ -237,24 +228,27 @@ public class HighScoreScreen implements Screen {
 
     public void update(){
 
-        highScoreTable.clear();
+        //highscorePane.clear();
+        highscoreTable.clear();
 
         highScores = Save.hsd.get(levelSelected).getHighScores();
         names = Save.hsd.get(levelSelected).getNames();
 
+
         //Add highscores to table
         for (int i = 0; i < highScores.length; i++) {
-            Label num = new Label(String.format("%2d.", i + 1), labelStyle1);
-            Label score = new Label(String.format("%7s", highScores[i]), labelStyle1);
-            Label name = new Label(String.format("%s", names[i]), labelStyle1);
+            Label num = new Label(String.format("%2d.", i + 1), skin, "highscore");
+            Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
+            Label name = new Label(String.format("%s", names[i]), skin, "highscore");
 
-            highScoreTable.add(num).padRight(200).right();
-            highScoreTable.add(name).padRight(90).left();
-            highScoreTable.add(score).left();
+            highscoreTable.add(num).padRight(200).right();
+            highscoreTable.add(name).padRight(90).left();
+            highscoreTable.add(score).left();
 
-            highScoreTable.row();
+            highscoreTable.row();
         }
 
+        //highscorePane.setActor(innerHighScoreTable);
 
     }
 

@@ -16,11 +16,11 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
 public class MenuScreen implements Screen {
-    private static final int PADDING = 50;
+    private static final int PADDING = 30;
 
     private Box2dTutorial parent;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private TextureAtlas.AtlasRegion background;
     private TextureAtlas atlas;
 
@@ -29,11 +29,10 @@ public class MenuScreen implements Screen {
         parent = box2dTutorial;
         stage = new Stage(new ScreenViewport());
 
-        atlas = parent.assMan.manager.get("images/loading.atlas");
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-        background = atlas.findRegion("flamebackground");
+        atlas = parent.assMan.manager.get("images/game.atlas");
+        skin = parent.assMan.manager.get("skin/game/game.json");
+
+        background = atlas.findRegion("background");
 
         //Load highscore list
         Save.load();
@@ -54,11 +53,11 @@ public class MenuScreen implements Screen {
         stage.addActor(table);
 
         // Create text buttons
-        final TextButton multiplayer = new TextButton("Multiplayer", skin2);
-        final TextButton newGame = new TextButton("Singleplayer", skin2);
-        final TextButton preferences = new TextButton("Preferences", skin2);
-        final TextButton highScore = new TextButton("High Score", skin2);
-        final TextButton exit = new TextButton("Exit", skin2);
+        final TextButton multiplayer = new TextButton("Multiplayer", skin, "blue-menu");
+        final TextButton newGame = new TextButton("Singleplayer", skin, "blue-menu");
+        final TextButton preferences = new TextButton("Preferences", skin, "blue-menu");
+        final TextButton highScore = new TextButton("High Score", skin, "blue-menu");
+        final TextButton exit = new TextButton("Exit", skin, "blue-menu");
 
 
         // Add buttons to table
