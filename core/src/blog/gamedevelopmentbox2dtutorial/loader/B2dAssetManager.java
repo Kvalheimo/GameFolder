@@ -32,15 +32,10 @@ public class B2dAssetManager {
     public final String playingSong = "music/music1.mp3";
 
     // Skin
-    public final String skin1 = "skin/shade/uiskin.json";
-    public final String skin2 = "skin/glassy/glassy-ui.json";
-    public final String skin3 = "skin/clean/clean-crispy-ui.json";
-    public final String skin4 = "skin/buttons/buttons.json";
-    public final String skin5 = "skin/game/game.json";
+    public final String skin = "skin/game/game.json";
 
     // Textures
     public final String gameImages = "images/game.atlas";
-    public final String loadingImages = "images/loading.atlas";
     public final String HUDImages = "minimap/boosts.atlas";
 
     // Maps
@@ -81,30 +76,13 @@ public class B2dAssetManager {
 
 
     public void queueAddSkin(){
-        SkinParameter skinParameter1 = new SkinParameter("skin/shade/uiskin.atlas");
-        SkinParameter skinParameter2 = new SkinParameter("skin/glassy/glassy-ui.atlas");
-        SkinParameter skinParameter3 = new SkinParameter("skin/clean/clean-crispy-ui.atlas");
-        SkinParameter skinParameter4 = new SkinParameter("skin/buttons/buttons.atlas");
-        SkinParameter skinParameter5 = new SkinParameter("skin/game/game.atlas");
-
-        manager.load(skin1, Skin.class, skinParameter1);
-        manager.load(skin2, Skin.class, skinParameter2);
-        manager.load(skin3, Skin.class, skinParameter3);
-        manager.load(skin4, Skin.class, skinParameter4);
-        manager.load(skin5, Skin.class, skinParameter5);
-
-
-
+        SkinParameter skinParameter = new SkinParameter("skin/game/game.atlas");
+        manager.load(skin, Skin.class, skinParameter);
 
     }
 
     public void queueAddImages(){
         manager.load(gameImages, TextureAtlas.class);
-    }
-
-
-    public void queueAddLoadingImages(){
-        manager.load(loadingImages, TextureAtlas.class);
     }
 
     public void queueHUDImages(){
@@ -119,26 +97,6 @@ public class B2dAssetManager {
     }
 
     public void queueAddFonts(){
-        FreeTypeFontGenerator.setMaxTextureSize(FreeTypeFontGenerator.NO_MAXIMUM);
-        FileHandleResolver resolver = new InternalFileHandleResolver();
-        manager.setLoader(FreeTypeFontGenerator.class, new FreeTypeFontGeneratorLoader(resolver));
-        manager.setLoader(BitmapFont.class, ".ttf", new FreetypeFontLoader(resolver));
-
-        FreetypeFontLoader.FreeTypeFontLoaderParameter parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontParameters.magFilter = Texture.TextureFilter.MipMapLinearNearest;
-        parameter.fontParameters.minFilter = Texture.TextureFilter.Linear;
-
-        parameter.fontFileName = "fonts/riffic-bold.ttf";
-        parameter.fontParameters.size = 50;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("highscore.ttf", BitmapFont.class, parameter);
-
-        parameter = new FreetypeFontLoader.FreeTypeFontLoaderParameter();
-        parameter.fontFileName = "fonts/riffic-bold.ttf";
-        parameter.fontParameters.size = 80;
-        parameter.fontParameters.color = new Color(1, 1, 1, 1);
-        manager.load("title.ttf", BitmapFont.class, parameter);
-
     }
 
     public void queueAddParticleEffects(){
