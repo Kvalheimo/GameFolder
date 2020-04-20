@@ -32,11 +32,10 @@ public class LoadingScreen implements Screen{
     public float countDown = 1f; // 5 seconds of waiting before menu screen
 
     private Box2dTutorial parent;
-    private TextureAtlas loadingAtlas, gameAtlas;
+    private TextureAtlas gameAtlas;
     private SpriteBatch sb;
-    private Animation<TextureRegion> flameAnimation;
-    private TextureAtlas.AtlasRegion title, dash, background, copyright;
-    private float stateTime;
+
+    private TextureAtlas.AtlasRegion dash, background;
     private Stage stage;
     private Image titleImage, copyrightImage;
     private Table table, loadingTable;
@@ -50,15 +49,12 @@ public class LoadingScreen implements Screen{
         loadAssets();
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
         gameAtlas = parent.assMan.manager.get("images/game.atlas");
         skin =  parent.assMan.manager.get("skin/game/game.json");
 
-        title = loadingAtlas.findRegion("staying-alight-logo");
         background = gameAtlas.findRegion("background");
-        copyright = loadingAtlas.findRegion("copyright");
         dash = gameAtlas.findRegion("dash-yellow");
-        flameAnimation = new Animation(0.07f, loadingAtlas.findRegions("flames/flames"), Animation.PlayMode.LOOP);
+
 
         sb = new SpriteBatch();
         sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
@@ -70,10 +66,6 @@ public class LoadingScreen implements Screen{
         parent.assMan.manager.finishLoading();
         System.out.println("Loading images....");
 
-
-        // load loading images and wait until finished
-        parent.assMan.queueAddLoadingImages();
-        parent.assMan.manager.finishLoading();
 
         //Load map
         parent.assMan.queueAddMaps();
@@ -98,10 +90,7 @@ public class LoadingScreen implements Screen{
 
     @Override
     public void show() {
-        titleImage = new Image(title);
-        copyrightImage = new Image(copyright);
-
-        Label title = new Label("LOADING...", skin, "highscore");
+        Label title = new Label("LOADING...", skin, "big");
 
         loadingTable = new Table();
         table = new Table();
@@ -114,16 +103,16 @@ public class LoadingScreen implements Screen{
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
 
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
-        loadingTable.add(new LoadingBarPart(dash, flameAnimation));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
 
         //table.add(titleImage).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
         table.add(title).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
