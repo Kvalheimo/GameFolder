@@ -25,7 +25,7 @@ public class PreferenceScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private TextureAtlas.AtlasRegion background;
-    private TextureAtlas loadingAtlas, gameAtlas;
+    private TextureAtlas gameAtlas;
 
     // fields for sliders and checkbox
     private Label titleLabel;

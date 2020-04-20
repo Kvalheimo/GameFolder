@@ -9,15 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class LoadingBarPart extends Actor {
     private TextureRegion image;
-    private Animation<TextureRegion> flameAnimation;
-    private TextureAtlas.AtlasRegion title, dash;
-    private float stateTime;
-    private TextureRegion currentFrame;
 
-    public LoadingBarPart(TextureAtlas.AtlasRegion ar, Animation an){
+    public LoadingBarPart(TextureAtlas.AtlasRegion ar){
         super();
         image = ar;
-        flameAnimation = an;
         this.setWidth(30);
         this.setHeight(25);
         this.setVisible(false);
@@ -36,7 +31,5 @@ public class LoadingBarPart extends Actor {
     @Override
     public void act(float dt) {
         super.act(dt);
-        stateTime += dt;
-        currentFrame = flameAnimation.getKeyFrame(stateTime, true);
     }
 }

@@ -33,8 +33,7 @@ public class HighScoreScreen implements Screen {
     private Stage stage;
     private TextureAtlas.AtlasRegion background;
     private int levelSelected;
-    private Table outerTable, innerTable, innerHighScoreTable;
-    private ScrollPane highscorePane;
+    private Table outerTable, innerTable, highscoreTable, innerHighScoreTable;
 
 
     public HighScoreScreen(Box2dTutorial parent, int level){
@@ -98,20 +97,22 @@ public class HighScoreScreen implements Screen {
 
         innerTable = new Table();
         outerTable = new Table();
-        innerHighScoreTable = new Table();
+        highscoreTable = new Table();
+
 
         if (Box2dTutorial.DEBUG){
             innerTable.setDebug(true);
             outerTable.setDebug(true);
-            innerHighScoreTable.setDebug(true);
+            highscoreTable.setDebug(true);
         }
 
         outerTable.setFillParent(true);
-        innerHighScoreTable.setFillParent(true);
-        outerTable.setBackground(new TiledDrawable(background));
+        highscoreTable.setFillParent(true);
 
-        innerHighScoreTable.clear();
-        //innerHighScoreTable.center();
+        highscoreTable.setBackground(new TiledDrawable(background));
+
+        highscoreTable.clear();
+        highscoreTable.center().padLeft(Gdx.graphics.getWidth()/8);
 
         //Add highscores to table
         for (int i = 0; i < highScores.length; i++) {
@@ -119,17 +120,15 @@ public class HighScoreScreen implements Screen {
             Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
             Label name = new Label(String.format("%s", names[i]), skin, "highscore");
 
-            innerHighScoreTable.add(num).pad(0,40,0,200).left();
-            innerHighScoreTable.add(name).padRight(90).left();
-            innerHighScoreTable.add(score).left().padRight(40);
+            highscoreTable.add(num).padRight(200).right();
+            highscoreTable.add(name).padRight(90).left();
+            highscoreTable.add(score).left();
 
-            innerHighScoreTable.row();
+            highscoreTable.row();
         }
 
-        highscorePane = new ScrollPane(innerHighScoreTable, skin);
 
-
-        innerTable.add(l1).padTop(10).fillX().expandX();
+        innerTable.add(l1).padTop(30).fillX().expandX();
         innerTable.row();
         innerTable.add(l2).padTop(30).fillX().expandX();
         innerTable.row();
@@ -139,17 +138,17 @@ public class HighScoreScreen implements Screen {
         innerTable.row();
         innerTable.add(l5).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l6).padTop(30).padBottom(10).fillX().expandX();
+        innerTable.add(l6).padTop(30).padBottom(30).fillX().expandX();
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
         outerTable.add(headerLabel).center().padTop(10).colspan(3);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().pad(20,0,0,0).left().padLeft(Gdx.graphics.getWidth()/8);
-        outerTable.add(highscorePane).fillY().expandY().pad(40,0,40,Gdx.graphics.getWidth()/4);
-        outerTable.row().expandX();
-        outerTable.add(backButton).pad(20,0,10,0).colspan(3);
+        outerTable.add(scrollPane).fillY().expandY().padTop(40).left().padLeft(Gdx.graphics.getWidth()/8);
 
+        outerTable.row().expandX();
+        outerTable.add(backButton).pad(20,0,10,0);
+        stage.addActor(highscoreTable);
         stage.addActor(outerTable);
 
 
@@ -229,8 +228,8 @@ public class HighScoreScreen implements Screen {
 
     public void update(){
 
-        innerHighScoreTable.clear();
-        highscorePane.clear();
+        //highscorePane.clear();
+        highscoreTable.clear();
 
         highScores = Save.hsd.get(levelSelected).getHighScores();
         names = Save.hsd.get(levelSelected).getNames();
@@ -242,14 +241,14 @@ public class HighScoreScreen implements Screen {
             Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
             Label name = new Label(String.format("%s", names[i]), skin, "highscore");
 
-            innerHighScoreTable.add(num).pad(0,40,0,200).left();
-            innerHighScoreTable.add(name).padRight(90).left();
-            innerHighScoreTable.add(score).left().padRight(40);
+            highscoreTable.add(num).padRight(200).right();
+            highscoreTable.add(name).padRight(90).left();
+            highscoreTable.add(score).left();
 
-            innerHighScoreTable.row();
+            highscoreTable.row();
         }
 
-        highscorePane.setActor(innerHighScoreTable);
+        //highscorePane.setActor(innerHighScoreTable);
 
     }
 
