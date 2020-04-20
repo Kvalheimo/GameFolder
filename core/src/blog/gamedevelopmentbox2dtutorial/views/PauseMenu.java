@@ -35,11 +35,8 @@ public class PauseMenu implements Disposable{
         viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), new OrthographicCamera());
         stage = new Stage(viewport, sb);
 
-        //Gdx.input.setInputProcessor(stage);
-
         ms = gameScreen;
 
-        atlas = parent.assMan.manager.get("images/loading.atlas");
         skin = parent.assMan.manager.get("skin/game/game.json");
 
         //Create a table that fills the screen. Everything else will go inside this table
