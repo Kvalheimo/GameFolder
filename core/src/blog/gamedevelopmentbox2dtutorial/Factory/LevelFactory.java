@@ -97,6 +97,7 @@ public class LevelFactory {
         maps = new IntMap<TiledMap>();
         maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
         maps.put(2, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
+        maps.put(3, parent.assMan.manager.get("maps/level3.tmx", TiledMap.class));
 
     }
 
