@@ -20,6 +20,9 @@ public class TypeComponent implements Component, Pool.Poolable {
     public static final int SPIKES = 13;
     public static final int CHECKPOINT = 14;
     public static final int DESTROYABLE_TILE = 15;
+    public static final int JUMPWALL = 16;
+
+
 
     public int type = OTHER;
 

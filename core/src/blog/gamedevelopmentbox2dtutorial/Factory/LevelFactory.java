@@ -31,6 +31,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.CheckpointComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.DestroyableTileComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.JumpWallComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
@@ -141,7 +142,7 @@ public class LevelFactory {
 
         switch (level){
             case 1:
-                bodyCom.body = bodyFactory.makeCirclePolyBody(8, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+                bodyCom.body = bodyFactory.makeCirclePolyBody(7, 10, 0.20f, BodyFactory.FRICTION_PLAYER, BodyDef.BodyType.DynamicBody, true);
                 break;
             case 2:
                 bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
@@ -490,6 +491,34 @@ public class LevelFactory {
         }
     }
 
+
+    public void createJumpWall(String layer, int type, int level) {
+
+
+        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(level), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.WATER);
+
+        for (Body body : mapBodies) {
+            Entity entity = engine.createEntity();
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+            JumpWallComponent jwComp = engine.createComponent(JumpWallComponent.class);
+
+            bodyCom.body = body;
+
+            jwComp.jumpWallPos = body.getPosition().x;
+            position.position.set(body.getPosition().x, body.getPosition().y, 0);
+            body.setUserData(entity);
+            typeCom.type = type;
+
+            entity.add(position);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+            entity.add(jwComp);
+            engine.addEntity(entity);
+
+        }
+    }
 
     public void createPlatform(float x, float y){
 

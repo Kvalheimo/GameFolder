@@ -101,9 +101,9 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
 
-
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
+        levelFactory.createJumpWall("Jump Wall", TypeComponent.JUMPWALL, level);
 
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
         levelFactory.loadCheckpoint(level);
@@ -115,6 +115,8 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
         levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
+        levelFactory.createTiledMapEntities("Other", TypeComponent.OTHER, level);
+
 
 
     }

@@ -18,6 +18,9 @@ public class BodyFactory {
     public static final int RUBBER = 2;
     public  static final int STONE = 3;
     public  static final int WATER = 4;
+    public  static final int FRICTION_PLAYER = 5;
+
+
     private final float DEGTORAD = 0.0174533f;
 
 
@@ -57,7 +60,7 @@ public class BodyFactory {
                 break;
             case 2:
                 fixtureDef.density = 20.0f;
-                fixtureDef.friction = 0.0f;
+                fixtureDef.friction = 1.0f;
                 fixtureDef.restitution = 0.0f;
                 break;
             case 3:
@@ -66,10 +69,17 @@ public class BodyFactory {
                 fixtureDef.restitution = 0.0f;
                 break;
             case 4:
-                fixtureDef.density = 1f;
-                fixtureDef.friction = 0.77f;
-                fixtureDef.restitution = 0.01f;
+                fixtureDef.density = 20f;
+                fixtureDef.friction = 0.0f;
+                fixtureDef.restitution = 0.0f;
                 break;
+
+            case 5:
+                fixtureDef.density = 11f;
+                fixtureDef.friction = 0.0f;
+                fixtureDef.restitution = 0.0f;
+                break;
+
             default:
                 fixtureDef.density = 7f;
                 fixtureDef.friction = 0.0f;

@@ -113,9 +113,17 @@ public class CollisionSystem extends IteratingSystem {
                             System.out.println(Mapper.cpComp.get(collidedEntity).checkpointPos);
                             break;
 
-                        default:
-                            System.out.println("No matching type found");
-                            levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
+                        case TypeComponent.JUMPWALL:
+
+                            if (player.jumpWallpos != Mapper.jwComp.get(collidedEntity).jumpWallPos) {
+                                player.jumpWallpos = Mapper.jwComp.get(collidedEntity).jumpWallPos;
+                                player.onJumpWall = true;
+                            }
+                            break;
+
+                            default:
+                                System.out.println("No matching type found");
+                                levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, body);
 
                     }
                     cc.collisionEntity = null; // collision handled reset component
@@ -185,7 +193,6 @@ public class CollisionSystem extends IteratingSystem {
 
                         case TypeComponent.SPIKES:
                             //do enemy hit spike thing
-                            //    System.out.println("enemy hit wall");
                             enemyComponent = Mapper.enemyCom.get(entity);
 
                             if (enemyComponent.movingRight){
