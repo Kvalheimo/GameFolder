@@ -91,7 +91,7 @@ public class CollisionSystem extends IteratingSystem {
                             break;
 
                         case TypeComponent.PLATFORM:
-                            System.out.println("Player on platform");
+                            System.out.println("Player ");
                             break;
 
                         case TypeComponent.SPEED_X:
@@ -219,8 +219,8 @@ public class CollisionSystem extends IteratingSystem {
                         case TypeComponent.PLAYER:
                             System.out.println("Platform collied with player");
                             //PlayerComponent player = Mapper.playerCom.get(collidedEntity);
-                            Mapper.playerCom.get(collidedEntity).onPlatform =true;
-                            Mapper.playerCom.get(collidedEntity).onGround =false;
+                            Mapper.playerCom.get(collidedEntity).onPlatform = true;
+                            Mapper.playerCom.get(collidedEntity).onGround = false;
                             Mapper.stateCom.get(collidedEntity).set(0);
 
                         //.setLinearVelocity(

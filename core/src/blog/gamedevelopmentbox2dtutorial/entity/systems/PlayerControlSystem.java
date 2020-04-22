@@ -21,6 +21,7 @@ public class PlayerControlSystem extends IteratingSystem{
     private Controller controller;
     private LevelFactory levelFactory;
     private Hud hud;
+    private float platf_vel_x;
 
 
 
@@ -30,6 +31,7 @@ public class PlayerControlSystem extends IteratingSystem{
         this.controller = controller;
         this.levelFactory = levelFactory;
         this.hud = hud;
+        this.platf_vel_x = 2f;
 
     }
 
@@ -113,8 +115,9 @@ public class PlayerControlSystem extends IteratingSystem{
                 player.onWall = false;
             }
             else if(player.onPlatform){
-                b2body.body.applyForceToCenter(-100*controller.getVelScale(), 0,true);
+                b2body.body.applyForceToCenter(-200*platf_vel_x*controller.getVelScale(), 0,true);
                 player.runningRight = false;
+
             }
 
             /*
@@ -135,7 +138,7 @@ public class PlayerControlSystem extends IteratingSystem{
                 player.onWall = false;
             }
             else if(player.onPlatform){
-                b2body.body.applyForceToCenter(100*controller.getVelScale(), 0,true);
+                b2body.body.applyForceToCenter(50*(1/platf_vel_x)*controller.getVelScale(), 0,true);
                 player.runningRight = true;
             }
 
@@ -257,8 +260,21 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
         if (player.onPlatform){
+
+            System.out.println(b2body.body.getLinearVelocity().x + " Dudevol");
+            System.out.println(Float.compare(b2body.body.getLinearVelocity().x , platf_vel_x));
+
+            if(b2body.body.getLinearVelocity().x == 0&& state.get() !=  StateComponent.STATE_NORMAL){
+            state.set(StateComponent.STATE_NORMAL);
+        }
+
+            if((b2body.body.getLinearVelocity().x != 0) && state.get() != StateComponent.STATE_MOVING) {
+                state.set(StateComponent.STATE_MOVING);
+            }
             player.jumpCounter = 0;
-            b2body.body.setLinearVelocity(0.5f,b2body.body.getLinearVelocity().y);
+            b2body.body.setLinearVelocity(platf_vel_x + b2body.body.getLinearVelocity().x ,b2body.body.getLinearVelocity().y);
+
+
         }
 
         //Send back to checkpoint if player is dead

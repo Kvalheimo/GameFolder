@@ -8,7 +8,7 @@ public class PlatformComponent implements Component, Pool.Poolable {
     public static final int MOVEABLE = 0;
     public static final int SYMBIOSE = 1;
 
-    public float velocity_x = 0.5f;
+    public float velocity_x = 2;
     public int type = 0;
     public boolean movingRight = true;
     public boolean isMovingUp = false;

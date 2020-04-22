@@ -33,7 +33,6 @@ public class MoveableSystem extends IteratingSystem {
         if (platform.type == platform.MOVEABLE){
             bodyCom.body.applyForceToCenter(0, bodyCom.body.getMass()* Box2dTutorial.GRAVITY, true);
             bodyCom.body.setLinearVelocity(bodyCom.body.getLinearVelocity().x,0f);
-            //bodyCom.body.setGravityScale(1);
             bodyCom.body.setFixedRotation(true);
 
         }
