@@ -35,9 +35,9 @@ public class LevelSelectionScreen implements Screen {
 
     private Box2dTutorial parent;
     private Stage stage;
-    private Skin skin1, skin2, skin3;
+    private Skin skin;
     private TextureAtlas.AtlasRegion background;
-    private TextureAtlas loadingAtlas, gameAtlas;
+    private TextureAtlas gameAtlas;
     private int levelSelected = 1;
     private Image levelImage;
     private IntMap<Image> levelPreviewImages;
@@ -53,14 +53,10 @@ public class LevelSelectionScreen implements Screen {
         characterSelected = character;
 
         // Get images to display loading progress
-        loadingAtlas = parent.assMan.manager.get("images/loading.atlas");
+        gameAtlas = parent.assMan.manager.get("images/game.atlas");
 
-
-        skin1 = parent.assMan.manager.get("skin/shade/uiskin.json");
-        skin2 = parent.assMan.manager.get("skin/glassy/glassy-ui.json");
-        skin3 = parent.assMan.manager.get("skin/clean/clean-crispy-ui.json");
-
-        background = loadingAtlas.findRegion("flamebackground");
+        skin = parent.assMan.manager.get("skin/game/game.json");
+        background = gameAtlas.findRegion("background");
 
         //Load level preview images
         levelPreviewImages = new IntMap<>();
@@ -71,10 +67,6 @@ public class LevelSelectionScreen implements Screen {
         levelPreviewImages.put(5, new Image(new Texture("preview/level5.png")));
         levelPreviewImages.put(6, new Image(new Texture("preview/level6.png")));
 
-
-
-
-
     }
 
 
@@ -84,23 +76,25 @@ public class LevelSelectionScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
+        levelSelected = 1;
+
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin3, "toggle");
-        final TextButton l2 = new TextButton("2", skin3, "toggle");
-        final TextButton l3 = new TextButton("3", skin3, "toggle");
-        final TextButton l4 = new TextButton("4", skin3, "toggle");
-        final TextButton l5 = new TextButton("5", skin3, "toggle");
-        final TextButton l6 = new TextButton("6", skin3, "toggle");
+        final TextButton l1 = new TextButton("1", skin, "toggle");
+        final TextButton l2 = new TextButton("2", skin, "toggle");
+        final TextButton l3 = new TextButton("3", skin, "toggle");
+        final TextButton l4 = new TextButton("4", skin, "toggle");
+        final TextButton l5 = new TextButton("5", skin, "toggle");
+        final TextButton l6 = new TextButton("6", skin, "toggle");
 
         l1.setChecked(true);
 
         ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
         buttonGroup.setMaxCheckCount(1);
 
-        Label headerLabel = new Label("SELECT LEVEL", skin2, "big");
+        Label headerLabel = new Label("SELECT LEVEL", skin, "big");
 
-        final TextButton backButton = new TextButton("Back", skin2, "small");
-        final TextButton playButton = new TextButton("Play", skin2, "small");
+        final TextButton backButton = new TextButton("Back", skin, "blue-small");
+        final TextButton playButton = new TextButton("Play", skin, "blue-small");
 
 
         levelImage = levelPreviewImages.get(levelSelected);
@@ -111,9 +105,12 @@ public class LevelSelectionScreen implements Screen {
         outerTable = new Table();
         previewTable = new Table();
 
-        //innerTable.debug();
-        //outerTable.debug();
-        //previewTable.debug();
+        if (Box2dTutorial.DEBUG) {
+            innerTable.setDebug(true);
+            outerTable.setDebug(true);
+            previewTable.setDebug(true);
+        }
+
         outerTable.setFillParent(true);
         previewTable.setFillParent(true);
         previewTable.setBackground(new TiledDrawable(background));
@@ -136,7 +133,7 @@ public class LevelSelectionScreen implements Screen {
         innerTable.row();
         innerTable.add(l6).padTop(30).padBottom(10).fillX().expandX();
 
-        ScrollPane scrollPane = new ScrollPane(innerTable, skin1);
+        ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
         outerTable.add(headerLabel).colspan(3);
         outerTable.row().expandX();

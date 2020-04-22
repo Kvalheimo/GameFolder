@@ -86,7 +86,7 @@ public class LevelFactory {
 
         //finds the position of finish line
         MapLayers var1 = map.getLayers();
-        MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
+        MapLayer var2 = var1.get("Finish"); //Gets the object layer "Finish"
         for (MapObject mapObject : var2.getObjects()){
             if (mapObject instanceof RectangleMapObject) {
                     if(mapObject.getName().equals("finished")){
@@ -144,8 +144,9 @@ public class LevelFactory {
         StateComponent stateCom = engine.createComponent(StateComponent.class);
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
+
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 12, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         switch (character) {
             case 1:

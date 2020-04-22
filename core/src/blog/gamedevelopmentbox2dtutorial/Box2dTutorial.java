@@ -25,6 +25,7 @@ public class Box2dTutorial extends Game {
     public static final float PPM = 64f; //Pixels per meter in box2dWorld
 	public static final float PPT = 64f; //Pixels per tile in Tieldmap
 	public static final float GRAVITY = 20f;
+	public static final boolean DEBUG = true;
 
 	private LoadingScreen loadingScreen;
 	private PreferenceScreen preferencesScreen;
@@ -54,6 +55,11 @@ public class Box2dTutorial extends Game {
 	public Box2dTutorial() {
 		super();
 		assMan = new B2dAssetManager();
+	}
+
+
+	public void changeScreen(int screen, int level){
+		changeScreen(screen, false, level, 0);
 	}
 
 	public void changeScreen(int screen) {
@@ -92,7 +98,7 @@ public class Box2dTutorial extends Game {
 				this.setScreen(characterSelectionScreen);
 				break;
 			case HIGHSCORE:
-				highScoreScreen = new HighScoreScreen(this);
+				highScoreScreen = new HighScoreScreen(this, level);
 				this.setScreen(highScoreScreen);
 				break;
 			case MULTIPLAYER:
@@ -131,8 +137,6 @@ public class Box2dTutorial extends Game {
 		///playingSong.play();
 
         Save.load();
-
-
 	}
 
 	public MainScreen getMainScreen(){

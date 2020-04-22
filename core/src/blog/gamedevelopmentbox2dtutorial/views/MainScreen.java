@@ -32,6 +32,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.RenderingSystem;
 public class MainScreen implements Screen, GameScreen {
 
 
+    private CountdownView countdownView;
     private Box2dTutorial parent;
     private OrthographicCamera camera;
     private Viewport viewport;
@@ -46,18 +47,23 @@ public class MainScreen implements Screen, GameScreen {
     private boolean isPaused;
     private int level;
     private int character;
+    private boolean countDownMode;
 
 
     public MainScreen(Box2dTutorial box2dTutorial, int level, int character){
         this.level = level;
         this.character = character;
-        isPaused = false;
         parent = box2dTutorial;
 
         engine = new PooledEngine();
         levelFactory = new LevelFactory(engine, parent, level);
 
         sb = new SpriteBatch();
+
+        isPaused = true;
+        countdownView = new CountdownView(sb, parent);
+        countDownMode = true;
+
 
         controller = new Controller(sb, parent, this);
         pauseMenu = new PauseMenu(sb, parent, this);
@@ -113,8 +119,6 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
 
 
-
-
     }
 
 
@@ -122,13 +126,13 @@ public class MainScreen implements Screen, GameScreen {
     public void show() {
         Gdx.input.setInputProcessor(controller.stage);
 
-
     }
 
     @Override
     public void render(float dt) {
         Gdx.gl.glClearColor(0f, 0f, 0f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
         if (!isPaused) {
             Gdx.input.setInputProcessor(controller.getStage());
@@ -138,6 +142,7 @@ public class MainScreen implements Screen, GameScreen {
 
             engine.update(dt);
             setProcessing(true);
+
 
             sb.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.update(dt, (int)(camera.position.x*Box2dTutorial.PPM));
@@ -154,7 +159,6 @@ public class MainScreen implements Screen, GameScreen {
             }
 
         } else {
-            Gdx.input.setInputProcessor(pauseMenu.getStage());
             camera.update();
 
             renderer.setView(camera);
@@ -166,10 +170,24 @@ public class MainScreen implements Screen, GameScreen {
             sb.setProjectionMatrix(hud.stage.getCamera().combined);
             hud.draw();
 
-            //sb.setProjectionMatrix(controller.stage.getCamera().combined);
-            //controller.draw();
+            sb.setProjectionMatrix(controller.stage.getCamera().combined);
+            controller.draw();
 
-            pauseMenu.draw();
+            if (countDownMode){
+                countdownView.update(dt);
+                countdownView.draw();
+
+                if(countdownView.isCountdownOver()) {
+                    isPaused = false;
+                    countDownMode = false;
+                    countdownView.reset();
+                }
+
+            }else{
+                Gdx.input.setInputProcessor(pauseMenu.getStage());
+                pauseMenu.draw();
+            }
+
         }
 
     }
@@ -181,7 +199,7 @@ public class MainScreen implements Screen, GameScreen {
         hud.resize(width, height);
         controller.resize(width, height);
         pauseMenu.resize(width, height);
-
+        countdownView.resize(width, height);
     }
 
 
@@ -225,6 +243,7 @@ public class MainScreen implements Screen, GameScreen {
         hud.dispose();
         controller.dispose();
         pauseMenu.dispose();
+
 
     }
 }
