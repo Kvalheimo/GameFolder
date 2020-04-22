@@ -112,6 +112,10 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
+            else if(player.onPlatform){
+                b2body.body.applyForceToCenter(-100*controller.getVelScale(), 0,true);
+                player.runningRight = false;
+            }
 
             /*
             else if (b2body.body.getLinearVelocity().x > -5){
@@ -130,8 +134,9 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
-            else if( player.onPlatform){
-
+            else if(player.onPlatform){
+                b2body.body.applyForceToCenter(100*controller.getVelScale(), 0,true);
+                player.runningRight = true;
             }
 
             /*
@@ -254,7 +259,6 @@ public class PlayerControlSystem extends IteratingSystem{
         if (player.onPlatform){
             player.jumpCounter = 0;
             b2body.body.setLinearVelocity(0.5f,b2body.body.getLinearVelocity().y);
-            player.onPlatform = false;
         }
 
         //Send back to checkpoint if player is dead
