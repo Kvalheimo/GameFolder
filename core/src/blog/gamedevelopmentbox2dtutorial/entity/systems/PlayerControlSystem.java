@@ -23,6 +23,7 @@ public class PlayerControlSystem extends IteratingSystem{
     private Hud hud;
 
 
+
     @SuppressWarnings("unchecked")
     public PlayerControlSystem(Controller controller, LevelFactory levelFactory, Hud hud) {
         super(Family.all(PlayerComponent.class).get());
@@ -129,6 +130,9 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
+            else if( player.onPlatform){
+
+            }
 
             /*
             else if(b2body.body.getLinearVelocity().x < 5){
@@ -165,7 +169,9 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        if(player.onGround || b2body.body.getLinearVelocity().y == 0){
+        if(player.onGround || (b2body.body.getLinearVelocity().y == 0 && !player.onPlatform)){
+            player.onPlatform = false;
+            System.out.println("linje 171 i playercontrolsystem");
             player.jumpCounter = 0;
         }
 
@@ -243,6 +249,12 @@ public class PlayerControlSystem extends IteratingSystem{
             if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
                 Mapper.paCom.get(player.particleEffect).isDead = true;
             player.isDead = true;
+        }
+
+        if (player.onPlatform){
+            player.jumpCounter = 0;
+            b2body.body.setLinearVelocity(0.5f,b2body.body.getLinearVelocity().y);
+            player.onPlatform = false;
         }
 
         //Send back to checkpoint if player is dead

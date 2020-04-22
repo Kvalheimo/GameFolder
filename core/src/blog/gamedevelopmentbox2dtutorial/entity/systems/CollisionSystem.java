@@ -91,7 +91,6 @@ public class CollisionSystem extends IteratingSystem {
                             break;
 
                         case TypeComponent.PLATFORM:
-                            player.onGround = true;
                             System.out.println("Player on platform");
                             break;
 
@@ -213,10 +212,20 @@ public class CollisionSystem extends IteratingSystem {
         }else if(thisType.type == TypeComponent.PLATFORM){
             if (collidedEntity != null) {
                 TypeComponent type = collidedEntity.getComponent(TypeComponent.class);
+
+                B2dBodyComponent body = Mapper.b2dCom.get(entity);
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.PLAYER:
+                            System.out.println("Platform collied with player");
+                            //PlayerComponent player = Mapper.playerCom.get(collidedEntity);
+                            Mapper.playerCom.get(collidedEntity).onPlatform =true;
+                            Mapper.playerCom.get(collidedEntity).onGround =false;
+                            Mapper.stateCom.get(collidedEntity).set(0);
 
+                        //.setLinearVelocity(
+                          //          Mapper.platCom.get(entity).movingRight ?  Mapper.platCom.get(entity).velocity_x
+                            //                                               : -Mapper.platCom.get(entity).velocity_x, 0);
                             break;
 
                         case TypeComponent.GROUND:

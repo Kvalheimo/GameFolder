@@ -491,7 +491,7 @@ public class LevelFactory {
 
     public void createPlatform(int level){
 
-        Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.DynamicBody, BodyFactory.SYRUP);
+        Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.KinematicBody, BodyFactory.SYRUP);
         // Create the Entity and all the components that will go in the entity
         for(Body platformBody: platformBodies){
 

@@ -32,16 +32,19 @@ public class MoveableSystem extends IteratingSystem {
 
         if (platform.type == platform.MOVEABLE){
             bodyCom.body.applyForceToCenter(0, bodyCom.body.getMass()* Box2dTutorial.GRAVITY, true);
-            bodyCom.body.setLinearVelocity(bodyCom.body.getLinearVelocity().x,0);
+            bodyCom.body.setLinearVelocity(bodyCom.body.getLinearVelocity().x,0f);
+            //bodyCom.body.setGravityScale(1);
+            bodyCom.body.setFixedRotation(true);
+
         }
 
         //Change direction
         if (platform.movingRight) {
-            bodyCom.body.setLinearVelocity(3f, bodyCom.body.getLinearVelocity().y);
+            bodyCom.body.setLinearVelocity(platform.velocity_x, 0f);
             bodyCom.body.setAngularVelocity(0f);
         }
         else if (!platform.movingRight) {
-            bodyCom.body.setLinearVelocity(-3f, bodyCom.body.getLinearVelocity().y);
+            bodyCom.body.setLinearVelocity(-platform.velocity_x, 0f);
             bodyCom.body.setAngularVelocity(0f);
         }
 
