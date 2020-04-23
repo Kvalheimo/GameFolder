@@ -147,6 +147,7 @@ public class LevelFactory {
 
 
         // create the data for the components and add them to the components
+
         bodyCom.body = bodyFactory.makeCirclePolyBody(2, 12, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         switch (character) {
@@ -490,47 +491,55 @@ public class LevelFactory {
     }
 
 
-    public void createPlatform(int level){
+    public void createPlatformHor(int level){
 
         Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.KinematicBody, BodyFactory.SYRUP);
         // Create the Entity and all the components that will go in the entity
         for(Body platformBody: platformBodies){
 
+            // Create the Entity and all the components that will go in the entity
             Entity entity = engine.createEntity();
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TransformComponent position = engine.createComponent(TransformComponent.class);
             TextureComponent texture = engine.createComponent(TextureComponent.class);
+            PlatformComponent platCom = engine.createComponent(PlatformComponent.class);
             CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
             TypeComponent type = engine.createComponent(TypeComponent.class);
-            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
-            PlatformComponent platform = engine.createComponent(PlatformComponent.class);
             StateComponent stateCom = engine.createComponent(StateComponent.class);
+            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
             // create the data for the components and add them to the components
             platformBody.setActive(false);
-            platform.type = platform.MOVEABLE;
+            platCom.type = platCom.MOVEABLE_HOR;
             bodyCom.body = platformBody;
 
-            // set object position (x,y,z) z used to define draw order 0 first drawn
-            type.type = TypeComponent.PLATFORM;
+            //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+            Animation movingAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("blood_bar"), 1, 1));
 
-            Animation normalAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider_normal"), 1, 1));
 
+            movingAnim.setPlayMode(Animation.PlayMode.LOOP);
             normalAnim.setPlayMode(Animation.PlayMode.LOOP);
-            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
 
-            animCom.animationsN.put(StateComponent.STATE_MOVING, normalAnim);
+            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+            animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
+
+            position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
+            type.type = TypeComponent.PLATFORM;
             stateCom.set(StateComponent.STATE_MOVING);
+
+            //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
             bodyCom.body.setUserData(entity);
 
             // add the components to the entity
             entity.add(bodyCom);
+            entity.add(position);
             entity.add(texture);
-            entity.add(animCom);
-            entity.add(type);
-            entity.add(platform);
+            entity.add(platCom);
             entity.add(colComp);
+            entity.add(type);
             entity.add(stateCom);
+            entity.add(animCom);
 
             // add the entity to the engine
             engine.addEntity(entity);

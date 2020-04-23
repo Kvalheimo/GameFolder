@@ -180,5 +180,6 @@ public class DFUtils {
     }
 
     public static float PLATFORM_VELOCITY_X = 2;
+    public static float PLATFORM_VELOCITY_Y = 2;
 
 }

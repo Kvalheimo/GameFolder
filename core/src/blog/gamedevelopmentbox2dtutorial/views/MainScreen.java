@@ -88,12 +88,12 @@ public class MainScreen implements Screen, GameScreen {
         engine.addSystem(new PhysicsSystem(levelFactory.getWorld()));
         engine.addSystem(new PhysicsDebugSystem(levelFactory.getWorld(), renderingSystem.getCamera()));
         engine.addSystem(new CollisionSystem(levelFactory, hud));
+        engine.addSystem(new MoveableSystem(camera));
         engine.addSystem(new PlayerControlSystem(controller, levelFactory, hud));
         engine.addSystem(new BulletSystem());
         engine.addSystem(new EnemySystem(camera));
         engine.addSystem(new PowerupSystem());
         engine.addSystem(new DestroyableTileSystem());
-        engine.addSystem(new MoveableSystem(camera));
 
 
 
@@ -102,7 +102,7 @@ public class MainScreen implements Screen, GameScreen {
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
-        levelFactory.createPlatform(level);
+        levelFactory.createPlatformHor(level);
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);

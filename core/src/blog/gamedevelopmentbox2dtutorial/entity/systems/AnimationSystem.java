@@ -37,6 +37,7 @@ public class AnimationSystem extends IteratingSystem {
         PlayerComponent player = Mapper.playerCom.get(entity);
         EnemyComponent enemy = Mapper.enemyCom.get(entity);
         OpponentComponent opponent = Mapper.opponentCom.get(entity);
+        PlatformComponent platform = Mapper.platCom.get(entity);
 
 
         if(ani.animationsN.containsKey(state.get())) {
