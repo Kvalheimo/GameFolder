@@ -179,4 +179,6 @@ public class DFUtils {
         return aimTo(shooter, new Vector2(target.x,target.y));
     }
 
+    public static float PLATFORM_VELOCITY_X = 2;
+
 }

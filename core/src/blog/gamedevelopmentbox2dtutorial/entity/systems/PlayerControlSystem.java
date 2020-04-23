@@ -114,10 +114,9 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
-            else if(player.onPlatform){
-                b2body.body.applyForceToCenter(-200*platf_vel_x*controller.getVelScale(), 0,true);
+            else if(player.onPlatform && b2body.body.getLinearVelocity().x > -8){
+                b2body.body.applyLinearImpulse(-6,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.runningRight = false;
-
             }
 
             /*
@@ -137,8 +136,8 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
-            else if(player.onPlatform){
-                b2body.body.applyForceToCenter(50*(1/platf_vel_x)*controller.getVelScale(), 0,true);
+            else if(player.onPlatform && b2body.body.getLinearVelocity().x < 8){
+                b2body.body.applyLinearImpulse(6 - platf_vel_x,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.runningRight = true;
             }
 
@@ -272,7 +271,9 @@ public class PlayerControlSystem extends IteratingSystem{
                 state.set(StateComponent.STATE_MOVING);
             }
             player.jumpCounter = 0;
-            b2body.body.setLinearVelocity(platf_vel_x + b2body.body.getLinearVelocity().x ,b2body.body.getLinearVelocity().y);
+            if(b2body.body.getLinearVelocity().x < 8){
+                b2body.body.setLinearVelocity(platf_vel_x + b2body.body.getLinearVelocity().x ,b2body.body.getLinearVelocity().y);
+            }
 
 
         }

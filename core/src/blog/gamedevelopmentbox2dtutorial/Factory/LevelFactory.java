@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
@@ -500,11 +501,9 @@ public class LevelFactory {
             TextureComponent texture = engine.createComponent(TextureComponent.class);
             CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
             TypeComponent type = engine.createComponent(TypeComponent.class);
-            PlatformComponent platform = engine.createComponent(PlatformComponent.class);
             AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+            PlatformComponent platform = engine.createComponent(PlatformComponent.class);
             StateComponent stateCom = engine.createComponent(StateComponent.class);
-
-
 
             // create the data for the components and add them to the components
             platformBody.setActive(false);
@@ -514,23 +513,23 @@ public class LevelFactory {
             // set object position (x,y,z) z used to define draw order 0 first drawn
             type.type = TypeComponent.PLATFORM;
 
-            bodyCom.body.setUserData(entity);
-
-            Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider"), 1, 1));
+            Animation normalAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider_normal"), 1, 1));
 
             normalAnim.setPlayMode(Animation.PlayMode.LOOP);
-
             animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
 
+            animCom.animationsN.put(StateComponent.STATE_MOVING, normalAnim);
             stateCom.set(StateComponent.STATE_MOVING);
+
+            bodyCom.body.setUserData(entity);
 
             // add the components to the entity
             entity.add(bodyCom);
             entity.add(texture);
+            entity.add(animCom);
             entity.add(type);
             entity.add(platform);
             entity.add(colComp);
-            entity.add(animCom);
             entity.add(stateCom);
 
             // add the entity to the engine
