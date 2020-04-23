@@ -17,8 +17,7 @@ public class BodyFactory {
     public  static final int WOOD = 1;
     public static final int RUBBER = 2;
     public  static final int STONE = 3;
-    public  static final int WATER = 4;
-    public static final int SYRUP = 5;
+    public static final int SYRUP = 4;
     private final float DEGTORAD = 0.0174533f;
 
 
@@ -68,7 +67,7 @@ public class BodyFactory {
                 break;
             case 4:
                 fixtureDef.density = 1f;
-                fixtureDef.friction = 0.77f;
+                fixtureDef.friction = 100f;
                 fixtureDef.restitution = 0.01f;
                 break;
             case 5:

@@ -144,7 +144,7 @@ public class PlayerControlSystem extends IteratingSystem{
                 player.onWall = false;
             }
             else if(player.onPlatform && b2body.body.getLinearVelocity().x < 8){
-                b2body.body.applyLinearImpulse(6 - platf_vel_x,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                b2body.body.applyLinearImpulse(6,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.runningRight = true;
             }
 
@@ -274,9 +274,6 @@ public class PlayerControlSystem extends IteratingSystem{
                 state.set(StateComponent.STATE_MOVING);
             }
             player.jumpCounter = 0;
-            if(b2body.body.getLinearVelocity().x < 8){
-                b2body.body.setLinearVelocity(platf_vel_x + b2body.body.getLinearVelocity().x ,b2body.body.getLinearVelocity().y);
-            }
 
 
         }
