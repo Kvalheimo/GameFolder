@@ -194,7 +194,7 @@ public class CollisionSystem extends IteratingSystem {
 
                             if (enemyComponent.movingRight){
                                 enemyComponent.movingRight = false;
-                            }else if(!enemyComponent.movingRight) {
+                            }else{
                                 enemyComponent.movingRight = true;
                             }
                             break; //technically this isn't needed
