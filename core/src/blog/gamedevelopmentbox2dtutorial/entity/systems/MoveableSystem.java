@@ -29,7 +29,7 @@ public class MoveableSystem extends IteratingSystem {
         B2dBodyComponent bodyCom = Mapper.b2dCom.get(entity);
 
       //  platform.y_position = bodyCom.body.getPosition().y;
-        if (bodyCom.body.getPosition().x < camera.position.x + 336/ Box2dTutorial.PPM){
+        if (bodyCom.body.getPosition().x < camera.position.x + 336/ Box2dTutorial.PPM && bodyCom.body.getPosition().y < camera.position.y + 300/ Box2dTutorial.PPM){
             bodyCom.body.setActive(true);
             platform.activated = true;
         }
