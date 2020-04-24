@@ -1,5 +1,6 @@
 package blog.gamedevelopmentbox2dtutorial;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -57,6 +58,10 @@ public class Box2dContactListener implements ContactListener{
 
     @Override
     public void endContact(Contact contact) {
+        final Fixture fixtureA = contact.getFixtureA();
+        final Fixture fixtureB = contact.getFixtureB();
+        Gdx.app.debug("CONTACT", "END: " + fixtureA.getBody().getUserData() + " " + fixtureA.isSensor());
+        Gdx.app.debug("CONTACT", "END: " + fixtureB.getBody().getUserData() + " " + fixtureB.isSensor());
 
     }
 

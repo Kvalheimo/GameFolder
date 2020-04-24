@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-down" width="400" height="200" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="6">
+ <tileset firstgid="1" source="tileset/level1.tsx"/>
+ <layer id="1" name="Background Color" width="400" height="200">
+  <data encoding="base64" compression="zlib">
+   eJztw7ENAAAMAiAb///ZJzpCQi+pqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq6uMBSR7iPQ==
+  </data>
+ </layer>
+ <layer id="2" name="Grafic Layer" width="400" height="200">
+  <data encoding="base64" compression="zlib">
+   eJzt3TFOhEAAhtGhMVGPobew9Ua2nkBPoB5ir2A0sVd7Wws9wdo4FCSEwMoQcBjyXvJnKbf7MkB2QwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAw26qEG5HDADanmIbnkcMANr0A4Ap9rENP/oBwASfVXjc6wcAiXaxH/VncxbpO48AQNeupw/d8wgAdPX1o9Y+jwBA11A/AOAQ/QBgCv0AYIqhfrR/2wQAuob64b0rAA7RDwCmGOrHi34AMIF+ADCFfgCQ6jLoBwBp6nZcB/0AYLymHQAwlnYAkKrbjnP3rgD4g3YAkEo7AEilHQCk0g4AUnnPCoBU2gFAKu0AIJV2AJBKOwBIpR0ApNIOAFJpBwCptANgfh9Hub/BsrQDYH51O5ptkXYAzK/dji02RDsA5tfXji01RDsAlrHlfmgHwHKaVtzF6/u4h7CNfmgHwLKaVrzG67e491B2P77ivoN2ACytacVxFcJJ3GlVZj+abpxV/u8J4D+U/vxDNwDyKLUfugGQV2n90A2AdSilH7oBsC4XhUw3ANblqpABsC65u6AfAGXK3QX9AChT7i7oB0CZcndBPwDKlLsL+gFQptxd0A+AMuXugn4AlOkXCK48bg==
+  </data>
+ </layer>
+ <objectgroup id="3" name="Ground">
+  <object id="1" x="16" y="3056" width="496" height="16"/>
+ </objectgroup>
+ <objectgroup id="4" name="SuperSpeed"/>
+ <objectgroup id="5" name="Spikes"/>
+ <objectgroup id="6" name="Gun"/>
+ <objectgroup id="7" name="Spiders"/>
+ <objectgroup id="9" name="Spring"/>
+ <objectgroup id="8" name="Bats"/>
+ <objectgroup id="11" name="Wall">
+  <object id="3" x="96" y="2912" width="16" height="144"/>
+ </objectgroup>
+ <objectgroup id="12" name="Finish">
+  <object id="4" name="finished" x="47" y="2849" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="13" name="SpeedX"/>
+ <objectgroup id="14" name="SpeedY"/>
+</map>

@@ -15,6 +15,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public boolean isFinished = false;
     public boolean onGround = false;
     public boolean runningRight = true;
+    public boolean onPlatform = false;
     public boolean onWall = false;
     public boolean speedX = false;
     public boolean speedY = false;
@@ -39,6 +40,7 @@ public class PlayerComponent implements Component, Pool.Poolable {
         superSpeed = false;
         onSpring = false;
         hasGun = false;
+        onPlatform = false;
         boomerangCount= 0;
         superspeedDisplayed = false;
         boomerangDisplayed = false;
