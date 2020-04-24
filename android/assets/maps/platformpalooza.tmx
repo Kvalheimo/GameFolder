@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-up" width="400" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="164">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-up" width="400" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="19" nextobjectid="169">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="18" name="Background Color" width="400" height="100">
   <data encoding="base64" compression="zlib">
-   eJzt1UEJwEAAA8H7VMP5d1oVJV2YgbWQ3Oecq98EULHeS/kPoGm9l/IfQNN6L+U/gKb1Xsp/AE3rvZT/AJrWeyn/ATSt91L+A2ha76X8B9C03kv5D6BpvZfyH0DTei/lP4Cm9V7KfwBN672U/wCa1nsp/wE0rfdS/gNoWu+l/AfQtN5L+Q+gab2X8h9A03ov5T+ApvVeyn8ATeu9lP8AmtZ7Kf8BNK33Uv4DaFrvpfwH0LTeS/kPoGm9l/IfQNN6L+U/gKb1Xsp/AE3rvZT/AJrWeyn/ATSt91L+A2ha76X8B9C03kv5D6BpvZfyH0DTei/lP4Cm9V7KfwBN672U/wCa1nsp/wE0rfdS/gNoWu+l/AfQtN5L+Q+gab2X8h9A03ov5T+ApvVeyn8ATeu9lP8AmtZ7Kf8BNK33Uv4DaFrvpfwH0PTF/q03uBxAxXov5T+ApvVeyn8ATeu9lP8AmtZ7Kf8BNK33Uv4DaFrvpfwH0LTeS/kPoGm9l/IfQNN6L+U/gKb1Xsp/AE3rvZT/AJrWeyn/ATSt91L+A2ha76X8B9C03kv5D6BpvZfyH0DTei/lP4Cm9V7KfwBN672U/wCa1nsp/wE0rfdS/gNoWu+l/AfQtN5L+Q+gab2X8h9A03ov5T+ApvVeyn8ATeu9lP8AmtZ7Kf8BNK33Uv4DaFrvpfwH0LTeS/kPoGm9l/IfQNN6L+U/gKb1Xsp/AE3rvZT/AJrWeyn/ATSt91L+A2ha76X8B9C03kv5D6BpvZfyH0DTei/lP4Cm9V7KfwBN672U/wCa1nsp/wE0rfdS/gNoWu+l/AfQtN5L+Q+gab2X8h9A03ov5T+ApvVeyn8ATS+Td0Xh
+   eJztzqENAAAIBDEMM7D/poQRUG96Sf1NVw0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADAw5V+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADIWPGoX5A==
   </data>
  </layer>
  <layer id="1" name="Graphic Layer" width="400" height="100">
   <data encoding="base64" compression="zlib">
-   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
+   eJzt3Ulu3EYUBmB2S4IBe2OfIJOPISnjHTKuspSNrCRlPIEd5CKWlPEAQcfIAZyNvY6kjCewjCCvIQtpKF1UN7vIZpPfB/yAVwLlxftFFqtYFAAAAHTN/cH0fDlY9pUB0DY/Da7OwwX645f1fNcKQHvU3R8/u3cBqNVmzNmtyHbD8zbVGWcTeTblmj4azvbz/9EfALXajTm7F9lvQX8scr8BQLMOYmYfRo70BwBzOI6ZfRI5nXF2f5VpxusPgNW1MyyKO3Mm17pCV/vj8XpRPPHuF0BtutofNzeK4tbGsq8CoLu62h8A1KuO/rBnEKD76uiPWfeGALC6PL8CoIrU/nNnJgJQpo4zr3KylgLQTm3vD+cvArRT1f5oao3c+YsA7dT2+49le7TuGRrANPqj3PWNorhhHzvA/+iPcve8iwYwVVl/OIOwKEa6FGCqsv5wBqH+AOYzHJynD8q+e9615zZVvpmiPwCmK+uPrnVIlb0k+gMgraw/nmWYnW15/7XKXhL9AZBW9ztYq3wer/4ASJu3P/r0Xpb+APqiymyftz/69F6W/gD6ospsr/L8apWfSc1DfwCk2YOepj8A0vRHmv4ASFu1/mhy/V5/AKStWn80uX6vPwDSVq0/mqQ/ANL0R5r+AEjTH2mjDp4DBpCL/kgb+b8ASNIfafoDIE1/pOkPgDT9kaY/ANL0R5r+AEhroj8eredJ09+i0h/QPePjX9ciPfkMRa3K+iPXzL++kSc3Gj43Xn9A9wynJEefbMac2Ips92helPVHrpl/f5AnTe/D0B/QPTtRGHcmcnfiexSL9MhuzIm9yH5P5kWqOy6Sa+6nfv7ZnMnxPfZ56A/oh4tvGi1yP3IQc+IwctSjeXFVh9SVKl3w4Fr+37+M/oD+2Hl+LzL5XGsexzEnTiKn5sVUubqj6jz+VX8ANduZ8lxr/M/xs5TUvcm9jM9rmkyT9AfQF5fXSc6ez4HL6+5jTwfzP49vQ5q07P54cK34MesvdAX9AUy63CmX71NIW3Z/jBqc4+P3jhe9XgDOtaE/cu1FvGrPyijD9QJwrg39kWsv4lV7Vib7o+n3hgG6Ztn9MV6jauq9hIv+0B0Ai8vdH4/Xi+LJnJt0nma6hlmjPwAWl7s/bm4Uxa0KZ1qNMl2H7gBoxrKfX11o4l1r3QGQT1v6A4DVoj8AqGIV+uPDDB+FyfEzAPhPzrXpZZ8bVjVNf4MEoAuaeOeprbGuDlDdsmf4smK9BqAdJv+eX4W45wAAAAAAAAAAAAAAAAAAAAAAAAAAAACgSzYHRbEV2S45h/vVYVG8Fnk98kbkzchbw+auEYD22Y3e2Ivsl/THx9EVn0Q+jXwW+Tzyhf4A6LWD6I3DyFFJf3wdXfFN5NvId5HvIz/oD4BeO47eOImclvTHb9EVv0f+iPwZ+Svyt/4A6K1Z1zVeWCuKFyMvRV6OvBK5vdb89QJQr1l7YdZ1jbejK96JvBt5L/J+5AP9AdA5s/aCdQ0AJs3aC9Y1AJg0ay9Y1wBg0qy9YF0DgEl6AQAAAAAAAAAAAAAAAAAAAAAo8y//8Deo
   </data>
  </layer>
  <objectgroup id="2" name="Wall">
@@ -22,7 +22,7 @@
   <object id="98" x="160" y="736" width="16" height="16"/>
   <object id="99" x="192" y="768" width="32" height="16"/>
   <object id="100" x="224" y="784" width="48" height="16"/>
-  <object id="68" x="1792" y="64" width="16" height="32"/>
+  <object id="68" x="1792" y="64" width="16" height="31"/>
   <object id="69" x="1488" y="96" width="16" height="144"/>
   <object id="70" x="1504" y="256" width="16" height="128"/>
   <object id="71" x="1520" y="432" width="16" height="96"/>
@@ -103,14 +103,14 @@
  <objectgroup id="8" name="Spring"/>
  <objectgroup id="9" name="Gun">
   <object id="81" x="1216" y="464" width="32" height="32"/>
+  <object id="164" x="1520" y="352" width="32" height="32"/>
+  <object id="165" x="1616" y="448" width="32" height="32"/>
+  <object id="166" x="1920" y="880" width="32" height="32"/>
+  <object id="167" x="2128" y="528" width="32" height="32"/>
+  <object id="168" x="2272" y="144" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="10" name="Finish">
   <object id="1" name="finished" x="6381.33" y="73.3333" width="16" height="16"/>
-  <object id="98" x="1520" y="352" width="32" height="32"/>
-  <object id="131" x="2128" y="528" width="32" height="32"/>
-  <object id="132" x="2272" y="144" width="32" height="32"/>
-  <object id="153" x="1920" y="880" width="32" height="32"/>
-  <object id="157" x="1616" y="448" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="10" name="Finish">
   <object id="1" name="finished" x="6300" y="42" width="16" height="16"/>
@@ -170,7 +170,6 @@
   <object id="21" x="368" y="852" width="16" height="578.782"/>
   <object id="62" x="928" y="0" width="16" height="144"/>
   <object id="86" x="432" y="656" width="16" height="112"/>
-  <object id="92" x="1520" y="16" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="16" name="CheckpointLine">
   <object id="21" x="368" y="16" width="16" height="1414.78"/>
