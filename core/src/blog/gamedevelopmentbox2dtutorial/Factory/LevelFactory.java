@@ -142,7 +142,7 @@ public class LevelFactory {
 
         switch (level){
             case 1:
-                bodyCom.body = bodyFactory.makeCirclePolyBody(7, 10, 0.20f, BodyFactory.FRICTION_PLAYER, BodyDef.BodyType.DynamicBody, true);
+                bodyCom.body = bodyFactory.makeCirclePolyBody(100, 10, 0.20f, BodyFactory.FRICTION_PLAYER, BodyDef.BodyType.DynamicBody, true);
                 break;
             case 2:
                 bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
