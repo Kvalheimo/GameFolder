@@ -105,7 +105,7 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createPlatformHor(level);
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
-        levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
+        levelFactory.createDestroyableTiles("DestroyableTile", TypeComponent.DESTROYABLE_TILE, level);
 
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
         levelFactory.loadCheckpoint(level);

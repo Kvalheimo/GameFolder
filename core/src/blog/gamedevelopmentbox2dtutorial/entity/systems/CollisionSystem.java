@@ -197,7 +197,17 @@ public class CollisionSystem extends IteratingSystem {
                             }else{
                                 enemyComponent.movingRight = true;
                             }
-                            break; //technically this isn't needed
+                            break;
+                        case TypeComponent.DESTROYABLE_TILE:
+                            //do enemy hit destroyable tile
+                            enemyComponent = Mapper.enemyCom.get(entity);
+
+                            if (enemyComponent.movingRight){
+                                enemyComponent.movingRight = false;
+                            }else {
+                                enemyComponent.movingRight = true;
+                            }
+                            break;
 
                         default:
                             System.out.println("No matching type found");
