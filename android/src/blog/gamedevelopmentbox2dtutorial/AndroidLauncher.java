@@ -4,13 +4,16 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
-import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
+import com.google.firebase.FirebaseApp;
 
 public class AndroidLauncher extends AndroidApplication {
 	@Override
 	protected void onCreate (Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();
-		initialize(new Box2dTutorial(), config);
+		Box2dTutorial tut = new Box2dTutorial();
+		tut.setOnline(true);
+		initialize(tut, config);
+		DatabaseHandler.setDb(new AndroidDatabase());
 	}
 }

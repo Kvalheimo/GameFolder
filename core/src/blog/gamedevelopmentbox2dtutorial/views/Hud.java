@@ -101,6 +101,14 @@ public class Hud implements Disposable {
         table4 = new Table(); //Table for boomerang
         Table table5 = new Table();
 
+        if (Box2dTutorial.DEBUG){
+            table.setDebug(true);
+            table2.setDebug(true);
+            table3.setDebug(true);
+            table4.setDebug(true);
+            table5.setDebug(true);
+        }
+
         //Format on how the table should look like.
         table3.top();
         table4.top();
@@ -289,6 +297,10 @@ public class Hud implements Disposable {
             gameTime -= extraSecondsForKill;
         }
         }
+    }
+
+    public float getPercentage(){
+        return percentage;
     }
 
     @Override

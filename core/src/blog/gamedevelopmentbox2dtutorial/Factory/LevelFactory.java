@@ -14,6 +14,7 @@ import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
@@ -26,8 +27,11 @@ import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.BulletComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.CheckpointComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.CollisionComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.DestroyableTileComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PowerupComponent;
@@ -35,8 +39,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TypeComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.systems.PowerupSystem;
-import blog.gamedevelopmentbox2dtutorial.loader.B2dAssetManager;
+
 
 public class LevelFactory {
 
@@ -77,7 +80,7 @@ public class LevelFactory {
 
         //finds the position of finish line
         MapLayers var1 = map.getLayers();
-        MapLayer var2 = var1.get(10); //Gets the object layer "Finish"
+        MapLayer var2 = var1.get("Finish"); //Gets the object layer "Finish"
         for (MapObject mapObject : var2.getObjects()){
             if (mapObject instanceof RectangleMapObject) {
                     if(mapObject.getName().equals("finished")){
@@ -136,8 +139,9 @@ public class LevelFactory {
         StateComponent stateCom = engine.createComponent(StateComponent.class);
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
+
         // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+        bodyCom.body = bodyFactory.makeCirclePolyBody(2, 12, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         switch (character) {
             case 1:
@@ -237,7 +241,105 @@ public class LevelFactory {
         return entity;
     }
 
+    public Entity createOpponent(Vector3 pos, int character){
+        Entity entity = engine.createEntity();
+//        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+        TransformComponent position = engine.createComponent(TransformComponent.class);
+        TextureComponent texture = engine.createComponent(TextureComponent.class);
+        TypeComponent type = engine.createComponent(TypeComponent.class);
+        StateComponent stateCom = engine.createComponent(StateComponent.class);
+        AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
+        OpponentComponent opponentCom = engine.createComponent(OpponentComponent.class);
 
+//        bodyCom.body = bodyFactory.makeCirclePolyBody(pos.x, pos.y, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
+
+        switch (character) {
+            case 1:
+                //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
+            case 2:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling"), 1, 1));
+
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_sliding_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p2_falling_b"), 1, 1));
+                break;
+            case 3:
+                runAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running"), 9, 1));
+                jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
+                normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+
+                runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
+                jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
+                normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
+                slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
+                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                break;
+        }
+
+        runAnim.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnim.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnim.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnim.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+        runAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        normalAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        jumpAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        fallAnimB.setPlayMode(Animation.PlayMode.LOOP);
+        slideAnimB.setPlayMode(Animation.PlayMode.LOOP);
+
+        animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animationsN.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animationsN.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animationsN.put(StateComponent.STATE_FALLING, jumpAnim);
+
+        animCom.animationsB.put(StateComponent.STATE_NORMAL, normalAnim);
+        animCom.animationsB.put(StateComponent.STATE_MOVING, runAnim);
+        animCom.animationsB.put(StateComponent.STATE_JUMPING, jumpAnim);
+        animCom.animationsB.put(StateComponent.STATE_FALLING, jumpAnim);
+//        position.position.set(bodyCom.body.getPosition().x/Box2dTutorial.PPM, bodyCom.body.getPosition().y/Box2dTutorial.PPM,0);
+        position.position.set(pos.x, pos.y, 0);
+        opponentCom.setPos(pos);
+
+        type.type = TypeComponent.PLAYER;
+        stateCom.set(StateComponent.STATE_NORMAL);
+
+//        bodyCom.body.setUserData(entity);
+
+        // add the components to the entity
+//        entity.add(bodyCom);
+        entity.add(position);
+        entity.add(texture);
+        entity.add(type);
+        entity.add(stateCom);
+        entity.add(animCom);
+        entity.add(opponentCom);
+
+        // add the entity to the engine
+        engine.addEntity(entity);
+        return entity;
+    }
 
     public void createBats(int level){
         Array<Body> enemyBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Bats", BodyDef.BodyType.DynamicBody, bodyFactory.STEEL);
@@ -271,20 +373,13 @@ public class LevelFactory {
             animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
-
-            // set object position (x,y,z) z used to define draw order 0 first drawn
-            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
-
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.ENEMY;
             stateCom.set(StateComponent.STATE_MOVING);
 
             //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
-
-
             bodyCom.body.setUserData(entity);
-
 
             // add the components to the entity
             entity.add(bodyCom);
@@ -329,27 +424,18 @@ public class LevelFactory {
             Animation movingAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider"), 4, 1));
             Animation normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("spider_normal"), 1, 1));
 
-
             movingAnim.setPlayMode(Animation.PlayMode.LOOP);
             normalAnim.setPlayMode(Animation.PlayMode.LOOP);
 
             animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
-
-            // set object position (x,y,z) z used to define draw order 0 first drawn
-            //position.position.set(bodyCom.body.getPosition().x / Box2dTutorial.PPM, bodyCom.body.getPosition().y / Box2dTutorial.PPM, 0);
-
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.ENEMY;
-
             stateCom.set(StateComponent.STATE_MOVING);
             //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
-
-
             bodyCom.body.setUserData(entity);
-
 
             // add the components to the entity
             entity.add(bodyCom);
@@ -367,7 +453,34 @@ public class LevelFactory {
 
     }
 
+    public void createDestroyableTiles(String layer, int type, int level) {
 
+
+        Array<Body> mapBodies = mapBodyFactory.buildShapes(maps.get(level), world, layer, BodyDef.BodyType.StaticBody, BodyFactory.STONE);
+
+        for (Body body : mapBodies) {
+            Entity entity = engine.createEntity();
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+            DestroyableTileComponent destComp = engine.createComponent(DestroyableTileComponent.class);
+
+
+            bodyCom.body = body;
+
+
+            position.position.set(body.getPosition().x, body.getPosition().y, 0);
+            body.setUserData(entity);
+            typeCom.type = type;
+
+            entity.add(position);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+            entity.add(destComp);
+            engine.addEntity(entity);
+
+        }
+    }
 
 
     public void createPlatform(float x, float y){
@@ -439,6 +552,7 @@ public class LevelFactory {
             B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
 
+
             bodyCom.body = body;
 
 
@@ -454,6 +568,7 @@ public class LevelFactory {
             entity.add(position);
             entity.add(bodyCom);
             entity.add(typeCom);
+
 
             engine.addEntity(entity);
 
@@ -471,7 +586,7 @@ public class LevelFactory {
         AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
         StateComponent stateCom = engine.createComponent(StateComponent.class);
 
-        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.25f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
+        b2dbody.body = bodyFactory.makeCirclePolyBody(x,y,0.10f, BodyFactory.STONE, BodyDef.BodyType.DynamicBody,true);
 
 
         b2dbody.body.setBullet(true); // increase physics computation to limit body travelling through other objects
@@ -512,6 +627,39 @@ public class LevelFactory {
 
         engine.addEntity(entity);
         return entity;
+    }
+
+    public void loadCheckpoint(int level){
+        Array<Body> posBodies = mapBodyFactory.buildShapes(maps.get(level), world, "CheckpointPos", BodyDef.BodyType.KinematicBody, BodyFactory.STONE);
+        Array<Body> lineBodies = mapBodyFactory.buildShapes(maps.get(level), world, "CheckpointLine", BodyDef.BodyType.KinematicBody, BodyFactory.STONE);
+
+        //Load checkpoint spawn position
+        for (int i = 0; i < posBodies.size; i++){
+            Entity entity = engine.createEntity();
+            CheckpointComponent cpComp = engine.createComponent(CheckpointComponent.class);
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TypeComponent typeCom = engine.createComponent(TypeComponent.class);
+
+            cpComp.checkpointPos = new Vector2(posBodies.get(i).getPosition().x, posBodies.get(i).getPosition().y);
+            world.destroyBody(posBodies.get(i));
+
+            bodyFactory.makeAllFixturesSensors(lineBodies.get(i));
+            lineBodies.get(i).setUserData(entity);
+            bodyCom.body = lineBodies.get(i);
+
+            typeCom.type = TypeComponent.CHECKPOINT;
+
+            entity.add(cpComp);
+            entity.add(bodyCom);
+            entity.add(typeCom);
+
+            engine.addEntity(entity);
+
+
+        }
+
+
+
     }
 
 
@@ -601,6 +749,15 @@ public class LevelFactory {
 
 
     }
+    public void removeDestroyableTile(Body body){
+        TiledMapTileLayer layer = (TiledMapTileLayer) getMap(level).getLayers().get("Graphic Layer");
 
+        //Remove part 1
+        layer.getCell((int)Math.floor(body.getPosition().x * Box2dTutorial.PPM / 16f),
+                (int)Math.floor(body.getPosition().y * Box2dTutorial.PPM / 16f)).setTile(null);
+
+
+
+    }
 
 }

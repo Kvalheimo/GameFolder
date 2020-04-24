@@ -7,6 +7,8 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		new LwjglApplication(new Box2dTutorial(), config);
+		Box2dTutorial tut = new Box2dTutorial();
+		tut.setOnline(false);
+		new LwjglApplication(tut, config);
 	}
 }

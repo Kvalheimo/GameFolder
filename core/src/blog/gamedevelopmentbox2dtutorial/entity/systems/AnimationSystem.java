@@ -11,6 +11,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.AnimationComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
+import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
@@ -32,6 +33,7 @@ public class AnimationSystem extends IteratingSystem {
         B2dBodyComponent b2body = Mapper.b2dCom.get(entity);
         PlayerComponent player = Mapper.playerCom.get(entity);
         EnemyComponent enemy = Mapper.enemyCom.get(entity);
+        OpponentComponent opponent = Mapper.opponentCom.get(entity);
 
 
         if(ani.animationsN.containsKey(state.get())) {
@@ -45,13 +47,13 @@ public class AnimationSystem extends IteratingSystem {
                 }
 
                 //if mario is running left and the texture isnt facing left... flip it.
-                if ((b2body.body.getLinearVelocity().x < -2 || !player.runningRight) && !tex.region.isFlipX()) {
+                if ((b2body.body.getLinearVelocity().x < -1 || !player.runningRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = false;
                 }
 
                 //if mario is running right and the texture isnt facing right... flip it.
-                else if ((b2body.body.getLinearVelocity().x > 2 || player.runningRight) && tex.region.isFlipX()) {
+                else if ((b2body.body.getLinearVelocity().x > 1 || player.runningRight) && tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = true;
                 }
@@ -70,6 +72,19 @@ public class AnimationSystem extends IteratingSystem {
                 }
             }
 
+            //Handle opponent animation
+            else if(opponent != null) {
+                //if mario is running left and the texture isnt facing left... flip it.
+                if (!opponent.movingRight && !tex.region.isFlipX()) {
+                    System.out.println("MOOOOOOOOVE");
+                    tex.region.flip(true, false);
+                }
+
+                //if mario is running right and the texture isnt facing right... flip it.
+                else if (opponent.movingRight && tex.region.isFlipX()) {
+                    tex.region.flip(true, false);
+                }
+            }
         }
         state.time += deltaTime;
     }
