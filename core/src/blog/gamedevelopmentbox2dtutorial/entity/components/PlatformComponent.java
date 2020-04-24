@@ -11,6 +11,9 @@ public class PlatformComponent implements Component, Pool.Poolable {
     public static final int MOVEABLE_HOR = 0;
     public static final int MOVEABLE_VER = 1;
 
+    public float x_position = 0;
+    public float start_position_x;
+    public float turn_distance = 5;
     public float velocity_x = PLATFORM_VELOCITY_X;
     public float velocity_y = PLATFORM_VELOCITY_Y;
     public int type = 0;
@@ -23,5 +26,7 @@ public class PlatformComponent implements Component, Pool.Poolable {
         movingRight = true;
         isMovingUp = false;
         type = MOVEABLE_HOR;
+        turn_distance = 5;
+        x_position = 0;
     }
 }

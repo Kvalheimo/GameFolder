@@ -11,16 +11,15 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 
+import static java.lang.Math.abs;
 import static java.lang.Math.floor;
 
 public class MoveableSystem extends IteratingSystem {
     private OrthographicCamera camera;
-    private float time;
 
     public MoveableSystem(OrthographicCamera camera){
         super(Family.all(PlatformComponent.class).get());
         this.camera = camera;
-        time = 0;
 
     }
     @Override
@@ -29,13 +28,14 @@ public class MoveableSystem extends IteratingSystem {
         StateComponent state = Mapper.stateCom.get(entity);
         B2dBodyComponent bodyCom = Mapper.b2dCom.get(entity);
 
+      //  platform.y_position = bodyCom.body.getPosition().y;
         if (bodyCom.body.getPosition().x < camera.position.x + 336/ Box2dTutorial.PPM){
             bodyCom.body.setActive(true);
             platform.activated = true;
         }
 
         if(platform.activated){
-            time += deltaTime;
+            platform.x_position += bodyCom.body.getLinearVelocity().x*deltaTime;
         }
 
         if (platform.type == platform.MOVEABLE_HOR){
@@ -43,27 +43,27 @@ public class MoveableSystem extends IteratingSystem {
             bodyCom.body.setLinearVelocity(bodyCom.body.getLinearVelocity().x,0f);
             bodyCom.body.setFixedRotation(true);
 
-        }
 
-        //Change direction
-        if (platform.movingRight) {
-            bodyCom.body.setLinearVelocity(platform.velocity_x, 0f);
-            bodyCom.body.setAngularVelocity(0f);
-        }
-        else if (!platform.movingRight) {
-            bodyCom.body.setLinearVelocity(-platform.velocity_x, 0f);
-            bodyCom.body.setAngularVelocity(0f);
-        }
 
-        if((floor(time) == 3)){
-            if(platform.movingRight){
-                platform.movingRight = false;
+            //Change direction
+            if (platform.movingRight) {
+                bodyCom.body.setLinearVelocity(platform.velocity_x, 0f);
+                bodyCom.body.setAngularVelocity(0f);
             }
-            else{
+            else if (!platform.movingRight) {
+                bodyCom.body.setLinearVelocity(-platform.velocity_x, 0f);
+                bodyCom.body.setAngularVelocity(0f);
+            }
+
+            if((platform.x_position >= platform.turn_distance) && platform.movingRight){
+                 platform.movingRight = false;
+                 platform.x_position = 0;
+            }
+            else if((bodyCom.body.getPosition().x <= platform.start_position_x) && !platform.movingRight){
                 platform.movingRight = true;
+                platform.x_position = 0;
             }
-            time = 0;
-        }
 
+    }
     }
 }

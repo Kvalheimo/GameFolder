@@ -65,6 +65,7 @@ public class MapBodyFactory {
         for (MapObject object : objects) {
             Vector2 position = new Vector2(0, 0);
 
+
             if (object instanceof TextureMapObject) {
                 continue;
             }
@@ -130,7 +131,6 @@ public class MapBodyFactory {
 
                 bodies.add(body);
             }
-
         }
         return bodies;
     }

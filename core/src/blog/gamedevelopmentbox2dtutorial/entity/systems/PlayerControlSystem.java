@@ -179,6 +179,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
             player.onGround = false;
             player.onSpring = false;
+            player.onPlatform = false;
             controller.setAPressed(false);
         }
 
@@ -210,6 +211,7 @@ public class PlayerControlSystem extends IteratingSystem{
                 hud.setSpeedBoostActive();
             }
             player.superSpeed = false;
+
 
         }
 

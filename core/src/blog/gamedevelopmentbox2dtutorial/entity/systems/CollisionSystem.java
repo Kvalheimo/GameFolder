@@ -5,6 +5,8 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
 
+import java.util.Map;
+
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
@@ -91,7 +93,6 @@ public class CollisionSystem extends IteratingSystem {
                             break;
 
                         case TypeComponent.PLATFORM:
-                            System.out.println("Player ");
                             break;
 
                         case TypeComponent.SPEED_X:
@@ -116,7 +117,6 @@ public class CollisionSystem extends IteratingSystem {
 
                         case TypeComponent.CHECKPOINT:
                             player.checkPointPos = Mapper.cpComp.get(collidedEntity).checkpointPos;
-                            System.out.println(Mapper.cpComp.get(collidedEntity).checkpointPos);
                             break;
 
                         default:
@@ -162,7 +162,6 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.PLAYER:  //Denne slår inn når player treffer en spider
-                            System.out.println("Enemy hit player");
                             levelFactory.makeParticleEffect(ParticleEffectManager.BLOOD, Mapper.b2dCom.get(collidedEntity).body.getPosition().x, Mapper.b2dCom.get(collidedEntity).body.getPosition().y);
                             Mapper.playerCom.get(collidedEntity).isDead = true;
                             break;
@@ -217,11 +216,12 @@ public class CollisionSystem extends IteratingSystem {
                 if (type != null) {
                     switch (type.type) {
                         case TypeComponent.PLAYER:
-                            System.out.println("Platform collied with player");
+
                             //PlayerComponent player = Mapper.playerCom.get(collidedEntity);
                             Mapper.playerCom.get(collidedEntity).onPlatform = true;
                             Mapper.playerCom.get(collidedEntity).onGround = false;
                             Mapper.stateCom.get(collidedEntity).set(0);
+
 
                         //.setLinearVelocity(
                           //          Mapper.platCom.get(entity).movingRight ?  Mapper.platCom.get(entity).velocity_x
@@ -267,7 +267,7 @@ public class CollisionSystem extends IteratingSystem {
                             break; //technically this isn't needed
 
                         default:
-                            System.out.println("No matching type found");
+                            System.out.println("No matching type found for platform");
 
                             break;
                     }

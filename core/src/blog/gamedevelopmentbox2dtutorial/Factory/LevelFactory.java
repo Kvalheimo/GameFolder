@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -495,7 +496,11 @@ public class LevelFactory {
 
         Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.KinematicBody, BodyFactory.SYRUP);
         // Create the Entity and all the components that will go in the entity
-        for(Body platformBody: platformBodies){
+
+        MapLayer platformLayer = maps.get(level).getLayers().get("Platform");
+        MapObjects platformObjects = platformLayer.getObjects();
+        int counter = 0;
+        for(Body platformBody : platformBodies){
 
             // Create the Entity and all the components that will go in the entity
             Entity entity = engine.createEntity();
@@ -518,18 +523,25 @@ public class LevelFactory {
 
 
             movingAnim.setPlayMode(Animation.PlayMode.LOOP);
-            normalAnim.setPlayMode(Animation.PlayMode.LOOP);
 
-            animCom.animationsN.put(StateComponent.STATE_NORMAL, normalAnim);
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
+            platCom.start_position_x = bodyCom.body.getPosition().x;
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.PLATFORM;
             stateCom.set(StateComponent.STATE_MOVING);
 
+
             //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
 
             bodyCom.body.setUserData(entity);
+
+
+            if (platformObjects.get(counter).getName() != null) {
+                platCom.turn_distance = Float.parseFloat(platformObjects.get(counter).getName());
+        //         values = platformObjects.get(counter).getProperties().getValues().forEachRemaining(2 );
+            }
+
 
             // add the components to the entity
             entity.add(bodyCom);
@@ -543,6 +555,8 @@ public class LevelFactory {
 
             // add the entity to the engine
             engine.addEntity(entity);
+
+            counter +=1;
         }
 
     }
