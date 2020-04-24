@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-up" width="100" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="18" nextobjectid="9">
+ <layer id="1" name="Graphic Layer" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJztwTEBAAAAwqD1T+1lC6AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAbnEAAAQ==
+  </data>
+ </layer>
+ <objectgroup id="2" name="Wall"/>
+ <objectgroup id="3" name="Ground"/>
+ <objectgroup id="4" name="SpeedX"/>
+ <objectgroup id="5" name="SpeedY"/>
+ <objectgroup id="6" name="Water"/>
+ <objectgroup id="7" name="SuperSpeed"/>
+ <objectgroup id="8" name="Spring"/>
+ <objectgroup id="9" name="Gun"/>
+ <objectgroup id="10" name="Finish">
+  <object id="1" name="finished" x="1536" y="16" width="16" height="16"/>
+ </objectgroup>
+ <objectgroup id="11" name="Spikes"/>
+ <objectgroup id="12" name="Spiders"/>
+ <objectgroup id="13" name="Bats"/>
+ <objectgroup id="14" name="DestroyableTile"/>
+ <objectgroup id="15" name="CheckpointPos"/>
+ <objectgroup id="16" name="CheckPointLine"/>
+ <objectgroup id="17" name="Platform">
+  <object id="2" name="4" type="vertical" x="48" y="64" width="96"/>
+  <object id="3" name="5" type="horizontal" x="288" y="288" width="112"/>
+  <object id="4" name="3" type="horizontal" x="80" y="544" width="96"/>
+  <object id="5" name="3" type="horizontal" x="592" y="416" width="128"/>
+  <object id="6" name="3" type="horizontal" x="544" y="160" width="112"/>
+  <object id="8" name="4" type="horizontal" x="304" y="448" width="160"/>
+ </objectgroup>
+</map>

@@ -41,6 +41,7 @@ public class B2dAssetManager {
     // Maps
     public final String level1 = "maps/level1.tmx";
     public final String level2 =  "maps/Henriks_verden.tmx";
+    public final String level4 = "maps/platformpalooza.tmx";
 
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";
