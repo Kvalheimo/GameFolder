@@ -11,16 +11,23 @@ import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.ParticleEffectManager;
 import blog.gamedevelopmentbox2dtutorial.controller.Controller;
 import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.views.Hud;
+
+import static blog.gamedevelopmentbox2dtutorial.DFUtils.PLATFORM_VELOCITY_X;
 
 public class PlayerControlSystem extends IteratingSystem{
 
     private Controller controller;
     private LevelFactory levelFactory;
     private Hud hud;
+    private float platf_vel_x;
+    private boolean platDir;
+
 
 
     @SuppressWarnings("unchecked")
@@ -29,6 +36,7 @@ public class PlayerControlSystem extends IteratingSystem{
         this.controller = controller;
         this.levelFactory = levelFactory;
         this.hud = hud;
+        this.platf_vel_x = PLATFORM_VELOCITY_X;
 
     }
 
@@ -38,6 +46,8 @@ public class PlayerControlSystem extends IteratingSystem{
         B2dBodyComponent b2body = Mapper.b2dCom.get(entity);
         StateComponent state = Mapper.stateCom.get(entity);
         PlayerComponent player = Mapper.playerCom.get(entity);
+        EnemyComponent enemy = Mapper.enemyCom.get(entity);
+        PlatformComponent platform = Mapper.platCom.get(entity);
 
         player.camera.position.x = b2body.body.getPosition().x;
         player.camera.position.y = b2body.body.getPosition().y;
@@ -111,6 +121,10 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
             }
+            else if(player.onPlatform && b2body.body.getLinearVelocity().x > -8){
+                b2body.body.applyLinearImpulse(-6,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.runningRight = false;
+            }
 
             /*
             else if (b2body.body.getLinearVelocity().x > -5){
@@ -128,6 +142,10 @@ public class PlayerControlSystem extends IteratingSystem{
             if (player.onWall){
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
                 player.onWall = false;
+            }
+            else if(player.onPlatform && b2body.body.getLinearVelocity().x < 8){
+                b2body.body.applyLinearImpulse(6,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.runningRight = true;
             }
 
             /*
@@ -161,11 +179,13 @@ public class PlayerControlSystem extends IteratingSystem{
 
             player.onGround = false;
             player.onSpring = false;
+            player.onPlatform = false;
             controller.setAPressed(false);
         }
 
 
-        if(player.onGround || b2body.body.getLinearVelocity().y == 0){
+        if(player.onGround || (b2body.body.getLinearVelocity().y == 0 && !player.onPlatform)){
+            player.onPlatform = false;
             player.jumpCounter = 0;
         }
 
@@ -191,6 +211,7 @@ public class PlayerControlSystem extends IteratingSystem{
                 hud.setSpeedBoostActive();
             }
             player.superSpeed = false;
+
 
         }
 
@@ -243,6 +264,20 @@ public class PlayerControlSystem extends IteratingSystem{
             if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
                 Mapper.paCom.get(player.particleEffect).isDead = true;
             player.isDead = true;
+        }
+
+        // Alter player movement on platform
+        if (player.onPlatform){
+            if(b2body.body.getLinearVelocity().x == 0 && state.get() !=  StateComponent.STATE_NORMAL){
+            state.set(StateComponent.STATE_NORMAL);
+        }
+
+            if((b2body.body.getLinearVelocity().x != 0) && state.get() != StateComponent.STATE_MOVING) {
+                state.set(StateComponent.STATE_MOVING);
+            }
+            player.jumpCounter = 0;
+
+
         }
 
         //Send back to checkpoint if player is dead

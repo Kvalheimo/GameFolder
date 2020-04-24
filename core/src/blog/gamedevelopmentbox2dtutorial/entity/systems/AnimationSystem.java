@@ -12,9 +12,12 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.B2dBodyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.Mapper;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TextureComponent;
+
+import static blog.gamedevelopmentbox2dtutorial.DFUtils.PLATFORM_VELOCITY_X;
 
 public class AnimationSystem extends IteratingSystem {
 
@@ -34,6 +37,7 @@ public class AnimationSystem extends IteratingSystem {
         PlayerComponent player = Mapper.playerCom.get(entity);
         EnemyComponent enemy = Mapper.enemyCom.get(entity);
         OpponentComponent opponent = Mapper.opponentCom.get(entity);
+        PlatformComponent platform = Mapper.platCom.get(entity);
 
 
         if(ani.animationsN.containsKey(state.get())) {
@@ -46,18 +50,23 @@ public class AnimationSystem extends IteratingSystem {
                     tex.region = (TextureRegion) ani.animationsB.get(state.get()).getKeyFrame(state.time, state.isLooping);
                 }
 
-                //if mario is running left and the texture isnt facing left... flip it.
+                //if boomerang beast is running left and the texture isnt facing left... flip it.
                 if ((b2body.body.getLinearVelocity().x < -1 || !player.runningRight) && !tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = false;
                 }
 
-                //if mario is running right and the texture isnt facing right... flip it.
-                else if ((b2body.body.getLinearVelocity().x > 1 || player.runningRight) && tex.region.isFlipX()) {
+                //if boomerang beast is running right and the texture isnt facing right... flip it.
+                else if ((b2body.body.getLinearVelocity().x > 1 && !player.onPlatform || player.runningRight) && tex.region.isFlipX()) {
+                    tex.region.flip(true, false);
+                    player.runningRight = true;
+                }
+                else if ((((b2body.body.getLinearVelocity().x > PLATFORM_VELOCITY_X)  && player.onPlatform) || player.runningRight) && tex.region.isFlipX()) {
                     tex.region.flip(true, false);
                     player.runningRight = true;
                 }
             }
+
 
             //Handle enemy animation
             else if(enemy != null) {

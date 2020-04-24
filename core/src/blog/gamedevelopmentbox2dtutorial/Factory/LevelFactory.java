@@ -7,9 +7,11 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapLayers;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -20,6 +22,12 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
+
+import java.lang.reflect.Type;
+import java.util.Iterator;
+
+import javax.swing.plaf.nimbus.State;
+
 import blog.gamedevelopmentbox2dtutorial.Box2dContactListener;
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.DFUtils;
@@ -33,6 +41,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.components.DestroyableTileCompon
 import blog.gamedevelopmentbox2dtutorial.entity.components.EnemyComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.ParticleEffectComponent;
+import blog.gamedevelopmentbox2dtutorial.entity.components.PlatformComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.PowerupComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
@@ -98,6 +107,7 @@ public class LevelFactory {
         maps.put(1, parent.assMan.manager.get("maps/level1.tmx", TiledMap.class));
         maps.put(2, parent.assMan.manager.get("maps/Henriks_verden.tmx", TiledMap.class));
         maps.put(3, parent.assMan.manager.get("maps/The_Mountaineer.tmx", TiledMap.class));
+        maps.put(4, parent.assMan.manager.get("maps/platformpalooza.tmx", TiledMap.class));
 
     }
 
@@ -141,6 +151,7 @@ public class LevelFactory {
 
 
         // create the data for the components and add them to the components
+
         bodyCom.body = bodyFactory.makeCirclePolyBody(2, 12, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
 
         switch (character) {
@@ -465,13 +476,14 @@ public class LevelFactory {
             TypeComponent typeCom = engine.createComponent(TypeComponent.class);
             DestroyableTileComponent destComp = engine.createComponent(DestroyableTileComponent.class);
 
-
             bodyCom.body = body;
 
 
             position.position.set(body.getPosition().x, body.getPosition().y, 0);
             body.setUserData(entity);
             typeCom.type = type;
+
+
 
             entity.add(position);
             entity.add(bodyCom);
@@ -483,29 +495,86 @@ public class LevelFactory {
     }
 
 
-    public void createPlatform(float x, float y){
+    public void createPlatformHor(int level){
 
+        Array<Body> platformBodies  = mapBodyFactory.buildShapes(maps.get(level), world, "Platform", BodyDef.BodyType.KinematicBody, BodyFactory.SYRUP);
         // Create the Entity and all the components that will go in the entity
-        Entity entity = engine.createEntity();
-        B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
-        TextureComponent texture = engine.createComponent(TextureComponent.class);
-        TypeComponent type = engine.createComponent(TypeComponent.class);
 
-        // create the data for the components and add them to the components
-        bodyCom.body = bodyFactory.makeBoxPolyBody(x, y, 52, 0.2f, BodyFactory.STONE, BodyDef.BodyType.StaticBody, true);
+        MapLayer platformLayer = maps.get(level).getLayers().get("Platform");
+        MapObjects platformObjects = platformLayer.getObjects();
+        int counter = 0;
+        for(Body platformBody : platformBodies){
 
-        // set object position (x,y,z) z used to define draw order 0 first drawn
-        type.type = TypeComponent.SCENERY;
+            // Create the Entity and all the components that will go in the entity
+            Entity entity = engine.createEntity();
+            B2dBodyComponent bodyCom = engine.createComponent(B2dBodyComponent.class);
+            TransformComponent position = engine.createComponent(TransformComponent.class);
+            TextureComponent texture = engine.createComponent(TextureComponent.class);
+            PlatformComponent platCom = engine.createComponent(PlatformComponent.class);
+            CollisionComponent colComp = engine.createComponent(CollisionComponent.class);
+            TypeComponent type = engine.createComponent(TypeComponent.class);
+            StateComponent stateCom = engine.createComponent(StateComponent.class);
+            AnimationComponent animCom = engine.createComponent(AnimationComponent.class);
 
-        bodyCom.body.setUserData(entity);
+            // create the data for the components and add them to the components
+            platformBody.setActive(false);
+            platCom.type = platCom.MOVEABLE_HOR;
+            bodyCom.body = platformBody;
 
-        // add the components to the entity
-        entity.add(bodyCom);
-        entity.add(texture);
-        entity.add(type);
+            //Animation anim = new Animation(0.1f,atlas.findRegions("flame_a"));
+            Animation movingAnim = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("blood_bar"), 1, 1));
 
-        // add the entity to the engine
-        engine.addEntity(entity);
+
+            movingAnim.setPlayMode(Animation.PlayMode.LOOP);
+
+            animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
+
+            platCom.start_position_x = bodyCom.body.getPosition().x;
+            platCom.start_position_y = bodyCom.body.getPosition().y;
+            position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
+            type.type = TypeComponent.PLATFORM;
+            stateCom.set(StateComponent.STATE_MOVING);
+
+
+            //enemyCom.particleEffect = makeParticleEffect(ParticleEffectManager.TEST, bodyCom);
+
+            bodyCom.body.setUserData(entity);
+
+
+            if (platformObjects.get(counter).getName() != null) {
+                platCom.turn_distance = Float.parseFloat(platformObjects.get(counter).getName());
+                Iterator hallo = platformObjects.get(counter).getProperties().getValues();
+                while(hallo.hasNext()){
+                    Object info = hallo.next();
+                    System.out.print(info.toString());
+                    if(info.toString().equals("vertical") ){
+                        platCom.type = platCom.MOVEABLE_VER;
+                    }
+                    else if(info.toString() == "horizontal"){
+                        platCom.type = platCom.MOVEABLE_HOR;
+                    }
+
+
+                }
+        //         values = platformObjects.get(counter).getProperties().getValues().forEachRemaining(2 );
+            }
+
+
+            // add the components to the entity
+            entity.add(bodyCom);
+            entity.add(position);
+            entity.add(texture);
+            entity.add(platCom);
+            entity.add(colComp);
+            entity.add(type);
+            entity.add(stateCom);
+            entity.add(animCom);
+
+            // add the entity to the engine
+            engine.addEntity(entity);
+
+            counter +=1;
+        }
 
     }
 

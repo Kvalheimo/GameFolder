@@ -565,6 +565,9 @@
   <object id="524" x="8996.9" y="779.042"/>
   <object id="526" x="208.08" y="235.16"/>
  </objectgroup>
+ <objectgroup id="22" name="Platform">
+  <object id="527" name="10" type="vertical" x="2768" y="854" width="112" height="16"/>
+ </objectgroup>
  <objectgroup id="21" name="CheckpointLine">
   <object id="514" x="3498.79" y="0" width="13.7883" height="972.079"/>
   <object id="522" x="8990" y="-1.42109e-14" width="13.7883" height="827.301"/>

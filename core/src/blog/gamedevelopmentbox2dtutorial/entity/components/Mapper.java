@@ -18,6 +18,7 @@ public class Mapper {
     public static final ComponentMapper<PowerupComponent> powerCom = ComponentMapper.getFor(PowerupComponent.class);
     public static final ComponentMapper<DestroyableTileComponent> destCom = ComponentMapper.getFor(DestroyableTileComponent.class);
     public static final ComponentMapper<CheckpointComponent> cpComp = ComponentMapper.getFor(CheckpointComponent.class);
+    public static final ComponentMapper<PlatformComponent> platCom = ComponentMapper.getFor(PlatformComponent.class);
 
 
 }
