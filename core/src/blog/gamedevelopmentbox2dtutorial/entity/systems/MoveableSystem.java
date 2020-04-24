@@ -36,14 +36,10 @@ public class MoveableSystem extends IteratingSystem {
 
         if(platform.activated){
             platform.x_position += bodyCom.body.getLinearVelocity().x*deltaTime;
+            platform.y_position += bodyCom.body.getLinearVelocity().y*deltaTime;
         }
 
         if (platform.type == platform.MOVEABLE_HOR){
-            bodyCom.body.applyForceToCenter(0, bodyCom.body.getMass()* Box2dTutorial.GRAVITY, true);
-            bodyCom.body.setLinearVelocity(bodyCom.body.getLinearVelocity().x,0f);
-            bodyCom.body.setFixedRotation(true);
-
-
 
             //Change direction
             if (platform.movingRight) {
@@ -64,6 +60,27 @@ public class MoveableSystem extends IteratingSystem {
                 platform.x_position = 0;
             }
 
-    }
+        }if (platform.type == platform.MOVEABLE_VER){
+
+            //Change direction vertical movement
+            if (platform.isMovingUp) {
+                bodyCom.body.setLinearVelocity(0, platform.velocity_y);
+                bodyCom.body.setAngularVelocity(0f);
+            }
+            else if (!platform.isMovingUp) {
+                bodyCom.body.setLinearVelocity(0, -platform.velocity_y);
+                bodyCom.body.setAngularVelocity(0f);
+            }
+
+            if((platform.y_position >= platform.turn_distance) && platform.isMovingUp){
+                platform.isMovingUp = false;
+                platform.y_position = 0;
+            }
+            else if((bodyCom.body.getPosition().y <= platform.start_position_y) && !platform.isMovingUp){
+                platform.isMovingUp = true;
+                platform.y_position = 0;
+            }
+
+        }
     }
 }

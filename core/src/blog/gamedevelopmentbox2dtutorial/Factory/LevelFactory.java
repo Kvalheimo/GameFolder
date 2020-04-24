@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 
 import java.lang.reflect.Type;
+import java.util.Iterator;
 
 import javax.swing.plaf.nimbus.State;
 
@@ -527,6 +528,7 @@ public class LevelFactory {
             animCom.animationsN.put(StateComponent.STATE_MOVING, movingAnim);
 
             platCom.start_position_x = bodyCom.body.getPosition().x;
+            platCom.start_position_y = bodyCom.body.getPosition().y;
             position.position.set(bodyCom.body.getPosition().x, bodyCom.body.getPosition().y, 0);
             type.type = TypeComponent.PLATFORM;
             stateCom.set(StateComponent.STATE_MOVING);
@@ -539,6 +541,19 @@ public class LevelFactory {
 
             if (platformObjects.get(counter).getName() != null) {
                 platCom.turn_distance = Float.parseFloat(platformObjects.get(counter).getName());
+                Iterator hallo = platformObjects.get(counter).getProperties().getValues();
+                while(hallo.hasNext()){
+                    Object info = hallo.next();
+                    System.out.print(info.toString());
+                    if(info.toString().equals("vertical") ){
+                        platCom.type = platCom.MOVEABLE_VER;
+                    }
+                    else if(info.toString() == "horizontal"){
+                        platCom.type = platCom.MOVEABLE_HOR;
+                    }
+
+
+                }
         //         values = platformObjects.get(counter).getProperties().getValues().forEachRemaining(2 );
             }
 

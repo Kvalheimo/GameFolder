@@ -147,7 +147,7 @@
   <object id="160" x="1348.68" y="106.045"/>
  </objectgroup>
  <objectgroup id="23" name="Platform">
-  <object id="169" name="4" type="horizontal " x="890.667" y="160" width="114.667" height="16"/>
+  <object id="169" name="4" type="vertical" x="890.667" y="160" width="114.667" height="16"/>
  </objectgroup>
  <objectgroup id="22" name="CheckpointLine">
   <object id="153" x="231.125" y="-1.81274" width="5.43823" height="220.248"/>
