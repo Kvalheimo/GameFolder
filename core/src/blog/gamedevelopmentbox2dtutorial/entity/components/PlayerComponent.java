@@ -26,6 +26,11 @@ public class PlayerComponent implements Component, Pool.Poolable {
     public Entity particleEffect;
     public Vector2 checkPointPos = new Vector2();
 
+    public float jumpWallpos = 0;
+    public float timeOnWall = 0;
+    public boolean onJumpWall = false;
+    public float jumpTime = 0;
+
 
 
 
@@ -49,6 +54,12 @@ public class PlayerComponent implements Component, Pool.Poolable {
         jumpCounter = 0;
         particleEffect = null;
         checkPointPos = new Vector2();
+
+        jumpWallpos = 0;
+        timeOnWall = 0;
+        onJumpWall = false;
+        jumpTime = 0;
+
     }
 }
 
