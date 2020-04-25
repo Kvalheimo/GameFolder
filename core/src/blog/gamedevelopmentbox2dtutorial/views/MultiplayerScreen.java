@@ -25,6 +25,7 @@ import blog.gamedevelopmentbox2dtutorial.entity.systems.BulletSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.CollisionSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.DestroyableTileSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.EnemySystem;
+import blog.gamedevelopmentbox2dtutorial.entity.systems.MoveableSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.ParticleEffectSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsDebugSystem;
 import blog.gamedevelopmentbox2dtutorial.entity.systems.PhysicsSystem;
@@ -93,6 +94,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         engine.addSystem(particleSystem);
         engine.addSystem(new PhysicsSystem(levelFactory.getWorld()));
         engine.addSystem(new PhysicsDebugSystem(levelFactory.getWorld(), renderingSystem.getCamera()));
+        engine.addSystem(new MoveableSystem(camera));
         engine.addSystem(new CollisionSystem(levelFactory, hud));
         engine.addSystem(new PlayerControlSystem(controller, levelFactory, hud));
         engine.addSystem(new BulletSystem());
@@ -112,11 +114,13 @@ public class MultiplayerScreen implements Screen, GameScreen {
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
+        levelFactory.createPlatformHor(level);
+        levelFactory.createJumpWall("JumpWall", TypeComponent.JUMPWALL, level);
 
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createPowerups("Gun", TypeComponent.GUN, level);
         levelFactory.loadCheckpoint(level);
-        levelFactory.createDestroyableTiles("Destroyable Tile", TypeComponent.DESTROYABLE_TILE, level);
+        levelFactory.createDestroyableTiles("DestroyableTile", TypeComponent.DESTROYABLE_TILE, level);
 
         levelFactory.createTiledMapEntities("Ground", TypeComponent.GROUND, level);
         levelFactory.createTiledMapEntities("Spring", TypeComponent.SPRING, level);
@@ -125,6 +129,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
         levelFactory.createTiledMapEntities("SpeedX", TypeComponent.SPEED_X, level);
         levelFactory.createTiledMapEntities("SpeedY", TypeComponent.SPEED_Y, level);
         levelFactory.createTiledMapEntities("Spikes", TypeComponent.SPIKES, level);
+        levelFactory.createTiledMapEntities("Other", TypeComponent.OTHER, level);
 
 
     }
