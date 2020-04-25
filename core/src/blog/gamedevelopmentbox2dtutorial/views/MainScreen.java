@@ -103,6 +103,7 @@ public class MainScreen implements Screen, GameScreen {
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
 
+        levelFactory.createPowerups("Gun", TypeComponent.SUPER_SPEED, level);
         levelFactory.createPowerups("SuperSpeed", TypeComponent.SUPER_SPEED, level);
         levelFactory.createDestroyableTiles("DestroyableTile", TypeComponent.DESTROYABLE_TILE, level);
         levelFactory.createJumpWall("JumpWall", TypeComponent.JUMPWALL, level);
