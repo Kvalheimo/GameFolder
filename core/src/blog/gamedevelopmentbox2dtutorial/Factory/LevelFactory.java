@@ -153,7 +153,7 @@ public class LevelFactory {
 
         switch (level){
             case 1:
-                bodyCom.body = bodyFactory.makeCirclePolyBody(100, 10, 0.20f, BodyFactory.FRICTION_PLAYER, BodyDef.BodyType.DynamicBody, true);
+                bodyCom.body = bodyFactory.makeCirclePolyBody(100, 10, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
                 break;
             case 2:
                 bodyCom.body = bodyFactory.makeCirclePolyBody(2, 12, 0.20f, BodyFactory.WOOD, BodyDef.BodyType.DynamicBody, true);
@@ -319,13 +319,13 @@ public class LevelFactory {
                 jumpAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping"), 1, 1));
                 normalAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal"), 1, 1));
                 slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding"), 1, 1));
-                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
+                fallAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling"), 1, 1));
 
                 runAnimB = new Animation(0.05f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_running_b"), 9, 1));
                 jumpAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_jumping_b"), 1, 1));
                 normalAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_normal_b"), 1, 1));
                 slideAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_sliding_b"), 1, 1));
-                slideAnim = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
+                fallAnimB = new Animation(0.1f, DFUtils.spriteSheetToFrames(atlas.findRegion("p1_falling_b"), 1, 1));
                 break;
         }
 
