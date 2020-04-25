@@ -64,9 +64,6 @@ public class LevelSelectionScreen implements Screen {
         levelPreviewImages.put(2, new Image(new Texture("preview/level2.png")));
         levelPreviewImages.put(3, new Image(new Texture("preview/level3.png")));
         levelPreviewImages.put(4, new Image(new Texture("preview/level4.png")));
-        levelPreviewImages.put(5, new Image(new Texture("preview/level5.png")));
-        levelPreviewImages.put(6, new Image(new Texture("preview/level6.png")));
-
     }
 
 
@@ -79,16 +76,14 @@ public class LevelSelectionScreen implements Screen {
         levelSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin, "toggle");
-        final TextButton l2 = new TextButton("2", skin, "toggle");
-        final TextButton l3 = new TextButton("3", skin, "toggle");
-        final TextButton l4 = new TextButton("4", skin, "toggle");
-        final TextButton l5 = new TextButton("5", skin, "toggle");
-        final TextButton l6 = new TextButton("6", skin, "toggle");
+        final TextButton l1 = new TextButton("Homecoming", skin, "toggle");
+        final TextButton l2 = new TextButton("Enrique's World", skin, "toggle");
+        final TextButton l3 = new TextButton("Mountain Jam", skin, "toggle");
+        final TextButton l4 = new TextButton("Platform Plooza", skin, "toggle");
 
         l1.setChecked(true);
 
-        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
+        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4);
         buttonGroup.setMaxCheckCount(1);
 
         Label headerLabel = new Label("SELECT LEVEL", skin, "big");
@@ -127,11 +122,7 @@ public class LevelSelectionScreen implements Screen {
         innerTable.row();
         innerTable.add(l3).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l4).padTop(30).fillX().expandX();
-        innerTable.row();
-        innerTable.add(l5).padTop(30).fillX().expandX();
-        innerTable.row();
-        innerTable.add(l6).padTop(30).padBottom(10).fillX().expandX();
+        innerTable.add(l4).padTop(30).padBottom(10).fillX().expandX();;
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
@@ -176,17 +167,6 @@ public class LevelSelectionScreen implements Screen {
                 levelSelected = 4;            }
         });
 
-        l5.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 5;            }
-        });
-
-        l6.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 6;            }
-        });
 
 
         backButton.addListener(new ChangeListener() {
