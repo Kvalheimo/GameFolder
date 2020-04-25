@@ -44,6 +44,7 @@ public class B2dAssetManager {
     public final String level3 =  "maps/The_Mountaineer.tmx";
     public final String level4 = "maps/platformpalooza.tmx";
 
+
     // Particle Effects
     public final String smokeEffect = "particles/smoke.p";
     public final String explosionEffect = "particles/explosion.p";
@@ -97,7 +98,6 @@ public class B2dAssetManager {
         manager.load(level2, TiledMap.class);
         manager.load(level3, TiledMap.class);
         manager.load(level4, TiledMap.class);
-
     }
 
     public void queueAddFonts(){

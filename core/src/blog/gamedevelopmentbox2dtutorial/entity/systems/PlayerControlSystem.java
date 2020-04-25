@@ -21,7 +21,6 @@ import blog.gamedevelopmentbox2dtutorial.views.Hud;
 import static blog.gamedevelopmentbox2dtutorial.DFUtils.PLATFORM_VELOCITY_X;
 
 public class PlayerControlSystem extends IteratingSystem{
-
     private Controller controller;
     private LevelFactory levelFactory;
     private Hud hud;
@@ -63,7 +62,10 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        //Handle states
+
+
+        // Handle states
+
         if(b2body.body.getLinearVelocity().y < -1  && state.get() != StateComponent.STATE_FALLING){
             player.onGround = false;
             state.set(StateComponent.STATE_FALLING);
@@ -81,8 +83,8 @@ public class PlayerControlSystem extends IteratingSystem{
             if(b2body.body.getLinearVelocity().x != 0 && state.get() != StateComponent.STATE_MOVING) {
                 state.set(StateComponent.STATE_MOVING);
             }
-        }
 
+        }
 
 
         if (b2body.body.getLinearVelocity().x < 1 && b2body.body.getLinearVelocity().x > -1 && state.get() == StateComponent.STATE_MOVING){
@@ -90,14 +92,11 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        /*
-        if (b2body.body.getLinearVelocity().y == 0  && state.get() == StateComponent.STATE_MOVING){
-            state.set(StateComponent.STATE_NORMAL);
-        }
-         */
 
 
-        //Control max speed and set value if too high (superspeed)
+
+        // Control max speed and set value if too high (superspeed)
+
         if(b2body.body.getLinearVelocity().x > 15){
             b2body.body.setLinearVelocity(MathUtils.lerp(b2body.body.getLinearVelocity().x, 15f, 0.1f), b2body.body.getLinearVelocity().y);
 
@@ -108,14 +107,10 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        if(controller.isRightPressed() && player.onWall) {
-            b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
-
-        }
 
 
+        // Movement
 
-        //Movement
         if(controller.isLeftPressed()) {
             if (player.onWall){
                 b2body.body.setLinearVelocity(0f, b2body.body.getLinearVelocity().y);
@@ -126,17 +121,13 @@ public class PlayerControlSystem extends IteratingSystem{
                 player.runningRight = false;
             }
 
-            /*
-            else if (b2body.body.getLinearVelocity().x > -5){
-                b2body.body.applyLinearImpulse(-6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-            }
-             */
             else if(b2body.body.getLinearVelocity().x > -8){
                 b2body.body.applyForceToCenter(-50*controller.getVelScale(), 0, true);
             }
 
 
         }
+
 
         if(controller.isRightPressed()) {
             if (player.onWall){
@@ -147,13 +138,6 @@ public class PlayerControlSystem extends IteratingSystem{
                 b2body.body.applyLinearImpulse(6,0,b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
                 player.runningRight = true;
             }
-
-            /*
-            else if(b2body.body.getLinearVelocity().x < 5){
-                b2body.body.applyLinearImpulse(6, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-            }
-             */
-
 
 
             else if(b2body.body.getLinearVelocity().x < 8){
@@ -168,13 +152,50 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
-        //Jumping
-        if(controller.isAPressed() && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING || state.get() == StateComponent.STATE_FALLING)){
 
-            if(player.jumpCounter < 2) {
-                b2body.body.applyLinearImpulse(0, 8 * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
-                state.set(StateComponent.STATE_JUMPING);
-                player.jumpCounter += 1;
+
+        //jumpwall
+
+        if (player.onJumpWall) {
+            b2body.body.setLinearVelocity(0,0);
+
+            if (player.timeOnWall >= 0.3f) {
+                player.onJumpWall = false;
+
+            }else if(!(player.runningRight && controller.isRightPressed()) && !(!player.runningRight && controller.isLeftPressed())) {
+                        player.onJumpWall = false;
+            }
+
+            if (!player.onJumpWall){
+                player.timeOnWall = 0;
+                player.jumpWallpos = 0;
+                player.jumpTime = 0;
+            }
+
+            player.timeOnWall += deltaTime;
+        }
+
+        if (player.jumpTime <= 0.1 && controller.isAPressed()){
+            b2body.body.applyLinearImpulse(0, 11 * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            controller.setAPressed(false);
+        }
+
+        player.jumpTime += deltaTime;
+
+
+
+
+        //Jumping
+
+        if(controller.isAPressed() && (state.get() == StateComponent.STATE_NORMAL || state.get() == StateComponent.STATE_MOVING || state.get() == StateComponent.STATE_FALLING)) {
+
+            if (player.jumpCounter < 2) {
+                if (!player.onJumpWall) {
+                    b2body.body.applyLinearImpulse(0, 8 * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                    state.set(StateComponent.STATE_JUMPING);
+                    player.jumpCounter += 1;
+                }
+
             }
 
             player.onGround = false;
@@ -184,15 +205,19 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
+
         if(player.onGround || (b2body.body.getLinearVelocity().y == 0 && !player.onPlatform)){
             player.onPlatform = false;
             player.jumpCounter = 0;
         }
 
 
+
+
         //Spring
+
         if(player.onSpring){
-            b2body.body.applyLinearImpulse(0, 15f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(0, 18f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             state.set(StateComponent.STATE_JUMPING);
             player.onSpring = false;
 
@@ -215,7 +240,11 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
+
+
+
         //Shooting
+
         if (controller.isXPressed() && player.boomerangCount > 0){
             Vector2 direction = controller.getBulletDirection();
 
@@ -245,6 +274,24 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
+
+
+        //Speed fetures
+
+        if (controller.isYPressed() && player.superSpeed){
+            if (player.runningRight){
+                b2body.body.applyLinearImpulse(60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_RIGHT, b2body);
+                hud.setSpeedBoostActive();
+            }else{
+                b2body.body.applyLinearImpulse(-60f, 0f, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+                player.particleEffect = levelFactory.makeParticleEffect(ParticleEffectManager.SUPERSPEED_LEFT, b2body);
+                hud.setSpeedBoostActive();
+            }
+            player.superSpeed = false;
+
+        }
+
         if (player.speedX){
             //b2body.body.setLinearVelocity(100f, 0f);
             b2body.body.applyLinearImpulse(60, 0, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
@@ -259,14 +306,23 @@ public class PlayerControlSystem extends IteratingSystem{
         }
 
 
+
+
         //Kill player if he falls down
+
         if (b2body.body.getPosition().y < -2){
             if (player.particleEffect != null && Mapper.paCom.get(player.particleEffect) != null)
                 Mapper.paCom.get(player.particleEffect).isDead = true;
             player.isDead = true;
         }
 
+
+
+
+
+
         // Alter player movement on platform
+
         if (player.onPlatform){
             if(b2body.body.getLinearVelocity().x == 0 && state.get() !=  StateComponent.STATE_NORMAL){
             state.set(StateComponent.STATE_NORMAL);
@@ -280,9 +336,14 @@ public class PlayerControlSystem extends IteratingSystem{
 
         }
 
+
+
+
         //Send back to checkpoint if player is dead
+
         if (player.isDead){
             b2body.body.setTransform(player.checkPointPos,0);
+            b2body.body.setLinearVelocity(0, 0);
             player.runningRight = true;
             player.isDead = false;
         }
@@ -290,6 +351,7 @@ public class PlayerControlSystem extends IteratingSystem{
         if(hud.getPercentage() >= 1){
             player.isFinished = true;
         }
+
 
     }
 
