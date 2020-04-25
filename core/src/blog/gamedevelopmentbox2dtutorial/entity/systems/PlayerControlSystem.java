@@ -283,6 +283,7 @@ public class PlayerControlSystem extends IteratingSystem{
         //Send back to checkpoint if player is dead
         if (player.isDead){
             b2body.body.setTransform(player.checkPointPos,0);
+            b2body.body.setLinearVelocity(0, 0);
             player.runningRight = true;
             player.isDead = false;
         }
