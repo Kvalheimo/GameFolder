@@ -343,6 +343,7 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (player.isDead){
             b2body.body.setTransform(player.checkPointPos,0);
+            b2body.body.setLinearVelocity(0, 0);
             player.runningRight = true;
             player.isDead = false;
         }
