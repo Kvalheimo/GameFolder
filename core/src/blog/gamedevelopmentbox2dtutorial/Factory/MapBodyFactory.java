@@ -30,6 +30,8 @@ import com.badlogic.gdx.physics.box2d.Shape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 
+import java.util.concurrent.ExecutionException;
+
 import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 
 
@@ -58,8 +60,13 @@ public class MapBodyFactory {
 
     public static Array<Body> buildShapes(TiledMap map, World world, String layer, BodyDef.BodyType bodyType, int material) {
 
-        MapObjects objects = map.getLayers().get(layer).getObjects();
+       MapObjects objects = new MapObjects();
+       try {
+           objects = map.getLayers().get(layer).getObjects();
 
+       } catch (Exception e){
+
+       }
         Array<Body> bodies = new Array<Body>();
 
         for (MapObject object : objects) {

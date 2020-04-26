@@ -33,7 +33,7 @@ public class HighScoreScreen implements Screen {
     private Stage stage;
     private TextureAtlas.AtlasRegion background;
     private int levelSelected;
-    private Table outerTable, innerTable, highscoreTable, innerHighScoreTable;
+    private Table outerTable, innerTable, highscoreTable;
 
 
     public HighScoreScreen(Box2dTutorial parent, int level){
@@ -59,12 +59,10 @@ public class HighScoreScreen implements Screen {
 
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("1", skin, "toggle");
-        final TextButton l2 = new TextButton("2", skin, "toggle");
-        final TextButton l3 = new TextButton("3", skin, "toggle");
-        final TextButton l4 = new TextButton("4", skin, "toggle");
-        final TextButton l5 = new TextButton("5", skin, "toggle");
-        final TextButton l6 = new TextButton("6", skin, "toggle");
+        final TextButton l1 = new TextButton("Homecoming", skin, "toggle2");
+        final TextButton l2 = new TextButton("Enrique's World", skin, "toggle2");
+        final TextButton l3 = new TextButton("Mountain Jam", skin, "toggle2");
+        final TextButton l4 = new TextButton("Platform Plooza", skin, "toggle2");
 
         switch (levelSelected){
             case 1:
@@ -79,18 +77,12 @@ public class HighScoreScreen implements Screen {
             case 4:
                 l4.setChecked(true);
                 break;
-            case 5:
-                l5.setChecked(true);
-                break;
-            case 6:
-                l6.setChecked(true);
-                break;
         }
 
-        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4, l5, l6);
+        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4);
         buttonGroup.setMaxCheckCount(1);
 
-        Label headerLabel = new Label("High Score", skin, "big");
+        Label headerLabel = new Label("HIGH SCORE", skin, "big");
 
         final TextButton backButton = new TextButton("Back", skin, "blue-small");
 
@@ -134,20 +126,17 @@ public class HighScoreScreen implements Screen {
         innerTable.row();
         innerTable.add(l3).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l4).padTop(30).fillX().expandX();
-        innerTable.row();
-        innerTable.add(l5).padTop(30).fillX().expandX();
-        innerTable.row();
-        innerTable.add(l6).padTop(30).padBottom(30).fillX().expandX();
+        innerTable.add(l4).padTop(30).padBottom(30).fillX().expandX();
+
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
-        outerTable.add(headerLabel).center().padTop(10).colspan(3);
+        outerTable.add(headerLabel).center().colspan(3).padTop(30);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(40).left().padLeft(Gdx.graphics.getWidth()/8);
+        outerTable.add(scrollPane).fillY().expandY().left().pad(Gdx.graphics.getBackBufferHeight()/6, Gdx.graphics.getWidth()/8, Gdx.graphics.getBackBufferHeight()/6, 0);
 
         outerTable.row().expandX();
-        outerTable.add(backButton).pad(20,0,10,0);
+        outerTable.add(backButton).pad(0,0,50,0);
         stage.addActor(highscoreTable);
         stage.addActor(outerTable);
 
@@ -177,19 +166,6 @@ public class HighScoreScreen implements Screen {
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 levelSelected = 4;            }
         });
-
-        l5.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 5;            }
-        });
-
-        l6.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                levelSelected = 6;            }
-        });
-
 
         backButton.addListener(new ChangeListener() {
             @Override

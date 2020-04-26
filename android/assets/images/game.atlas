@@ -1,334 +1,341 @@
 
 game.png
-size: 2048,2048
+size: 4096,4096
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
+Icon
+  rotate: false
+  xy: 2, 1643
+  size: 2305, 2451
+  orig: 2305, 2451
+  offset: 0, 0
+  index: -1
 background
   rotate: false
-  xy: 2, 920
+  xy: 2, 516
   size: 2000, 1125
   orig: 2000, 1125
   offset: 0, 0
   index: -1
 bat
   rotate: false
-  xy: 2, 64
+  xy: 2823, 3930
   size: 160, 32
   orig: 160, 32
   offset: 0, 0
   index: -1
 bat_normal
   rotate: false
-  xy: 164, 64
+  xy: 1908, 482
   size: 32, 32
   orig: 32, 32
   offset: 0, 0
   index: -1
 blob
   rotate: false
-  xy: 2004, 2004
+  xy: 2695, 3795
   size: 27, 41
   orig: 27, 41
   offset: 0, 0
   index: -1
 blood_bar
   rotate: false
-  xy: 1606, 878
+  xy: 1606, 474
   size: 300, 40
   orig: 300, 40
   offset: 0, 0
   index: -1
 boomerang
   rotate: false
-  xy: 2, 98
+  xy: 2309, 3788
   size: 384, 48
   orig: 384, 48
   offset: 0, 0
   index: -1
 circle1
   rotate: false
-  xy: 2, 2
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-circle3
-  rotate: false
-  xy: 64, 2
-  size: 60, 60
-  orig: 60, 60
-  offset: 0, 0
-  index: -1
-pp_circle3
-  rotate: false
-  xy: 64, 2
+  xy: 2533, 3726
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 cloud
   rotate: false
-  xy: 1606, 790
+  xy: 2004, 1431
   size: 92, 86
   orig: 92, 86
   offset: 0, 0
   index: 1
 countdown
   rotate: false
-  xy: 2, 406
+  xy: 2, 2
   size: 1024, 512
   orig: 1024, 512
   offset: 0, 0
   index: -1
 dash-yellow
   rotate: false
-  xy: 516, 282
+  xy: 2004, 1519
   size: 300, 122
   orig: 300, 122
   offset: 0, 0
   index: -1
 explosion
   rotate: false
-  xy: 2, 148
+  xy: 2309, 3838
   size: 512, 256
   orig: 512, 256
   offset: 0, 0
   index: -1
 explosion-1
   rotate: false
-  xy: 818, 315
+  xy: 2309, 3697
   size: 90, 89
   orig: 90, 89
   offset: 0, 0
   index: -1
 explosion-2
   rotate: false
-  xy: 1028, 543
+  xy: 1606, 395
   size: 81, 77
   orig: 81, 77
   offset: 0, 0
   index: -1
 explosion-3
   rotate: false
-  xy: 1606, 712
+  xy: 1134, 306
   size: 74, 76
   orig: 74, 76
   offset: 0, 0
   index: -1
 gore
   rotate: false
-  xy: 1028, 470
+  xy: 2309, 3624
   size: 59, 71
   orig: 59, 71
   offset: 0, 0
   index: -1
 p1_falling
   rotate: false
-  xy: 1766, 812
+  xy: 2098, 1453
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_falling_b
   rotate: false
-  xy: 1243, 556
+  xy: 1755, 408
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_jumping_b
   rotate: false
-  xy: 1028, 404
+  xy: 1028, 129
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_jumping
   rotate: false
-  xy: 1028, 404
+  xy: 1028, 129
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_normal
   rotate: false
-  xy: 1606, 646
+  xy: 2401, 3722
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_normal_b
   rotate: false
-  xy: 696, 216
+  xy: 2004, 1365
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_running
   rotate: false
-  xy: 1028, 854
+  xy: 2823, 3964
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p1_running_b
   rotate: false
-  xy: 1028, 656
+  xy: 1028, 384
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p1_sliding
   rotate: false
-  xy: 520, 110
+  xy: 1028, 63
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p1_sliding_b
   rotate: false
-  xy: 1832, 812
+  xy: 3475, 3996
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_falling
   rotate: false
-  xy: 1177, 556
+  xy: 1689, 408
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_falling_b
   rotate: false
-  xy: 1908, 854
+  xy: 3541, 3996
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_jumping_b
   rotate: false
-  xy: 454, 82
+  xy: 1210, 318
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_jumping
   rotate: false
-  xy: 454, 82
+  xy: 1210, 318
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_normal
   rotate: false
-  xy: 1111, 556
+  xy: 2164, 1453
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_normal_b
   rotate: false
-  xy: 388, 82
+  xy: 2889, 3864
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_running
   rotate: false
-  xy: 1028, 788
+  xy: 1028, 450
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p2_running_b
   rotate: false
-  xy: 1028, 722
+  xy: 2823, 4030
   size: 576, 64
   orig: 576, 64
   offset: 0, 0
   index: -1
 p2_sliding
   rotate: false
-  xy: 586, 110
+  xy: 2467, 3722
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 p2_sliding_b
   rotate: false
-  xy: 762, 216
+  xy: 2004, 1299
   size: 64, 64
   orig: 64, 64
   offset: 0, 0
   index: -1
 pp_circle2
   rotate: false
-  xy: 126, 2
+  xy: 2004, 1237
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+pp_circle3
+  rotate: false
+  xy: 1276, 322
+  size: 60, 60
+  orig: 60, 60
+  offset: 0, 0
+  index: -1
+circle3
+  rotate: false
+  xy: 1276, 322
   size: 60, 60
   orig: 60, 60
   offset: 0, 0
   index: -1
 pp_firework
   rotate: false
-  xy: 516, 176
+  xy: 1028, 278
   size: 104, 104
   orig: 104, 104
   offset: 0, 0
   index: -1
 pp_thrust-1
   rotate: false
-  xy: 910, 323
+  xy: 1028, 195
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 thrust-1
   rotate: false
-  xy: 910, 323
+  xy: 1028, 195
   size: 72, 81
   orig: 72, 81
   offset: 0, 0
   index: -1
 pp_thrust-2
   rotate: false
-  xy: 1700, 793
+  xy: 2823, 3845
   size: 64, 83
   orig: 64, 83
   offset: 0, 0
   index: -1
 thrust-2
   rotate: false
-  xy: 1700, 793
+  xy: 2823, 3845
   size: 64, 83
   orig: 64, 83
   offset: 0, 0
   index: -1
 pp_thrust-3
   rotate: false
-  xy: 622, 198
+  xy: 3401, 3978
   size: 72, 82
   orig: 72, 82
   offset: 0, 0
   index: -1
 thrust-3
   rotate: false
-  xy: 622, 198
+  xy: 3401, 3978
   size: 72, 82
   orig: 72, 82
   offset: 0, 0
   index: -1
 spider
   rotate: false
-  xy: 1028, 622
+  xy: 3401, 4062
   size: 256, 32
   orig: 256, 32
   offset: 0, 0
   index: -1
 spider_normal
   rotate: false
-  xy: 696, 198
+  xy: 3659, 4078
   size: 32, 16
   orig: 32, 16
   offset: 0, 0

@@ -60,7 +60,6 @@ public class CharacterSelectionScreen implements Screen {
         characterImages = new IntMap<>();
         characterImages.put(1, new Image(new Texture("preview/char1.png")));
         characterImages.put(2, new Image(new Texture("preview/char2.png")));
-        characterImages.put(3, new Image(new Texture("preview/char3.png")));
 
     }
 
@@ -72,13 +71,12 @@ public class CharacterSelectionScreen implements Screen {
         characterSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton c1 = new TextButton("James", skin, "toggle");
-        final TextButton c2 = new TextButton("Gun", skin, "toggle");
-        final TextButton c3 = new TextButton("Brad", skin, "toggle");
+        final TextButton c1 = new TextButton("Jim Green", skin, "toggle2");
+        final TextButton c2 = new TextButton("Jam Red", skin, "toggle2");
 
         c1.setChecked(true);
 
-        ButtonGroup buttonGroup = new ButtonGroup(c1, c2, c3);
+        ButtonGroup buttonGroup = new ButtonGroup(c1, c2);
         buttonGroup.setMaxCheckCount(1);
 
         Label headerLabel = new Label("SELECT CHARACTER", skin, "big");
@@ -106,26 +104,24 @@ public class CharacterSelectionScreen implements Screen {
 
         previewTable.setBackground(new TiledDrawable(background));
 
-        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
+        previewTable.center().padLeft(Gdx.graphics.getWidth()/6);
         previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
 
         innerTable.add(c1).padTop(30).fillX();
         innerTable.row();
-        innerTable.add(c2).padTop(30).fillX();
-        innerTable.row();
-        innerTable.add(c3).padTop(30).padBottom(30).fillX();
+        innerTable.add(c2).padTop(30).padBottom(30).fillX();
 
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
-        outerTable.add(headerLabel).colspan(3);
+        outerTable.add(headerLabel).colspan(3).padTop(30);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(40);
+        outerTable.add(scrollPane).fillY().expandY().pad(Gdx.graphics.getBackBufferHeight()/6, 0, Gdx.graphics.getBackBufferHeight()/6, 0);
 
         outerTable.row().expandX();
-        outerTable.add(backButton).pad(20,0,10,0);
+        outerTable.add(backButton).pad(20,0,30,0);
         outerTable.add();
-        outerTable.add(nextButton).pad(20,0,10,0);
+        outerTable.add(nextButton).pad(20,0,30,0);
 
 
         stage.addActor(previewTable);
@@ -145,12 +141,6 @@ public class CharacterSelectionScreen implements Screen {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 characterSelected = 2;            }
-        });
-
-        c3.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent changeEvent, Actor actor) {
-                characterSelected = 3;            }
         });
 
 
