@@ -21,6 +21,7 @@ public class HighScoreData implements Serializable{
     public HighScoreData() {
         highScores = new long[MAX_SCORES];
         names = new String[MAX_SCORES];
+        rand = new Random();
 
         for(int i = 0; i < MAX_SCORES; i++) {
             highScores[i] = 9999;
