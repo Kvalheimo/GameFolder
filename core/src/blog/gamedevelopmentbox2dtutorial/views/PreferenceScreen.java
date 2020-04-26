@@ -59,9 +59,6 @@ public class PreferenceScreen implements Screen {
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
 
-        stage.addActor(table);
-
-
 
         // Create sliders and set values
         final Slider volumeMusicSlider = new Slider(0f, 1f, 0.1f, false, skin);
@@ -94,28 +91,30 @@ public class PreferenceScreen implements Screen {
 
         // Put labels, checkboxes, sliders and buttons to table
         table.add(titleLabel).colspan(2);
-        table.row().pad(40,0,0,40);
+        table.row().pad(50,0,0,40);
         table.add(volumeMusicLabel).left();
         table.add(volumeMusicSlider);
-        table.row().pad(40,0,0,40);
+        table.row().pad(30,0,0,40);
         table.add(volumeSoundLabel).left();
         table.add(volumeSoundSlider);
-        table.row().pad(40,0,0,40);
+        table.row().pad(30,0,0,40);
         table.add(musicOnOffLabel).left();
         table.add(musicCheckBox);
-        table.row().pad(40,0,0,40);
+        table.row().pad(30,0,0,40);
         table.add(soundOnOffLabel).left();
         table.add(soundCheckBox);
-        table.row().pad(40,0,0,40);
+        table.row().pad(50,0,0,40);
         table.add(backButton).colspan(2);
 
 
+        stage.addActor(table);
 
         // Create listeners
         volumeMusicSlider.addListener(new EventListener() {
             @Override
             public boolean handle(Event event) {
                 parent.getPreferences().setMusicVolume(volumeMusicSlider.getValue());
+                parent.getPlayingSong().setVolume(volumeMusicSlider.getValue());
                 return false;
             }
         });
@@ -133,6 +132,17 @@ public class PreferenceScreen implements Screen {
             public boolean handle(Event event) {
                 boolean enabled = musicCheckBox.isChecked();
                 parent.getPreferences().setMusicEffectsEnabled(enabled);
+
+                if (parent.getPreferences().isMusicEnabled()) {
+                    parent.getPlayingSong().play();
+
+                    if (!parent.getPlayingSong().isLooping()){
+                        parent.getPlayingSong().setLooping(true);
+                    }
+                }else{
+                    parent.getPlayingSong().pause();
+                    System.out.println("pause song");
+                }
                 return false;
             }
         });
@@ -160,7 +170,10 @@ public class PreferenceScreen implements Screen {
 
 
 
+
+
     }
+
 
     @Override
     public void render(float dt) {
