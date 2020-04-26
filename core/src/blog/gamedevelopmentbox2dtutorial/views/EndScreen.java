@@ -87,6 +87,7 @@ public class EndScreen implements Screen {
 
             txtfName = new TextField("", skin);
             txtfName.setSize(300, 40);
+            txtfName.setMaxLength(12);
 
             table.add(txtfName).colspan(2);
 
