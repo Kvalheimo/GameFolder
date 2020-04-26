@@ -174,7 +174,12 @@ public class LevelSelectionScreen implements Screen {
         playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected, characterSelected);
+                if (parent.isOnline()) {
+                    parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, levelSelected, characterSelected);
+
+                } else {
+                    parent.changeScreen(Box2dTutorial.APPLICATION, true, levelSelected, characterSelected);
+                }
                 System.out.println(levelSelected);
             }
         });

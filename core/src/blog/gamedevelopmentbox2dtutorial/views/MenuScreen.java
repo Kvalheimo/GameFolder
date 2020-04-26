@@ -84,7 +84,7 @@ public class MenuScreen implements Screen {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
                 if (parent.isOnline()){
-                    parent.changeScreen(Box2dTutorial.MULTIPLAYER, true, 1, 1);
+                    parent.changeScreen(Box2dTutorial.CHARACTER_SELECTION, true, 1, 1);
                 }
             }
         });

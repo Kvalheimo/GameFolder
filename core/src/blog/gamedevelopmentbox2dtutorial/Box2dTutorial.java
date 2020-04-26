@@ -104,6 +104,7 @@ public class Box2dTutorial extends Game {
 			case MULTIPLAYER:
 				if (newGame) {
 					assMan.resetParticleEffects();
+					assMan.resetMaps(level);
 					multiplayerScreen = new MultiplayerScreen(this, level, character);
 				}
 				this.setScreen(multiplayerScreen);
