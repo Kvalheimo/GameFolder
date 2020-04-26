@@ -175,7 +175,7 @@ public class PlayerControlSystem extends IteratingSystem{
             player.timeOnWall += deltaTime;
         }
 
-        if (player.jumpTime <= 0.2 && controller.isAPressed()){
+        if (player.jumpTime <= 0.1 && controller.isAPressed()){
             b2body.body.applyLinearImpulse(0, 11 * b2body.body.getMass(), b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             controller.setAPressed(false);
         }
