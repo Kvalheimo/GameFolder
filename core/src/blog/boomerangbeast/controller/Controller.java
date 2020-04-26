@@ -22,7 +22,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.views.GameScreen;
+import blog.boomerangbeast.screens.GameScreen;
 
 
 public class Controller implements Disposable {

@@ -1,6 +1,6 @@
 
 
-package blog.boomerangbeast.views.overlays;
+package blog.boomerangbeast.screens.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.views.GameScreen;
+import blog.boomerangbeast.screens.GameScreen;
 
 public class PauseMenu implements Disposable{
 

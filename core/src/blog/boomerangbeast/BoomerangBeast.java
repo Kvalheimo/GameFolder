@@ -5,15 +5,15 @@ import com.badlogic.gdx.audio.Music;
 
 import blog.boomerangbeast.highscore.Save;
 import blog.boomerangbeast.loader.B2dAssetManager;
-import blog.boomerangbeast.views.menus.CharacterSelectionScreen;
-import blog.boomerangbeast.views.menus.EndScreen;
-import blog.boomerangbeast.views.menus.HighScoreScreen;
-import blog.boomerangbeast.views.menus.LevelSelectionScreen;
-import blog.boomerangbeast.views.menus.LoadingScreen;
-import blog.boomerangbeast.views.SingleplayerScreen;
-import blog.boomerangbeast.views.menus.MenuScreen;
-import blog.boomerangbeast.views.MultiplayerScreen;
-import blog.boomerangbeast.views.menus.PreferenceScreen;
+import blog.boomerangbeast.screens.menus.CharacterSelectionScreen;
+import blog.boomerangbeast.screens.menus.EndScreen;
+import blog.boomerangbeast.screens.menus.HighScoreScreen;
+import blog.boomerangbeast.screens.menus.LevelSelectionScreen;
+import blog.boomerangbeast.screens.menus.LoadingScreen;
+import blog.boomerangbeast.screens.SingleplayerScreen;
+import blog.boomerangbeast.screens.menus.MenuScreen;
+import blog.boomerangbeast.screens.MultiplayerScreen;
+import blog.boomerangbeast.screens.menus.PreferenceScreen;
 
 public class BoomerangBeast extends Game {
 

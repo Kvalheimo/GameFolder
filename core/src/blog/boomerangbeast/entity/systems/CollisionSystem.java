@@ -14,7 +14,7 @@ import blog.boomerangbeast.entity.components.Mapper;
 import blog.boomerangbeast.entity.components.PlatformComponent;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.TypeComponent;
-import blog.boomerangbeast.views.overlays.Hud;
+import blog.boomerangbeast.screens.overlays.Hud;
 
 public class CollisionSystem extends IteratingSystem {
     private LevelFactory levelFactory;

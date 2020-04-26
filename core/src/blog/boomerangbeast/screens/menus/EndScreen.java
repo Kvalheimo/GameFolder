@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views.menus;
+package blog.boomerangbeast.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;

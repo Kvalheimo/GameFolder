@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views;
+package blog.boomerangbeast.screens;
 
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.PooledEngine;
@@ -29,9 +29,9 @@ import blog.boomerangbeast.entity.systems.PhysicsSystem;
 import blog.boomerangbeast.entity.systems.PlayerControlSystem;
 import blog.boomerangbeast.entity.systems.PowerupSystem;
 import blog.boomerangbeast.entity.systems.RenderingSystem;
-import blog.boomerangbeast.views.overlays.PauseMenu;
-import blog.boomerangbeast.views.overlays.CountdownView;
-import blog.boomerangbeast.views.overlays.Hud;
+import blog.boomerangbeast.screens.overlays.PauseMenu;
+import blog.boomerangbeast.screens.overlays.CountdownView;
+import blog.boomerangbeast.screens.overlays.Hud;
 
 public class SingleplayerScreen implements Screen, GameScreen {
 

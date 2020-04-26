@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views.menus;
+package blog.boomerangbeast.screens.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -21,8 +21,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.boomerangbeast.BoomerangBeast;
 
-public class CharacterSelectionScreen implements Screen {
-    private static final int IMG_WIDTH = 600;
+public class LevelSelectionScreen implements Screen {
+    private static final int IMG_WIDTH = 700;
     private static final int IMG_HEIGHT = 600;
 
 
@@ -30,56 +30,63 @@ public class CharacterSelectionScreen implements Screen {
     private Stage stage;
     private Skin skin;
     private TextureAtlas.AtlasRegion background;
-    private TextureAtlas loadingAtlas, gameAtlas;
-    private int characterSelected;
-    private Image characterImage;
-    private IntMap<Image> characterImages;
+    private TextureAtlas gameAtlas;
+    private int levelSelected = 1;
+    private Image levelImage;
+    private IntMap<Image> levelPreviewImages;
     private Table innerTable;
     private Table outerTable;
     private Table previewTable;
+    private int characterSelected;
 
 
-    public CharacterSelectionScreen(BoomerangBeast boomerangBeast) {
+    public LevelSelectionScreen(BoomerangBeast boomerangBeast, int character) {
         parent = boomerangBeast;
         stage = new Stage(new ScreenViewport());
-        characterSelected = 1;
+        characterSelected = character;
 
         // Get images to display loading progress
         gameAtlas = parent.assMan.manager.get("images/game.atlas");
+
         skin = parent.assMan.manager.get("skin/game/game.json");
         background = gameAtlas.findRegion("background");
 
         //Load level preview images
-        characterImages = new IntMap<>();
-        characterImages.put(1, new Image(new Texture("preview/char1.png")));
-        characterImages.put(2, new Image(new Texture("preview/char2.png")));
-
+        levelPreviewImages = new IntMap<>();
+        levelPreviewImages.put(1, new Image(new Texture("preview/level1.png")));
+        levelPreviewImages.put(2, new Image(new Texture("preview/level2.png")));
+        levelPreviewImages.put(3, new Image(new Texture("preview/level3.png")));
+        levelPreviewImages.put(4, new Image(new Texture("preview/level4.png")));
     }
+
+
 
 
     @Override
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        characterSelected = 1;
+        levelSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton c1 = new TextButton("Jim Green", skin, "toggle2");
-        final TextButton c2 = new TextButton("Jam Red", skin, "toggle2");
+        final TextButton l1 = new TextButton("Homecoming", skin, "toggle2");
+        final TextButton l2 = new TextButton("Enrique's World", skin, "toggle2");
+        final TextButton l3 = new TextButton("Mountain Jam", skin, "toggle2");
+        final TextButton l4 = new TextButton("Platform Plooza", skin, "toggle2");
 
-        c1.setChecked(true);
+        l1.setChecked(true);
 
-        ButtonGroup buttonGroup = new ButtonGroup(c1, c2);
+        ButtonGroup buttonGroup = new ButtonGroup(l1, l2, l3, l4);
         buttonGroup.setMaxCheckCount(1);
 
-        Label headerLabel = new Label("SELECT CHARACTER", skin, "big");
+        Label headerLabel = new Label("SELECT LEVEL", skin, "big");
 
         final TextButton backButton = new TextButton("Back", skin, "blue-small");
-        final TextButton nextButton = new TextButton("Next", skin, "blue-small");
+        final TextButton playButton = new TextButton("Play", skin, "blue-small");
 
 
-        characterImage = characterImages.get(characterSelected);
-        characterImage.setSize(IMG_WIDTH,IMG_HEIGHT);
+        levelImage = levelPreviewImages.get(levelSelected);
+        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
 
 
         innerTable = new Table();
@@ -92,29 +99,34 @@ public class CharacterSelectionScreen implements Screen {
             previewTable.setDebug(true);
         }
 
-        previewTable.setFillParent(true);
         outerTable.setFillParent(true);
-
+        previewTable.setFillParent(true);
         previewTable.setBackground(new TiledDrawable(background));
 
-        previewTable.center().padLeft(Gdx.graphics.getWidth()/6);
-        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
 
-        innerTable.add(c1).padTop(30).fillX();
+        previewTable.center().padLeft(Gdx.graphics.getWidth()/4);
+        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
+
+
+
+        innerTable.add(l1).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(c2).padTop(30).padBottom(30).fillX();
-
+        innerTable.add(l2).padTop(30).fillX().expandX();
+        innerTable.row();
+        innerTable.add(l3).padTop(30).fillX().expandX();
+        innerTable.row();
+        innerTable.add(l4).padTop(30).padBottom(30).fillX().expandX();;
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
         outerTable.add(headerLabel).colspan(3).padTop(30);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().pad(Gdx.graphics.getBackBufferHeight()/6, 0, Gdx.graphics.getBackBufferHeight()/6, 0);
+        outerTable.add(scrollPane).fillY().expandY().pad(Gdx.graphics.getBackBufferHeight()/6,0,Gdx.graphics.getBackBufferHeight()/6,0);
 
         outerTable.row().expandX();
         outerTable.add(backButton).pad(20,0,30,0);
         outerTable.add();
-        outerTable.add(nextButton).pad(20,0,30,0);
+        outerTable.add(playButton).pad(20,0,30,0);
 
 
         stage.addActor(previewTable);
@@ -123,32 +135,51 @@ public class CharacterSelectionScreen implements Screen {
 
 
         // Create button listeners
-        c1.addListener(new ChangeListener() {
+        l1.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                characterSelected = 1;
+                levelSelected = 1;
             }
         });
 
-        c2.addListener(new ChangeListener() {
+        l2.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                characterSelected = 2;            }
+                levelSelected = 2;            }
         });
+
+        l3.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                levelSelected = 3;            }
+        });
+
+        l4.addListener(new ChangeListener() {
+            @Override
+            public void changed(ChangeEvent changeEvent, Actor actor) {
+                levelSelected = 4;            }
+        });
+
 
 
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(BoomerangBeast.MENU);
+                parent.changeScreen(BoomerangBeast.CHARACTER_SELECTION);
 
             }
         });
 
-        nextButton.addListener(new ChangeListener() {
+        playButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                parent.changeScreen(BoomerangBeast.LEVEL_SELECTION, false, 0, characterSelected);
+                if (parent.isOnline()) {
+                    parent.changeScreen(BoomerangBeast.MULTIPLAYER, true, levelSelected, characterSelected);
+
+                } else {
+                    parent.changeScreen(BoomerangBeast.APPLICATION, true, levelSelected, characterSelected);
+                }
+                System.out.println(levelSelected);
             }
         });
 
@@ -176,9 +207,9 @@ public class CharacterSelectionScreen implements Screen {
 
     private void update(){
         previewTable.clear();
-        characterImage = characterImages.get(characterSelected);
-        characterImage.setSize(IMG_WIDTH,IMG_HEIGHT);
-        previewTable.add(characterImage).size(characterImage.getWidth(), characterImage.getHeight()).expandX();
+        levelImage = levelPreviewImages.get(levelSelected);
+        levelImage.setSize(IMG_WIDTH,IMG_HEIGHT);
+        previewTable.add(levelImage).size(levelImage.getWidth(), levelImage.getHeight()).expandX();
     }
 
     @Override

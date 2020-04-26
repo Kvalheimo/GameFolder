@@ -16,7 +16,7 @@ import blog.boomerangbeast.entity.components.Mapper;
 import blog.boomerangbeast.entity.components.PlatformComponent;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.StateComponent;
-import blog.boomerangbeast.views.overlays.Hud;
+import blog.boomerangbeast.screens.overlays.Hud;
 
 import static blog.boomerangbeast.DFUtils.PLATFORM_VELOCITY_X;
 
