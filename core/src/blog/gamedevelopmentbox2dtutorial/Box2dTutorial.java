@@ -25,7 +25,7 @@ public class Box2dTutorial extends Game {
     public static final float PPM = 64f; //Pixels per meter in box2dWorld
 	public static final float PPT = 64f; //Pixels per tile in Tieldmap
 	public static final float GRAVITY = 20f;
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 
 	private LoadingScreen loadingScreen;
 	private PreferenceScreen preferencesScreen;
@@ -69,7 +69,7 @@ public class Box2dTutorial extends Game {
 	public void changeScreen(int screen, boolean newGame, int level, int character){
 		switch(screen){
 			case MENU:
-				if(menuScreen == null) menuScreen = new MenuScreen(this);
+			    if(menuScreen == null) menuScreen = new MenuScreen(this);
 				mainScreen = null;
 				this.setScreen(menuScreen);
 				break;
@@ -133,14 +133,30 @@ public class Box2dTutorial extends Game {
 		//Load and start music
 		assMan.queueAddMusic();
 		assMan.manager.finishLoading();
-		playingSong = assMan.manager.get("music/music1.mp3");
-		///playingSong.play();
-
+		playingSong = assMan.manager.get("music/music.wav");
+		setPreferences();
         Save.load();
 	}
 
 	public MainScreen getMainScreen(){
 		return mainScreen;
+	}
+
+
+	public Music getPlayingSong(){
+		return playingSong;
+	}
+
+
+	private void setPreferences() {
+
+		playingSong.setVolume(getPreferences().getMusicVolume());
+
+		if (getPreferences().isMusicEnabled()) {
+			playingSong.play();
+			playingSong.setLooping(true);
+
+		}
 	}
 
 

@@ -42,13 +42,13 @@ com.badlogic.gdx.graphics.Color: {
 		r: 0.06466669
 		g: 0.47196573
 		b: 0.9700001
-		a: 1
+		a: 0.48333344
 	}
 	blue2: {
 		r: 0.17769915
 		g: 0.1533333
 		b: 1
-		a: 1
+		a: 0.7000002
 	}
 	dark-grey: {
 		r: 0.25666666
@@ -241,10 +241,6 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 		name: white
 		color: blue2
 	}
-	list-blue: {
-		name: list
-		color: blue-matt
-	}
 	touchpad-blue: {
 		name: touchpad
 		color: light-blue
@@ -378,6 +374,14 @@ com.badlogic.gdx.scenes.scene2d.ui.Skin$TintedDrawable: {
 	slider-yellow: {
 		name: slider
 		color: Orannge
+	}
+	list-blue2: {
+		name: list
+		color: blue2
+	}
+	list-blue: {
+		name: list
+		color: blue-matt
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
@@ -532,7 +536,7 @@ com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
 		vScrollKnob: vertical-scroll-knob
 	}
 	highscore: {
-		background: window-blue
+		background: list-blue2
 		hScroll: horizontal-scroll-bar
 		hScrollKnob: horizontal-scroll-knob
 		vScroll: vertical-scroll-bar
@@ -612,6 +616,14 @@ com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
 		fontColor: Orannge
 		up: blue-small
 		down: blue-small-down
+	}
+	toggle2: {
+		font: small
+		fontColor: Orannge
+		up: sm-blue
+		down: sm-blue-over
+		over: sm-blue-pressed
+		checked: sm-blue-pressed
 	}
 }
 com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {

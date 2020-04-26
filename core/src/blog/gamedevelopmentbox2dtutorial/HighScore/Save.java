@@ -14,7 +14,7 @@ public class Save {
     static {
         dbHandler = new DatabaseHandler();
         hsd = new IntMap<>();
-        for (int i = 1; i < 7; i++) {
+        for (int i = 1; i < 5; i++) {
             HighScoreData data = new HighScoreData();
             hsd.put(i, data);
         }

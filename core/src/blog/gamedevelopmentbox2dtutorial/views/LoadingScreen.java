@@ -27,6 +27,9 @@ public class LoadingScreen implements Screen{
     public final int PARTY = 2;		// loading particle effects
     public final int SOUND = 3;		// loading sounds
     public final int MUSIC = 4;		// loading music
+    private static final int IMG_WIDTH = 300;
+    private static final int IMG_HEIGHT = 300;
+
 
     // timer for exiting loading screen
     public float countDown = 1f; // 5 seconds of waiting before menu screen
@@ -37,7 +40,7 @@ public class LoadingScreen implements Screen{
 
     private TextureAtlas.AtlasRegion dash, background;
     private Stage stage;
-    private Image titleImage, copyrightImage;
+    private Image titleImage;
     private Table table, loadingTable;
     private Skin skin;
 
@@ -54,6 +57,7 @@ public class LoadingScreen implements Screen{
 
         background = gameAtlas.findRegion("background");
         dash = gameAtlas.findRegion("dash-yellow");
+        titleImage = new Image(gameAtlas.findRegion("Icon"));
 
 
         sb = new SpriteBatch();
@@ -90,7 +94,9 @@ public class LoadingScreen implements Screen{
 
     @Override
     public void show() {
-        Label title = new Label("LOADING...", skin, "big");
+        Label title = new Label("LOADING...", skin, "highscore");
+
+        titleImage.setSize(IMG_WIDTH,IMG_HEIGHT);
 
         loadingTable = new Table();
         table = new Table();
@@ -113,16 +119,20 @@ public class LoadingScreen implements Screen{
         loadingTable.add(new LoadingBarPart(dash));
         loadingTable.add(new LoadingBarPart(dash));
         loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
+        loadingTable.add(new LoadingBarPart(dash));
 
-        //table.add(titleImage).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
-        table.add(title).align(Align.center).pad(10, 0, 0 ,0).colspan(10);
+
+        table.top();
+        table.add(titleImage).size(titleImage.getWidth(), titleImage.getHeight()).top().align(Align.center).padTop(Gdx.graphics.getHeight()/10).colspan(12);
         table.row();
-        table.add(loadingTable).align(Align.center).pad(10, 0, 0 ,0).colspan(10).width(600);
+        table.add(title).align(Align.center).pad(30, 0, 0 ,0).colspan(12);
+        table.row();
+        table.add(loadingTable).align(Align.center).pad(10, 0, 0 ,0).colspan(12).width(600);
         table.row();
         stage.addActor(table);
-
-
     }
+
 
 
     @Override
@@ -136,7 +146,7 @@ public class LoadingScreen implements Screen{
         if (parent.assMan.manager.update()) { // Load some, will return true if done loading
             currentLoadingStage+= 1;
 
-            if (currentLoadingStage <= 5){
+            if (currentLoadingStage <= 6){
                 loadingTable.getCells().get((currentLoadingStage-1)*2).getActor().setVisible(true);
                 loadingTable.getCells().get((currentLoadingStage-1)*2+1).getActor().setVisible(true);
             }
@@ -162,9 +172,9 @@ public class LoadingScreen implements Screen{
                     System.out.println("Finished"); // all done
                     break;
             }
-            if (currentLoadingStage >5){
+            if (currentLoadingStage >6){
                 countDown -= delta;  // timer to stay on loading screen for short preiod once done loading
-                currentLoadingStage = 5;  // cap loading stage to 5 as will use later to display progress bar anbd more than 5 would go off the screen
+                currentLoadingStage = 6;  // cap loading stage to 5 as will use later to display progress bar anbd more than 5 would go off the screen
                 if(countDown < 0){ // countdown is complete
                     parent.changeScreen(Box2dTutorial.MENU);  /// go to menu screen
                 }

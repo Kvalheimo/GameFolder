@@ -29,7 +29,7 @@ public class B2dAssetManager {
     public final String pingSound = "sounds/ping.wav";
 
     // Music
-    public final String playingSong = "music/music1.mp3";
+    public final String playingSong = "music/music.wav";
 
     // Skin
     public final String skin = "skin/game/game.json";
