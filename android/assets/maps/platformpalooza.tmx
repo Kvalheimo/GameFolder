@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-up" width="400" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="318">
+<map version="1.2" tiledversion="1.3.3" orientation="orthogonal" renderorder="right-up" width="400" height="100" tilewidth="16" tileheight="16" infinite="0" nextlayerid="22" nextobjectid="377">
  <tileset firstgid="1" source="tileset/level1.tsx"/>
  <layer id="18" name="Background Color" width="400" height="100">
   <data encoding="base64" compression="zlib">
-   eJztwzENAAAMA6A+01D/TmthAiChl1RVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV9XESshgA
+   eJzt2TsOgCAQBUApPAPX4f6nMhYkxkb8LsQppiOwoXgvgTxPUwYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGhQUvwMAIxn7Y87oucHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAr5XUn+g7AQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgF6VFD8DAOPRHwBc0dIf65qqdc+9p88AINaZvH4733UIwDj2WS3DAWix7Ymz7066BuC/avZve+CoQ678bwDwngWuYCZP
   </data>
  </layer>
  <layer id="1" name="Graphic Layer" width="400" height="100">
   <data encoding="base64" compression="zlib">
-   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
+   eJztndmO3MYVhtmzwICEBA7iqyBA1nvDCOCMVi/JO2S9aOTKgAF5pJFkLXkCKdAz9OXYWiLZuUyCwUjQA0hIkCC5kG1JiaVcOjG8YJBDzTAplUjWwjpV55D/Bxz0LE02ye6ujz+LRVYVAHK5PSu9BM/yMi3TDxMvF8c8hyJxmQAAwBeJ/jhGy/RW4uXimOdQJC4TCOdVvIej4OKsvX6D97cTif5A/gCagD/0c4new5sddWvA+3t3Jd0ySkSiP5A/gCbgD93U7rjN5A+J7WtKJK4f8gfQBPwxnMO0DY9QHc28LRt32P74wqgvW5bp2JLf/HdG/tmQ6A/kD6AJ+GM4J2kbnqI6nXlb3m7xx5C8MTUk+gP5A2gC/hjOFdqGV6muwR+qkOgP5A+gCfhjGPUxpPtUD6geem7LS4m2OfwxDIn+QP4AmoA/hlH3Eby5FFb1NJuzanFw4LYfqz/+slJVf81w7pdEfyB/AE3AH+kI7W8euv81Vn88v1pVX1vlfx2J/kD+AJqAP8oxdP9rrP7IhUR/IH8ATcAf5ZCYP8Y+ZtBEoj+QP4Am4I9yvLXXD7JOtUYVOj2HP3zHhowBif5A/gCagD/KUe9/vUPeOE51QIg/poREfyB/AE3AH+Wovz/vkjdO7J6LtQidvs0fdeGaiX5I9AfyB9AE/FGO+vtzmbyxQXUooT+kZBDpfSkS/YH8ATQBf5SDo/9ckj8kts8mEpcP+QNoAv4oB8f5uz7+yNVHLv36ixL9gfwBNAF/lCNF/rgpOH+U5s5K/zE0if5A/gCagD/KUSp/TIV9q1W1v2ccu0R/IH8ATcAf5Rh7/0dpLjjORZPoD+QPoAn4oxzN92eNHg9Q1ddTPBTwfvT5I9c1CCWz3eHSOyvVnLLJXKI/kD+AJuCPcjTfn3V6PE51gmojkT9yXYNQMl3+aJDoD+QPoImx+WNptlsaaL4/m7Mn49DrsYT1eBBvuvrPxziGMOaeKRr9gfwBNDE2f2iivvZVbNXXzOrzx9gcEtPWa/QH8gfQBPxRjrVZNScPzDd3a6v5ed2qrr91Hb9q6ssE762UMeQxY0k0+gP5A2gC/tDLTo8/Up2Dpfl6vBr9gfwBNAF/6CbUH1M6L0ujP5A/gCbgDznEtO2h/pjSeVka/YH8ATQBf8ghpm2POX6l+ZhUCBr9gfwBNAF/6Ia7/0MzGv2B/AE0AX+U5Y3l7vIB/uhGoz+QP4Am4I+y9HnCxyHa/JGz/16jP5A/gCbgj7KE+KPtudr8kbP/XqM/kD+AJuCPskzNHznR6A/kD6AJ+KMs8AcfGv2B/AE0AX+UBf7gY3vWfx0wif5A/gCa0OSPmGuwSgf+4GPbsS0k+gP5A2hCkz8kft+HAn/wodEfyB86OEzLfoTqaMQ6DJlWGvBHWeAPPjT6A/mjPGdouc5SnaM637GMJ+nvp6hOR6xD6LQ+yxNCyvnBH2WBP/gw/bFvtVrcWakW5v8lfp6QP/ip2zyUX/lsSy1I/L4PBf7gA/mDb55DKblMvm0jcKNpO0r8vg9Fgz9ovz1J5b4XlUZ/IH/wA3+ko8R2rC//WjeFoc2JxO/7UIb6Y6fHH6na/H2raWp/5uvGa/QH8gc/tj9KHyPSXrlZsn729Ynr+67xvIah/qjp8keqNv/iLE3lvh+7Rn8gf/DT5Q8QjsTt1uUR1/d9yDkRpeDyx81Ebf7FjnnX9UVgpbgfewga/YH8wQ/8kQ5N223HsaxX6P9Xqa4pWiff67T3UW8Xn+ryQEzFuODyc8PXNQSN/kD+4KfxRXMtaBzPij9WJdUfMbfIu0/r8oDqodB1aiOFP3zpyimhFds3/xH84QT5g5+mLWyuBY084kfbdpG0nfquT7JkPLb1lVyYpTtek7Ncx69SFvzxNBL9gfzBj8sXWvyRelyhC+n+qL/PP1hyV9Pn3rik5vNZ+PF4CfWHjPciL+2Py89VW0lXyIFGfyB/8DPUH6WPIXEdi+rj90s6/KHhvJ5U1O/Jvyfkj+2M71N93rFreSX6A/mDny5f/H2lmr+wWs215I9YmvX7Y0Db84kCf2x7tF0p27PS1O/JlPJH/f6mGovoGrOy7bG8Ev2B/MFP0w7a/ed/I398fUL++E9A26Mhf8Qeg8p9Xmgqppg/Uo1FdI1ZMf1hfz7IMXN63lyiP5A/+Jl6//lY88fUmFr+qPcPcp2X0Pijb99Coj+QP/gZS/95LGPNH1NDe/5o8n8InydaBt/S5g/kD37gD+SPMaA9fzT5P5TYfq6U7mi2hzSQP/iBP5A/xoD2/BFLjnOtffrEJPoD+YOfrv5z+/9jxZU/Hs+q+fXZ0/fKQf6Qh/b8oR2J/kD+4Af95/35g9wxf2z5A/lDHlPNH1KQ6A/kD35w/Ar9H2MA+eNZfpXgHlO+85DoD+QPfjB+EP0fY0Br/qir9HXDYsu8VoFEfyB/8NPlj6mNH0T+0I3W/KGx2vrVJfoD+YMfHL9C/hgDufOH731Cct5HJEdpun4J8gc/HP5Yo+cfoDpIdUjYtrax80fb+VY2yB/yyJ0/UrGzty9v79tLra5zeSX6A/mDHw5/rNPzj1OdoNoQtq1t7PzRdr6VDfKHPHLnj9TUbQDtR26VXo5YJPoD+YMfDn9s0vPfoXqX6rKwbW2D/o9xoDV/NNRtwMvwR1KQP/jh8Mc9ev4HVB9SfSRsW9v09X90HctC/pDHGPKHrz/qzxl9xxa0n7agrL9Yoyr9+47Azz7yBz9c/eehTizVZ9KXP7qOZSF/yGMM+WPT8Efz+TI/U4fp5yNUR6k+pXX9bOnJ9dO37lKFPL60XC1o2iRF8/rfskgD+YMfrvEfoU4s1WeS8vwrUI5PRpA/1h354yQ95xTV6ZmsNlvSspggf/DDNf4j1Il9fSac2SRl/wcAsRzz2G+6Qv+/SnUN/vAC+YMfruNXoU7s6zPhzCbIH0ACPudf3afnPKB6CH94gfzBT4w/fPJAmxNd03V5lPN8LuQPIAHX+Vd2f4ikNlvSspggf/AT4w+fPNDmRNd0XR7lPJ8L+QNIIHT8h2+b/eH+9r+bPnJVqmXJDfIHPzH+8MkDbU50TdfnUZdjY/tIkD+ABELHfwxts30/uy8tV1svLvcvl1R/IH/wE+MPnzzQ5kTXdH0edTk2to+kLX/Y4z7s35E/QGq48kcXvp9dn9eR6g/kD35iz981nde279/lRN+MYc/T9XqxfSRt+cMe92H/PpX80dyTEvBjjh/0OXaU2x936HNwt+OzINUfyB/8xJ6/azqvbd+/y4m+GcOep+v1YvtI0P/RTXNPSsDPscz5I+XrSPUH8gc/sefvms5r2/cfmj/sebpez5zeHKfru/7o/wAlCbl+SQ384Qb5g58Qf7xGj6+35Iu2ff/m/+Y09nQh8+z6X9v05jhd3/WfSv7wcesr9fpRvUb1OtWPqH4ssH0YE/b1S1xI8EdzTEuqP5A/+PH1x9jKXr+p5A8ft75N63eG6izVOarzVL8W2D6MCfP6JW2Otz+7EvwR8pwSIH/wA39U4vIHZ7+1eQ2MLn5L63ed6gbVe1TvU/1OYPswJsz+Dx/Hwx9ukD/46WpPm/OvyixVPiTmD85+a/MaGF38g9bvn1QfUz2iekz1L4HtgxZ89gfM/g8fx8MfbpA/+OnyR3P+VZmlykdM/tB6/Mq3X+Nby1X1barvUH2X6ntU31/Ov7xjwWd/wMwfPo6HP9wgf/AzleNVvsezYrdbKmLG0ft6wbdf4yfkip9S/Yzq51S/oPol/MGKPf687bPZdv8PbuzXaRsHItUfyB/8wB+y/BEzjt7XC+jXyMt1ev9uUL1H9b7jvfQZfx56/48U9z1A/uCf51Ak5Q/gB9d2s8e2/In29f7ccuz8G/S/b+69vq8X0K/Bi+2LkH0Un+tflbj/h2Z/IH/wE9MO2mM6YjhD05+lOkd1Xtj74QOXP+7Nnh738pXVqvqq49i5rxfQr5EWly9C/LHp0QaUuP+HZn8gf/BT+rgRavjxNV8voF9jGKG+CHkPaZ7zj41rrLVhzuvF5SfXxmVHsz+QP/jx+WyDZynhD/OYlQm8wMNQX4T4g15n/sjhjxJo9gfyBz/wRxyS8gdIQ2pfhLyH9jWepbz3XW4wz8OS6g/kD34kfEY1An/sEnKtSo75DXl9bl+43kNzXKF9jxkpIH/wz3MoEpcJ9DMlf/SdL+FzrY1mevsxdH5t51zYz+87LyO3L+yyz6c1xxU+In/cgD+SgvwBpJK77TlIr3nIqMPV//8W+nh0ry7QfC/uVfPzJaPWCrSxqLDixuf+Ubn68kNB/gASKdFOnKDX3aA6aTw2fwt9PL1X2zTfm3vV/HyL6vZerQtoH1H9xY3UbOED8geQSIl2ossf9uOG4//1o+mPum7N2v2x6bFca7vPW5BrFr7rEjpNzGtMpbiRmi18QP4AUpHiD9sXKf1xT0D7iOqvXFAOWYRWvqVrB/kDSCV3O1HCH+j/kF81Ka5zNUaQP4BUcrcTXP6wnWGW2f9htlE+y4tjTvn8AdpB/gBSmYI/fPo/UGULdIP8AaSSu534L2zk48E=
   </data>
  </layer>
  <objectgroup id="2" name="Wall">
@@ -53,7 +53,6 @@
   <object id="144" x="2256" y="960" width="16" height="16"/>
   <object id="145" x="2526" y="960" width="16" height="16"/>
   <object id="147" x="2048" y="272" width="16" height="32"/>
-  <object id="148" x="2048" y="256" width="16" height="16"/>
   <object id="149" x="2352" y="384" width="16" height="32"/>
   <object id="150" x="2352" y="416" width="16" height="16"/>
   <object id="175" x="912" y="133.333" width="15.3333" height="10.6667"/>
@@ -80,12 +79,21 @@
   <object id="291" x="6032" y="16" width="16" height="1072"/>
   <object id="293" x="4704" y="672" width="32" height="784"/>
   <object id="296" x="4768" y="720" width="32" height="640"/>
-  <object id="300" x="5936" y="768" width="32" height="624"/>
+  <object id="300" x="5952" y="768" width="32" height="624"/>
   <object id="303" x="4832" y="768" width="32" height="528"/>
   <object id="305" x="5728" y="816" width="32" height="512"/>
+  <object id="359" x="4912" y="1392" width="32" height="16"/>
+  <object id="361" x="5200" y="1392" width="32" height="16"/>
+  <object id="365" x="208" y="816" width="16" height="16"/>
+  <object id="366" x="416" y="816" width="16" height="16"/>
+  <object id="370" x="0" y="0" width="16" height="1504"/>
+  <object id="371" x="2128" y="1504" width="16" height="96"/>
  </objectgroup>
  <objectgroup id="19" name="JumpWall">
   <object id="170" x="1162.67" y="815.333" width="5.33333" height="304.667"/>
+  <object id="343" x="5760" y="800" height="512"/>
+  <object id="353" x="5760" y="816" width="10" height="512"/>
+  <object id="354" x="5942" y="800" width="10" height="528"/>
  </objectgroup>
  <objectgroup id="21" name="Other">
   <object id="178" x="192" y="848" width="240" height="16"/>
@@ -98,10 +106,8 @@
   <object id="311" x="4864" y="1280" width="832" height="16"/>
  </objectgroup>
  <objectgroup id="3" name="Ground">
-  <object id="29" x="272" y="1328" width="96" height="96"/>
   <object id="30" x="112" y="1344" width="96" height="16"/>
   <object id="31" x="432" y="1264" width="96" height="16"/>
-  <object id="32" x="208" y="816" width="224" height="16"/>
   <object id="45" x="432" y="784" width="384" height="6.66667"/>
   <object id="46" x="800" y="784" width="384" height="16"/>
   <object id="47" x="1280" y="784" width="112" height="16"/>
@@ -145,18 +151,24 @@
   <object id="236" x="1952" y="1488" width="192" height="16"/>
   <object id="240" x="2560" y="1536" width="208" height="16"/>
   <object id="260" x="4704" y="656" width="1200" height="16"/>
-  <object id="282" x="32" y="1488" width="208" height="16"/>
+  <object id="282" x="16.6667" y="1488" width="223.333" height="16"/>
   <object id="283" x="16" y="1424" width="32" height="16"/>
   <object id="284" x="64" y="1376" width="32" height="16"/>
   <object id="285" x="1296.75" y="1487.5">
    <polygon points="0,0 510.25,-127.833 510.25,-118.167 29.5833,0.5"/>
   </object>
   <object id="292" x="4768" y="704" width="1264" height="16"/>
-  <object id="295" x="4736" y="1392" width="1248" height="16"/>
   <object id="302" x="4832" y="752" width="1136" height="16"/>
   <object id="304" x="4800" y="1328" width="962" height="16"/>
   <object id="308" x="4960" y="800" width="800" height="16"/>
   <object id="310" x="4864" y="1264" width="832" height="16"/>
+  <object id="355" x="5984" y="1392" width="416" height="16"/>
+  <object id="360" x="4736" y="1392" width="176" height="16"/>
+  <object id="362" x="4944" y="1392" width="256" height="16"/>
+  <object id="363" x="5232" y="1392" width="496" height="16"/>
+  <object id="364" x="5727.33" y="1392" width="224.667" height="16"/>
+  <object id="367" x="224" y="816" width="192" height="16"/>
+  <object id="369" x="272" y="1328" width="96" height="16"/>
  </objectgroup>
  <objectgroup id="4" name="SpeedX"/>
  <objectgroup id="5" name="SpeedY">
@@ -165,6 +177,12 @@
   <object id="202" x="1168" y="208" width="32" height="16"/>
   <object id="224" x="2166.25" y="1551.67" width="51.25" height="16"/>
   <object id="226" x="2257" y="1361.33" width="48" height="16"/>
+  <object id="345" x="4800" y="1296" width="32" height="32"/>
+  <object id="346" x="4800" y="1200" width="32" height="32"/>
+  <object id="347" x="4800" y="1088" width="32" height="32"/>
+  <object id="348" x="4800" y="960" width="32" height="32"/>
+  <object id="349" x="4800" y="816" width="32" height="32"/>
+  <object id="372" x="1824" y="1472" width="32" height="16"/>
  </objectgroup>
  <objectgroup id="6" name="Water"/>
  <objectgroup id="7" name="SuperSpeed"/>
@@ -179,13 +197,14 @@
   <object id="314" x="4736" y="752" width="32" height="32"/>
   <object id="316" x="4736" y="832" width="32" height="32"/>
   <object id="317" x="4736" y="912" width="32" height="32"/>
+  <object id="374" x="464" y="1216" width="32" height="32"/>
+  <object id="375" x="1872" y="1456" width="32" height="32"/>
+  <object id="376" x="1776" y="1312" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="10" name="Finish">
-  <object id="1" name="finished" x="6381.33" y="73.3333" width="16" height="16"/>
+  <object id="356" name="finished" x="6320" y="1360" width="16" height="16"/>
  </objectgroup>
- <objectgroup id="10" name="Finish">
-  <object id="1" name="finished" x="6300" y="42" width="16" height="16"/>
- </objectgroup>
+ <objectgroup id="10" name="Finish"/>
  <objectgroup id="11" name="Spikes">
   <object id="93" x="1744" y="192" width="16" height="16"/>
   <object id="94" x="1808" y="416" width="16" height="16"/>
@@ -204,13 +223,22 @@
   <object id="280" x="1935.82" y="1459.45">
    <polygon points="0,0 -3.09091,10.3636 3.81818,10.3636"/>
   </object>
+  <object id="318" x="2048" y="256" width="16" height="16"/>
+  <object id="329" x="2608" y="656" width="32" height="16"/>
+  <object id="330" x="2656" y="848" width="32" height="16"/>
+  <object id="331" x="2656" y="352" width="32" height="16"/>
+  <object id="337" x="5820.5" y="1186.75" width="6.75" height="27"/>
+  <object id="338" x="5884.5" y="1186.5" width="7.25" height="27"/>
+  <object id="339" x="5852.5" y="1058.25" width="7" height="27.75"/>
+  <object id="340" x="5867.5" y="913.75" width="7.75" height="28.75"/>
+  <object id="342" x="5803.5" y="1010" width="8.25" height="27.75"/>
  </objectgroup>
  <objectgroup id="12" name="Spiders">
   <object id="85" x="1040" y="128" width="32" height="16"/>
   <object id="120" x="1936" y="960" width="32" height="16"/>
   <object id="135" x="2320" y="960" width="32" height="16"/>
   <object id="179" x="224" y="800" width="32" height="16"/>
-  <object id="312" x="4848" y="1376" width="32" height="16"/>
+  <object id="312" x="5024" y="1376.5" width="32" height="16"/>
   <object id="313" x="5328" y="1376" width="32" height="16"/>
  </objectgroup>
  <objectgroup id="13" name="Bats">
@@ -223,7 +251,7 @@
   <object id="113" x="1536" y="560" width="16" height="16">
    <ellipse/>
   </object>
-  <object id="121" x="1936" y="800" width="16" height="16">
+  <object id="121" x="1968" y="800" width="16" height="16">
    <ellipse/>
   </object>
   <object id="130" x="2016" y="464" width="16" height="16">
@@ -232,10 +260,10 @@
   <object id="152" x="2080" y="336" width="16" height="16">
    <ellipse/>
   </object>
-  <object id="156" x="2144" y="768" width="16" height="16">
+  <object id="184" x="592" y="640" width="16" height="16">
    <ellipse/>
   </object>
-  <object id="184" x="592" y="640" width="16" height="16">
+  <object id="373" x="1104" y="848" width="16" height="16">
    <ellipse/>
   </object>
  </objectgroup>
@@ -251,43 +279,45 @@
   <object id="87" x="464" y="736"/>
   <object id="273" x="2480" y="1120" width="16" height="16"/>
   <object id="290" x="2576" y="1040" width="16" height="16"/>
+  <object id="352" x="4736" y="608" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="16" name="CheckpointLine">
-  <object id="21" x="368" y="938" width="16" height="409.449"/>
+  <object id="21" x="0" y="1117" width="361" height="16.449"/>
   <object id="62" x="928" y="0" width="16" height="144"/>
   <object id="86" x="432" y="656" width="16" height="125.333"/>
   <object id="272" x="2512" y="1104" width="16" height="64"/>
   <object id="289" x="2560" y="1040" width="16" height="32"/>
+  <object id="358" x="4704" y="400" width="16" height="256"/>
  </objectgroup>
  <objectgroup id="16" name="CheckpointLine"/>
  <objectgroup id="17" name="Platform">
-  <object id="4" name="7" type="vertical" x="117.105" y="712.827" width="96"/>
-  <object id="6" name="3" type="horizontal" x="544" y="160" width="112"/>
-  <object id="8" name="4" type="horizontal" x="304" y="448" width="160"/>
-  <object id="23" name="5" type="vertical" x="576.5" y="1168" width="110.75"/>
-  <object id="24" name="7" x="1072" y="1193.33" width="80" height="2.66667"/>
-  <object id="25" name="9" type="vertical" x="608" y="1408" width="80"/>
-  <object id="27" name="8" type="horizontal" x="768" y="864" width="80"/>
-  <object id="58" name="6" type="vertical" x="1424" y="1200" width="80"/>
+  <object id="4" name="7" type="vertical" x="117.105" y="712.827" width="128" height="16"/>
+  <object id="6" name="3" type="horizontal" x="544" y="160" width="128" height="16"/>
+  <object id="8" name="4" type="horizontal" x="304" y="448" width="128" height="16"/>
+  <object id="24" name="7" x="1072" y="1193.33" width="128" height="16"/>
+  <object id="25" name="9" type="vertical" x="608" y="1408" width="128" height="16"/>
+  <object id="27" name="8" type="horizontal" x="768" y="864" width="128" height="16"/>
+  <object id="58" name="6" type="vertical" x="1424" y="1200" width="128" height="16"/>
   <object id="88" name="10" type="vertical" x="16" y="1328" width="80"/>
-  <object id="91" name="6" type="horizontal" x="1636" y="146.667" width="110" height="0.666667"/>
-  <object id="107" name="2" type="vertical" x="1920" y="144" width="108.667" height="5"/>
-  <object id="115" name="8" type="horizontal" x="1696" y="592" width="96"/>
-  <object id="116" name="4" type="horizontal" x="2128.5" y="820.5" width="81.5" height="1"/>
-  <object id="117" name="3" type="horizontal" x="2288" y="800" width="80"/>
-  <object id="247" name="10" type="hortizontal" x="2784" y="1504" width="80"/>
-  <object id="248" name="10" type="vertical" x="2784" y="1456" width="80"/>
-  <object id="249" name="10" type="hortizontal" x="3016.67" y="1428" width="80"/>
-  <object id="250" name="10" type="hortizontal" x="2957.33" y="1197.33" width="80"/>
-  <object id="251" name="10" type="hortizontal" x="2833.33" y="1298.67" width="80"/>
-  <object id="253" name="10" type="hortizontal" x="3222.67" y="1340.67" width="80"/>
-  <object id="256" name="10" type="hortizontal" x="2872.67" y="1070" width="80"/>
-  <object id="257" name="10" type="hortizontal" x="2871.33" y="879.333" width="80"/>
-  <object id="258" name="5" type="hortizontal" x="3085.33" y="961.667" width="80"/>
-  <object id="262" name="10" type="hortizontal" x="3398" y="762" width="80"/>
-  <object id="266" name="10" type="hortizontal" x="3440" y="1173" width="80"/>
-  <object id="267" name="10" type="hortizontal" x="3981.33" y="738.667" width="80"/>
-  <object id="269" name="10" type="hortizontal" x="3622.67" y="1024" width="80"/>
-  <object id="271" name="10" type="hortizontal" x="3659" y="817" width="80"/>
+  <object id="91" name="6" type="horizontal" x="1636" y="146.667" width="128" height="16"/>
+  <object id="107" name="2" type="vertical" x="1920" y="144" width="128" height="16"/>
+  <object id="115" name="8" type="horizontal" x="1696" y="592" width="128" height="16"/>
+  <object id="116" name="4" type="horizontal" x="2143.17" y="807.833" width="128" height="16"/>
+  <object id="247" name="10" type="hortizontal" x="2784" y="1504" width="128" height="16"/>
+  <object id="248" name="10" type="vertical" x="2784" y="1456" width="128" height="16"/>
+  <object id="249" name="10" type="hortizontal" x="3016.67" y="1428" width="128" height="16"/>
+  <object id="250" name="10" type="hortizontal" x="2957.33" y="1197.33" width="128" height="16"/>
+  <object id="251" name="10" type="hortizontal" x="2833.33" y="1298.67" width="128" height="16"/>
+  <object id="253" name="10" type="hortizontal" x="3222.67" y="1340.67" width="128" height="16"/>
+  <object id="256" name="10" type="hortizontal" x="2872.67" y="1070" width="128" height="16"/>
+  <object id="257" name="10" type="hortizontal" x="2871.33" y="879.333" width="128" height="16"/>
+  <object id="258" name="5" type="hortizontal" x="3085.33" y="961.667" width="128" height="16"/>
+  <object id="262" name="8" type="hortizontal" x="3398" y="762" width="128" height="16"/>
+  <object id="266" name="10" type="hortizontal" x="3440" y="1173" width="128" height="16"/>
+  <object id="267" name="3" type="hortizontal" x="3981.33" y="738.667" width="128" height="16"/>
+  <object id="269" name="10" type="hortizontal" x="3622.67" y="1024" width="128" height="16"/>
+  <object id="323" name="5" type="vertical" x="544" y="1216" width="128" height="16"/>
+  <object id="333" name="3" type="horizontal" x="4304" y="736" width="128" height="16"/>
+  <object id="335" name="10" type="vertical" x="5793" y="1328" width="117" height="16"/>
  </objectgroup>
 </map>
