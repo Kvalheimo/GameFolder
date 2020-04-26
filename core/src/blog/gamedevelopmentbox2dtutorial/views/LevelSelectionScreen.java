@@ -5,23 +5,17 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
-import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
@@ -29,8 +23,8 @@ import blog.gamedevelopmentbox2dtutorial.Box2dTutorial;
 import blog.gamedevelopmentbox2dtutorial.HighScore.Save;
 
 public class LevelSelectionScreen implements Screen {
-    private static final int IMG_WIDTH = 600;
-    private static final int IMG_HEIGHT = 500;
+    private static final int IMG_WIDTH = 700;
+    private static final int IMG_HEIGHT = 600;
 
 
     private Box2dTutorial parent;
@@ -76,10 +70,10 @@ public class LevelSelectionScreen implements Screen {
         levelSelected = 1;
 
         // Create text buttons, labels etc.
-        final TextButton l1 = new TextButton("Homecoming", skin, "toggle");
-        final TextButton l2 = new TextButton("Enrique's World", skin, "toggle");
-        final TextButton l3 = new TextButton("Mountain Jam", skin, "toggle");
-        final TextButton l4 = new TextButton("Platform Plooza", skin, "toggle");
+        final TextButton l1 = new TextButton("Homecoming", skin, "toggle2");
+        final TextButton l2 = new TextButton("Enrique's World", skin, "toggle2");
+        final TextButton l3 = new TextButton("Mountain Jam", skin, "toggle2");
+        final TextButton l4 = new TextButton("Platform Plooza", skin, "toggle2");
 
         l1.setChecked(true);
 
@@ -116,24 +110,24 @@ public class LevelSelectionScreen implements Screen {
 
 
 
-        innerTable.add(l1).padTop(10).fillX().expandX();
+        innerTable.add(l1).padTop(30).fillX().expandX();
         innerTable.row();
         innerTable.add(l2).padTop(30).fillX().expandX();
         innerTable.row();
         innerTable.add(l3).padTop(30).fillX().expandX();
         innerTable.row();
-        innerTable.add(l4).padTop(30).padBottom(10).fillX().expandX();;
+        innerTable.add(l4).padTop(30).padBottom(30).fillX().expandX();;
 
         ScrollPane scrollPane = new ScrollPane(innerTable, skin);
 
-        outerTable.add(headerLabel).colspan(3);
+        outerTable.add(headerLabel).colspan(3).padTop(30);
         outerTable.row().expandX();
-        outerTable.add(scrollPane).fillY().expandY().padTop(20);
+        outerTable.add(scrollPane).fillY().expandY().pad(Gdx.graphics.getBackBufferHeight()/6,0,Gdx.graphics.getBackBufferHeight()/6,0);
 
         outerTable.row().expandX();
-        outerTable.add(backButton).pad(20,0,10,0);
+        outerTable.add(backButton).pad(20,0,30,0);
         outerTable.add();
-        outerTable.add(playButton).pad(20,0,10,0);
+        outerTable.add(playButton).pad(20,0,30,0);
 
 
         stage.addActor(previewTable);
