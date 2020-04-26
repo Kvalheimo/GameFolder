@@ -66,6 +66,9 @@ public class EndScreen implements Screen {
         table.setFillParent(true);
         table.setBackground(new TiledDrawable(background));
 
+        table.top();
+        table.padTop(Gdx.graphics.getHeight()/4);
+
         //Get boolean for check if it is new highscore
         newHighScore = Save.hsd.get(level).isHighScore(Save.hsd.get(level).getTentativeScore());
 
@@ -76,11 +79,11 @@ public class EndScreen implements Screen {
             Label nameLabel = new Label("ENTER YOUR NAME:", skin, "highscore");
 
             table.add(scoreLabel).colspan(2);
-            table.row().padTop(10);
+            table.row().padTop(20);
             table.add(score).colspan(2);
-            table.row().padTop(10);
+            table.row().padTop(20);
             table.add(nameLabel).colspan(2);
-            table.row().padTop(10);
+            table.row().padTop(20);
 
             txtfName = new TextField("", skin);
             txtfName.setSize(300, 40);
@@ -93,32 +96,16 @@ public class EndScreen implements Screen {
 
 
             table.add(scoreLabel).colspan(2);
-            table.row().padTop(10);
+            table.row().padTop(20);
             table.add(score).colspan(2);
         }
 
 
-
-
-        Label labelCredits = new Label("Credits:", skin, "small");
-        Label labelCredits1 = new Label("Game Design by", skin, "small");
-        Label labelCredits2 = new Label("gamedevelopment.blog", skin,"small");
-        Label labelCredits3 = new Label("Art Design by", skin, "small");
-        Label labelCredits4 = new Label("Random stuff off the internet", skin, "small");
-
-        table.row().padTop(10);
-        table.add(labelCredits).colspan(2);
-        table.row().padTop(10);
-        table.add(labelCredits1).uniformX().align(Align.left);
-        table.add(labelCredits2).uniformX().align(Align.left);
-        table.row().padTop(10);
-        table.add(labelCredits3).uniformX().align(Align.left);
-        table.add(labelCredits4).uniformX().align(Align.left);
         table.row().padTop(50);
 
         if(newHighScore){
-            table.add(menuButton);
-            table.add(saveButton);
+            table.add(menuButton).padRight(30);
+            table.add(saveButton).padLeft(30);
         }else{
             table.add(menuButton);
         }
