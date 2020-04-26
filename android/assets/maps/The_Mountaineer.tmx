@@ -286,9 +286,9 @@
   <object id="223" x="3316" y="1023" width="12" height="1105"/>
  </objectgroup>
  <objectgroup id="23" name="Platform">
-  <object id="198" name="10" type="vertical" x="2846.17" y="2114.17" width="86.6667" height="17.3333"/>
-  <object id="202" name="3" type="horizontal" x="831" y="2447.5" width="96" height="16"/>
-  <object id="204" name="10" type="vertical" x="704" y="2480" width="99" height="15"/>
+  <object id="198" name="10" type="vertical" x="2846.17" y="2114.17" width="128" height="16"/>
+  <object id="202" name="3" type="horizontal" x="831" y="2447.5" width="128" height="16"/>
+  <object id="204" name="10" type="vertical" x="704" y="2480" width="128" height="15"/>
  </objectgroup>
  <objectgroup id="19" name="CheckpointPos">
   <object id="172" x="178" y="2958" width="32" height="32" rotation="90"/>
