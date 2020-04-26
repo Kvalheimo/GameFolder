@@ -43,8 +43,8 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
 
-    public void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine) {
-        dbRef = db.getReference("players/");
+    public void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine, final int level) {
+        dbRef = db.getReference("map"+ level + "/players/");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -134,16 +134,11 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
     @Override
-    public void publishPlayer(Entity player) {
-        dbRef = db.getReference("players/" + uniqueID);
+    public void publishPlayer(Entity player, int level) {
+        dbRef = db.getReference("map"+ level + "/players/" + uniqueID);
         dbRef.child("pos").child("x").setValue(player.getComponent(TransformComponent.class).position.x);
         dbRef.child("pos").child("y").setValue(player.getComponent(TransformComponent.class).position.y);
         dbRef.child("state").setValue(player.getComponent(StateComponent.class).state);
     }
 
-    @Override
-    public ArrayList<Entity> getPlayers() {
-        dbRef = db.getReference("players/");
-        return null;
-    }
 }

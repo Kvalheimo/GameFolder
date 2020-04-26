@@ -25,9 +25,8 @@ public class DatabaseHandler {
     }
 
     public interface DataBase {
-        void publishPlayer(Entity player);
-        ArrayList<Entity> getPlayers();
-        void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine);
+        void publishPlayer(Entity player, int level);
+        void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine, final int level);
         IntMap<HighScoreData> getHighscores();
         void publishHighscores();
     }
