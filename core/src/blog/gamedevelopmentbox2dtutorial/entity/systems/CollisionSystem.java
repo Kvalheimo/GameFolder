@@ -194,7 +194,16 @@ public class CollisionSystem extends IteratingSystem {
                             }else if(!enemyComponent.movingRight) {
                                 enemyComponent.movingRight = true;
                             }
-                            break; //technically this isn't needed
+                            break;
+                        case TypeComponent.ENEMY:
+                            enemyComponent = Mapper.enemyCom.get(entity);
+
+                            if (enemyComponent.movingRight){
+                                enemyComponent.movingRight = false;
+                            }else if(!enemyComponent.movingRight) {
+                                enemyComponent.movingRight = true;
+                            }
+                            break;
 
                         case TypeComponent.SPIKES:
                             //do enemy hit spike thing

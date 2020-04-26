@@ -237,7 +237,6 @@ public class PlayerControlSystem extends IteratingSystem{
             }
             player.superSpeed = false;
 
-
         }
 
 
@@ -301,8 +300,9 @@ public class PlayerControlSystem extends IteratingSystem{
 
         if (player.speedY){
             //b2body.body.setLinearVelocity(0f, 100f);
-            b2body.body.applyLinearImpulse(0, 60, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
+            b2body.body.applyLinearImpulse(0, 30, b2body.body.getWorldCenter().x, b2body.body.getWorldCenter().y, true);
             player.speedY = false;
+            player.jumpCounter = 0;
         }
 
 
