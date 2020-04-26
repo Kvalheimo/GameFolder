@@ -48,19 +48,22 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                 Iterable<DataSnapshot> players = dataSnapshot.getChildren();
                 for(DataSnapshot snapshot : players) {
                     String key = snapshot.getKey();
-                    if (snapshot.child("pos").child("x").exists()){
-                        try {
-                            Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class),0);
-                            if (!opponents.containsKey(key)) {
-                                opponents.put(key, levelFactory.createOpponent(pos, 1));
-                            }
-                            else {
-                                opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
-                                opponents.get(key).getComponent(OpponentComponent.class).setPos(pos);
-                                opponents.get(key).getComponent(StateComponent.class).set(snapshot.child("state").getValue(Integer.class));
-                            }
-                        } catch (Exception e){
 
+                    //Show all opponents and yourself if in debugmode
+                    if (!key.equals(uniqueID) || Box2dTutorial.DEBUG) {
+                        if (snapshot.child("pos").child("x").exists()) {
+                            try {
+                                Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class), 0);
+                                if (!opponents.containsKey(key)) {
+                                    opponents.put(key, levelFactory.createOpponent(pos, 1));
+                                } else {
+                                    opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                                    opponents.get(key).getComponent(OpponentComponent.class).setPos(pos);
+                                    opponents.get(key).getComponent(StateComponent.class).set(snapshot.child("state").getValue(Integer.class));
+                                }
+                            } catch (Exception e) {
+
+                            }
                         }
                     }
 
