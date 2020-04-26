@@ -93,7 +93,7 @@ public class Box2dTutorial extends Game {
 				levelSelectionScreen = new LevelSelectionScreen(this, character);
 				this.setScreen(levelSelectionScreen);
 				break;
-				case CHARACTER_SELECTION:
+			case CHARACTER_SELECTION:
 				if(characterSelectionScreen == null) characterSelectionScreen = new CharacterSelectionScreen(this);
 				this.setScreen(characterSelectionScreen);
 				break;
