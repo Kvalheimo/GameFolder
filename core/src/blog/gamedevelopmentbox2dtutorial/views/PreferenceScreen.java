@@ -139,10 +139,11 @@ public class PreferenceScreen implements Screen {
                     if (!parent.getPlayingSong().isLooping()){
                         parent.getPlayingSong().setLooping(true);
                     }
+
                 }else{
                     parent.getPlayingSong().pause();
-                    System.out.println("pause song");
                 }
+
                 return false;
             }
         });
