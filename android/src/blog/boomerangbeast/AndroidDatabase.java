@@ -16,8 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 import java.util.UUID;
 
-import blog.boomerangbeast.Factory.LevelFactory;
-import blog.boomerangbeast.HighScore.HighScoreData;
+import blog.boomerangbeast.factory.LevelFactory;
+import blog.boomerangbeast.highscore.HighScoreData;
 import blog.boomerangbeast.entity.components.OpponentComponent;
 import blog.boomerangbeast.entity.components.StateComponent;
 import blog.boomerangbeast.entity.components.TransformComponent;

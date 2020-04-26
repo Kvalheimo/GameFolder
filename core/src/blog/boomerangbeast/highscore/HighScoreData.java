@@ -1,4 +1,4 @@
-package blog.boomerangbeast.HighScore;
+package blog.boomerangbeast.highscore;
 
 import java.io.Serializable;
 import java.util.Random;

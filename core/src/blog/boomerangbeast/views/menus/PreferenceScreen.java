@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views;
+package blog.boomerangbeast.views.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -161,7 +161,7 @@ public class PreferenceScreen implements Screen {
         backButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                if (parent.getMainScreen() == null){
+                if (parent.getSingleplayerScreen() == null){
                     parent.changeScreen(BoomerangBeast.MENU);
                 }else{
                     parent.changeScreen(BoomerangBeast.APPLICATION);

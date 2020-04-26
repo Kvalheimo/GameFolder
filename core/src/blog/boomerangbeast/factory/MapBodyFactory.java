@@ -1,4 +1,4 @@
-package blog.boomerangbeast.Factory;
+package blog.boomerangbeast.factory;
 
 import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.MapObjects;

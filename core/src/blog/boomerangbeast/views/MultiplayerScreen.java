@@ -14,9 +14,9 @@ import java.util.HashMap;
 
 import blog.boomerangbeast.DFUtils;
 import blog.boomerangbeast.DatabaseHandler;
-import blog.boomerangbeast.Factory.LevelFactory;
+import blog.boomerangbeast.factory.LevelFactory;
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.HighScore.Save;
+import blog.boomerangbeast.highscore.Save;
 import blog.boomerangbeast.controller.Controller;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.TypeComponent;
@@ -32,6 +32,9 @@ import blog.boomerangbeast.entity.systems.PhysicsSystem;
 import blog.boomerangbeast.entity.systems.PlayerControlSystem;
 import blog.boomerangbeast.entity.systems.PowerupSystem;
 import blog.boomerangbeast.entity.systems.RenderingSystem;
+import blog.boomerangbeast.views.overlays.PauseMenu;
+import blog.boomerangbeast.views.overlays.CountdownView;
+import blog.boomerangbeast.views.overlays.Hud;
 
 public class MultiplayerScreen implements Screen, GameScreen {
 

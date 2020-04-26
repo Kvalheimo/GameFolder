@@ -1,4 +1,4 @@
-package blog.boomerangbeast.HighScore;
+package blog.boomerangbeast.highscore;
 
 import com.badlogic.gdx.utils.IntMap;
 

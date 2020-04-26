@@ -7,8 +7,8 @@ import com.badlogic.gdx.utils.IntMap;
 import java.util.HashMap;
 
 
-import blog.boomerangbeast.Factory.LevelFactory;
-import blog.boomerangbeast.HighScore.HighScoreData;
+import blog.boomerangbeast.factory.LevelFactory;
+import blog.boomerangbeast.highscore.HighScoreData;
 
 public class DatabaseHandler {
 

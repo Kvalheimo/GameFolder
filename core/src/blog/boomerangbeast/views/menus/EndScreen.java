@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views;
+package blog.boomerangbeast.views.menus;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.boomerangbeast.BoomerangBeast;
 import blog.boomerangbeast.DFUtils;
-import blog.boomerangbeast.HighScore.Save;
+import blog.boomerangbeast.highscore.Save;
 
 public class EndScreen implements Screen {
 

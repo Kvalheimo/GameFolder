@@ -5,7 +5,7 @@ import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 
 
-import blog.boomerangbeast.Factory.LevelFactory;
+import blog.boomerangbeast.factory.LevelFactory;
 import blog.boomerangbeast.ParticleEffectManager;
 import blog.boomerangbeast.entity.components.B2dBodyComponent;
 import blog.boomerangbeast.entity.components.CollisionComponent;
@@ -14,7 +14,7 @@ import blog.boomerangbeast.entity.components.Mapper;
 import blog.boomerangbeast.entity.components.PlatformComponent;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.TypeComponent;
-import blog.boomerangbeast.views.Hud;
+import blog.boomerangbeast.views.overlays.Hud;
 
 public class CollisionSystem extends IteratingSystem {
     private LevelFactory levelFactory;

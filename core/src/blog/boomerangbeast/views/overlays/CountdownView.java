@@ -1,4 +1,4 @@
-package blog.boomerangbeast.views;
+package blog.boomerangbeast.views.overlays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;

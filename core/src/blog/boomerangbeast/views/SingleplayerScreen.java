@@ -12,8 +12,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import blog.boomerangbeast.BoomerangBeast;
 import blog.boomerangbeast.DFUtils;
-import blog.boomerangbeast.Factory.LevelFactory;
-import blog.boomerangbeast.HighScore.Save;
+import blog.boomerangbeast.factory.LevelFactory;
+import blog.boomerangbeast.highscore.Save;
 import blog.boomerangbeast.controller.Controller;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.TypeComponent;
@@ -29,8 +29,11 @@ import blog.boomerangbeast.entity.systems.PhysicsSystem;
 import blog.boomerangbeast.entity.systems.PlayerControlSystem;
 import blog.boomerangbeast.entity.systems.PowerupSystem;
 import blog.boomerangbeast.entity.systems.RenderingSystem;
+import blog.boomerangbeast.views.overlays.PauseMenu;
+import blog.boomerangbeast.views.overlays.CountdownView;
+import blog.boomerangbeast.views.overlays.Hud;
 
-public class MainScreen implements Screen, GameScreen {
+public class SingleplayerScreen implements Screen, GameScreen {
 
 
     private CountdownView countdownView;
@@ -51,7 +54,7 @@ public class MainScreen implements Screen, GameScreen {
     private boolean countDownMode;
 
 
-    public MainScreen(BoomerangBeast boomerangBeast, int level, int character){
+    public SingleplayerScreen(BoomerangBeast boomerangBeast, int level, int character){
         this.level = level;
         this.character = character;
         parent = boomerangBeast;

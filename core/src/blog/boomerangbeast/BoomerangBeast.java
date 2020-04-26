@@ -3,17 +3,17 @@ package blog.boomerangbeast;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Music;
 
-import blog.boomerangbeast.HighScore.Save;
+import blog.boomerangbeast.highscore.Save;
 import blog.boomerangbeast.loader.B2dAssetManager;
-import blog.boomerangbeast.views.CharacterSelectionScreen;
-import blog.boomerangbeast.views.EndScreen;
-import blog.boomerangbeast.views.HighScoreScreen;
-import blog.boomerangbeast.views.LevelSelectionScreen;
-import blog.boomerangbeast.views.LoadingScreen;
-import blog.boomerangbeast.views.MainScreen;
-import blog.boomerangbeast.views.MenuScreen;
+import blog.boomerangbeast.views.menus.CharacterSelectionScreen;
+import blog.boomerangbeast.views.menus.EndScreen;
+import blog.boomerangbeast.views.menus.HighScoreScreen;
+import blog.boomerangbeast.views.menus.LevelSelectionScreen;
+import blog.boomerangbeast.views.menus.LoadingScreen;
+import blog.boomerangbeast.views.SingleplayerScreen;
+import blog.boomerangbeast.views.menus.MenuScreen;
 import blog.boomerangbeast.views.MultiplayerScreen;
-import blog.boomerangbeast.views.PreferenceScreen;
+import blog.boomerangbeast.views.menus.PreferenceScreen;
 
 public class BoomerangBeast extends Game {
 
@@ -25,7 +25,7 @@ public class BoomerangBeast extends Game {
 	private LoadingScreen loadingScreen;
 	private PreferenceScreen preferencesScreen;
 	private MenuScreen menuScreen;
-	private MainScreen mainScreen;
+	private SingleplayerScreen singleplayerScreen;
 	private EndScreen endScreen;
 	private LevelSelectionScreen levelSelectionScreen;
 	private CharacterSelectionScreen characterSelectionScreen;
@@ -65,7 +65,7 @@ public class BoomerangBeast extends Game {
 		switch(screen){
 			case MENU:
 			    if(menuScreen == null) menuScreen = new MenuScreen(this);
-				mainScreen = null;
+				singleplayerScreen = null;
 				this.setScreen(menuScreen);
 				break;
 			case PREFERENCES:
@@ -76,9 +76,9 @@ public class BoomerangBeast extends Game {
 				if (newGame) {
 					assMan.resetParticleEffects();
 					assMan.resetMaps(level);
-					mainScreen = new MainScreen(this, level, character);
+					singleplayerScreen = new SingleplayerScreen(this, level, character);
 				}
-				this.setScreen(mainScreen);
+				this.setScreen(singleplayerScreen);
 				break;
 			case ENDGAME:
 				endScreen = new EndScreen(this, level);
@@ -134,8 +134,8 @@ public class BoomerangBeast extends Game {
         Save.load();
 	}
 
-	public MainScreen getMainScreen(){
-		return mainScreen;
+	public SingleplayerScreen getSingleplayerScreen(){
+		return singleplayerScreen;
 	}
 
 

@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 
 
-import blog.boomerangbeast.Factory.LevelFactory;
+import blog.boomerangbeast.factory.LevelFactory;
 import blog.boomerangbeast.ParticleEffectManager;
 import blog.boomerangbeast.controller.Controller;
 import blog.boomerangbeast.entity.components.B2dBodyComponent;
@@ -16,7 +16,7 @@ import blog.boomerangbeast.entity.components.Mapper;
 import blog.boomerangbeast.entity.components.PlatformComponent;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.StateComponent;
-import blog.boomerangbeast.views.Hud;
+import blog.boomerangbeast.views.overlays.Hud;
 
 import static blog.boomerangbeast.DFUtils.PLATFORM_VELOCITY_X;
 
