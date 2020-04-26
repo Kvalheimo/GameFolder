@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -81,7 +82,7 @@ public class RenderingSystem extends SortedIteratingSystem {
 
 
 
-        viewport = new FitViewport(Gdx.graphics.getWidth()/Box2dTutorial.PPM,Gdx.graphics.getHeight()/Box2dTutorial.PPM, camera);
+        viewport = new FitViewport(Gdx.graphics.getWidth()/(Box2dTutorial.PPM*2),Gdx.graphics.getHeight()/(Box2dTutorial.PPM*2), camera);
         viewport.getCamera().update();
 
 
