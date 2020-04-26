@@ -17,16 +17,12 @@ import com.badlogic.ashley.core.Entity;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.HighScore.HighScoreData;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
@@ -36,6 +32,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     private DatabaseReference dbRef;
     private IntMap<HighScoreData> hsd;
     String uniqueID;
+
     public AndroidDatabase() {
         db = FirebaseDatabase.getInstance();
         hsd = new IntMap<>();
@@ -90,7 +87,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
             dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (int i = 1; i < 7; i++) {
+                    for (int i = 1; i < 5; i++) {
 
                         HighScoreData levelHighscores = new HighScoreData();
 
@@ -100,7 +97,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                                 for(DataSnapshot snapshot : highscores) {
                                     String name = snapshot.getKey();
                                     Integer score = snapshot.getValue(Integer.class);
-                                    levelHighscores.addHighScore(score, name);
+                                    levelHighscores.addHighScore(score, name, true);
 
                                 }
                             } catch (Exception e){
