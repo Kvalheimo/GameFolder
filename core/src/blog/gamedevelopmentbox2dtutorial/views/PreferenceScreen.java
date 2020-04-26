@@ -133,7 +133,8 @@ public class PreferenceScreen implements Screen {
                 boolean enabled = musicCheckBox.isChecked();
                 parent.getPreferences().setMusicEffectsEnabled(enabled);
 
-                if (parent.getPreferences().isMusicEnabled()) {
+                if (enabled) {
+
                     parent.getPlayingSong().play();
 
                     if (!parent.getPlayingSong().isLooping()){
