@@ -87,6 +87,7 @@ public class EndScreen implements Screen {
 
             txtfName = new TextField("", skin);
             txtfName.setSize(300, 40);
+            txtfName.setMaxLength(12);
 
             table.add(txtfName).colspan(2);
 
@@ -125,10 +126,13 @@ public class EndScreen implements Screen {
             public void changed(ChangeEvent event, Actor actor) {
                 DFUtils.log("HighScore saved!");
                 if (newHighScore) {
-                    Save.hsd.get(level).addHighScore(
-                            Save.hsd.get(level).getTentativeScore(),
-                            (txtfName.getText())
-                    );
+                    String name = txtfName.getText();
+                    if (name == ""){
+                        name = "Noname";
+                    }
+                    Save.hsd.get(level).addHighScore(Save.hsd.get(level).getTentativeScore(),
+                                                     (name),
+                                        false);
                     Save.publish();
                 }
                 parent.changeScreen(Box2dTutorial.HIGHSCORE, level);

@@ -109,8 +109,8 @@ public class MultiplayerScreen implements Screen, GameScreen {
 
         opponents = new HashMap<>();
         dbHandler = new DatabaseHandler();
-        dbHandler.getDb().publishPlayer(player);
-        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine);
+        dbHandler.getDb().publishPlayer(player, level);
+        dbHandler.getDb().addPlayerEventListener(opponents, levelFactory, engine, level);
 
         levelFactory.createBats(level);
         levelFactory.createSpiders(level);
@@ -201,7 +201,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
                 pauseMenu.draw();
             }
         }
-        dbHandler.getDb().publishPlayer(player);
+        dbHandler.getDb().publishPlayer(player, level);
     }
 
 

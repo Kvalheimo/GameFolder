@@ -110,7 +110,7 @@ public class HighScoreScreen implements Screen {
         for (int i = 0; i < highScores.length; i++) {
             Label num = new Label(String.format("%2d.", i + 1), skin, "highscore");
             Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
-            Label name = new Label(String.format("%s", names[i]), skin, "highscore");
+            Label name = new Label(String.format("%s", names[i].split("-")[0]), skin, "highscore");
 
             highscoreTable.add(num).padRight(200).right();
             highscoreTable.add(name).padRight(90).left();
@@ -118,7 +118,6 @@ public class HighScoreScreen implements Screen {
 
             highscoreTable.row();
         }
-
 
         innerTable.add(l1).padTop(30).fillX().expandX();
         innerTable.row();
@@ -215,7 +214,7 @@ public class HighScoreScreen implements Screen {
         for (int i = 0; i < highScores.length; i++) {
             Label num = new Label(String.format("%2d.", i + 1), skin, "highscore");
             Label score = new Label(String.format("%7s", highScores[i]), skin, "highscore");
-            Label name = new Label(String.format("%s", names[i]), skin, "highscore");
+            Label name = new Label(String.format("%s", names[i].split("-")[0]), skin, "highscore");
 
             highscoreTable.add(num).padRight(200).right();
             highscoreTable.add(name).padRight(90).left();

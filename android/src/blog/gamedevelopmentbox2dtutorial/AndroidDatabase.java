@@ -17,16 +17,12 @@ import com.badlogic.ashley.core.Entity;
 import com.google.firebase.database.ValueEventListener;
 
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.ExecutionException;
 
 import blog.gamedevelopmentbox2dtutorial.Factory.LevelFactory;
 import blog.gamedevelopmentbox2dtutorial.HighScore.HighScoreData;
 import blog.gamedevelopmentbox2dtutorial.entity.components.OpponentComponent;
-import blog.gamedevelopmentbox2dtutorial.entity.components.PlayerComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.StateComponent;
 import blog.gamedevelopmentbox2dtutorial.entity.components.TransformComponent;
 
@@ -36,6 +32,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     private DatabaseReference dbRef;
     private IntMap<HighScoreData> hsd;
     String uniqueID;
+
     public AndroidDatabase() {
         db = FirebaseDatabase.getInstance();
         hsd = new IntMap<>();
@@ -43,27 +40,30 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
 
-    public void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine) {
-        dbRef = db.getReference("players/");
+    public void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine, final int level) {
+        dbRef = db.getReference("map"+ level + "/players/");
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> players = dataSnapshot.getChildren();
                 for(DataSnapshot snapshot : players) {
                     String key = snapshot.getKey();
-                    if (snapshot.child("pos").child("x").exists()){
-                        try {
-                            Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class),0);
-                            if (!opponents.containsKey(key)) {
-                                opponents.put(key, levelFactory.createOpponent(pos, 1));
-                            }
-                            else {
-                                opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
-                                opponents.get(key).getComponent(OpponentComponent.class).setPos(pos);
-                                opponents.get(key).getComponent(StateComponent.class).set(snapshot.child("state").getValue(Integer.class));
-                            }
-                        } catch (Exception e){
 
+                    //Show all opponents and yourself if in debugmode
+                    if (!key.equals(uniqueID) || Box2dTutorial.DEBUG) {
+                        if (snapshot.child("pos").child("x").exists()) {
+                            try {
+                                Vector3 pos = new Vector3(snapshot.child("pos").child("x").getValue(Float.class), snapshot.child("pos").child("y").getValue(Float.class), 0);
+                                if (!opponents.containsKey(key)) {
+                                    opponents.put(key, levelFactory.createOpponent(pos, 1));
+                                } else {
+                                    opponents.get(key).getComponent(TransformComponent.class).position.set(pos);
+                                    opponents.get(key).getComponent(OpponentComponent.class).setPos(pos);
+                                    opponents.get(key).getComponent(StateComponent.class).set(snapshot.child("state").getValue(Integer.class));
+                                }
+                            } catch (Exception e) {
+
+                            }
                         }
                     }
 
@@ -90,7 +90,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
             dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (int i = 1; i < 7; i++) {
+                    for (int i = 1; i < 5; i++) {
 
                         HighScoreData levelHighscores = new HighScoreData();
 
@@ -100,7 +100,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
                                 for(DataSnapshot snapshot : highscores) {
                                     String name = snapshot.getKey();
                                     Integer score = snapshot.getValue(Integer.class);
-                                    levelHighscores.addHighScore(score, name);
+                                    levelHighscores.addHighScore(score, name, true);
 
                                 }
                             } catch (Exception e){
@@ -134,16 +134,11 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
     @Override
-    public void publishPlayer(Entity player) {
-        dbRef = db.getReference("players/" + uniqueID);
+    public void publishPlayer(Entity player, int level) {
+        dbRef = db.getReference("map"+ level + "/players/" + uniqueID);
         dbRef.child("pos").child("x").setValue(player.getComponent(TransformComponent.class).position.x);
         dbRef.child("pos").child("y").setValue(player.getComponent(TransformComponent.class).position.y);
         dbRef.child("state").setValue(player.getComponent(StateComponent.class).state);
     }
 
-    @Override
-    public ArrayList<Entity> getPlayers() {
-        dbRef = db.getReference("players/");
-        return null;
-    }
 }

@@ -3,6 +3,7 @@ package blog.gamedevelopmentbox2dtutorial.HighScore;
 import com.badlogic.gdx.utils.IntMap;
 
 import java.io.Serializable;
+import java.util.Random;
 
 public class HighScoreData implements Serializable{
 
@@ -13,12 +14,14 @@ public class HighScoreData implements Serializable{
     public final int MAX_SCORES = 10;
     private long[] highScores;
     private String[] names;
+    Random rand;
 
     private long tentativeScore;
 
     public HighScoreData() {
         highScores = new long[MAX_SCORES];
         names = new String[MAX_SCORES];
+        rand = new Random();
 
         for(int i = 0; i < MAX_SCORES; i++) {
             highScores[i] = 9999;
@@ -36,7 +39,12 @@ public class HighScoreData implements Serializable{
         return score < highScores[MAX_SCORES - 1];
     }
 
-    public void addHighScore(long newScore, String name) {
+    public void addHighScore(long newScore, String name, boolean fromDatabase) {
+        if (!fromDatabase){
+            int randomId = rand.nextInt((9999) + 1);
+            name = name + "-" + randomId;
+        }
+
         if(isHighScore(newScore)) {
             highScores[MAX_SCORES - 1] = newScore;
             names[MAX_SCORES - 1] = name;
