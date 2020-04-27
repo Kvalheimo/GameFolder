@@ -3,7 +3,7 @@ package blog.boomerangbeast.highscore;
 import java.io.Serializable;
 import java.util.Random;
 
-public class HighScoreData implements Serializable{
+public class HighscoreData implements Serializable{
 
 
     private static final long serialVersionUID = 1;
@@ -16,7 +16,7 @@ public class HighScoreData implements Serializable{
 
     private long tentativeScore;
 
-    public HighScoreData() {
+    public HighscoreData() {
         highScores = new long[MAX_SCORES];
         names = new String[MAX_SCORES];
         rand = new Random();

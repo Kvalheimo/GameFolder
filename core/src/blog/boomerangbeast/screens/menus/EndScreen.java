@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.boomerangbeast.BoomerangBeast;
 import blog.boomerangbeast.DFUtils;
-import blog.boomerangbeast.highscore.Save;
+import blog.boomerangbeast.highscore.HighscoreSync;
 
 public class EndScreen implements Screen {
 
@@ -47,7 +47,7 @@ public class EndScreen implements Screen {
 
         // create buttons
         TextButton menuButton = new TextButton("Back", skin, "blue-small");
-        TextButton saveButton = new TextButton("Save", skin, "blue-small");
+        TextButton saveButton = new TextButton("HighscoreSync", skin, "blue-small");
 
 
 
@@ -70,12 +70,12 @@ public class EndScreen implements Screen {
         table.padTop(Gdx.graphics.getHeight()/4);
 
         //Get boolean for check if it is new highscore
-        newHighScore = Save.hsd.get(level).isHighScore(Save.hsd.get(level).getTentativeScore());
+        newHighScore = HighscoreSync.hsd.get(level).isHighScore(HighscoreSync.hsd.get(level).getTentativeScore());
 
         if (newHighScore){
 
             Label scoreLabel = new Label("NEW HIGH SCORE! ", skin, "highscore");
-            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin, "big");
+            Label score = new Label(String.valueOf(HighscoreSync.hsd.get(level).getTentativeScore()), skin, "big");
             Label nameLabel = new Label("ENTER YOUR NAME:", skin, "highscore");
 
             table.add(scoreLabel).colspan(2);
@@ -92,8 +92,8 @@ public class EndScreen implements Screen {
             table.add(txtfName).colspan(2);
 
         }else{
-            Label scoreLabel = new Label("SCORE "+ Save.hsd.get(level).getTentativeScore(), skin, "highscore");
-            Label score = new Label(String.valueOf(Save.hsd.get(level).getTentativeScore()), skin, "big");
+            Label scoreLabel = new Label("SCORE "+ HighscoreSync.hsd.get(level).getTentativeScore(), skin, "highscore");
+            Label score = new Label(String.valueOf(HighscoreSync.hsd.get(level).getTentativeScore()), skin, "big");
 
 
             table.add(scoreLabel).colspan(2);
@@ -130,10 +130,10 @@ public class EndScreen implements Screen {
                     if (name == ""){
                         name = "Noname";
                     }
-                    Save.hsd.get(level).addHighScore(Save.hsd.get(level).getTentativeScore(),
+                    HighscoreSync.hsd.get(level).addHighScore(HighscoreSync.hsd.get(level).getTentativeScore(),
                                                      (name),
                                         false);
-                    Save.publish();
+                    HighscoreSync.publish();
                 }
                 parent.changeScreen(BoomerangBeast.HIGHSCORE, level);
             }

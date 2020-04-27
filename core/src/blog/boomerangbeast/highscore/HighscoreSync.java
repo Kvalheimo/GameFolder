@@ -4,17 +4,17 @@ import com.badlogic.gdx.utils.IntMap;
 
 import blog.boomerangbeast.DatabaseHandler;
 
-public class Save {
+public class HighscoreSync {
 
     private static DatabaseHandler dbHandler;
 
-    public static IntMap<HighScoreData> hsd;
+    public static IntMap<HighscoreData> hsd;
 
     static {
         dbHandler = new DatabaseHandler();
         hsd = new IntMap<>();
         for (int i = 1; i < 5; i++) {
-            HighScoreData data = new HighScoreData();
+            HighscoreData data = new HighscoreData();
             hsd.put(i, data);
         }
     }

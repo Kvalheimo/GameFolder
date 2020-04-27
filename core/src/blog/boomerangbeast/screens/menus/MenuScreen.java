@@ -14,7 +14,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.highscore.Save;
+import blog.boomerangbeast.highscore.HighscoreSync;
 
 public class MenuScreen implements Screen {
     private static final int PADDING = 30;
@@ -36,7 +36,7 @@ public class MenuScreen implements Screen {
         background = atlas.findRegion("background");
 
         //Load highscore list
-        Save.load();
+        HighscoreSync.load();
 
     }
 

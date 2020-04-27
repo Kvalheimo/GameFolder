@@ -3,7 +3,7 @@ package blog.boomerangbeast;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.audio.Music;
 
-import blog.boomerangbeast.highscore.Save;
+import blog.boomerangbeast.highscore.HighscoreSync;
 import blog.boomerangbeast.loader.B2dAssetManager;
 import blog.boomerangbeast.screens.menus.CharacterSelectionScreen;
 import blog.boomerangbeast.screens.menus.EndScreen;
@@ -131,7 +131,7 @@ public class BoomerangBeast extends Game {
 		assMan.manager.finishLoading();
 		playingSong = assMan.manager.get("music/music.wav");
 		setPreferences();
-        Save.load();
+        HighscoreSync.load();
 	}
 
 	public SingleplayerScreen getSingleplayerScreen(){

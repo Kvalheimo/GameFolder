@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import blog.boomerangbeast.factory.LevelFactory;
-import blog.boomerangbeast.highscore.HighScoreData;
+import blog.boomerangbeast.highscore.HighscoreData;
 import blog.boomerangbeast.entity.components.OpponentComponent;
 import blog.boomerangbeast.entity.components.StateComponent;
 import blog.boomerangbeast.entity.components.TransformComponent;
@@ -26,7 +26,7 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
 
     private FirebaseDatabase db;
     private DatabaseReference dbRef;
-    private IntMap<HighScoreData> hsd;
+    private IntMap<HighscoreData> hsd;
     String uniqueID;
 
     public AndroidDatabase() {
@@ -81,14 +81,14 @@ public class AndroidDatabase implements DatabaseHandler.DataBase {
     }
 
     @Override
-    public IntMap<HighScoreData> getHighscores() {
+    public IntMap<HighscoreData> getHighscores() {
             dbRef = db.getReference("highscores/");
             dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     for (int i = 1; i < 5; i++) {
 
-                        HighScoreData levelHighscores = new HighScoreData();
+                        HighscoreData levelHighscores = new HighscoreData();
 
                         if (dataSnapshot.child("map" + i).exists()){
                             try {

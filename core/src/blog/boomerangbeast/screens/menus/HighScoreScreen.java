@@ -17,7 +17,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.TiledDrawable;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.highscore.Save;
+import blog.boomerangbeast.highscore.HighscoreSync;
 
 public class HighScoreScreen implements Screen {
     private long[] highScores;
@@ -35,13 +35,13 @@ public class HighScoreScreen implements Screen {
         this.parent = parent;
         stage = new Stage(new ScreenViewport());
         levelSelected = level;
-        highScores = Save.hsd.get(levelSelected).getHighScores();
+        highScores = HighscoreSync.hsd.get(levelSelected).getHighScores();
 
         atlas = parent.assMan.manager.get("images/game.atlas");
         skin = parent.assMan.manager.get("skin/game/game.json");
         background = atlas.findRegion("background");
 
-        Save.load();
+        HighscoreSync.load();
 
     }
 
@@ -49,8 +49,8 @@ public class HighScoreScreen implements Screen {
     public void show() {
         Gdx.input.setInputProcessor(stage);
 
-        highScores = Save.hsd.get(levelSelected).getHighScores();
-        names = Save.hsd.get(levelSelected).getNames();
+        highScores = HighscoreSync.hsd.get(levelSelected).getHighScores();
+        names = HighscoreSync.hsd.get(levelSelected).getNames();
 
 
         // Create text buttons, labels etc.
@@ -201,8 +201,8 @@ public class HighScoreScreen implements Screen {
         //highscorePane.clear();
         highscoreTable.clear();
 
-        highScores = Save.hsd.get(levelSelected).getHighScores();
-        names = Save.hsd.get(levelSelected).getNames();
+        highScores = HighscoreSync.hsd.get(levelSelected).getHighScores();
+        names = HighscoreSync.hsd.get(levelSelected).getNames();
 
 
         //Add highscores to table

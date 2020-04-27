@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 
 import blog.boomerangbeast.factory.LevelFactory;
-import blog.boomerangbeast.highscore.HighScoreData;
+import blog.boomerangbeast.highscore.HighscoreData;
 
 public class DatabaseHandler {
 
@@ -25,7 +25,7 @@ public class DatabaseHandler {
     public interface DataBase {
         void publishPlayer(Entity player, int level);
         void addPlayerEventListener(final HashMap<String,Entity> opponents, final LevelFactory levelFactory, final PooledEngine engine, final int level);
-        IntMap<HighScoreData> getHighscores();
+        IntMap<HighscoreData> getHighscores();
         void publishHighscores();
     }
 }

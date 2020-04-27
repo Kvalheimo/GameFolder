@@ -16,7 +16,7 @@ import blog.boomerangbeast.DFUtils;
 import blog.boomerangbeast.DatabaseHandler;
 import blog.boomerangbeast.factory.LevelFactory;
 import blog.boomerangbeast.BoomerangBeast;
-import blog.boomerangbeast.highscore.Save;
+import blog.boomerangbeast.highscore.HighscoreSync;
 import blog.boomerangbeast.controller.Controller;
 import blog.boomerangbeast.entity.components.PlayerComponent;
 import blog.boomerangbeast.entity.components.TypeComponent;
@@ -169,7 +169,7 @@ public class MultiplayerScreen implements Screen, GameScreen {
             PlayerComponent pc = (player.getComponent(PlayerComponent.class));
             if (pc.isFinished) {
                 DFUtils.log("YOU DIED : back to menu you go!");
-                Save.hsd.get(level).setTentativeScore(hud.getScore());
+                HighscoreSync.hsd.get(level).setTentativeScore(hud.getScore());
                 parent.changeScreen(BoomerangBeast.ENDGAME, false, level, 0);
             }
 
