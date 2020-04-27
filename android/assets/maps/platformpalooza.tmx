@@ -87,15 +87,12 @@
   <object id="366" x="416" y="816" width="16" height="16"/>
   <object id="370" x="0" y="0" width="16" height="1504"/>
   <object id="371" x="2128" y="1504" width="16" height="96"/>
+  <object id="398" x="5344" y="1216" width="16" height="48"/>
+  <object id="399" x="5440" y="1216" width="16" height="48"/>
+  <object id="400" x="5456" y="1216" width="16" height="48"/>
+  <object id="401" x="5328" y="1216" width="16" height="48"/>
+  <object id="402" x="4992" y="1216" width="32" height="48"/>
   <object id="403" x="2368" y="1184" width="16" height="416"/>
-  <object id="411" x="5521" y="1176.5" width="16" height="16"/>
-  <object id="416" x="5224.55" y="1254.36" width="13.6364" height="9.27273"/>
-  <object id="422" x="4890" y="1253.88" width="11.75" height="9.875"/>
-  <object id="429" x="2592" y="1008" width="16" height="16"/>
-  <object id="431" x="1888" y="976" width="16" height="32"/>
-  <object id="433" x="1792" y="896" width="16" height="96"/>
-  <object id="438" x="5641.27" y="1253.45" width="13.0909" height="10.7273"/>
-  <object id="445" x="4960" y="816" width="16" height="32"/>
  </objectgroup>
  <objectgroup id="19" name="JumpWall">
   <object id="170" x="1162.67" y="815.333" width="5.33333" height="304.667"/>
@@ -233,8 +230,6 @@
  <objectgroup id="6" name="Water"/>
  <objectgroup id="7" name="SuperSpeed">
   <object id="377" x="5664" y="1232" width="32" height="32"/>
-  <object id="410" x="5760" y="672" width="32" height="32"/>
-  <object id="437" x="1760" y="944" width="32" height="32"/>
  </objectgroup>
  <objectgroup id="8" name="Spring"/>
  <objectgroup id="9" name="Gun">
@@ -280,9 +275,8 @@
   <object id="337" x="5820.5" y="1186.75" width="6.75" height="27"/>
   <object id="338" x="5884.5" y="1186.5" width="7.25" height="27"/>
   <object id="339" x="5852.5" y="1058.25" width="7" height="27.75"/>
-  <object id="340" x="5868.06" y="914.813" width="7.1875" height="26.125"/>
+  <object id="340" x="5867.5" y="913.75" width="7.75" height="28.75"/>
   <object id="342" x="5803.5" y="1010" width="8.25" height="27.75"/>
-  <object id="442" x="5900.17" y="802.667" width="7.75" height="26.25"/>
  </objectgroup>
  <objectgroup id="12" name="Spiders">
   <object id="85" x="1040" y="128" width="32" height="16"/>
@@ -328,21 +322,19 @@
  </objectgroup>
  <objectgroup id="15" name="CheckpointPos">
   <object id="39" x="304" y="1280" width="16" height="16"/>
-  <object id="63" x="944" y="96"/>
+  <object id="63" x="943" y="37.5"/>
   <object id="87" x="464" y="736"/>
   <object id="273" x="2661.33" y="1512" width="16" height="16"/>
   <object id="290" x="2576" y="1040" width="16" height="16"/>
-  <object id="352" x="5962.67" y="677.333" width="16" height="16"/>
-  <object id="441" x="5056" y="784" width="16" height="16"/>
+  <object id="352" x="4736" y="608" width="16" height="16"/>
  </objectgroup>
  <objectgroup id="16" name="CheckpointLine">
   <object id="21" x="0" y="1117" width="670" height="16.449"/>
-  <object id="62" x="928" y="0" width="16" height="144"/>
+  <object id="62" x="959.5" y="-1.5" width="16" height="144"/>
   <object id="86" x="432" y="656" width="16" height="125.333"/>
   <object id="272" x="2685.33" y="1473.33" width="16" height="64"/>
   <object id="289" x="2560" y="1040" width="16" height="32"/>
-  <object id="358" x="5906.67" y="449.333" width="16" height="256"/>
-  <object id="440" x="5040" y="768" width="16" height="32"/>
+  <object id="358" x="4704" y="400" width="16" height="256"/>
  </objectgroup>
  <objectgroup id="16" name="CheckpointLine"/>
  <objectgroup id="17" name="Platform">
@@ -366,7 +358,7 @@
   <object id="256" name="10" type="hortizontal" x="2872.67" y="1070" width="128" height="16"/>
   <object id="257" name="10" type="hortizontal" x="2871.33" y="879.333" width="128" height="16"/>
   <object id="258" name="5" type="hortizontal" x="3085.33" y="961.667" width="128" height="16"/>
-  <object id="262" name="8" type="hortizontal" x="3398" y="798" width="128" height="16"/>
+  <object id="262" name="8" type="hortizontal" x="3398" y="762" width="128" height="16"/>
   <object id="266" name="10" type="hortizontal" x="3440" y="1173" width="128" height="16"/>
   <object id="267" name="3" type="hortizontal" x="3981.33" y="738.667" width="128" height="16"/>
   <object id="269" name="10" type="hortizontal" x="3622.67" y="1024" width="128" height="16"/>
